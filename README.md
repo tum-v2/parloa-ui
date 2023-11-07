@@ -20,7 +20,21 @@ Other libraries and frameworks being used in this project includes:
 
 ## Getting Started
 
-### Node Modules
+### Prerequisites
+
+- npm
+
+```bash
+npm install npm@latest -g
+```
+
+### Installation
+
+First, clone the repo
+
+```bash
+git clone git clone https://github.com/tum-v2/parloa-ui.git
+```
 
 After cloning the repository, go to the root directory and run:
 
@@ -150,7 +164,9 @@ npm run watch:unit
 
 This will run Jest in watch mode, where you can watch files for changes and rerun tests related to changed files. For more detailed information, check the [documentation](https://jestjs.io/docs/cli#--watch).
 
-The default file location for Jest and the configuration options are stored inside `jest.config.ts`, located in the root directory.
+The default file location for Jest and the configuration options are stored inside `jest.config.js`, located in the root directory.
+
+In order for Jest to compile TypeScript files, we are using `ts-jest`. It is already configured in the `jest.config.js` file. In order to learn more about `ts-jest`, check [ts-jest Documentation](https://kulshekhar.github.io/ts-jest/docs/getting-started/installation).
 
 ## Documentation & Comments
 
