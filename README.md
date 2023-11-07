@@ -50,7 +50,7 @@ Please note that whenever you push some changes to a branch, ESLint and prettier
 #### ESLint
 
  - To change the ESLing configuration, see [here](https://eslint.org/docs/latest/use/configure/).
- - To learn more about Next.js and ESLint integration, as well as the rules and formats we are currently using, see [here](https://nextjs.org/docs/pages/building-your-application/configuring/eslint)
+ - To learn more about Next.js and ESLint integration, as well as the rules and formats we are currently using, see [here](https://nextjs.org/docs/pages/building-your-application/configuring/eslint).
 
 You can run ESLint manually by running:
 ```bash
@@ -59,23 +59,23 @@ npm run lint
 
 You can also integrate ESLint with your IDE:
  - For WebStorm, follow the instructions [here](https://www.jetbrains.com/help/webstorm/eslint.html#ws_js_eslint_automatic_configuration).
- - For VSCode, follow the instructions [here](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+ - For VSCode, follow the instructions [here](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint).
 
 #### prettier
 There is already a ```.prettierrc``` file available in the repository, you can change the prettier configuration from there.
 
 prettier can also be integrated with your IDE:
- - For Webstorm, follow the instructions [here](https://prettier.io/docs/en/webstorm)
- - For VSCode, follow the instructions [here](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode);
+ - For Webstorm, follow the instructions [here](https://prettier.io/docs/en/webstorm).
+ - For VSCode, follow the instructions [here](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
 
-###Documentation & Comments
+###     Documentation & Comments
 In order to write consistent doc comments, we will use [TSDoc](https://tsdoc.org/).
 
 We are using ``eslint-plugin-tsdoc`` to integrate TSDoc with ESLint. This way, ESLint will issue a warning when the doc comments are not in TSDoc standards.
 
-To learn more about ``eslint-plugin-tsdoc``, check [here](https://www.npmjs.com/package/eslint-plugin-tsdoc)
+To learn more about ``eslint-plugin-tsdoc``, check [here](https://www.npmjs.com/package/eslint-plugin-tsdoc).
 
 

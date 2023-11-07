@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@visx/visx": "^3.4.1",
@@ -16,6 +17,18 @@
     "react": "^18",
     "react-dom": "^18"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "prettier --check",
+      "./node_modules/.bin/eslint",
+      "git add"
+    ]
+  },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
@@ -24,6 +37,8 @@
     "eslint-config-next": "14.0.1",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-tsdoc": "^0.2.17",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.0.2",
     "prettier": "3.0.3",
     "typescript": "^5"
   }
