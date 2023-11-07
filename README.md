@@ -111,6 +111,7 @@ sense.
 ### Branch Structure
 
 - Please **don't** merge your branches directly with the `main` branch. There is a `development` branch which you can merge your branches.
+- The new branch should be branched off of the `development` branch
 - This will allow for a stable `main` branch in case anything goes wrong with the integration.
 - Development can be merged to main when everybody gives the green light, possible at the end of every sprint.
 
@@ -122,3 +123,25 @@ We are using `eslint-plugin-tsdoc` to integrate TSDoc with ESLint. This way, ESL
 comments are not in TSDoc standards.
 
 To learn more about `eslint-plugin-tsdoc`, check [here](https://www.npmjs.com/package/eslint-plugin-tsdoc).
+
+## Good Practices
+
+### Branches
+
+Use Linear’s branch name feature!
+
+- Go to your task’s detail page.
+- Click on the branch icon at the top right of the page to copy the branch’s name.
+- Use that name to create a new branch in your local git repository.
+
+### Commits
+
+**Descriptive Commit Messages**: Please provide short but descriptive commit messages for other developers to understand.
+
+### Pull Requests
+
+**Describe your PR with as much detail as possible**
+
+- What changes have you made? (Why?)
+- Specify any important decisions you made that involve other teams
+- Add screenshots to visualize your changes
