@@ -1,8 +1,7 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+import Image from 'next/image';
+import styles from './page.module.css';
 
 export default function Home() {
-  var x;
   return (
     <main className={styles.main}>
       <div className={styles.description}>
@@ -92,5 +91,5 @@ export default function Home() {
         </a>
       </div>
     </main>
-  )
+  );
 }
