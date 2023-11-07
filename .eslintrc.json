@@ -1,6 +1,6 @@
 {
   "extends": ["next", "prettier"],
-  "plugins": "eslint-plugin-tsdoc",
+  "plugins": ["eslint-plugin-tsdoc"],
   "rules": {
     // Add rules here you want to override
     "tsdoc/syntax": "warn"
