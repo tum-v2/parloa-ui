@@ -3,6 +3,7 @@
   "plugins": ["eslint-plugin-tsdoc"],
   "rules": {
     // Add rules here you want to override
+    "require-jsdoc": "warn",
     "tsdoc/syntax": "warn"
   }
 }
