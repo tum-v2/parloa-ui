@@ -28,6 +28,12 @@ Other libraries and frameworks being used in this project includes:
 npm install npm@latest -g
 ```
 
+- node
+
+This repo was written with `node@v18.17.1`. If you are running a `node` that is older, it might cause some issues!
+
+Please make sure to upgrade your `node` version!
+
 ### Installation
 
 First, clone the repo
@@ -90,6 +96,16 @@ You can run ESLint manually by running:
 npm run lint
 ```
 
+This will check your code and give out errors and warnings, **but it will not fix them.**
+
+If you want ESLint to automatically fix the problems in your code, please run:
+
+```bash
+npm run lint:fix
+```
+
+Please note that ESLint cannot fix every problem automatically and will output the problems that still remain after this call.
+
 You can also integrate ESLint with your IDE:
 
 - For WebStorm, follow the
@@ -103,11 +119,28 @@ You can also integrate ESLint with your IDE:
 There is already a `.prettierrc` file available in the repository, you can change the prettier configuration from
 there.
 
+You can run prettier manually by running:
+
+```bash
+npm run prettier:check
+```
+
+This will check every file and tell you if the files follow the rules of the prettier or not. Please note that this will not automatically fix the problems in the files.
+
+If you want `prettier` to ignore some files, please create a `.prettierignore` file in the root of the project and add the files you want to be ignored. See details [here](https://prettier.io/docs/en/ignore.html).
+
+If you want prettier to fix your files for you, you can run the command:
+
+```bash
+npm run prettier:fix
+```
+
+Be careful as this will overwrite your files.
+
 prettier can also be integrated with your IDE:
 
 - For Webstorm, follow the instructions [here](https://prettier.io/docs/en/webstorm).
-- For VSCode, follow the instructions [here](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-  .
+- For VSCode, follow the instructions [here](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and
 load Inter, a custom Google Font.

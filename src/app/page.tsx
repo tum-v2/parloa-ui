@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import styles from './page.module.css';
 
+// eslint-disable-next-line require-jsdoc
 export default function Home() {
   return (
     <main className={styles.main}>
