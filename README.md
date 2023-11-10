@@ -9,14 +9,21 @@ To learn more about Next.js, take a look at the following resources:
 
 Other libraries and frameworks being used in this project includes:
 
-- d3.js, a free, open-source JavaScript library for visualizing data. [d3.js Documentation](https://d3js.org/getting-started)
+- d3.js, a free, open-source JavaScript library for visualizing
+  data. [d3.js Documentation](https://d3js.org/getting-started)
 - Jest, a JavaScript testing framework used for unit testing and assertion. [Jest documentation](https://jestjs.io/).
 - React, a JavaScript library for building user interfaces. [React Documentation](https://react.dev/).
-- Ant Design, a popular UI framework for building web applications with a set of high-quality React components. [antd Documentation](https://ant.design/).
+- Ant Design, a popular UI framework for building web applications with a set of high-quality React
+  components. [antd Documentation](https://ant.design/).
+- Tailwind, a utility-first CSS framework that can be used to build any design directly in the
+  markup. [Tailwind Documentation](https://tailwindcss.com/docs/installation).
 - Visx, a data visualization library for React. [visx Documentation](https://airbnb.io/visx/docs).
-- Husky, a tool used for setting up Git hooks easily. [Husky Documentation](https://typicode.github.io/husky/getting-started.html).
-- ESLint, a static code analysis tool for identifying and fixing problems in your JavaScript code. [ESLint Documentation](https://eslint.org/docs/latest/).
-- Prettier, a code formatter that helps you maintain consistent code formatting and style in your project. [prettier Documentation](https://prettier.io/).
+- Husky, a tool used for setting up Git hooks
+  easily. [Husky Documentation](https://typicode.github.io/husky/getting-started.html).
+- ESLint, a static code analysis tool for identifying and fixing problems in your JavaScript
+  code. [ESLint Documentation](https://eslint.org/docs/latest/).
+- Prettier, a code formatter that helps you maintain consistent code formatting and style in your
+  project. [prettier Documentation](https://prettier.io/).
 
 ## Getting Started
 
@@ -32,7 +39,8 @@ npm install npm@latest -g
 
 This repo was written with `node@v18.17.1`. If you are running a `node` that is older, it might cause some issues!
 
-Please make sure to upgrade your `node` version!
+Please make sure to upgrade your `node` version to the latest **stable** release,
+currently [20.9.0 LTS](https://nodejs.org/en).
 
 ### Installation
 
@@ -98,26 +106,30 @@ npm run lint
 
 This will check your code and give out errors and warnings, **but it will not fix them.**
 
+**It is recommended to run this command before every commit.**
+
 If you want ESLint to automatically fix the problems in your code, please run:
 
 ```bash
 npm run lint:fix
 ```
 
-Please note that ESLint cannot fix every problem automatically and will output the problems that still remain after this call.
+Please note that ESLint cannot fix every problem automatically and will output the problems that still remain after this
+call.
 
 You can also integrate ESLint with your IDE:
 
 - For WebStorm, follow the
   instructions [here](https://www.jetbrains.com/help/webstorm/eslint.html#ws_js_eslint_automatic_configuration).
-- For VSCode, follow the instructions [here](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint).
+- For VSCode, follow the instructions [here](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+  .
 
-**The repository already includes a `eslintrc.json` file and a working ESLint instance, so skip the steps in the tutorials above that will have you download and configure ESLint.**
+**The repository already includes a `eslintrc.json` file and a working ESLint instance, so skip the steps in the
+tutorials above that will have you download and configure ESLint.**
 
 #### prettier
 
-There is already a `.prettierrc` file available in the repository, you can change the prettier configuration from
-there.
+There is already a `.prettierrc` file available in the repository, you can change the prettier configuration from there.
 
 You can run prettier manually by running:
 
@@ -125,9 +137,13 @@ You can run prettier manually by running:
 npm run prettier:check
 ```
 
-This will check every file and tell you if the files follow the rules of the prettier or not. Please note that this will not automatically fix the problems in the files.
+This will check every file and tell you if the files follow the rules of the prettier or not. Please note that this will
+not automatically fix the problems in the files.
 
-If you want `prettier` to ignore some files, please create a `.prettierignore` file in the root of the project and add the files you want to be ignored. See details [here](https://prettier.io/docs/en/ignore.html).
+**It is recommended to run this command before every commit.**
+
+If you want `prettier` to ignore some files, please create a `.prettierignore` file in the root of the project and add
+the files you want to be ignored. See details [here](https://prettier.io/docs/en/ignore.html).
 
 If you want prettier to fix your files for you, you can run the command:
 
@@ -140,7 +156,8 @@ Be careful as this will overwrite your files.
 prettier can also be integrated with your IDE:
 
 - For Webstorm, follow the instructions [here](https://prettier.io/docs/en/webstorm).
-- For VSCode, follow the instructions [here](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
+- For VSCode, follow the instructions [here](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+  .
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and
 load Inter, a custom Google Font.
@@ -165,7 +182,8 @@ The `--no-verify` flag should disable Husky. Please use this carefully.
 
 ### Branch Structure
 
-- Please **don't** merge your branches directly with the `main` branch. There is a `development` branch which you can merge your branches.
+- Please **don't** merge your branches directly with the `main` branch. There is a `development` branch which you can
+  merge your branches.
 - Any new branch should be branched off of the `development` branch.
 - This will allow for a stable `main` branch in case anything goes wrong with the integration.
 
@@ -187,7 +205,8 @@ If you want to run a single test, you can run:
 npm run test:unit -t "my-test-name"
 ```
 
-Jest will only run tests that match the test name pattern you provide. Learn more in the [documentation](https://jestjs.io/docs/cli#--testnamepatternregex).
+Jest will only run tests that match the test name pattern you provide. Learn more in
+the [documentation](https://jestjs.io/docs/cli#--testnamepatternregex).
 
 You can also use Jest's `watch mode` by running:
 
@@ -195,11 +214,15 @@ You can also use Jest's `watch mode` by running:
 npm run watch:unit
 ```
 
-This will run Jest in watch mode, where you can watch files for changes and rerun tests related to changed files. For more detailed information, check the [documentation](https://jestjs.io/docs/cli#--watch).
+This will run Jest in watch mode, where you can watch files for changes and rerun tests related to changed files. For
+more detailed information, check the [documentation](https://jestjs.io/docs/cli#--watch).
 
-The default file location for Jest and the configuration options are stored inside `jest.config.js`, located in the root directory.
+The default file location for Jest and the configuration options are stored inside `jest.config.js`, located in the root
+directory.
 
-In order for Jest to compile TypeScript files, we are using `ts-jest`. It is already configured in the `jest.config.js` file. In order to learn more about `ts-jest`, check [ts-jest Documentation](https://kulshekhar.github.io/ts-jest/docs/getting-started/installation).
+In order for Jest to compile TypeScript files, we are using `ts-jest`. It is already configured in the `jest.config.js`
+file. In order to learn more about `ts-jest`,
+check [ts-jest Documentation](https://kulshekhar.github.io/ts-jest/docs/getting-started/installation).
 
 ## Documentation & Comments
 
@@ -239,11 +262,13 @@ Use Linear’s branch name feature!
 - Click on the branch icon at the top right of the page to copy the branch’s name.
 - Use that name to create a new branch in your local git repository.
 
-Please note that these are not absolute rules, you can also define branch naming conventions but it should be consistent over the board.
+Please note that these are not absolute rules, you can also define branch naming conventions but it should be consistent
+over the board.
 
 ### Commits
 
-**Descriptive Commit Messages**: Please provide short but descriptive commit messages for other developers to understand.
+**Descriptive Commit Messages**: Please provide short but descriptive commit messages for other developers to
+understand.
 
 ### Pull Requests
 
