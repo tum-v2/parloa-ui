@@ -1,5 +1,3 @@
-'use client';
-
 import theme from '@/theme/theme';
 import { ConfigProvider } from 'antd';
 import React from 'react';
