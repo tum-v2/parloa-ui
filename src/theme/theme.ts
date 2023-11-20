@@ -23,12 +23,13 @@ const theme = {
     m: '12px',
     l: '24px'
   },
+  chartColors: ['#277aff', '#ca5dd9', '#f6b033'],
   /**
    *  AntD:
    **/
   token: {
     colorSuccess: '#0aad6a',
-    colorInfo: '#3f2547',
+    colorInfo: '#ca5dd9',
     colorWarning: '#f6b033',
     colorError: '#f63535',
     colorTextBase: '#24132b',
