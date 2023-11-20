@@ -12,7 +12,7 @@ interface ChatBubbleProps {
   children: React.ReactNode;
 }
 
-const ChatBubble: React.FC<ChatBubbleProps> = ({ position, children }) => {
+const ChatBubble = ({ position, children }: ChatBubbleProps) => {
   const bubbleStyle: React.CSSProperties = {
     borderBottomLeftRadius:
       position === Position.Left ? theme.borderRadius.xs : 'auto',
