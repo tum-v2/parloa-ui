@@ -8,7 +8,7 @@ interface ButtonProps {
   children?: React.ReactNode;
 }
 
-const Button: React.FC<ButtonProps> = ({ icon, onClick, children }) => {
+const Button = ({ icon, onClick, children }: ButtonProps) => {
   const buttonStyle: React.CSSProperties = {
     borderRadius: theme.borderRadius.m,
     width: icon && !children ? '50px' : 'max-content',
