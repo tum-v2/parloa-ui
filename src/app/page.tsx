@@ -1,4 +1,11 @@
 // eslint-disable-next-line require-jsdoc
+
+import NavBar from '@/components/generic/NavBar';
+
 export default function Page() {
-  return <h1>Hi</h1>;
+  return (
+    <div>
+      <NavBar> </NavBar>
+    </div>
+  );
 }
