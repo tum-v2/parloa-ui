@@ -18,7 +18,7 @@ export default function Page() {
           type="textarea"
           placeholder="This is a sample textarea"
           size="large"
-          rows={4}
+          autoSize={{ minRows: 2, maxRows: 6 }}
         />
         <InputField
           type="password"

@@ -15,6 +15,7 @@ interface InputFieldProps {
   showCount?: boolean;
   rows?: number;
   iconRender?: () => React.ReactNode;
+  autoSize?: boolean | object;
 }
 
 const { TextArea } = Input;
@@ -26,6 +27,7 @@ export default function InputField(props: InputFieldProps) {
       <>
         <TextArea
           rows={props.rows}
+          autoSize={props.autoSize}
           placeholder={props.placeholder}
           id={props.id}
           value={props.value}
