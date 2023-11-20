@@ -9,12 +9,12 @@ interface PillProps {
   children?: React.ReactNode;
 }
 
-const Pill: React.FC<PillProps> = ({
+const Pill = ({
   icon,
   color = theme.color.primary,
   width = undefined,
   children
-}) => {
+}: PillProps) => {
   const pillStyle: React.CSSProperties = {
     borderRadius: 50,
     width: width || 'max-content',
@@ -29,7 +29,7 @@ const Pill: React.FC<PillProps> = ({
   };
 
   return (
-    <Tag style={pillStyle} color={color} icon={icon} bordered={false} >
+    <Tag style={pillStyle} color={color} icon={icon} bordered={false}>
       {children}
     </Tag>
   );
