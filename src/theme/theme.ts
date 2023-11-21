@@ -8,7 +8,10 @@ const lexend = Lexend({
 const theme = {
   color: {
     primary: '#3f2547',
-    gray: '#7a7a7a'
+    gray: '#7a7a7a',
+    white: '#fff',
+    textBase: 'rgba(36, 19, 43, 0.88)',
+    textDescription: 'rgba(36, 19, 43, 0.45)'
   },
   padding: {
     xs: '4px',
@@ -24,6 +27,7 @@ const theme = {
     l: '24px'
   },
   chartColors: ['#277aff', '#ca5dd9', '#f6b033'],
+  fontSize: 14,
   /**
    *  AntD:
    **/

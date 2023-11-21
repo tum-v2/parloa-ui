@@ -1,10 +1,7 @@
-'use client';
-
 import { Axis } from '@visx/axis';
 import { scaleLinear } from '@visx/scale';
 import { LinearGradient } from '@visx/gradient';
 import { LinePath } from '@visx/shape';
-import { theme as antdTheme } from 'antd';
 import { curveNatural } from '@visx/curve';
 import { AreaClosed } from '@visx/shape';
 import theme from '@/theme/theme';
@@ -34,8 +31,6 @@ const LineChart = ({
   padding = 50,
   yUnit
 }: LineChartProps) => {
-  const { token } = antdTheme.useToken();
-
   const scaleX = scaleLinear({
     domain: [xMin, data[0].length],
     range: [padding, width - padding]
@@ -53,18 +48,18 @@ const LineChart = ({
         y={0}
         width={width}
         height={height}
-        fill={token.colorWhite}
+        fill={theme.color.white}
         rx={14}
       />
       <Axis
         scale={scaleX}
         top={height - padding}
         orientation="bottom"
-        stroke={token.colorTextDescription}
+        stroke={theme.color.textDescription}
         hideTicks
         tickLabelProps={() => ({
-          fill: token.colorTextDescription,
-          fontSize: token.fontSize,
+          fill: theme.color.textDescription,
+          fontSize: theme.fontSize,
           textAnchor: 'middle',
           verticalAnchor: 'middle'
         })}
@@ -73,11 +68,11 @@ const LineChart = ({
         scale={scaleY}
         left={padding}
         orientation="left"
-        stroke={token.colorTextDescription}
+        stroke={theme.color.textDescription}
         hideTicks
         tickLabelProps={() => ({
-          fill: token.colorTextDescription,
-          fontSize: token.fontSize,
+          fill: theme.color.textDescription,
+          fontSize: theme.fontSize,
           textAnchor: 'end',
           verticalAnchor: 'middle'
         })}
@@ -90,7 +85,7 @@ const LineChart = ({
             key={`background-gradient-${i}`}
             id={`background-gradient-${i}`}
             from={theme.chartColors[i]}
-            to={token.colorWhite}
+            to={theme.color.white}
             fromOpacity={0.2}
             toOpacity={0.2}
           />
