@@ -5,6 +5,7 @@ import { LinePath } from '@visx/shape';
 import { curveNatural } from '@visx/curve';
 import { AreaClosed } from '@visx/shape';
 import theme from '@/theme/theme';
+import { useMemo } from 'react';
 
 interface ChartData {
   x: number;
@@ -31,15 +32,23 @@ const LineChart = ({
   padding = 50,
   yUnit
 }: LineChartProps) => {
-  const scaleX = scaleLinear({
-    domain: [xMin, data[0].length],
-    range: [padding, width - padding]
-  });
+  const scaleX = useMemo(
+    () =>
+      scaleLinear({
+        domain: [xMin, data[0].length],
+        range: [padding, width - padding]
+      }),
+    [xMin, data, padding, width]
+  );
 
-  const scaleY = scaleLinear({
-    domain: [0, yMax],
-    range: [height - padding, padding]
-  });
+  const scaleY = useMemo(
+    () =>
+      scaleLinear({
+        domain: [0, yMax],
+        range: [height - padding, padding]
+      }),
+    [yMax, height, padding]
+  );
 
   return (
     <svg width={width} height={height}>
