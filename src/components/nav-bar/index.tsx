@@ -19,7 +19,7 @@ const NavBar = () => {
     padding: theme.padding.s
   };
   const navBarContainerStyle: React.CSSProperties = {
-    position: 'fixed',
+    position: 'sticky',
     top: 0,
     left: 0,
     right: 0,

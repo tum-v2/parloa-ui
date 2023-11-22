@@ -13,16 +13,12 @@ export const metadata: Metadata = {
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
-  const mainStyle: React.CSSProperties = {
-    marginTop: 56
-  };
-
   return (
     <html lang="en">
       <body className={inter.className}>
         <ThemeProvider>
           <NavBar />
-          <main style={mainStyle}>{children}</main>
+          <main>{children}</main>
         </ThemeProvider>
       </body>
     </html>
