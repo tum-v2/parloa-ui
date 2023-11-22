@@ -20,7 +20,7 @@ interface InputFieldProps {
 const { TextArea } = Input;
 const { Password } = Input;
 // eslint-disable-next-line require-jsdoc
-export function InputField(props: InputFieldProps) {
+const InputField = (props: InputFieldProps) => {
   if (props.type === 'textarea') {
     return (
       <>
