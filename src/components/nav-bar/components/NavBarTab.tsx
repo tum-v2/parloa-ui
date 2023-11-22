@@ -1,25 +1,29 @@
+/* eslint-disable no-unused-vars */
 import React, { Dispatch, SetStateAction } from 'react';
 import { Segmented, ConfigProvider } from 'antd';
 import { IoAppsOutline, IoDiceOutline } from 'react-icons/io5';
+import theme from '@/theme/theme';
 
+export enum NavBarTabOptions {
+  Dashboard = 'Dashboard',
+  Simulations = 'Simulations'
+}
 interface NavBarTabProps {
   selectedTab: string;
   setSelectedTab: Dispatch<SetStateAction<string>>;
 }
-const NavBarTab: React.FC<NavBarTabProps> = ({
-  selectedTab,
-  setSelectedTab
-}) => {
+
+const NavBarTab = ({ selectedTab, setSelectedTab }: NavBarTabProps) => {
   const navBarTabElementStyle: React.CSSProperties = {
-    padding: 4,
+    padding: theme.padding.xs,
     display: 'flex',
     alignItems: 'center'
   };
 
   const navBarTabElementIconStyle: React.CSSProperties = {
-    width: 20,
-    height: 20,
-    paddingRight: 8
+    width: '1rem',
+    height: '1rem',
+    marginRight: theme.padding.s
   };
 
   const navBarTabOptions = [
@@ -27,19 +31,19 @@ const NavBarTab: React.FC<NavBarTabProps> = ({
       label: (
         <div style={navBarTabElementStyle}>
           <IoAppsOutline style={navBarTabElementIconStyle} />
-          <div>Dashboard</div>
+          <div>{NavBarTabOptions.Dashboard}</div>
         </div>
       ),
-      value: 'Dashboard'
+      value: NavBarTabOptions.Dashboard
     },
     {
       label: (
         <div style={navBarTabElementStyle}>
           <IoDiceOutline style={navBarTabElementIconStyle} />
-          <div>Simulations</div>
+          <div>{NavBarTabOptions.Simulations}</div>
         </div>
       ),
-      value: 'Simulations'
+      value: NavBarTabOptions.Simulations
     }
   ];
 
@@ -48,7 +52,7 @@ const NavBarTab: React.FC<NavBarTabProps> = ({
       theme={{
         components: {
           Segmented: {
-            itemSelectedBg: '#F7F4F9'
+            itemSelectedBg: theme.color.lightPrimary
           }
         },
         token: {

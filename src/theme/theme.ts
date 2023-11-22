@@ -8,6 +8,7 @@ const lexend = Lexend({
 const theme = {
   color: {
     primary: '#3f2547',
+    lightPrimary: '#F7F4F9',
     gray: '#7a7a7a',
     white: '#fff',
     blue: '#277aff',
