@@ -9,7 +9,7 @@ interface DropdownProps {
 }
 
 // eslint-disable-next-line require-jsdoc
-export function DropdownMenu(props: DropdownProps) {
+export const DropdownMenu = (props: DropdownProps) => {
   return (
     <>
       <Dropdown menu={props.menu} trigger={['click']}>
@@ -22,4 +22,4 @@ export function DropdownMenu(props: DropdownProps) {
       </Dropdown>
     </>
   );
-}
+};
