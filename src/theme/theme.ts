@@ -8,7 +8,7 @@ const lexend = Lexend({
 const theme = {
   color: {
     primary: '#3f2547',
-    
+    lightPrimary: '#F7F4F9',
     gray: '#7a7a7a'
   },
   padding: {
@@ -39,7 +39,7 @@ const theme = {
     colorPrimary: '#3f2547',
     colorBorder: '#dddae0',
     fontFamily: lexend.style.fontFamily,
-    colorSelectedNavBar: '#F7F4F9'
+    navBarButtonHeight: 36
   },
   components: {
     Alert: {

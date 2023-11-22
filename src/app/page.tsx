@@ -6,7 +6,6 @@ export default function Page() {
   return (
     <div>
       <NavBar />
-      <Card>this is a test</Card>
     </div>
   );
 }
