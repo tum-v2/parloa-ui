@@ -7,7 +7,7 @@ import NavBarTab from './components/NavBarTab';
 import logo from './components/parloa-logo.png';
 import NavBarLogout from './components/NavBarLogout';
 
-const NavBar: React.FC = () => {
+const NavBar = () => {
   const [selectedTab, setSelectedTab] = useState<string>('Dashboard');
 
   const navBarStyle: React.CSSProperties = {
@@ -16,7 +16,11 @@ const NavBar: React.FC = () => {
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingLeft: 4,
-    paddingRight: 4
+    paddingRight: 4,
+    position: 'fixed',
+    top: 0,
+    width: '100%',
+    backgroundColor: 'white'
   };
 
   return (

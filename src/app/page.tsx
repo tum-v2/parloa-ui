@@ -4,8 +4,61 @@ import NavBar from '@/components/nav-bar';
 
 export default function Page() {
   return (
-    <div>
-      <NavBar />
-    </div>
+    <>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+      <div>Hi!</div>
+    </>
   );
 }
