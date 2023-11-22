@@ -9,7 +9,12 @@ const theme = {
   color: {
     primary: '#3f2547',
     lightPrimary: '#F7F4F9',
-    gray: '#7a7a7a'
+    gray: '#7a7a7a',
+    white: '#fff',
+    blue: '#277aff',
+    pink: '#ca5dd9',
+    orange: '#f6b033',
+    ligthGray: 'rgba(36, 19, 43, 0.45)'
   },
   padding: {
     xs: '4px',
@@ -24,12 +29,19 @@ const theme = {
     m: '12px',
     l: '24px'
   },
+  fontSize: 14,
+  strokeWidth: {
+    xs: 0.5,
+    s: 1,
+    m: 3,
+    l: 6
+  },
   /**
    *  AntD:
    **/
   token: {
     colorSuccess: '#0aad6a',
-    colorInfo: '#3f2547',
+    colorInfo: '#ca5dd9',
     colorWarning: '#f6b033',
     colorError: '#f63535',
     colorTextBase: '#24132b',
