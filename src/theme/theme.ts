@@ -10,8 +10,10 @@ const theme = {
     primary: '#3f2547',
     gray: '#7a7a7a',
     white: '#fff',
-    textBase: 'rgba(36, 19, 43, 0.88)',
-    textDescription: 'rgba(36, 19, 43, 0.45)'
+    blue: '#277aff',
+    pink: '#ca5dd9',
+    orange: '#f6b033',
+    ligthGray: 'rgba(36, 19, 43, 0.45)'
   },
   padding: {
     xs: '4px',
@@ -26,8 +28,13 @@ const theme = {
     m: '12px',
     l: '24px'
   },
-  chartColors: ['#277aff', '#ca5dd9', '#f6b033'],
   fontSize: 14,
+  strokeWidth: {
+    xs: 0.5,
+    s: 1,
+    m: 3,
+    l: 6
+  },
   /**
    *  AntD:
    **/

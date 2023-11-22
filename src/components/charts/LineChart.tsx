@@ -16,29 +16,54 @@ interface LineChartProps {
   width: number;
   height: number;
   data: ChartData[][];
-  xMin: number;
   yMax: number;
   padding?: number;
   hideAxis?: boolean;
   yUnit?: string;
 }
 
+const chartColors = [theme.color.blue, theme.color.pink, theme.color.pink];
+
 const LineChart = ({
   width,
   height,
   data,
-  xMin,
   yMax,
-  padding = 50,
+  padding = 50, // Doesn't have to be consistent with our theme
   yUnit
 }: LineChartProps) => {
+  // Get min x
+  const xMin = useMemo(
+    () =>
+      Math.min(...data.map(lineData => Math.min(...lineData.map(d => d.x)))),
+    [data]
+  );
+
+  // Get max x
+  const xMax = useMemo(
+    () =>
+      Math.max(...data.map(lineData => Math.max(...lineData.map(d => d.x)))),
+    [data]
+  );
+
+  // Get max y if not provided
+  yMax = useMemo(
+    () =>
+      yMax
+        ? yMax
+        : Math.max(
+            ...data.map(lineData => Math.max(...lineData.map(d => d.y)))
+          ),
+    [data, yMax]
+  );
+
   const scaleX = useMemo(
     () =>
       scaleLinear({
-        domain: [xMin, data[0].length],
+        domain: [xMin, xMax],
         range: [padding, width - padding]
       }),
-    [xMin, data, padding, width]
+    [xMin, xMax, padding, width]
   );
 
   const scaleY = useMemo(
@@ -58,29 +83,30 @@ const LineChart = ({
         width={width}
         height={height}
         fill={theme.color.white}
-        rx={14}
       />
       <Axis
         scale={scaleX}
         top={height - padding}
         orientation="bottom"
-        stroke={theme.color.textDescription}
+        stroke={theme.color.ligthGray}
         hideTicks
         tickLabelProps={() => ({
-          fill: theme.color.textDescription,
+          fill: theme.color.ligthGray,
           fontSize: theme.fontSize,
           textAnchor: 'middle',
           verticalAnchor: 'middle'
         })}
+        tickValues={data[0].map(d => d.x)} // Only show ticks for x values
+        tickFormat={value => `${value}`}
       />
       <Axis
         scale={scaleY}
         left={padding}
         orientation="left"
-        stroke={theme.color.textDescription}
+        stroke={theme.color.ligthGray}
         hideTicks
         tickLabelProps={() => ({
-          fill: theme.color.textDescription,
+          fill: theme.color.ligthGray,
           fontSize: theme.fontSize,
           textAnchor: 'end',
           verticalAnchor: 'middle'
@@ -93,7 +119,7 @@ const LineChart = ({
           <LinearGradient
             key={`background-gradient-${i}`}
             id={`background-gradient-${i}`}
-            from={theme.chartColors[i]}
+            from={chartColors[i]}
             to={theme.color.white}
             fromOpacity={0.2}
             toOpacity={0.2}
@@ -111,8 +137,8 @@ const LineChart = ({
             data={lineData}
             x={d => scaleX(d.x)}
             y={d => scaleY(d.y)}
-            stroke={theme.chartColors[i]}
-            strokeWidth={3}
+            stroke={chartColors[i]}
+            strokeWidth={theme.strokeWidth.m}
             curve={curveNatural}
           />
         </>
