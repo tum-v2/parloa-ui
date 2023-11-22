@@ -15,17 +15,19 @@ interface InputFieldProps {
   showCount?: boolean;
   rows?: number;
   iconRender?: () => React.ReactNode;
+  autoSize?: boolean | object;
 }
 
 const { TextArea } = Input;
 const { Password } = Input;
 // eslint-disable-next-line require-jsdoc
-const InputField = (props: InputFieldProps) => {
+export const InputField = (props: InputFieldProps) => {
   if (props.type === 'textarea') {
     return (
       <>
         <TextArea
           rows={props.rows}
+          autoSize={props.autoSize}
           placeholder={props.placeholder}
           id={props.id}
           value={props.value}
@@ -74,6 +76,4 @@ const InputField = (props: InputFieldProps) => {
       </>
     );
   }
-}
-
-export default InputField
+};
