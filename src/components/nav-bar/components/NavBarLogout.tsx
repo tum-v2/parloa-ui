@@ -1,7 +1,6 @@
 import React from 'react';
 import { IoLogOutOutline } from 'react-icons/io5';
 import { Button } from 'antd';
-import theme from '@/theme/theme';
 
 interface NavBarLogoutProps {
   onClick: () => void;
@@ -12,7 +11,7 @@ const NavBarLogout = ({ onClick, isLoading }: NavBarLogoutProps) => {
   const navBarLogoutButtonStyle: React.CSSProperties = {
     display: 'flex',
     alignItems: 'center',
-    height: theme.token.navBarButtonHeight
+    height: 36
   };
 
   const navBarLogoutIconStyle: React.CSSProperties = {

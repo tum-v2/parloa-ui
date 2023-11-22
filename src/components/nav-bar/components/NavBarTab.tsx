@@ -1,7 +1,13 @@
+/* eslint-disable no-unused-vars */
 import React, { Dispatch, SetStateAction } from 'react';
 import { Segmented, ConfigProvider } from 'antd';
 import { IoAppsOutline, IoDiceOutline } from 'react-icons/io5';
 import theme from '@/theme/theme';
+
+export enum NavBarTabOptions {
+  Dashboard = 'Dashboard',
+  Simulations = 'Simulations'
+}
 interface NavBarTabProps {
   selectedTab: string;
   setSelectedTab: Dispatch<SetStateAction<string>>;
@@ -25,19 +31,19 @@ const NavBarTab = ({ selectedTab, setSelectedTab }: NavBarTabProps) => {
       label: (
         <div style={navBarTabElementStyle}>
           <IoAppsOutline style={navBarTabElementIconStyle} />
-          <div>Dashboard</div>
+          <div>{NavBarTabOptions.Dashboard}</div>
         </div>
       ),
-      value: 'Dashboard'
+      value: NavBarTabOptions.Dashboard
     },
     {
       label: (
         <div style={navBarTabElementStyle}>
           <IoDiceOutline style={navBarTabElementIconStyle} />
-          <div>Simulations</div>
+          <div>{NavBarTabOptions.Simulations}</div>
         </div>
       ),
-      value: 'Simulations'
+      value: NavBarTabOptions.Simulations
     }
   ];
 
