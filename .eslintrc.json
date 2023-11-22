@@ -1,13 +1,6 @@
 {
-  "extends": [
-    "eslint:recommended",
-    "next/core-web-vitals",
-    "prettier"
-  ],
-  "plugins": [
-    "eslint-plugin-tsdoc",
-    "prettier"
-  ],
+  "extends": ["eslint:recommended", "next/core-web-vitals", "prettier"],
+  "plugins": ["eslint-plugin-tsdoc", "prettier"],
   "rules": {
     "require-jsdoc": "warn",
     "tsdoc/syntax": "warn",
@@ -18,5 +11,8 @@
         "usePrettierrc": true
       }
     ]
+  },
+  "env": {
+    "jest": true
   }
 }

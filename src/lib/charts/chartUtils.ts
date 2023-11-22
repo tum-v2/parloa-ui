@@ -1,7 +1,7 @@
 import { BarChartData, MergedDatapoint } from '@/types/chart';
 
 /**
- * // Merges all y datapoints under the same x value e.g. [\{x:1, y:20\}, \{x:1, y:40\}] =\> [\{x: 1, y1: 20, y2: 40\}]
+ * // Merges all y datapoints under the same x value e.g. [\{ key: y1, datapoint:\{x:1, y:20\} \}, \{key: y1, datapoint:\{x:1, y:40\} \}] =\> [\{x: 1, y1: 20, y2: 40\}]
  * @param data - BarChart data object
  * @returns merged data object
  */
