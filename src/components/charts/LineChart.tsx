@@ -49,11 +49,8 @@ const LineChart = ({
   // Get max y if not provided
   yMax = useMemo(
     () =>
-      yMax
-        ? yMax
-        : Math.max(
-            ...data.map(lineData => Math.max(...lineData.map(d => d.y)))
-          ),
+      yMax ||
+      Math.max(...data.map(lineData => Math.max(...lineData.map(d => d.y)))),
     [data, yMax]
   );
 
