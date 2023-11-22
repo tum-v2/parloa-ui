@@ -1,15 +1,13 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { Segmented, ConfigProvider } from 'antd';
 import { IoAppsOutline, IoDiceOutline } from 'react-icons/io5';
+import theme from '@/theme/theme';
 
 interface NavBarTabProps {
   selectedTab: string;
   setSelectedTab: Dispatch<SetStateAction<string>>;
 }
-const NavBarTab: React.FC<NavBarTabProps> = ({
-  selectedTab,
-  setSelectedTab
-}) => {
+const NavBarTab = ({ selectedTab, setSelectedTab }: NavBarTabProps) => {
   const navBarTabElementStyle: React.CSSProperties = {
     padding: 4,
     display: 'flex',
@@ -48,7 +46,7 @@ const NavBarTab: React.FC<NavBarTabProps> = ({
       theme={{
         components: {
           Segmented: {
-            itemSelectedBg: '#F7F4F9'
+            itemSelectedBg: theme.token.colorSelectedNavBar
           }
         },
         token: {

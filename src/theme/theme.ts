@@ -37,7 +37,8 @@ const theme = {
     borderRadiusLG: 24,
     colorPrimary: '#3f2547',
     colorBorder: '#dddae0',
-    fontFamily: lexend.style.fontFamily
+    fontFamily: lexend.style.fontFamily,
+    colorSelectedNavBar: '#F7F4F9'
   },
   components: {
     Alert: {
