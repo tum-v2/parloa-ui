@@ -2,22 +2,21 @@ import React, { Dispatch, SetStateAction } from 'react';
 import { Segmented, ConfigProvider } from 'antd';
 import { IoAppsOutline, IoDiceOutline } from 'react-icons/io5';
 import theme from '@/theme/theme';
-
 interface NavBarTabProps {
   selectedTab: string;
   setSelectedTab: Dispatch<SetStateAction<string>>;
 }
 const NavBarTab = ({ selectedTab, setSelectedTab }: NavBarTabProps) => {
   const navBarTabElementStyle: React.CSSProperties = {
-    padding: 4,
+    padding: theme.padding.xs,
     display: 'flex',
     alignItems: 'center'
   };
 
   const navBarTabElementIconStyle: React.CSSProperties = {
-    width: 20,
-    height: 20,
-    paddingRight: 8
+    width: '1rem',
+    height: '1rem',
+    marginRight: theme.padding.s
   };
 
   const navBarTabOptions = [

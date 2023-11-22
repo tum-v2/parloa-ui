@@ -5,7 +5,8 @@ import NavBar from '@/components/generic/NavBar';
 export default function Page() {
   return (
     <div>
-      <NavBar> </NavBar>
+      <NavBar />
+      <Card>this is a test</Card>
     </div>
   );
 }

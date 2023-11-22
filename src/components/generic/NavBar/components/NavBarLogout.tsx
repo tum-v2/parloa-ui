@@ -9,15 +9,14 @@ interface NavBarLogoutProps {
 
 const NavBarLogout = ({ onClick, isLoading }: NavBarLogoutProps) => {
   const navBarLogoutButtonStyle: React.CSSProperties = {
-    padding: 4,
     display: 'flex',
     alignItems: 'center',
     height: 36
   };
 
   const navBarLogoutIconStyle: React.CSSProperties = {
-    width: 20,
-    height: 20
+    width: '1rem',
+    height: '1rem'
   };
 
   return (
