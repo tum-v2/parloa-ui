@@ -1,7 +1,6 @@
-'use client';
 import React, { useMemo } from 'react';
 import { Group } from '@visx/group';
-import { AxisBottom } from '@visx/axis';
+import { AxisBottom, AxisLeft } from '@visx/axis';
 import { scaleBand, scaleLinear, scaleOrdinal } from '@visx/scale';
 import { BarGroup } from '@visx/shape';
 import theme from '@/theme/theme';
@@ -17,9 +16,7 @@ interface BarChartProps {
   parentHeight?: number;
 }
 
-const blue = '#aeeef8';
-export const green = '#e5fd3d';
-const purple = '#9caff6';
+const chartColors = [theme.color.blue, theme.color.pink, theme.color.orange];
 
 const BarChart = ({ width, height, padding = 50, data }: BarChartProps) => {
   // bounds
@@ -69,7 +66,7 @@ const BarChart = ({ width, height, padding = 50, data }: BarChartProps) => {
 
   const colorScale = scaleOrdinal<string, string>({
     domain: keys,
-    range: [blue, green, purple]
+    range: chartColors
   });
 
   // update scale output dimensions
@@ -79,7 +76,7 @@ const BarChart = ({ width, height, padding = 50, data }: BarChartProps) => {
 
   return (
     <svg width={width} height={height}>
-      <rect width={width} height={height} fill={'#FFF'} />
+      <rect width={width} height={height} fill={theme.color.white} />
       <Group top={padding} left={padding}>
         <BarGroup
           data={mergedData}
@@ -105,7 +102,7 @@ const BarChart = ({ width, height, padding = 50, data }: BarChartProps) => {
                     width={bar.width}
                     height={bar.height}
                     fill={bar.color}
-                    rx={6}
+                    rx={theme.borderRadius.s}
                   />
                 ))}
               </Group>
@@ -113,16 +110,28 @@ const BarChart = ({ width, height, padding = 50, data }: BarChartProps) => {
           }
         </BarGroup>
       </Group>
+      <AxisLeft
+        top={padding}
+        left={padding}
+        scale={yScale}
+        stroke={theme.color.ligthGray}
+        hideTicks
+        hideZero
+        tickLabelProps={{
+          fill: theme.color.ligthGray,
+          fontSize: theme.fontSize,
+          textAnchor: 'end'
+        }}
+      />
       <AxisBottom
         top={yMax + padding}
         left={padding}
         scale={xScale}
-        stroke={'#000'}
-        tickStroke={'#000'}
-        hideAxisLine
+        stroke={theme.color.ligthGray}
+        hideTicks
         tickLabelProps={{
-          fill: '#000',
-          fontSize: 14,
+          fill: theme.color.ligthGray,
+          fontSize: theme.fontSize,
           textAnchor: 'middle'
         }}
       />

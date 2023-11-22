@@ -22,7 +22,7 @@ interface LineChartProps {
   yUnit?: string;
 }
 
-const chartColors = [theme.color.blue, theme.color.pink, theme.color.pink];
+const chartColors = [theme.color.blue, theme.color.pink, theme.color.orange];
 
 const LineChart = ({
   width,
