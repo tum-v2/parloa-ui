@@ -7,6 +7,7 @@ interface NavBarTabProps {
   selectedTab: string;
   setSelectedTab: Dispatch<SetStateAction<string>>;
 }
+
 const NavBarTab = ({ selectedTab, setSelectedTab }: NavBarTabProps) => {
   const navBarTabElementStyle: React.CSSProperties = {
     padding: 4,
