@@ -1,13 +1,12 @@
-'use client';
-import InputField from '@/components/generic/InputField';
-import { BsFillSendFill } from 'react-icons/bs';
-import { Flex } from 'antd';
+// import InputField from '@/components/generic/InputField';
+// import { BsFillSendFill } from 'react-icons/bs';
+// import { Flex } from 'antd';
 // eslint-disable-next-line require-jsdoc
 export default function Page() {
   return (
     <>
       <h1>Hello, Simulations Page!</h1>
-      <Flex vertical gap={32}>
+      {/* <Flex vertical gap={32}>
         <InputField
           type="text"
           placeholder="This is a sample input"
@@ -25,7 +24,7 @@ export default function Page() {
           placeholder="This is a sample password"
           size="large"
         />
-      </Flex>
+      </Flex> */}
     </>
   );
 }
