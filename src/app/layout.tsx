@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   const mainStyle: React.CSSProperties = {
-    marginTop: 50
+    marginTop: 56
   };
 
   return (
