@@ -1,5 +1,3 @@
-import BarChart from '@/components/charts/BarChart';
-
 // eslint-disable-next-line require-jsdoc
 
 import NavBar from '@/components/nav-bar';
