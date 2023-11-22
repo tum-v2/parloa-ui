@@ -11,7 +11,7 @@ interface CardProps {
   padding?: Padding;
 }
 
-const Card: React.FC<CardProps> = ({ children, width, height, padding }) => {
+const Card = ({ children, width, height, padding }: CardProps) => {
   const cardStyle: React.CSSProperties = {
     borderRadius: theme.borderRadius.m,
     width: width || '100%',
