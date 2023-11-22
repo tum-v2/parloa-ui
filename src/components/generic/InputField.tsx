@@ -75,3 +75,5 @@ const InputField = (props: InputFieldProps) => {
     );
   }
 }
+
+export default InputField
