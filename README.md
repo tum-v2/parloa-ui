@@ -47,7 +47,7 @@ currently [20.9.0 LTS](https://nodejs.org/en).
 First, clone the repo
 
 ```bash
-git clone git clone https://github.com/tum-v2/parloa-ui.git
+git clone https://github.com/tum-v2/parloa-ui.git
 ```
 
 After cloning the repository, go to the root directory and run:
