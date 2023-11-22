@@ -17,17 +17,17 @@ const theme = {
     ligthGray: 'rgba(36, 19, 43, 0.45)'
   },
   padding: {
-    xs: '4px',
-    s: '8px',
-    m: '12px',
-    l: '24px',
-    xl: '48px'
+    xs: 4,
+    s: 8,
+    m: 12,
+    l: 24,
+    xl: 48
   },
   borderRadius: {
-    xs: '4px',
-    s: '8px',
-    m: '12px',
-    l: '24px'
+    xs: 4,
+    s: 8,
+    m: 12,
+    l: 24
   },
   fontSize: 14,
   strokeWidth: {
