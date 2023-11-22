@@ -6,10 +6,11 @@ import Image from 'next/image';
 import NavBarTab from './components/NavBarTab';
 import logo from './components/parloa-logo.png';
 import NavBarLogout from './components/NavBarLogout';
+import { useRouter } from 'next/navigation';
 
 const NavBar = () => {
   const [selectedTab, setSelectedTab] = useState<string>('Dashboard');
-
+  const router = useRouter();
   const navBarStyle: React.CSSProperties = {
     height: 50,
     display: 'flex',
@@ -29,7 +30,7 @@ const NavBar = () => {
       <NavBarTab selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
       <NavBarLogout
         onClick={() => {
-          console.log('logout');
+          router.push('/login');
         }}
       />
     </div>
