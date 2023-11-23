@@ -18,12 +18,13 @@ const NavBar = () => {
     justifyContent: 'space-between',
     padding: theme.padding.s
   };
+
   const navBarContainerStyle: React.CSSProperties = {
     position: 'sticky',
     top: 0,
     left: 0,
     right: 0,
-    backgroundColor: 'white'
+    backgroundColor: theme.color.white
   };
 
   return (
@@ -33,6 +34,7 @@ const NavBar = () => {
         <NavBarTab selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
         <NavBarLogout
           onClick={() => {
+            // TODO: Implement Logout feature
             router.push('/login');
           }}
         />
