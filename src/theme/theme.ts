@@ -1,9 +1,11 @@
-import { Lexend } from 'next/font/google';
+import { Inter, Lexend } from 'next/font/google';
 
 const lexend = Lexend({
   subsets: ['latin'],
   weight: '400'
 });
+
+const inter = Inter({ subsets: ['latin'] });
 
 const theme = {
   color: {
@@ -28,6 +30,10 @@ const theme = {
     s: 8,
     m: 12,
     l: 24
+  },
+  font: {
+    lexend: lexend,
+    inter: inter
   },
   fontSize: 14,
   strokeWidth: {
