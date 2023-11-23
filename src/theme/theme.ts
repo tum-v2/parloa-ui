@@ -36,7 +36,19 @@ const theme = {
     lexend: lexend,
     inter: inter
   },
-  fontSize: 14,
+  fontSize: {
+    xs: 8,
+    s: 11,
+    m: 14,
+    l: 18,
+    xl: 22
+  },
+  iconSize: {
+    s: 20,
+    m: 25,
+    l: 30,
+    xl: 40
+  },
   strokeWidth: {
     xs: 0.5,
     s: 1,
