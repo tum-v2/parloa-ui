@@ -14,66 +14,72 @@ interface InputFieldProps {
   disabled?: boolean;
   showCount?: boolean;
   rows?: number;
+  minRows?: number;
+  maxRows?: number;
   iconRender?: () => React.ReactNode;
-  autoSize?: boolean | object;
 }
 
 const { TextArea } = Input;
 const { Password } = Input;
-// eslint-disable-next-line require-jsdoc
+
 export const InputField = (props: InputFieldProps) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+    }
+    // Call the original onPressEnter if defined and shift key is pressed
+    if (e.key === 'Enter' && e.shiftKey && props.onPressEnter) {
+      props.onPressEnter();
+    }
+  };
+
   if (props.type === 'textarea') {
     return (
-      <>
-        <TextArea
-          rows={props.rows}
-          autoSize={props.autoSize}
-          placeholder={props.placeholder}
-          id={props.id}
-          value={props.value}
-          onChange={props.onChange}
-          onPressEnter={props.onPressEnter}
-          maxLength={props.maxLength}
-          disabled={props.disabled}
-          showCount={props.showCount}
-        />
-      </>
+      <TextArea
+        size={props.size}
+        rows={props.rows}
+        autoSize={{ minRows: props.minRows, maxRows: 6 || props.maxRows }}
+        placeholder={props.placeholder}
+        id={props.id}
+        value={props.value}
+        onChange={props.onChange}
+        onKeyDown={handleKeyPress} // Modified to use onKeyDown
+        maxLength={props.maxLength}
+        disabled={props.disabled}
+        showCount={props.showCount}
+      />
     );
   } else if (props.type === 'password') {
     return (
-      <>
-        <Password
-          size={props.size}
-          placeholder={props.placeholder}
-          suffix={props.suffix}
-          id={props.id}
-          value={props.value}
-          onChange={props.onChange}
-          onPressEnter={props.onPressEnter}
-          maxLength={props.maxLength}
-          disabled={props.disabled}
-          showCount={props.showCount}
-          iconRender={props.iconRender}
-        />
-      </>
+      <Password
+        size={props.size}
+        placeholder={props.placeholder}
+        suffix={props.suffix}
+        id={props.id}
+        value={props.value}
+        onChange={props.onChange}
+        onPressEnter={props.onPressEnter}
+        maxLength={props.maxLength}
+        disabled={props.disabled}
+        showCount={props.showCount}
+        iconRender={props.iconRender}
+      />
     );
   } else {
     return (
-      <>
-        <Input
-          size={props.size}
-          placeholder={props.placeholder}
-          suffix={props.suffix}
-          id={props.id}
-          value={props.value}
-          type={props.type}
-          onChange={props.onChange}
-          onPressEnter={props.onPressEnter}
-          maxLength={props.maxLength}
-          disabled={props.disabled}
-          showCount={props.showCount}
-        />
-      </>
+      <Input
+        size={props.size}
+        placeholder={props.placeholder}
+        suffix={props.suffix}
+        id={props.id}
+        value={props.value}
+        type={props.type}
+        onChange={props.onChange}
+        onPressEnter={props.onPressEnter}
+        maxLength={props.maxLength}
+        disabled={props.disabled}
+        showCount={props.showCount}
+      />
     );
   }
 };

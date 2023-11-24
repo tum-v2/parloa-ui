@@ -1,4 +1,5 @@
-// import InputField from '@/components/generic/InputField';
+// 'use client';
+// import { InputField } from '@/components/generic/InputField';
 // import { BsFillSendFill } from 'react-icons/bs';
 // import { Flex } from 'antd';
 // eslint-disable-next-line require-jsdoc
@@ -17,7 +18,7 @@ export default function Page() {
           type="textarea"
           placeholder="This is a sample textarea"
           size="large"
-          autoSize={{ minRows: 2, maxRows: 6 }}
+          minRows={4}
         />
         <InputField
           type="password"
