@@ -13,7 +13,6 @@ interface InputFieldProps {
   maxLength?: number;
   disabled?: boolean;
   showCount?: boolean;
-  rows?: number;
   minRows?: number;
   maxRows?: number;
   iconRender?: () => React.ReactNode;
@@ -37,7 +36,6 @@ export const InputField = (props: InputFieldProps) => {
     return (
       <TextArea
         size={props.size}
-        rows={props.rows}
         autoSize={{ minRows: props.minRows, maxRows: 6 || props.maxRows }}
         placeholder={props.placeholder}
         id={props.id}
