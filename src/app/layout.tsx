@@ -3,6 +3,7 @@ import './globals.css';
 import React from 'react';
 import ThemeProvider from '@/providers/ThemeProvider';
 import theme from '@/theme/theme';
+import ReactQueryClientProvider from '@/providers/ReactQueryClientProvider';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -24,7 +25,9 @@ export default function RootLayout({
   return (
     <html lang="en" style={rootStyle}>
       <body className={theme.font.inter.className}>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ReactQueryClientProvider>
+          <ThemeProvider>{children}</ThemeProvider>
+        </ReactQueryClientProvider>
       </body>
     </html>
   );
