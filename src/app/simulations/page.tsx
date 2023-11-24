@@ -18,7 +18,6 @@ export default function Page() {
           type="textarea"
           placeholder="This is a sample textarea"
           size="large"
-          minRows={4}
         />
         <InputField
           type="password"
