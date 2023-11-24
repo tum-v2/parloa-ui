@@ -27,6 +27,7 @@ interface LineChartProps {
   padding?: number;
   hideAxis?: boolean;
   yUnit?: string;
+  tooltipTitle?: string;
 }
 
 const chartColors = [theme.color.blue, theme.color.pink, theme.color.orange];
@@ -37,7 +38,8 @@ const LineChart = ({
   data,
   yMax,
   padding = 50, // Doesn't have to be consistent with our theme
-  yUnit
+  yUnit,
+  tooltipTitle
 }: LineChartProps) => {
   // Get min x
   const xMin = useMemo(
@@ -104,6 +106,7 @@ const LineChart = ({
   // Tooltip handler
   const handleTooltip = useCallback(
     (event: React.MouseEvent<SVGRectElement>) => {
+      // Get x value from mouse event
       const { x } = localPoint(event) || { x: 0 };
       const x0 = scaleX.invert(x);
       const index = bisectXData(data[0], x0, 1);
@@ -228,7 +231,9 @@ const LineChart = ({
         <Tooltip
           top={(tooltipTop ?? 0) - theme.padding.s}
           left={(tooltipLeft ?? 0) + theme.padding.s}
-          title={`Conversation ${tooltipData[0].x}`}
+          title={`${tooltipTitle ? tooltipTitle : 'Conversation'} ${
+            tooltipData[0].x
+          }`}
           data={tooltipData}
           yUnit={yUnit}
         />
