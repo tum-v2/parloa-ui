@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 
 import NavBarTab from './components/NavBarTab';
-import logo from './components/parloa-logo.png';
+import logo from '../parloa-logo.png';
 import NavBarLogout from './components/NavBarLogout';
 import { useRouter } from 'next/navigation';
 import theme from '@/theme/theme';
