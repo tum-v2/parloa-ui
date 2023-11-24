@@ -1,3 +1,6 @@
+import { Agent } from './agent';
+import { Conversation } from './conversation';
+
 export interface Simulation {
   _id: string;
   name: string;
@@ -5,8 +8,8 @@ export interface Simulation {
   domain: string;
   type: string;
   numConversations: number;
-  agents: string[];
-  conversations: string[];
+  agents: Agent[];
+  conversations: Conversation[];
   status: string;
   createdAt: string;
   updatedAt: string;
