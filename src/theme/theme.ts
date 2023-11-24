@@ -1,9 +1,11 @@
-import { Lexend } from 'next/font/google';
+import { Inter, Lexend } from 'next/font/google';
 
 const lexend = Lexend({
   subsets: ['latin'],
   weight: '400'
 });
+
+const inter = Inter({ subsets: ['latin'] });
 
 const theme = {
   color: {
@@ -14,7 +16,8 @@ const theme = {
     blue: '#277aff',
     pink: '#ca5dd9',
     orange: '#f6b033',
-    ligthGray: 'rgba(36, 19, 43, 0.45)'
+    ligthGray: 'rgba(36, 19, 43, 0.45)',
+    deepPurple: '#24132b'
   },
   padding: {
     xs: 4,
@@ -29,7 +32,23 @@ const theme = {
     m: 12,
     l: 24
   },
-  fontSize: 14,
+  font: {
+    lexend: lexend,
+    inter: inter
+  },
+  fontSize: {
+    xs: 8,
+    s: 11,
+    m: 14,
+    l: 18,
+    xl: 22
+  },
+  iconSize: {
+    s: 20,
+    m: 25,
+    l: 30,
+    xl: 40
+  },
   strokeWidth: {
     xs: 0.5,
     s: 1,
