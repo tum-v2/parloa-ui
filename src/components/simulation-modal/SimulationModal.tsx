@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Button, Modal, Steps, Popover } from 'antd';
+import { Modal, Steps, Popover } from 'antd';
 import theme from '@/theme/theme';
 import StepContent from './StepContent';
+import Button from '../generic/Button';
 
 const { Step } = Steps;
 
@@ -12,10 +13,12 @@ const customDot = (dot: React.ReactNode, { index }: { index: number }) => (
 const SimulationModal: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
+  const [isWildStep, setIsWildStep] = useState(false);
 
   const showModal = () => {
     setOpen(true);
-    setCurrentStep(0); // Reset to the first step when the modal is opened
+    setCurrentStep(0);
+    setIsWildStep(false);
   };
 
   const handleNext = () => {
@@ -23,18 +26,23 @@ const SimulationModal: React.FC = () => {
   };
 
   const handlePrev = () => {
-    setCurrentStep(currentStep - 1);
+    if (isWildStep) {
+      setIsWildStep(false);
+    } else {
+      setCurrentStep(currentStep - 1);
+    }
   };
 
   const handleFinish = () => {
-    // Implement the finish action here
     setOpen(false);
   };
 
-  // Function to return the modal title based on the current step
-  const getModalTitle = () => `Create Simulation - Step ${currentStep + 1}`;
+  const getModalTitle = () => {
+    return isWildStep
+      ? 'Wild Step'
+      : `Create Simulation - Step ${currentStep + 1}`;
+  };
 
-  // Custom footer
   const modalFooter = (
     <div
       style={{
@@ -46,9 +54,7 @@ const SimulationModal: React.FC = () => {
       }}
     >
       <div style={{ width: '100px' }}>
-        {' '}
-        {/* Fixed width for button alignment */}
-        {currentStep > 0 && (
+        {(currentStep > 0 || isWildStep) && (
           <Button key="back" onClick={handlePrev}>
             Previous
           </Button>
@@ -64,20 +70,22 @@ const SimulationModal: React.FC = () => {
           maxWidth: 'calc(100% - 20vh)'
         }}
       >
-        <Step style={{ padding: 0, flex: 0 }} />
-        <Step style={{ padding: 0, flex: 0 }} />
-        <Step style={{ padding: 0, flex: 0 }} />
+        <Step />
+        <Step />
+        <Step />
       </Steps>
       <div style={{ width: '100px' }}>
-        {' '}
-        {/* Fixed width for button alignment */}
-        {currentStep < 2 ? (
-          <Button key="next" type="primary" onClick={handleNext}>
-            Next
+        {isWildStep ? (
+          <Button key="save" onClick={handleFinish}>
+            Save
+          </Button>
+        ) : currentStep === 2 ? (
+          <Button key="finish" onClick={handleFinish}>
+            Finish
           </Button>
         ) : (
-          <Button key="finish" type="primary" onClick={handleFinish}>
-            Finish
+          <Button key="next" onClick={handleNext}>
+            Next
           </Button>
         )}
       </div>
@@ -86,9 +94,7 @@ const SimulationModal: React.FC = () => {
 
   return (
     <>
-      <Button type="primary" onClick={showModal}>
-        Add New
-      </Button>
+      <Button onClick={showModal}>Add New</Button>
       <Modal
         title={getModalTitle()}
         centered
@@ -97,8 +103,11 @@ const SimulationModal: React.FC = () => {
         onCancel={() => setOpen(false)}
         footer={modalFooter}
       >
-        <StepContent stepNumber={currentStep + 1} />
-        {/* Render the StepContent component with the current step */}
+        <StepContent
+          stepNumber={currentStep + 1}
+          enterWildStep={() => setIsWildStep(true)}
+          isLastStep={currentStep === 2}
+        />
       </Modal>
     </>
   );
