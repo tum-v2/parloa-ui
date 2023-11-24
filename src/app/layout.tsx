@@ -12,7 +12,8 @@ export const metadata: Metadata = {
 
 const rootStyle: React.CSSProperties = {
   // @ts-ignore
-  '--color-text': theme.color.deepPurple
+  '--color-text': theme.color.deepPurple,
+  '--font-lexend': theme.font.lexend.style.fontFamily
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
