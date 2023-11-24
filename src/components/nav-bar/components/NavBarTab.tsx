@@ -5,10 +5,11 @@ import { IoAppsOutline, IoDiceOutline } from 'react-icons/io5';
 import theme from '@/theme/theme';
 import { useRouter } from 'next/navigation';
 
-export enum NavBarTabOptions {
-  Dashboard = 'Dashboard',
-  Simulations = 'Simulations'
+enum NavBarTabOptions {
+  Dashboard = 'dashboard',
+  Simulations = 'simulations'
 }
+
 interface NavBarTabProps {
   selectedTab: string;
   setSelectedTab: Dispatch<SetStateAction<string>>;
@@ -20,7 +21,8 @@ const NavBarTab = ({ selectedTab, setSelectedTab }: NavBarTabProps) => {
   const navBarTabElementStyle: React.CSSProperties = {
     padding: theme.padding.xs,
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    textTransform: 'capitalize'
   };
 
   const navBarTabElementIconStyle: React.CSSProperties = {
@@ -70,7 +72,7 @@ const NavBarTab = ({ selectedTab, setSelectedTab }: NavBarTabProps) => {
         onChange={value => {
           const selectedTab = value.toString();
           setSelectedTab(selectedTab);
-          router.push(`/${selectedTab.toLowerCase()}`);
+          router.push(selectedTab);
         }}
       />
     </ConfigProvider>

@@ -15,7 +15,6 @@ const rootStyle: React.CSSProperties = {
   '--color-text': theme.color.deepPurple
 };
 
-// eslint-disable-next-line require-jsdoc
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en" style={rootStyle}>
