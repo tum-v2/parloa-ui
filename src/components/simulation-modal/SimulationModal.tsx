@@ -6,9 +6,19 @@ import Button from '../generic/Button';
 
 const { Step } = Steps;
 
-const customDot = (dot: React.ReactNode, { index }: { index: number }) => (
-  <Popover content={<span>Step {index + 1}</span>}>{dot}</Popover>
-);
+const customDot = (dot: React.ReactNode, { index }: { index: number }) => {
+  let content = '';
+
+  if (index + 1 === 1) {
+    content = 'Create a New Simulation';
+  } else if (index + 1 === 2) {
+    content = 'Name & Configuration';
+  } else if (index + 1 === 3) {
+    content = 'Configure Agent and User';
+  }
+
+  return <Popover content={<span>{content}</span>}>{dot}</Popover>;
+};
 
 const SimulationModal: React.FC = () => {
   const [open, setOpen] = useState(false);
@@ -38,9 +48,21 @@ const SimulationModal: React.FC = () => {
   };
 
   const getModalTitle = () => {
-    return isWildStep
-      ? 'Wild Step'
-      : `Create Simulation - Step ${currentStep + 1}`;
+    if (isWildStep) {
+      return 'Wild Step';
+    } else {
+      let content = '';
+
+      if (currentStep + 1 === 1) {
+        content = 'Create a New Simulation';
+      } else if (currentStep + 1 === 2) {
+        content = 'Name & Configuration';
+      } else if (currentStep + 1 === 3) {
+        content = 'Configure Agent and User';
+      }
+
+      return `${content}`;
+    }
   };
 
   const modalFooter = (
@@ -67,7 +89,7 @@ const SimulationModal: React.FC = () => {
         style={{
           flex: 1,
           justifyContent: 'center',
-          maxWidth: 'calc(100% - 20vh)'
+          maxWidth: '20%'
         }}
       >
         <Step />
