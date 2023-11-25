@@ -4,25 +4,37 @@ import theme from '@/theme/theme';
 
 interface ButtonProps {
   icon?: React.ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
   children?: React.ReactNode;
+  size?: 'small' | 'middle' | 'large';
+  block?: boolean;
+  htmlType?: 'button' | 'submit' | 'reset';
 }
 
-const Button = ({ icon, onClick, children }: ButtonProps) => {
+const Button = ({
+  icon,
+  onClick,
+  children,
+  size,
+  block,
+  htmlType
+}: ButtonProps) => {
   const buttonStyle: React.CSSProperties = {
     borderRadius: theme.borderRadius.m,
     width: icon && !children ? '50px' : 'max-content',
     height: '50px',
-    boxShadow: 'none' // Remove the default shadow of the AntD component.
+    boxShadow: 'none' // Remove the default shadow of the AntD component.,
   };
 
   return (
     <AntdButton
       type={'primary'}
       icon={icon}
-      size={'large'}
+      size={size ? size : 'middle'}
       style={buttonStyle}
       onClick={onClick}
+      block={block}
+      htmlType={htmlType}
     >
       {children}
     </AntdButton>

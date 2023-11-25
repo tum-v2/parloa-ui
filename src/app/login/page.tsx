@@ -5,9 +5,26 @@ import logo from '@/components/parloa-logo.png';
 import Image from 'next/image';
 import theme from '@/theme/theme';
 import { InputField } from '@/components/generic/InputField';
-import Button from '@/components/generic/Button';
+// import Button from '@/components/generic/Button';
+import { Button, Form } from 'antd';
+import { useRouter } from 'next/navigation';
 
 const Login = () => {
+  const router = useRouter();
+  const [form] = Form.useForm<{ accessCode: string }>();
+
+  const onFinish = () => {
+    // TODO: Implement Login feature
+    console.log(form.getFieldsValue());
+    console.log('Login success');
+    router.push('/dashboard');
+  };
+
+  const onFinishFailed = () => {
+    // TODO: Implement failed login feature
+    console.log('Login failed');
+  };
+
   const landingImageBackgroundStyle: React.CSSProperties = {
     zIndex: -1
   };
@@ -30,7 +47,7 @@ const Login = () => {
   };
 
   const accessCodeInputStyle: React.CSSProperties = {
-    width: '50%',
+    width: '60%',
     minWidth: '200px',
     marginBottom: theme.padding.m
   };
@@ -56,14 +73,31 @@ const Login = () => {
           priority={false}
         />
         <div style={accessCodeInputStyle}>
-          <InputField type="password" placeholder="Access Code" />
-          <Button
-            onClick={() => {
-              console.log('login');
-            }}
+          <Form
+            form={form}
+            layout="vertical"
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
           >
-            Login
-          </Button>
+            <Form.Item
+              style={{ marginBottom: theme.padding.m }}
+              label="Access Code"
+              name="accessCode"
+            >
+              <InputField type="password" />
+            </Form.Item>
+            <Form.Item>
+              <Button
+                // TODO: Change to our general button
+                style={{ boxShadow: 'none' }}
+                type="primary"
+                htmlType="submit"
+                block
+              >
+                Login
+              </Button>
+            </Form.Item>
+          </Form>
         </div>
       </div>
     </div>

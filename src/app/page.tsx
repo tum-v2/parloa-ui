@@ -3,62 +3,6 @@
 import NavBar from '@/components/nav-bar';
 
 export default function Page() {
-  return (
-    <>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-      <div>Hi!</div>
-    </>
-  );
+  // TODO: Set default root page to dashboard
+  return <div>HomePage!</div>;
 }
