@@ -30,7 +30,13 @@ const NavBar = () => {
   return (
     <div style={navBarContainerStyle}>
       <div style={navBarStyle}>
-        <Image src={logo} alt="logo" width={36} height={36} priority={false} />
+        <Image
+          src={logo}
+          alt="logo"
+          width={theme.token.navbarLogoSize}
+          height={theme.token.navbarLogoSize}
+          priority={false}
+        />
         <NavBarTab selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
         <NavBarLogout
           onClick={() => {
