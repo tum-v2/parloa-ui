@@ -36,8 +36,8 @@ const NavBar = () => {
           <Image
             src={logo}
             alt="logo"
-            width={36}
-            height={36}
+            width={theme.token.navbarLogoSize}
+            height={theme.token.navbarLogoSize}
             priority={false}
           />
           <NavBarTab
