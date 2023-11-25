@@ -76,7 +76,7 @@ const SimulationModal: React.FC = () => {
       </Steps>
       <div style={{ width: '100px' }}>
         {isWildStep ? (
-          <Button key="save" onClick={handleFinish}>
+          <Button key="save" onClick={handlePrev}>
             Save
           </Button>
         ) : currentStep === 2 ? (
