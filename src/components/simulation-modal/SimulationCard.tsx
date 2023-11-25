@@ -18,7 +18,8 @@ const cardStyle: React.CSSProperties = {
   alignItems: 'center',
   justifyContent: 'center',
   width: 300,
-  height: 400
+  height: 400,
+  border: '1px solid'
 };
 
 const wrapperStyle: React.CSSProperties = {

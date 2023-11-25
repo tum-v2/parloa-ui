@@ -14,7 +14,7 @@ const customDot = (dot: React.ReactNode, { index }: { index: number }) => {
   } else if (index + 1 === 2) {
     content = 'Name & Configuration';
   } else if (index + 1 === 3) {
-    content = 'Configure Agent and User';
+    content = 'Configure Simulation';
   }
 
   return <Popover content={<span>{content}</span>}>{dot}</Popover>;
@@ -58,7 +58,7 @@ const SimulationModal: React.FC = () => {
       } else if (currentStep + 1 === 2) {
         content = 'Name & Configuration';
       } else if (currentStep + 1 === 3) {
-        content = 'Configure Agent and User';
+        content = 'Configure Simulation';
       }
 
       return `${content}`;
