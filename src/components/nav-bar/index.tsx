@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation';
 import theme from '@/theme/theme';
 
 const NavBar = () => {
-  const [selectedTab, setSelectedTab] = useState<string>('Dashboard');
+  const [selectedTab, setSelectedTab] = useState<string>('dashboard');
   const router = useRouter();
   const navBarStyle: React.CSSProperties = {
     display: 'flex',
