@@ -17,3 +17,5 @@ export const SimulationSchema = z.object({
   createdAt: z.string(),
   updatedAt: z.string()
 });
+
+export type Simulation = z.infer<typeof SimulationSchema>;

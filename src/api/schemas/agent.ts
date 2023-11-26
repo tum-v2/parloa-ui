@@ -10,3 +10,5 @@ export const AgentSchema = z.object({
   updatedAt: z.string(),
   createdAt: z.string()
 });
+
+export type Agent = z.infer<typeof AgentSchema>;

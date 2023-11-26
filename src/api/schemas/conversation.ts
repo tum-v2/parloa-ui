@@ -16,3 +16,7 @@ export const ConversationSchema = z.object({
   status: z.string(),
   usedEndpoints: z.array(z.string())
 });
+
+export type Conversation = z.infer<typeof ConversationSchema>;
+
+export type Message = z.infer<typeof MessageSchema>;
