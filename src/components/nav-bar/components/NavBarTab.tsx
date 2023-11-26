@@ -17,13 +17,6 @@ interface NavBarTabProps {
 
 const NavBarTab = ({ selectedTab, setSelectedTab }: NavBarTabProps) => {
   const router = useRouter();
-  const path = (path: string) => {
-    if (path === NavBarTabOptions.Dashboard) {
-      return NavBarTabOptions.Dashboard;
-    } else {
-      return NavBarTabOptions.Simulations;
-    }
-  };
 
   const navBarTabElementStyle: React.CSSProperties = {
     padding: theme.padding.xs,
@@ -77,10 +70,8 @@ const NavBarTab = ({ selectedTab, setSelectedTab }: NavBarTabProps) => {
         options={navBarTabOptions}
         value={selectedTab}
         onChange={value => {
-          const selectedTab = value.toString();
-          const pathOfSelectedTab = path(selectedTab);
-          setSelectedTab(pathOfSelectedTab);
-          router.push(selectedTab);
+          setSelectedTab(value as NavBarTabOptions);
+          router.push(value.toString());
         }}
       />
     </ConfigProvider>
