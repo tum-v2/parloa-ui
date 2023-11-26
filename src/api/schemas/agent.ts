@@ -7,8 +7,8 @@ export const AgentSchema = z.object({
   temperature: z.number(),
   maxTokens: z.number(),
   prompt: z.string(),
-  updatedAt: z.string(),
-  createdAt: z.string()
+  updatedAt: z.string().datetime(),
+  createdAt: z.string().datetime()
 });
 
 export type Agent = z.infer<typeof AgentSchema>;
