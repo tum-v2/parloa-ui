@@ -70,8 +70,9 @@ const NavBarTab = ({ selectedTab, setSelectedTab }: NavBarTabProps) => {
         options={navBarTabOptions}
         value={selectedTab}
         onChange={value => {
-          setSelectedTab(value as NavBarTabOptions);
-          router.push(value.toString());
+          const valAsNavBarTabOptions = value as NavBarTabOptions;
+          setSelectedTab(valAsNavBarTabOptions);
+          router.push(valAsNavBarTabOptions);
         }}
       />
     </ConfigProvider>
