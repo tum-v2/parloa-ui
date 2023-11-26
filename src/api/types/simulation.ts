@@ -1,12 +1,18 @@
 import { Agent } from './agent';
 import { Conversation } from './conversation';
 
+export type SimulationType =
+  | 'AUTOMATED'
+  | 'MANUAL'
+  | 'OPTIMIZATION'
+  | 'A/B TESTING';
+
 export interface Simulation {
   _id: string;
   name: string;
   scenario: string;
   domain: string;
-  type: string;
+  type: SimulationType;
   numConversations: number;
   agents: Agent[];
   conversations: Conversation[];

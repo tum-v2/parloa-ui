@@ -3,14 +3,17 @@ import { Typography } from 'antd';
 
 interface HeaderProps {
   title: string;
+  style?: React.CSSProperties;
 }
 
 const { Title } = Typography;
 
-const Header = ({ title }: HeaderProps) => {
+const Header = ({ title, style }: HeaderProps) => {
   return (
     <>
-      <Title level={2}>{title}</Title>
+      <Title level={2} style={style}>
+        {title}
+      </Title>
     </>
   );
 };

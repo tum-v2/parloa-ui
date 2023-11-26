@@ -9,7 +9,7 @@ export const SimulationSchema = z.object({
   name: z.string(),
   scenario: z.string(),
   domain: z.string(),
-  type: z.string(),
+  type: z.enum(['AUTOMATED', 'MANUAL', 'OPTIMIZATION', 'A/B TESTING']),
   numConversations: z.number(),
   agents: AgentSchema.array(),
   conversations: ConversationSchema.array(),
