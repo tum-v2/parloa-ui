@@ -103,15 +103,36 @@ const StepContent: React.FC<StepContentProps> = ({
         // Content for step 3
         return (
           <>
-            <ModelCard
-              models={models}
-              scenarios={scenarios}
-              onModelChange={handleModelChange}
-              onScenarioChange={handleScenarioChange}
-              onButtonClick={enterWildStep}
-              icon={<FaHeadphones size={100} />}
-              title="Agent LLM"
-            />
+            <div style={{ display: 'flex' }}>
+              <div style={{ padding: '20px' }}>
+                <SimulationCard
+                  mode="automated"
+                  onClick={() => console.log('Manual Simulation Card Clicked')}
+                />
+              </div>
+              <div style={{ padding: '20px' }}>
+                <ModelCard
+                  models={models}
+                  scenarios={scenarios}
+                  onModelChange={handleModelChange}
+                  onScenarioChange={handleScenarioChange}
+                  onButtonClick={enterWildStep}
+                  icon={<FaHeadphones size={100} />}
+                  title="Agent LLM"
+                />
+              </div>
+              <div style={{ padding: '20px' }}>
+                <ModelCard
+                  models={models}
+                  scenarios={scenarios}
+                  onModelChange={handleModelChange}
+                  onScenarioChange={handleScenarioChange}
+                  onButtonClick={enterWildStep}
+                  icon={<FaHeadphones size={100} />}
+                  title="Agent LLM"
+                />
+              </div>
+            </div>
           </>
         );
 
