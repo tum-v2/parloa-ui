@@ -4,6 +4,7 @@ import React from 'react';
 import ThemeProvider from '@/providers/ThemeProvider';
 import NavBar from '@/components/nav-bar';
 import theme from '@/theme/theme';
+import ReactQueryClientProvider from '@/providers/ReactQueryClientProvider';
 
 export const metadata: Metadata = {
   title: 'Parloa LLM',
@@ -20,10 +21,12 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en" style={rootStyle}>
       <body className={theme.font.inter.className}>
-        <ThemeProvider>
-          <NavBar />
-          <main>{children}</main>
-        </ThemeProvider>
+        <ReactQueryClientProvider>
+          <ThemeProvider>
+            <NavBar />
+            <main>{children}</main>
+          </ThemeProvider>
+        </ReactQueryClientProvider>
       </body>
     </html>
   );
