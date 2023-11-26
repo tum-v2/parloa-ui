@@ -77,7 +77,6 @@ const NavBarTab = ({ selectedTab, setSelectedTab }: NavBarTabProps) => {
         options={navBarTabOptions}
         value={selectedTab}
         onChange={value => {
-          console.log(value);
           const selectedTab = value.toString();
           const pathOfSelectedTab = path(selectedTab);
           setSelectedTab(pathOfSelectedTab);
