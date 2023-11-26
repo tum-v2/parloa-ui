@@ -1,18 +1,30 @@
 import React from 'react';
-import Button from '../generic/Button';
 import SimulationCard from './SimulationCard';
 import { InputField } from '../generic/InputField';
+import { FaHeadphones } from 'react-icons/fa';
+import ModelCard from './ModelCard';
+// Dummy data for the models and scenarios dropdowns
+const models = ['GPT-3', 'GPT-4', 'BERT', 'XLNet'];
+const scenarios = ['Flight Agent', 'Customer Service', 'Tech Support', 'Sales'];
+
 interface StepContentProps {
   stepNumber: number;
   enterWildStep: () => void;
-  isLastStep: boolean;
 }
 
 const StepContent: React.FC<StepContentProps> = ({
   stepNumber,
-  enterWildStep,
-  isLastStep
+  enterWildStep
 }) => {
+  // Dummy functions to handle dropdown changes and button click
+  const handleModelChange = () => {
+    console.log(`Selected Model`);
+  };
+
+  const handleScenarioChange = () => {
+    console.log(`Selected Scenario:`);
+  };
+
   const renderContentForStep = () => {
     switch (stepNumber) {
       case 1:
@@ -89,11 +101,18 @@ const StepContent: React.FC<StepContentProps> = ({
 
       case 3:
         // Content for step 3
-        return isLastStep ? (
-          <Button onClick={enterWildStep}>Go to Wild Step</Button>
-        ) : (
-          // Other content for step 3 if it's not the last step
-          <p>{`Step ${stepNumber}`}</p>
+        return (
+          <>
+            <ModelCard
+              models={models}
+              scenarios={scenarios}
+              onModelChange={handleModelChange}
+              onScenarioChange={handleScenarioChange}
+              onButtonClick={enterWildStep}
+              icon={<FaHeadphones size={100} />}
+              title="Agent LLM"
+            />
+          </>
         );
 
       default:

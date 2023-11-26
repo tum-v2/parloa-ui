@@ -1,12 +1,9 @@
 import React from 'react';
-import { Card, Select, Button } from 'antd';
+import { Card, Select, Button, Typography } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
-import { Typography } from 'antd';
-import { FaHeadphones } from 'react-icons/fa';
-
-const { Text } = Typography;
 
 const { Option } = Select;
+const { Text } = Typography;
 
 interface ModelCardProps {
   models: string[];
@@ -14,46 +11,51 @@ interface ModelCardProps {
   onModelChange: () => void;
   onScenarioChange: () => void;
   onButtonClick: () => void;
+  icon: React.ReactNode; // Icon prop
+  title: string; // Title text prop
 }
 
 const cardStyle: React.CSSProperties = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
   width: 300,
   height: 400,
-  border: '1px solid'
-};
-
-const selectStyle: React.CSSProperties = {
-  width: '100%',
-  marginBottom: '20px' // Maintain a bottom margin for spacing
-};
-
-const buttonStyle: React.CSSProperties = {
-  width: '100%',
-  marginBottom: '20px' // Optional: if you want to maintain bottom spacing
+  border: '1px solid',
+  padding: 20
 };
 
 const wrapperStyle: React.CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  justifyContent: 'space-between', // This will space out the children evenly
-  width: '100%', // Ensure the wrapper fills the card horizontally
-  height: '100%', // Ensure the wrapper fills the card vertically
-  padding: '20px', // Add padding inside the card
-  boxSizing: 'border-box' // Include padding in width and height calculations
+  height: '100%',
+  justifyContent: 'space-between'
 };
 
-const textStyle: React.CSSProperties = {
-  fontWeight: 'normal',
-  marginBottom: '4px',
-  fontSize: '22px'
+const textStyle: React.CSSProperties = { fontSize: 22 };
+
+const iconStyle: React.CSSProperties = { margin: 24 }; // Style for the icon
+
+const selectStyle: React.CSSProperties = {
+  width: '100%',
+  marginBottom: 20,
+  height: 40
 };
-const iconStyle: React.CSSProperties = {
-  marginBottom: '24px'
+
+const labelStyle: React.CSSProperties = {
+  display: 'block',
+  marginBottom: 8,
+  fontSize: 13
+};
+
+const scenarioWrapperStyle: React.CSSProperties = {
+  display: 'flex',
+  alignItems: 'center',
+  width: '100%'
+};
+
+const scenarioSelectStyle: React.CSSProperties = {
+  flex: 1,
+  marginRight: 10,
+  height: 40
 };
 
 const ModelCard: React.FC<ModelCardProps> = ({
@@ -61,15 +63,16 @@ const ModelCard: React.FC<ModelCardProps> = ({
   scenarios,
   onModelChange,
   onScenarioChange,
-  onButtonClick
+  onButtonClick,
+  icon, // Icon prop
+  title // Title text prop
 }) => {
   return (
     <Card style={cardStyle}>
       <div style={wrapperStyle}>
-        <Text style={textStyle}>Agent LLM</Text>
-        <FaHeadphones size={100} style={iconStyle} />
+        <Text style={textStyle}>{title}</Text> {/* Use title prop */}
+        <div style={iconStyle}>{icon}</div> {/* Use icon prop */}
         <Select
-          size="large"
           defaultValue={models[0]}
           style={selectStyle}
           onChange={onModelChange}
@@ -80,26 +83,28 @@ const ModelCard: React.FC<ModelCardProps> = ({
             </Option>
           ))}
         </Select>
-        <Select
-          size="large"
-          defaultValue={scenarios[0]}
-          style={selectStyle}
-          onChange={onScenarioChange}
-        >
-          {scenarios.map(scenario => (
-            <Option key={scenario} value={scenario}>
-              {scenario}
-            </Option>
-          ))}
-        </Select>
-        <Button
-          type="primary"
-          icon={<EditOutlined />}
-          onClick={onButtonClick}
-          style={buttonStyle}
-        >
-          Instruction Template/Scenario
-        </Button>
+        <label htmlFor="scenario" style={labelStyle}>
+          Instruction Template / Scenario
+        </label>
+        <div style={scenarioWrapperStyle}>
+          <Select
+            id="scenario"
+            defaultValue={scenarios[0]}
+            style={scenarioSelectStyle}
+            onChange={onScenarioChange}
+          >
+            {scenarios.map(scenario => (
+              <Option key={scenario} value={scenario}>
+                {scenario}
+              </Option>
+            ))}
+          </Select>
+          <Button
+            type="primary"
+            icon={<EditOutlined />}
+            onClick={onButtonClick}
+          />
+        </div>
       </div>
     </Card>
   );

@@ -49,7 +49,7 @@ const SimulationModal: React.FC = () => {
 
   const getModalTitle = () => {
     if (isWildStep) {
-      return 'Wild Step';
+      return 'Edit LLM Template';
     } else {
       let content = '';
 
@@ -127,8 +127,10 @@ const SimulationModal: React.FC = () => {
       >
         <StepContent
           stepNumber={currentStep + 1}
-          enterWildStep={() => setIsWildStep(true)}
-          isLastStep={currentStep === 2}
+          enterWildStep={() => {
+            setCurrentStep(9);
+            setIsWildStep(true);
+          }}
         />
       </Modal>
     </>
