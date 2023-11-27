@@ -7,38 +7,43 @@ import {
   UserOutlined
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
-import { Breadcrumb, Layout, List, Menu, Typography } from 'antd';
+import { Breadcrumb, Card, Flex, Layout, List, Menu, Typography } from 'antd';
 import VirtualList from 'rc-virtual-list';
 import theme from '@/theme/theme';
+import CardOverall, { NumberType, Trend } from './components/CardOverall';
+import { IoAirplaneOutline } from 'react-icons/io5';
 
-const { Header, Content, Sider } = Layout;
+const { Content, Sider } = Layout;
 
-const items1: MenuProps['items'] = ['1', '2', '3'].map(key => ({
-  key,
-  label: `nav ${key}`
-}));
+const dummyDashboardData = [
+  {
+    title: 'Total Number of Interractions',
+    icon: <IoAirplaneOutline />,
 
-const items2: MenuProps['items'] = [
-  UserOutlined,
-  LaptopOutlined,
-  NotificationOutlined
-].map((icon, index) => {
-  const key = String(index + 1);
+    numberType: 'number',
+    number: 23540,
+    trend: 'up',
+    trendNumber: 58.2
+  },
+  {
+    title: 'Simulation Ran',
+    icon: <IoAirplaneOutline />,
 
-  return {
-    key: `sub${key}`,
-    icon: React.createElement(icon),
-    label: `subnav ${key}`,
+    numberType: 'number',
+    number: 54,
+    trend: 'up',
+    trendNumber: 58.2
+  },
+  {
+    title: 'Average Success Rate',
+    icon: <IoAirplaneOutline />,
 
-    children: new Array(4).fill(null).map((_, j) => {
-      const subKey = index * 4 + j + 1;
-      return {
-        key: subKey,
-        label: `option${subKey}`
-      };
-    })
-  };
-});
+    numberType: 'percentage',
+    number: 78,
+    trend: 'up',
+    trendNumber: 58.2
+  }
+];
 
 const Dashboard = () => {
   const DashboardLayoutStyle: React.CSSProperties = {
@@ -46,13 +51,28 @@ const Dashboard = () => {
     height: 'calc(100vh - 65px)'
   };
   const DashboardLeftLayoutStyle: React.CSSProperties = {
-    padding: theme.padding.l
+    paddingTop: theme.padding.l,
+    paddingBottom: theme.padding.l
   };
   return (
     <Layout style={DashboardLayoutStyle}>
       <Layout style={{ padding: '0 24px 24px' }}>
         <Typography.Title level={2}>Dashboard</Typography.Title>
-        <Content style={DashboardLeftLayoutStyle}>Content</Content>
+        <Content style={DashboardLeftLayoutStyle}>
+          <Flex justify="space-between" style={{ height: '20vh' }}>
+            {dummyDashboardData.map(data => (
+              <CardOverall
+                title={data.title}
+                icon={data.icon}
+                numberType={data.numberType as NumberType}
+                number={data.number}
+                trend={data.trend as Trend}
+                trendNumber={data.trendNumber}
+                key={data.title}
+              />
+            ))}
+          </Flex>
+        </Content>
       </Layout>
       <Sider width={400}>
         <Typography.Title level={3}>High Yield Simulation</Typography.Title>
