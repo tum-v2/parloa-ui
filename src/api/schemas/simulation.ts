@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ConversationSchema } from './conversation';
+// import { ConversationSchema } from './conversation';
 import { AgentSchema } from './agent';
 
 export const SimulationSchema = z.object({

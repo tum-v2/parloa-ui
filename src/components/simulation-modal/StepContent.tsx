@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Select, Slider, Segmented } from 'antd';
 import SimulationCard from './SimulationCard';
 import { InputField } from '../generic/InputField';
 import { FaHeadphones } from 'react-icons/fa';
@@ -19,10 +20,14 @@ const StepContent: React.FC<StepContentProps> = ({
   enterWildStep
 }) => {
   // Dummy functions to handle dropdown changes and button click
+  const [temperature, setTemperature] = useState<number>(0.5);
+  const [maxTokens, setMaxTokens] = useState<number>(2048);
   const handleModelChange = () => {
     console.log(`Selected Model`);
   };
-
+  const handleScenarioTypeChange = (value: string) => {
+    console.log(`selected ${value}`);
+  };
   const handleScenarioChange = () => {
     console.log(`Selected Scenario:`);
   };
@@ -146,7 +151,100 @@ const StepContent: React.FC<StepContentProps> = ({
           </>
         );
       case 9:
-        return <>Edit LLM Template Content</>;
+        return (
+          <>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between', // Changed to 'space-between' to evenly space the inner divs
+                alignItems: 'center',
+                height: '100%',
+                width: '80%' // Make the outer div occupy the full width of its container
+              }}
+            >
+              <div
+                style={{
+                  width: '40%',
+                  padding: '20px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between'
+                }}
+              >
+                <div style={{ marginBottom: '16px' }}>
+                  <label
+                    htmlFor="template-name"
+                    style={{ display: 'block', marginBottom: '8px' }}
+                  >
+                    Template Name
+                  </label>
+                  <InputField id="template-name" type="text" size="large" />
+                </div>
+                <div>
+                  <label
+                    htmlFor="instructions"
+                    style={{ display: 'block', marginBottom: '8px' }}
+                  >
+                    Instructions
+                  </label>
+                  <InputField
+                    id="instructions"
+                    type="textarea"
+                    size="large"
+                    minRows={6}
+                  />
+                </div>
+              </div>
+              <div
+                style={{
+                  width: '40%',
+                  padding: '20px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between'
+                }}
+              >
+                <Select
+                  defaultValue="Sequence"
+                  style={{ width: 120 }}
+                  onChange={handleScenarioTypeChange}
+                  options={[
+                    { value: 'Sequence', label: 'Sequence' },
+                    { value: 'Slot Filling', label: 'Slot Filling' },
+                    { value: 'Call Forward', label: 'Call Forward' }
+                  ]}
+                />
+                <div>
+                  <div>
+                    <label>Temperature (0 - 1):</label>
+                    <Slider
+                      min={0}
+                      max={1}
+                      step={0.01}
+                      value={temperature}
+                      onChange={value => setTemperature(value as number)}
+                    />
+                  </div>
+                  <div>
+                    <label>Max Tokens (1024 - 4096):</label>
+                    <Slider
+                      min={1024}
+                      max={4096}
+                      step={1}
+                      value={maxTokens}
+                      onChange={value => setMaxTokens(value as number)}
+                    />
+                  </div>
+                </div>
+                <div style={{ marginTop: '20px' }}>
+                  <label>Overwrite Template:</label>
+                  <br />
+                  <Segmented options={['Yes', 'No']} />
+                </div>
+              </div>
+            </div>
+          </>
+        );
 
       default:
         // Default content if none of the above cases match

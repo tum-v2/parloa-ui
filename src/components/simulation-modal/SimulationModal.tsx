@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal, Steps, Popover } from 'antd';
 import theme from '@/theme/theme';
 import StepContent from './StepContent';
-import Button from '../generic/Button';
+import { Button } from 'antd';
 import BackButton from '../generic/BackButton';
 import NextButton from '../generic/NextButton';
 
@@ -98,9 +98,13 @@ const SimulationModal: React.FC = () => {
         {' '}
         {/* Adjusted for flexible sizing and alignment */}
         {isWildStep ? (
-          <Button onClick={handlePrev}>Save</Button>
+          <Button type="primary" onClick={handlePrev}>
+            Save
+          </Button>
         ) : currentStep === 2 ? (
-          <Button onClick={handleFinish}>Finish</Button>
+          <Button type="primary" onClick={handleFinish}>
+            Finish
+          </Button>
         ) : (
           <NextButton onClick={handleNext}>{getNextStepTitle()}</NextButton>
         )}
@@ -110,7 +114,9 @@ const SimulationModal: React.FC = () => {
 
   return (
     <>
-      <Button onClick={showModal}>Add New</Button>
+      <Button type="primary" onClick={showModal}>
+        Add New
+      </Button>
       <Modal
         title={getModalTitle()}
         centered
