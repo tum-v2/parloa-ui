@@ -4,32 +4,57 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 
 import NavBarTab from './components/NavBarTab';
-import logo from './components/parloa-logo.png';
+import logo from '../parloa-logo.png';
 import NavBarLogout from './components/NavBarLogout';
+import { usePathname, useRouter } from 'next/navigation';
+import theme from '@/theme/theme';
 
-const NavBar: React.FC = () => {
-  const [selectedTab, setSelectedTab] = useState<string>('Dashboard');
+const NavBar = () => {
+  const [selectedTab, setSelectedTab] = useState<string>('dashboard');
+  const router = useRouter();
+  const pathname = usePathname();
+  const hideNavBar = pathname === '/login' ? false : true;
 
   const navBarStyle: React.CSSProperties = {
-    height: 50,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingLeft: 4,
-    paddingRight: 4
+    padding: theme.padding.s
   };
 
-  return (
-    <div style={navBarStyle}>
-      <Image src={logo} alt="logo" width={36} height={36} priority={false} />
-      <NavBarTab selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
-      <NavBarLogout
-        onClick={() => {
-          console.log('logout');
-        }}
-      />
-    </div>
-  );
+  const navBarContainerStyle: React.CSSProperties = {
+    position: 'sticky',
+    top: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: theme.color.white
+  };
+  if (hideNavBar) {
+    return (
+      <div style={navBarContainerStyle}>
+        <div style={navBarStyle}>
+          <Image
+            src={logo}
+            alt="logo"
+            width={theme.token.navbarLogoSize}
+            height={theme.token.navbarLogoSize}
+            priority={false}
+          />
+          <NavBarTab
+            selectedTab={selectedTab}
+            setSelectedTab={setSelectedTab}
+          />
+          <NavBarLogout
+            onClick={() => {
+              // TODO: Implement Logout feature
+              router.push('/login');
+            }}
+          />
+        </div>
+      </div>
+    );
+  }
+  return null;
 };
 
 export default NavBar;
