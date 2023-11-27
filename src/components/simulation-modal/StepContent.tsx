@@ -135,6 +135,8 @@ const StepContent: React.FC<StepContentProps> = ({
             </div>
           </>
         );
+      case 9:
+        return <>Edit LLM Template Content</>;
 
       default:
         // Default content if none of the above cases match

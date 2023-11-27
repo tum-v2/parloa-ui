@@ -10,6 +10,7 @@ const { Text } = Typography;
 type SimulationCardProps = {
   mode: 'automated' | 'manual';
   onClick: () => void; // This prop is a function that will be called on card click
+  children?: React.ReactNode;
 };
 
 const cardStyle: React.CSSProperties = {
@@ -41,7 +42,11 @@ const textStyle: React.CSSProperties = {
   fontSize: '22px'
 };
 
-const SimulationCard: React.FC<SimulationCardProps> = ({ mode, onClick }) => (
+const SimulationCard: React.FC<SimulationCardProps> = ({
+  mode,
+  onClick,
+  children
+}) => (
   <Card hoverable style={cardStyle} onClick={onClick}>
     <div style={wrapperStyle}>
       {mode === 'manual' ? (
@@ -51,6 +56,7 @@ const SimulationCard: React.FC<SimulationCardProps> = ({ mode, onClick }) => (
           </div>
           <Text style={textStyle}>Manual</Text>
           <Text style={textStyle}>Simulation</Text>
+          {children}
         </>
       ) : (
         <>
@@ -59,6 +65,7 @@ const SimulationCard: React.FC<SimulationCardProps> = ({ mode, onClick }) => (
           </div>
           <Text style={textStyle}>Automated</Text>
           <Text style={textStyle}>Simulation</Text>
+          {children}
         </>
       )}
     </div>

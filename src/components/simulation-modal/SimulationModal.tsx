@@ -38,6 +38,7 @@ const SimulationModal: React.FC = () => {
   const handlePrev = () => {
     if (isWildStep) {
       setIsWildStep(false);
+      setCurrentStep(2);
     } else {
       setCurrentStep(currentStep - 1);
     }
@@ -128,7 +129,7 @@ const SimulationModal: React.FC = () => {
         <StepContent
           stepNumber={currentStep + 1}
           enterWildStep={() => {
-            setCurrentStep(9);
+            setCurrentStep(8);
             setIsWildStep(true);
           }}
         />
