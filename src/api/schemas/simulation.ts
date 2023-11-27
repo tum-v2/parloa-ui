@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import { ConversationSchema } from './conversation';
 import { AgentSchema } from './agent';
 
 export const SimulationSchema = z.object({
@@ -12,7 +11,7 @@ export const SimulationSchema = z.object({
   type: z.string(),
   numConversations: z.number(),
   agents: AgentSchema.array(),
-  conversations: ConversationSchema.array(),
+  conversations: z.number().array(),
   status: z.string(),
   createdAt: z.string().datetime(),
   updatedAt: z.string().datetime()
