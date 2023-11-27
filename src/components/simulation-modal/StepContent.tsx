@@ -3,6 +3,8 @@ import SimulationCard from './SimulationCard';
 import { InputField } from '../generic/InputField';
 import { FaHeadphones } from 'react-icons/fa';
 import ModelCard from './ModelCard';
+import { AiFillCode } from 'react-icons/ai';
+import { IoReload } from 'react-icons/io5';
 // Dummy data for the models and scenarios dropdowns
 const models = ['GPT-3', 'GPT-4', 'BERT', 'XLNet'];
 const scenarios = ['Flight Agent', 'Customer Service', 'Tech Support', 'Sales'];
@@ -32,14 +34,18 @@ const StepContent: React.FC<StepContentProps> = ({
           <div style={{ display: 'flex' }}>
             <div style={{ padding: '20px' }}>
               <SimulationCard
+                selectable={true}
+                title="Manual"
                 mode="manual"
-                onClick={() => console.log('Manual Simulation Card Clicked')}
+                icon={<AiFillCode size={100} />}
               />
             </div>
             <div style={{ padding: '20px' }}>
               <SimulationCard
+                selectable={true}
+                title="Automated"
                 mode="automated"
-                onClick={() => console.log('Automated Simulation Card Clicked')}
+                icon={<IoReload size={100} />}
               />
             </div>
           </div>
@@ -60,8 +66,10 @@ const StepContent: React.FC<StepContentProps> = ({
               {' '}
               {/* Set a fixed width equal to the SimulationCard */}
               <SimulationCard
-                mode="manual"
-                onClick={() => console.log('Simulation Card Clicked')}
+                selectable={false}
+                title="Automated"
+                mode="automated"
+                icon={<AiFillCode size={100} />}
               />
             </div>
             <div style={{ width: '400px', padding: '20px' }}>
@@ -106,8 +114,10 @@ const StepContent: React.FC<StepContentProps> = ({
             <div style={{ display: 'flex' }}>
               <div style={{ padding: '20px' }}>
                 <SimulationCard
+                  selectable={false}
+                  title="Automated"
                   mode="automated"
-                  onClick={() => console.log('Manual Simulation Card Clicked')}
+                  icon={<AiFillCode size={100} />}
                 />
               </div>
               <div style={{ padding: '20px' }}>

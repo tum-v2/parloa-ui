@@ -1,26 +1,32 @@
-import React from 'react';
-import { Card } from 'antd';
-import { AiFillCode } from 'react-icons/ai';
-import { IoReload } from 'react-icons/io5';
-import { Typography } from 'antd';
+import React, { useState } from 'react';
+import { Card, Typography } from 'antd';
 
 const { Text } = Typography;
 
-// Define a type for the component props
-type SimulationCardProps = {
-  mode: 'automated' | 'manual';
-  onClick: () => void; // This prop is a function that will be called on card click
+interface SimulationCardProps {
+  title: string;
+  icon: React.ReactNode;
   children?: React.ReactNode;
-};
+  mode: 'manual' | 'automated';
+  selectable: boolean;
+}
 
-const cardStyle: React.CSSProperties = {
+const cardStyleBase: React.CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
   width: 300,
   height: 400,
-  border: '1px solid'
+  border: '1px solid',
+  cursor: 'pointer'
+};
+
+const iconAndTextStyle: React.CSSProperties = {
+  fontWeight: 'normal',
+  marginBottom: '4px',
+  fontSize: '22px',
+  textAlign: 'center'
 };
 
 const wrapperStyle: React.CSSProperties = {
@@ -28,7 +34,6 @@ const wrapperStyle: React.CSSProperties = {
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-  textAlign: 'center',
   height: '100%'
 };
 
@@ -36,40 +41,73 @@ const iconStyle: React.CSSProperties = {
   marginBottom: '24px'
 };
 
-const textStyle: React.CSSProperties = {
-  fontWeight: 'normal',
-  marginBottom: '4px',
-  fontSize: '22px'
-};
+const getModeColors = (mode: 'manual' | 'automated') =>
+  ({
+    manual: {
+      iconAndText: '#4E77DF',
+      border: '#87A9FF',
+      background: '#F0F1FF'
+    },
+    automated: {
+      iconAndText: '#BE54DA',
+      border: '#E194F5',
+      background: '#FDF3FF'
+    }
+  })[mode];
 
 const SimulationCard: React.FC<SimulationCardProps> = ({
+  title,
+  icon,
+  children,
   mode,
-  onClick,
-  children
-}) => (
-  <Card hoverable style={cardStyle} onClick={onClick}>
-    <div style={wrapperStyle}>
-      {mode === 'manual' ? (
-        <>
-          <div style={iconStyle}>
-            <IoReload size={100} />
-          </div>
-          <Text style={textStyle}>Manual</Text>
-          <Text style={textStyle}>Simulation</Text>
-          {children}
-        </>
-      ) : (
-        <>
-          <div style={iconStyle}>
-            <AiFillCode size={100} />
-          </div>
-          <Text style={textStyle}>Automated</Text>
-          <Text style={textStyle}>Simulation</Text>
-          {children}
-        </>
-      )}
-    </div>
-  </Card>
-);
+  selectable
+}) => {
+  const [hover, setHover] = useState(false);
+  const [clicked, setClicked] = useState(false);
+  const modeColors = getModeColors(mode);
+
+  const cardStyle = {
+    ...cardStyleBase,
+    borderColor: selectable
+      ? hover || clicked
+        ? modeColors.border
+        : undefined
+      : modeColors.border,
+    backgroundColor: selectable
+      ? hover || clicked
+        ? modeColors.background
+        : undefined
+      : modeColors.background
+  };
+
+  const textStyle = {
+    ...iconAndTextStyle,
+    color: selectable
+      ? hover || clicked
+        ? modeColors.iconAndText
+        : undefined
+      : modeColors.iconAndText
+  };
+
+  const handleCardClick = () => {
+    setClicked(!clicked);
+  };
+
+  return (
+    <Card
+      style={cardStyle}
+      onMouseEnter={() => selectable && setHover(true)}
+      onMouseLeave={() => selectable && setHover(false)}
+      onClick={handleCardClick}
+    >
+      <div style={wrapperStyle}>
+        <span style={{ ...iconStyle, color: textStyle.color }}>{icon}</span>
+        <Text style={textStyle}>{title}</Text>
+        <Text style={textStyle}>Simulation</Text>
+        {children}
+      </div>
+    </Card>
+  );
+};
 
 export default SimulationCard;
