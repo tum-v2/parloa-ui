@@ -1,6 +1,6 @@
 import Header from '@/components/generic/Header';
 import React from 'react';
-import { Flex, Typography } from 'antd';
+import { Flex, Typography, Button } from 'antd';
 import Pill from '@/components/generic/Pill';
 import {
   getAgentLLMColor,
@@ -13,7 +13,7 @@ import {
   CustomerServiceOutlined,
   UserOutlined
 } from '@ant-design/icons';
-import { formatLongDateTimeString } from '@/lib/utils/date';
+import { formatLongDateTimeString } from '@/lib/utils/dateTime';
 import { Simulation } from '@/api/schemas/simulation';
 
 interface DetailsHeaderProps {
@@ -27,7 +27,10 @@ const DetailsHeader = ({ simulation }: DetailsHeaderProps) => {
 
   return (
     <Flex vertical gap={'small'}>
-      <Header title={name} style={{ margin: 0 }} />
+      <Flex justify="space-between" align="center" dir="row">
+        <Header title={name} style={{ margin: 0 }} />
+        <Button type="primary">View chat history</Button>
+      </Flex>
       <Typography.Text type="secondary">
         {formatLongDateTimeString(createdAt)}
       </Typography.Text>

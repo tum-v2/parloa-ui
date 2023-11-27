@@ -84,6 +84,11 @@ const theme = {
     },
     Card: {
       colorBorderSecondary: 'rgb(221, 218, 224)'
+    },
+    Button: {
+      defaultShadow: '',
+      dangerShadow: '',
+      primaryShadow: ''
     }
   }
 };
