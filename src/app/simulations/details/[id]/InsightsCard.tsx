@@ -25,38 +25,36 @@ const InsightsCard = () => {
   );
 
   return (
-    <Card
-      title={
-        <Title level={5} style={{ margin: 0 }}>
-          <StockOutlined /> Insights
-        </Title>
-      }
-      className="w-full"
-    >
-      <Flex vertical>
-        <Segmented
-          block
-          options={['Success Rate', 'Amount of steps', 'Evaluation Score']}
-          value={selectedChart}
-          onChange={setSelectedChart}
-          className="w-1/2 self-center"
-        />
-        <div className="h-96">
-          <ParentSize>
-            {({ width, height }) => (
-              <LineChart
-                width={width}
-                height={height}
-                data={mockData}
-                yMax={100}
-                yUnit="%"
-                padding={48}
-              />
-            )}
-          </ParentSize>
-        </div>
-      </Flex>
-    </Card>
+    <>
+      <Title level={4}>
+        <StockOutlined /> Insights
+      </Title>
+      <Card className="w-full">
+        <Flex vertical>
+          <Segmented
+            block
+            options={['Success Rate', 'Amount of steps', 'Evaluation Score']}
+            value={selectedChart}
+            onChange={setSelectedChart}
+            className="w-1/2 self-center"
+          />
+          <div className="h-96">
+            <ParentSize>
+              {({ width, height }) => (
+                <LineChart
+                  width={width}
+                  height={height}
+                  data={mockData}
+                  yMax={100}
+                  yUnit="%"
+                  padding={48}
+                />
+              )}
+            </ParentSize>
+          </div>
+        </Flex>
+      </Card>
+    </>
   );
 };
 

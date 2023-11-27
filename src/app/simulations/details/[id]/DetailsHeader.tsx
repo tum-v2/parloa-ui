@@ -1,4 +1,3 @@
-import { Simulation } from '@/api/types/simulation';
 import Header from '@/components/generic/Header';
 import React from 'react';
 import { Flex, Typography } from 'antd';
@@ -15,6 +14,7 @@ import {
   UserOutlined
 } from '@ant-design/icons';
 import { formatLongDateTimeString } from '@/lib/utils/date';
+import { Simulation } from '@/api/schemas/simulation';
 
 interface DetailsHeaderProps {
   simulation: Simulation;

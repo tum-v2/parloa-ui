@@ -1,8 +1,7 @@
 import { Inter, Lexend } from 'next/font/google';
 
 const lexend = Lexend({
-  subsets: ['latin'],
-  weight: '400'
+  subsets: ['latin']
 });
 
 const inter = Inter({ subsets: ['latin'] });
@@ -82,6 +81,9 @@ const theme = {
     Segmented: {
       itemSelectedBg: '#3f2547',
       itemSelectedColor: '#fff'
+    },
+    Card: {
+      colorBorderSecondary: 'rgb(221, 218, 224)'
     }
   }
 };
