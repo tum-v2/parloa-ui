@@ -3,20 +3,19 @@ import { Modal, Steps, Popover } from 'antd';
 import theme from '@/theme/theme';
 import StepContent from './StepContent';
 import Button from '../generic/Button';
+import BackButton from '../generic/BackButton';
+import NextButton from '../generic/NextButton';
 
 const { Step } = Steps;
 
+const STEP_TITLES = [
+  'Create a New Simulation',
+  'Name & Configuration',
+  'Configure Simulation'
+];
+
 const customDot = (dot: React.ReactNode, { index }: { index: number }) => {
-  let content = '';
-
-  if (index + 1 === 1) {
-    content = 'Create a New Simulation';
-  } else if (index + 1 === 2) {
-    content = 'Name & Configuration';
-  } else if (index + 1 === 3) {
-    content = 'Configure Simulation';
-  }
-
+  const content = STEP_TITLES[index] || '';
   return <Popover content={<span>{content}</span>}>{dot}</Popover>;
 };
 
@@ -52,35 +51,33 @@ const SimulationModal: React.FC = () => {
     if (isWildStep) {
       return 'Edit LLM Template';
     } else {
-      let content = '';
-
-      if (currentStep + 1 === 1) {
-        content = 'Create a New Simulation';
-      } else if (currentStep + 1 === 2) {
-        content = 'Name & Configuration';
-      } else if (currentStep + 1 === 3) {
-        content = 'Configure Simulation';
-      }
-
-      return `${content}`;
+      return STEP_TITLES[currentStep] || '';
     }
+  };
+
+  const getNextStepTitle = () => {
+    return STEP_TITLES[currentStep + 1] || 'Finish';
+  };
+
+  const getPrevStepTitle = () => {
+    return STEP_TITLES[currentStep - 1] || 'Back';
   };
 
   const modalFooter = (
     <div
       style={{
         display: 'flex',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         alignItems: 'center',
         padding: theme.padding.xs,
         width: '100%'
       }}
     >
-      <div style={{ width: '100px' }}>
+      <div style={{ flex: 1, textAlign: 'left' }}>
+        {' '}
+        {/* Adjusted for flexible sizing and alignment */}
         {(currentStep > 0 || isWildStep) && (
-          <Button key="back" onClick={handlePrev}>
-            Previous
-          </Button>
+          <BackButton onClick={handlePrev}>{getPrevStepTitle()}</BackButton>
         )}
       </div>
       <Steps
@@ -88,28 +85,24 @@ const SimulationModal: React.FC = () => {
         size="small"
         progressDot={customDot}
         style={{
-          flex: 1,
+          flex: 2,
           justifyContent: 'center',
-          maxWidth: '20%'
+          maxWidth: '40%'
         }}
       >
         <Step />
         <Step />
         <Step />
       </Steps>
-      <div style={{ width: '100px' }}>
+      <div style={{ flex: 1, textAlign: 'right' }}>
+        {' '}
+        {/* Adjusted for flexible sizing and alignment */}
         {isWildStep ? (
-          <Button key="save" onClick={handlePrev}>
-            Save
-          </Button>
+          <Button onClick={handlePrev}>Save</Button>
         ) : currentStep === 2 ? (
-          <Button key="finish" onClick={handleFinish}>
-            Finish
-          </Button>
+          <Button onClick={handleFinish}>Finish</Button>
         ) : (
-          <Button key="next" onClick={handleNext}>
-            Next
-          </Button>
+          <NextButton onClick={handleNext}>{getNextStepTitle()}</NextButton>
         )}
       </div>
     </div>
