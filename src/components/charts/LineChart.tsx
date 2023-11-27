@@ -16,7 +16,7 @@ interface LineChartProps {
   width: number;
   height: number;
   data: ChartData[][];
-  yMax: number;
+  yMax?: number;
   padding?: number;
   hideAxis?: boolean;
   yUnit?: string;
@@ -66,7 +66,7 @@ const LineChart = ({
   const scaleY = useMemo(
     () =>
       scaleLinear({
-        domain: [0, yMax],
+        domain: [0, yMax ?? 0],
         range: [height - padding, padding]
       }),
     [yMax, height, padding]

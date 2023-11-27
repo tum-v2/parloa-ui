@@ -78,6 +78,10 @@ const theme = {
       colorInfo: 'rgb(202, 93, 217)',
       colorInfoBg: 'rgb(251, 234, 255)',
       colorInfoBorder: 'rgb(234, 177, 249)'
+    },
+    Segmented: {
+      itemSelectedBg: '#3f2547',
+      itemSelectedColor: '#fff'
     }
   }
 };
