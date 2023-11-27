@@ -14,6 +14,8 @@ export const SimulationSchema = z.object({
   agents: AgentSchema.array(),
   conversations: ConversationSchema.array(),
   status: z.string(),
-  createdAt: z.string(),
-  updatedAt: z.string()
+  createdAt: z.string().datetime(),
+  updatedAt: z.string().datetime()
 });
+
+export type Simulation = z.infer<typeof SimulationSchema>;
