@@ -3,9 +3,7 @@ import { Card } from 'antd';
 import theme from '@/theme/theme';
 
 export enum Position {
-  // eslint-disable-next-line no-unused-vars
   Left = 'left',
-  // eslint-disable-next-line no-unused-vars
   Right = 'right'
 }
 
