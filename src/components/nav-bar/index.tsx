@@ -3,15 +3,18 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 
-import NavBarTab, { NavBarTabOptions } from './components/NavBarTab';
+import NavBarTab, {
+  NavBarTabOption,
+  navBarTabOptions
+} from './components/NavBarTab';
 import logo from './components/parloa-logo.png';
 import NavBarLogout from './components/NavBarLogout';
 import { useRouter } from 'next/navigation';
 import theme from '@/theme/theme';
 
 const NavBar = () => {
-  const [selectedTab, setSelectedTab] = useState<string>(
-    NavBarTabOptions.Dashboard
+  const [selectedTab, setSelectedTab] = useState<NavBarTabOption>(
+    navBarTabOptions[0]
   );
   const router = useRouter();
   const navBarStyle: React.CSSProperties = {
