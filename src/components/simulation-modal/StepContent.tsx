@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Select, Slider, Segmented } from 'antd';
 import SimulationCard from './SimulationCard';
 import { InputField } from '../generic/InputField';
-import { FaHeadphones } from 'react-icons/fa';
+import { FaHeadphones, FaUser } from 'react-icons/fa';
+
 import ModelCard from './ModelCard';
 import { AiFillCode } from 'react-icons/ai';
 import { IoReload } from 'react-icons/io5';
@@ -143,8 +144,8 @@ const StepContent: React.FC<StepContentProps> = ({
                   onModelChange={handleModelChange}
                   onScenarioChange={handleScenarioChange}
                   onButtonClick={enterWildStep}
-                  icon={<FaHeadphones size={100} />}
-                  title="Agent LLM"
+                  icon={<FaUser size={100} />}
+                  title="User LLM"
                 />
               </div>
             </div>
