@@ -19,6 +19,32 @@ const mockData = [
   ]
 ];
 
+const mockData2 = [
+  [
+    { x: 1, y: 4 },
+    { x: 2, y: 12 },
+    { x: 3, y: 15 },
+    { x: 4, y: 20 },
+    { x: 5, y: 6 },
+    { x: 6, y: 9 },
+    { x: 7, y: 7 },
+    { x: 8, y: 5 }
+  ]
+];
+
+const mockData3 = [
+  [
+    { x: 1, y: 0.5 },
+    { x: 2, y: 0.6 },
+    { x: 3, y: 0.7 },
+    { x: 4, y: 0.8 },
+    { x: 5, y: 0.9 },
+    { x: 6, y: 0.8 },
+    { x: 7, y: 0.7 },
+    { x: 8, y: 0.6 }
+  ]
+];
+
 const InsightsCard = () => {
   const [selectedChart, setSelectedChart] = useState<string | number>(
     'Success Rate'
@@ -40,16 +66,23 @@ const InsightsCard = () => {
           />
           <div className="h-96">
             <ParentSize>
-              {({ width, height }) => (
-                <LineChart
-                  width={width}
-                  height={height}
-                  data={mockData}
-                  yMax={100}
-                  yUnit="%"
-                  padding={48}
-                />
-              )}
+              {({ width, height }) =>
+                (selectedChart === 'Success Rate' && (
+                  <LineChart
+                    data={mockData}
+                    width={width}
+                    height={height}
+                    yUnit="%"
+                    yMax={100}
+                  />
+                )) ||
+                (selectedChart === 'Amount of steps' && (
+                  <LineChart data={mockData2} width={width} height={height} />
+                )) ||
+                (selectedChart === 'Evaluation Score' && (
+                  <LineChart data={mockData3} width={width} height={height} />
+                ))
+              }
             </ParentSize>
           </div>
         </Flex>
