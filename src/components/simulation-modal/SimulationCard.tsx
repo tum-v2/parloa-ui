@@ -55,13 +55,13 @@ const getModeColors = (mode: 'manual' | 'automated') =>
     }
   })[mode];
 
-const SimulationCard: React.FC<SimulationCardProps> = ({
+const SimulationCard = ({
   title,
   icon,
   children,
   mode,
   selectable
-}) => {
+}: SimulationCardProps) => {
   const [hover, setHover] = useState(false);
   const [clicked, setClicked] = useState(false);
   const modeColors = getModeColors(mode);

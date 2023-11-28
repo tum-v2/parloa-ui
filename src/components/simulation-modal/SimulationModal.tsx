@@ -19,7 +19,7 @@ const customDot = (dot: React.ReactNode, { index }: { index: number }) => {
   return <Popover content={<span>{content}</span>}>{dot}</Popover>;
 };
 
-const SimulationModal: React.FC = () => {
+const SimulationModal = () => {
   const [open, setOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [isWildStep, setIsWildStep] = useState(false);
@@ -56,11 +56,11 @@ const SimulationModal: React.FC = () => {
   };
 
   const getNextStepTitle = () => {
-    return STEP_TITLES[currentStep + 1] || 'Finish';
+    return STEP_TITLES[currentStep + 1] || 'Start Simulation';
   };
 
   const getPrevStepTitle = () => {
-    return STEP_TITLES[currentStep - 1] || 'Back';
+    return STEP_TITLES[currentStep - 1] || 'Configure Simulation';
   };
 
   const modalFooter = (
