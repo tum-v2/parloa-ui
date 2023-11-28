@@ -1,27 +1,11 @@
 'use client';
 
 import React from 'react';
-import {
-  LaptopOutlined,
-  NotificationOutlined,
-  UserOutlined
-} from '@ant-design/icons';
-import type { MenuProps } from 'antd';
-import {
-  Breadcrumb,
-  Col,
-  Flex,
-  Layout,
-  List,
-  Menu,
-  Row,
-  Typography
-} from 'antd';
+import { Flex, Layout, List, Typography } from 'antd';
 import VirtualList from 'rc-virtual-list';
 import theme from '@/theme/theme';
 import CardOverall, { NumberType, Trend } from './components/CardOverall';
 import {
-  IoAirplaneOutline,
   IoAnalyticsOutline,
   IoDiceOutline,
   IoSwapHorizontalOutline
@@ -70,7 +54,7 @@ const dummyDashboardData = [
   }
 ];
 
-const dummyHighYieldSimulationData = [
+const dummyHighYieldSimulationData: CardHighYieldSimulationProps[] = [
   {
     id: 1,
     title: 'High Yield Simulation 1',
@@ -198,6 +182,7 @@ const Dashboard = () => {
             </Typography.Title>
             <ParentSize>
               {({ width, height }) => (
+                // TODO: Fix the height issue.
                 <LineChart
                   data={dummyChartData}
                   width={width}
@@ -207,7 +192,6 @@ const Dashboard = () => {
                 />
               )}
             </ParentSize>
-            {/* TODO: Try with dummy data */}
           </Card>
         </Content>
       </Layout>
@@ -225,7 +209,7 @@ const Dashboard = () => {
             // onScroll={onScroll}
           >
             {(item: CardHighYieldSimulationProps) => (
-              <List.Item key={item.id}>
+              <div key={item.id}>
                 <CardHighYieldSimulation
                   id={item.id}
                   title={item.title}
@@ -233,7 +217,7 @@ const Dashboard = () => {
                   successRateNumber={item.successRateNumber}
                   agentType={item.agentType}
                 />
-              </List.Item>
+              </div>
             )}
           </VirtualList>
         </List>

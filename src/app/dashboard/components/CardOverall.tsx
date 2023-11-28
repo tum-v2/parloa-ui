@@ -2,12 +2,10 @@
 
 import React from 'react';
 import Card from '../../../components/generic/Card';
-import { Flex, Typography } from 'antd';
-import theme from '@/theme/theme';
-import { IconContext } from 'react-icons';
+import { Typography } from 'antd';
 import CardOverallTrend from './CardOverallTrend';
 
-const { Text, Title } = Typography;
+const { Title } = Typography;
 
 export type NumberType = 'number' | 'percentage';
 export type Trend = 'up' | 'down';
@@ -24,7 +22,6 @@ interface CardOverallProps {
 const CardOverall = ({
   title,
   icon,
-  numberType,
   number,
   trend,
   trendNumber
@@ -36,15 +33,7 @@ const CardOverall = ({
     height: 80
   };
 
-  const insideCardStyle: React.CSSProperties = {
-    // display: 'flex',
-    // flexDirection: 'column',
-    // justifyContent: 'space-between',
-    // alignItems: 'flex-start'
-  };
-
   return (
-    // <div style={cardOverallStyle}>
     <Card margin="none">
       <div style={topPartStyle}>
         <Title style={{ margin: 0 }} level={4}>
@@ -59,7 +48,6 @@ const CardOverall = ({
         <CardOverallTrend trend={trend} trendNumber={trendNumber} />
       </div>
     </Card>
-    // </div>
   );
 };
 

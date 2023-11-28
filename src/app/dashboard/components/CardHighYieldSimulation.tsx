@@ -1,15 +1,14 @@
 import React from 'react';
 import Card from '../../../components/generic/Card';
-import { Flex, Typography } from 'antd';
+import { Typography } from 'antd';
 import theme from '@/theme/theme';
-import { IconContext } from 'react-icons';
 import Pill from '@/components/generic/Pill';
 import { IoPerson } from 'react-icons/io5';
 
 const { Text, Title } = Typography;
 
 export interface CardHighYieldSimulationProps {
-  id: string;
+  id: number;
   title: string;
   date: string;
   successRateNumber: number;
