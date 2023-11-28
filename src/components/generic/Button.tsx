@@ -21,7 +21,7 @@ const Button = ({ icon, onClick, disabled = false, children }: ButtonProps) => {
     <AntdButton
       type={'primary'}
       icon={icon}
-      size={'large'}
+      size={'small'}
       style={buttonStyle}
       onClick={onClick}
       disabled={disabled}

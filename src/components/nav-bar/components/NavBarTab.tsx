@@ -1,51 +1,49 @@
-/* eslint-disable no-unused-vars */
 import React, { Dispatch, SetStateAction } from 'react';
 import { Segmented, ConfigProvider } from 'antd';
 import { IoAppsOutline, IoDiceOutline } from 'react-icons/io5';
 import theme from '@/theme/theme';
+import { useRouter } from 'next/navigation';
 
-export enum NavBarTabOptions {
-  Dashboard = 'Dashboard',
-  Simulations = 'Simulations'
+export interface NavBarTabOption {
+  name: string;
+  route: string;
+  icon: React.ReactNode;
 }
+
 interface NavBarTabProps {
-  selectedTab: string;
-  setSelectedTab: Dispatch<SetStateAction<string>>;
+  selectedTab: number;
+  setSelectedTab: Dispatch<SetStateAction<number>>;
 }
+
+export const navBarTabOptions: NavBarTabOption[] = [
+  {
+    name: 'Dashboard',
+    route: '/dashboard',
+    icon: <IoAppsOutline />
+  },
+  {
+    name: 'Simulations',
+    route: '/simulations',
+    icon: <IoDiceOutline />
+  }
+];
+
+const navBarTabElementStyle: React.CSSProperties = {
+  padding: theme.padding.xs,
+  display: 'flex',
+  alignItems: 'center'
+};
+
+const navBarTabElementIconStyle: React.CSSProperties = {
+  width: '1rem',
+  height: '1rem',
+  marginRight: theme.padding.s,
+  display: 'flex',
+  alignItems: 'center'
+};
 
 const NavBarTab = ({ selectedTab, setSelectedTab }: NavBarTabProps) => {
-  const navBarTabElementStyle: React.CSSProperties = {
-    padding: theme.padding.xs,
-    display: 'flex',
-    alignItems: 'center'
-  };
-
-  const navBarTabElementIconStyle: React.CSSProperties = {
-    width: '1rem',
-    height: '1rem',
-    marginRight: theme.padding.s
-  };
-
-  const navBarTabOptions = [
-    {
-      label: (
-        <div style={navBarTabElementStyle}>
-          <IoAppsOutline style={navBarTabElementIconStyle} />
-          <div>{NavBarTabOptions.Dashboard}</div>
-        </div>
-      ),
-      value: NavBarTabOptions.Dashboard
-    },
-    {
-      label: (
-        <div style={navBarTabElementStyle}>
-          <IoDiceOutline style={navBarTabElementIconStyle} />
-          <div>{NavBarTabOptions.Simulations}</div>
-        </div>
-      ),
-      value: NavBarTabOptions.Simulations
-    }
-  ];
+  const router = useRouter();
 
   return (
     <ConfigProvider
@@ -63,10 +61,22 @@ const NavBarTab = ({ selectedTab, setSelectedTab }: NavBarTabProps) => {
       }}
     >
       <Segmented
-        options={navBarTabOptions}
+        options={navBarTabOptions.map((option, index) => {
+          return {
+            label: (
+              <div style={navBarTabElementStyle}>
+                <div style={navBarTabElementIconStyle}>{option.icon}</div>
+                <div>{option.name}</div>
+              </div>
+            ),
+            value: index
+          };
+        })}
         value={selectedTab}
         onChange={value => {
-          setSelectedTab(value.toString());
+          const navBarTab = navBarTabOptions[value as number];
+          setSelectedTab(value as number);
+          router.push(navBarTab.route);
         }}
       />
     </ConfigProvider>
