@@ -158,6 +158,7 @@ const Dashboard = () => {
         style={{ paddingLeft: theme.padding.l, paddingRight: theme.padding.l }}
       >
         <Typography.Title level={2}>Dashboard</Typography.Title>
+        {/* TODO: Add dropdown to choose time frame */}
         <Content style={DashboardLeftLayoutStyle}>
           <Flex justify="space-between" gap={theme.padding.m}>
             {dummyDashboardData.map(data => (
