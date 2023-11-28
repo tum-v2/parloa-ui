@@ -2,17 +2,9 @@ import Header from '@/components/generic/Header';
 import React from 'react';
 import { Flex, Typography, Button } from 'antd';
 import Pill from '@/components/generic/Pill';
-import {
-  getAgentLLMColor,
-  getSimulationTypeStyle
-} from '@/lib/utils/simulations/simulationStyles';
+import { getSimulationTypeStyle } from '@/lib/utils/simulations/simulationStyles';
 import theme from '@/theme/theme';
-import {
-  FileTextOutlined,
-  FolderOpenOutlined,
-  CustomerServiceOutlined,
-  UserOutlined
-} from '@ant-design/icons';
+import { FileTextOutlined, FolderOpenOutlined } from '@ant-design/icons';
 import { formatLongDateTimeString } from '@/lib/utils/dateTime';
 import { Simulation } from '@/api/schemas/simulation';
 
@@ -21,7 +13,7 @@ interface DetailsHeaderProps {
 }
 
 const DetailsHeader = ({ simulation }: DetailsHeaderProps) => {
-  const { name, createdAt, agents, scenario, domain, type } = simulation;
+  const { name, createdAt, scenario, domain, type } = simulation;
 
   const typeStyle = getSimulationTypeStyle(type);
 
@@ -38,15 +30,6 @@ const DetailsHeader = ({ simulation }: DetailsHeaderProps) => {
         <Pill color={typeStyle.color} icon={<typeStyle.icon />}>
           {type}
         </Pill>
-        {agents.map((agent, i) => (
-          <Pill
-            key={agent._id}
-            color={getAgentLLMColor(agent.llm)}
-            icon={i === 0 ? <CustomerServiceOutlined /> : <UserOutlined />}
-          >
-            {agent.llm}
-          </Pill>
-        ))}
         <Pill icon={<FolderOpenOutlined />} color={theme.color.green}>
           {domain}
         </Pill>

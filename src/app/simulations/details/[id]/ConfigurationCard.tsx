@@ -1,17 +1,23 @@
-import { Agent } from '@/api/schemas/agent';
 import { Card, Flex, Typography } from 'antd';
 import { CustomerServiceOutlined, UserOutlined } from '@ant-design/icons';
 import Pill from '@/components/generic/Pill';
 import { getAgentLLMColor } from '@/lib/utils/simulations/simulationStyles';
+import useAgent from '@/hooks/useAgent';
 
 interface ConfigurationCardProps {
+  agentId: string;
   title: string;
-  agent: Agent;
 }
 
 const { Title, Text } = Typography;
 
-const ConfigurationCard = ({ title, agent }: ConfigurationCardProps) => {
+const ConfigurationCard = ({ agentId, title }: ConfigurationCardProps) => {
+  const agent = useAgent(agentId).data;
+
+  if (!agent) {
+    return null;
+  }
+
   return (
     <Card
       title={

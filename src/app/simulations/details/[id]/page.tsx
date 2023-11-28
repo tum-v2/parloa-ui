@@ -6,6 +6,7 @@ import InsightsCard from './InsightsCard';
 import { Empty, Flex, Spin, Typography } from 'antd';
 import { SettingOutlined } from '@ant-design/icons';
 import ConfigurationCard from './ConfigurationCard';
+import Content from '@/components/generic/Content';
 
 const { Title } = Typography;
 
@@ -24,22 +25,24 @@ const Page = () => {
   }
 
   return (
-    <Flex vertical gap={'small'}>
-      <DetailsHeader simulation={data} />
-      <InsightsCard />
-      <Title level={4}>
-        <SettingOutlined /> Configurations
-      </Title>
-      <Flex gap={'small'}>
-        {data.agents.map((agent, i) => (
-          <ConfigurationCard
-            key={agent._id}
-            title={i == 0 ? 'Agent' : 'User'}
-            agent={agent}
-          />
-        ))}
+    <Content>
+      <Flex vertical gap={'small'}>
+        <DetailsHeader simulation={data} />
+        <InsightsCard />
+        <Title level={4}>
+          <SettingOutlined /> Configurations
+        </Title>
+        <Flex gap={'small'}>
+          {data.agents.map((agentId, i) => (
+            <ConfigurationCard
+              key={agentId}
+              title={i == 0 ? 'Agent' : 'User'}
+              agentId={agentId}
+            />
+          ))}
+        </Flex>
       </Flex>
-    </Flex>
+    </Content>
   );
 };
 

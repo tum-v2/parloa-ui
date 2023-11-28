@@ -24,7 +24,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" style={rootStyle}>
-      <body className={theme.font.inter.className + ' p-10'}>
+      <body className={theme.font.inter.className}>
         <ReactQueryClientProvider>
           <ThemeProvider>{children}</ThemeProvider>
         </ReactQueryClientProvider>
