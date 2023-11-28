@@ -11,8 +11,8 @@ export interface NavBarTabOption {
 }
 
 interface NavBarTabProps {
-  selectedTab: NavBarTabOption;
-  setSelectedTab: Dispatch<SetStateAction<NavBarTabOption>>;
+  selectedTab: number;
+  setSelectedTab: Dispatch<SetStateAction<number>>;
 }
 
 export const navBarTabOptions: NavBarTabOption[] = [
@@ -60,7 +60,7 @@ const NavBarTab = ({ selectedTab, setSelectedTab }: NavBarTabProps) => {
       }}
     >
       <Segmented
-        options={navBarTabOptions.map(option => {
+        options={navBarTabOptions.map((option, index) => {
           return {
             label: (
               <div style={navBarTabElementStyle}>
@@ -68,16 +68,13 @@ const NavBarTab = ({ selectedTab, setSelectedTab }: NavBarTabProps) => {
                 <div>{option.name}</div>
               </div>
             ),
-            value: option.name
+            value: index
           };
         })}
-        value={selectedTab.name}
+        value={selectedTab}
         onChange={value => {
-          const navBarTab = navBarTabOptions.find(
-            option => option.name === value
-          );
-          if (!navBarTab) return;
-          setSelectedTab(navBarTab);
+          const navBarTab = navBarTabOptions[value as number];
+          setSelectedTab(value as number);
           router.push(navBarTab.route);
         }}
       />

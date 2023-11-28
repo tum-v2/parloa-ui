@@ -3,34 +3,30 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 
-import NavBarTab, {
-  NavBarTabOption,
-  navBarTabOptions
-} from './components/NavBarTab';
+import NavBarTab from './components/NavBarTab';
 import logo from './components/parloa-logo.png';
 import NavBarLogout from './components/NavBarLogout';
 import { useRouter } from 'next/navigation';
 import theme from '@/theme/theme';
 
-const NavBar = () => {
-  const [selectedTab, setSelectedTab] = useState<NavBarTabOption>(
-    navBarTabOptions[0]
-  );
-  const router = useRouter();
-  const navBarStyle: React.CSSProperties = {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: theme.padding.s
-  };
+const navBarStyle: React.CSSProperties = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  padding: theme.padding.s
+};
 
-  const navBarContainerStyle: React.CSSProperties = {
-    position: 'sticky',
-    top: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: theme.color.white
-  };
+const navBarContainerStyle: React.CSSProperties = {
+  position: 'sticky',
+  top: 0,
+  left: 0,
+  right: 0,
+  backgroundColor: theme.color.white
+};
+
+const NavBar = () => {
+  const [selectedTab, setSelectedTab] = useState<number>(0);
+  const router = useRouter();
 
   return (
     <div style={navBarContainerStyle}>
