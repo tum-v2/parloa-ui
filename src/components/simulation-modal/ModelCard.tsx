@@ -11,8 +11,8 @@ interface ModelCardProps {
   onModelChange: () => void;
   onScenarioChange: () => void;
   onButtonClick: () => void;
-  icon: React.ReactNode; // Icon prop
-  title: string; // Title text prop
+  icon: React.ReactNode;
+  title: string;
 }
 
 const cardStyle: React.CSSProperties = {
@@ -32,7 +32,7 @@ const wrapperStyle: React.CSSProperties = {
 
 const textStyle: React.CSSProperties = { fontSize: 22 };
 
-const iconStyle: React.CSSProperties = { margin: 24 }; // Style for the icon
+const iconStyle: React.CSSProperties = { margin: 24 };
 
 const selectStyle: React.CSSProperties = {
   width: '100%',
@@ -58,7 +58,7 @@ const scenarioSelectStyle: React.CSSProperties = {
   height: 40
 };
 
-const ModelCard: React.FC<ModelCardProps> = ({
+const ModelCard = ({
   models,
   scenarios,
   onModelChange,
@@ -66,7 +66,7 @@ const ModelCard: React.FC<ModelCardProps> = ({
   onButtonClick,
   icon, // Icon prop
   title // Title text prop
-}) => {
+}: ModelCardProps) => {
   return (
     <Card style={cardStyle}>
       <div style={wrapperStyle}>
