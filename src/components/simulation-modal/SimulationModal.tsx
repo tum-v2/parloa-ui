@@ -87,7 +87,7 @@ const SimulationModal = () => {
         style={{
           flex: 2,
           justifyContent: 'center',
-          maxWidth: '40%'
+          maxWidth: '20%'
         }}
       >
         <Step />
@@ -103,7 +103,7 @@ const SimulationModal = () => {
           </Button>
         ) : currentStep === 2 ? (
           <Button type="primary" onClick={handleFinish}>
-            Finish
+            Start Simulation
           </Button>
         ) : (
           <NextButton onClick={handleNext}>{getNextStepTitle()}</NextButton>
