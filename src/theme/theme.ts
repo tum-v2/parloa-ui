@@ -20,6 +20,7 @@ const theme = {
     deepPurple: '#24132b'
   },
   padding: {
+    none: 0,
     xs: 4,
     s: 8,
     m: 12,
@@ -66,7 +67,7 @@ const theme = {
     colorTextBase: '#24132b',
     borderRadiusXS: 4,
     borderRadius: 8,
-    borderRadiusLG: 24,
+    borderRadiusLG: 12,
     colorPrimary: '#3f2547',
     colorBorder: '#dddae0',
     fontFamily: lexend.style.fontFamily,

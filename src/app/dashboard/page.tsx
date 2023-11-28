@@ -7,11 +7,30 @@ import {
   UserOutlined
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
-import { Breadcrumb, Card, Flex, Layout, List, Menu, Typography } from 'antd';
+import {
+  Breadcrumb,
+  Col,
+  Flex,
+  Layout,
+  List,
+  Menu,
+  Row,
+  Typography
+} from 'antd';
 import VirtualList from 'rc-virtual-list';
 import theme from '@/theme/theme';
 import CardOverall, { NumberType, Trend } from './components/CardOverall';
-import { IoAirplaneOutline } from 'react-icons/io5';
+import {
+  IoAirplaneOutline,
+  IoAnalyticsOutline,
+  IoDiceOutline,
+  IoSwapHorizontalOutline
+} from 'react-icons/io5';
+import Card from '@/components/generic/Card';
+import LineChart from '@/components/charts/LineChart';
+import CardHighYieldSimulation, {
+  CardHighYieldSimulationProps
+} from './components/CardHighYieldSimulation';
 
 const { Content, Sider } = Layout;
 
@@ -23,7 +42,7 @@ const cardOverallIconStyle: React.CSSProperties = {
 const dummyDashboardData = [
   {
     title: 'Total Number of Interractions',
-    icon: <IoAirplaneOutline style={cardOverallIconStyle} />,
+    icon: <IoSwapHorizontalOutline style={cardOverallIconStyle} />,
 
     numberType: 'number',
     number: 23540,
@@ -32,7 +51,7 @@ const dummyDashboardData = [
   },
   {
     title: 'Simulation Ran',
-    icon: <IoAirplaneOutline style={cardOverallIconStyle} />,
+    icon: <IoDiceOutline style={cardOverallIconStyle} />,
 
     numberType: 'number',
     number: 54,
@@ -41,7 +60,7 @@ const dummyDashboardData = [
   },
   {
     title: 'Average Success Rate',
-    icon: <IoAirplaneOutline style={cardOverallIconStyle} />,
+    icon: <IoAnalyticsOutline style={cardOverallIconStyle} />,
 
     numberType: 'percentage',
     number: 78,
@@ -50,10 +69,86 @@ const dummyDashboardData = [
   }
 ];
 
+const dummyHighYieldSimulationData = [
+  {
+    id: 1,
+    title: 'High Yield Simulation 1',
+    date: '2021-01-01',
+    successRateNumber: 99,
+    agentType: 'Flight Service Agent'
+  },
+  {
+    id: 2,
+    title: 'High Yield Simulation 2',
+    date: '2021-01-01',
+    successRateNumber: 95,
+    agentType: 'Flight Service Agent'
+  },
+  {
+    id: 3,
+    title: 'High Yield Simulation 3',
+    date: '2021-01-01',
+    successRateNumber: 94,
+    agentType: 'Flight Service Agent'
+  },
+  {
+    id: 4,
+    title: 'High Yield Simulation 4',
+    date: '2021-01-01',
+    successRateNumber: 90,
+    agentType: 'Flight Service Agent'
+  },
+  {
+    id: 5,
+    title: 'High Yield Simulation 5',
+    date: '2021-01-01',
+    successRateNumber: 88,
+    agentType: 'Flight Service Agent'
+  },
+  {
+    id: 6,
+    title: 'High Yield Simulation 6',
+    date: '2021-01-01',
+    successRateNumber: 87,
+    agentType: 'Flight Service Agent'
+  },
+  {
+    id: 7,
+    title: 'High Yield Simulation 7',
+    date: '2021-01-01',
+    successRateNumber: 87,
+    agentType: 'Flight Service Agent'
+  },
+  {
+    id: 8,
+    title: 'High Yield Simulation 8',
+    date: '2021-01-01',
+    successRateNumber: 70,
+    agentType: 'Flight Service Agent'
+  },
+  {
+    id: 9,
+    title: 'High Yield Simulation 9',
+    date: '2021-01-01',
+    successRateNumber: 58,
+    agentType: 'Flight Service Agent'
+  },
+  {
+    id: 10,
+    title: 'High Yield Simulation 10',
+    date: '2021-01-01',
+    successRateNumber: 56,
+    agentType: 'Flight Service Agent'
+  }
+];
+
 const Dashboard = () => {
   const DashboardLayoutStyle: React.CSSProperties = {
     // TODO: Find the better way to handle this issue.
-    height: 'calc(100vh - 65px)'
+    height: 'calc(100vh - 65px)',
+    maxWidth: 1440, // maxWidth copy from GitHub.com way
+    marginRight: 'auto',
+    marginLeft: 'auto'
   };
   const DashboardLeftLayoutStyle: React.CSSProperties = {
     paddingTop: theme.padding.l,
@@ -61,10 +156,12 @@ const Dashboard = () => {
   };
   return (
     <Layout style={DashboardLayoutStyle}>
-      <Layout style={{ padding: '0 24px 24px' }}>
+      <Layout
+        style={{ paddingLeft: theme.padding.l, paddingRight: theme.padding.l }}
+      >
         <Typography.Title level={2}>Dashboard</Typography.Title>
         <Content style={DashboardLeftLayoutStyle}>
-          <Flex justify="space-between" style={{ height: '20vh' }}>
+          <Flex justify="space-between" gap={theme.padding.m}>
             {dummyDashboardData.map(data => (
               <CardOverall
                 title={data.title}
@@ -77,31 +174,42 @@ const Dashboard = () => {
               />
             ))}
           </Flex>
+          <Card
+            height={600}
+            margin="none"
+            style={{ marginTop: theme.padding.m }}
+          >
+            <Typography.Title level={4} style={{ margin: 0 }}>
+              Success Rate Graph
+            </Typography.Title>
+            {/* <LineChart  /> */}
+            {/* TODO: Try with dummy data */}
+          </Card>
         </Content>
       </Layout>
-      <Sider width={400}>
+      <Sider
+        width={400}
+        style={{ paddingTop: 34, paddingRight: theme.padding.l }}
+      >
         <Typography.Title level={3}>High Yield Simulation</Typography.Title>
-
-        {/* <List>
-          <VirtualList
-            data={data}
-            height={ContainerHeight}
-            itemHeight={47}
-            itemKey="email"
-            onScroll={onScroll}
-          >
-            {(item: UserItem) => (
-              <List.Item key={item.email}>
-                <List.Item.Meta
-                  avatar={<Avatar src={item.picture.large} />}
-                  title={<a href="https://ant.design">{item.name.last}</a>}
-                  description={item.email}
-                />
-                <div>Content</div>
-              </List.Item>
-            )}
-          </VirtualList>
-        </List> */}
+        {/* <List> */}
+        <VirtualList
+          data={dummyHighYieldSimulationData}
+          height={1000}
+          // itemHeight={47}
+          itemKey="id"
+          // onScroll={onScroll}
+        >
+          {(item: CardHighYieldSimulationProps) => (
+            <CardHighYieldSimulation
+              title={item.title}
+              date={item.date}
+              successRateNumber={item.successRateNumber}
+              agentType={item.agentType}
+            />
+          )}
+        </VirtualList>
+        {/* </List> */}
       </Sider>
     </Layout>
   );

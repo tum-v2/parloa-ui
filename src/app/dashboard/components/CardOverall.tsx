@@ -5,6 +5,7 @@ import Card from '../../../components/generic/Card';
 import { Flex, Typography } from 'antd';
 import theme from '@/theme/theme';
 import { IconContext } from 'react-icons';
+import CardOverallTrend from './CardOverallTrend';
 
 const { Text, Title } = Typography;
 
@@ -28,15 +29,11 @@ const CardOverall = ({
   trend,
   trendNumber
 }: CardOverallProps) => {
-  const cardOverallStyle: React.CSSProperties = {
-    marginRight: theme.padding.s,
-    width: 300
-  };
-
   const topPartStyle: React.CSSProperties = {
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
+    height: 80
   };
 
   const insideCardStyle: React.CSSProperties = {
@@ -47,24 +44,22 @@ const CardOverall = ({
   };
 
   return (
-    <div style={cardOverallStyle}>
-      <Card>
-        <div style={insideCardStyle}>
-          <div style={topPartStyle}>
-            <Title style={{ margin: 0 }} level={3}>
-              {title}
-            </Title>
-            {icon}
-          </div>
-          <div>
-            <Title style={{ margin: 0 }} level={3}>
-              {number}
-            </Title>
-            <Text>{trendNumber}</Text>
-          </div>
-        </div>
-      </Card>
-    </div>
+    // <div style={cardOverallStyle}>
+    <Card margin="none">
+      <div style={topPartStyle}>
+        <Title style={{ margin: 0 }} level={4}>
+          {title}
+        </Title>
+        {icon}
+      </div>
+      <div>
+        <Title style={{ margin: 0 }} level={1}>
+          {number}
+        </Title>
+        <CardOverallTrend trend={trend} trendNumber={trendNumber} />
+      </div>
+    </Card>
+    // </div>
   );
 };
 

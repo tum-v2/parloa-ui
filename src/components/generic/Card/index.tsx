@@ -2,7 +2,7 @@ import React from 'react';
 import { Card as AntdCard, CardProps as AntdCardProps } from 'antd';
 import theme from '@/theme/theme';
 
-type Padding = 'xs' | 's' | 'm' | 'l' | 'xl';
+type Padding = 'none' | 'xs' | 's' | 'm' | 'l' | 'xl';
 
 interface CardProps {
   children: React.ReactNode;
@@ -10,7 +10,7 @@ interface CardProps {
   height?: number;
   padding?: Padding;
   margin?: Padding;
-  props?: AntdCardProps;
+  style?: React.CSSProperties;
 }
 
 const Card = ({
@@ -19,7 +19,7 @@ const Card = ({
   height,
   padding,
   margin,
-  props
+  style
 }: CardProps) => {
   const cardStyle: React.CSSProperties = {
     borderRadius: theme.borderRadius.m,
@@ -28,14 +28,16 @@ const Card = ({
     margin:
       margin === 'xs'
         ? theme.padding.xs
-        : padding === 's'
+        : margin === 's'
         ? theme.padding.s
-        : padding === 'm'
+        : margin === 'm'
         ? theme.padding.m
-        : padding === 'l'
+        : margin === 'l'
         ? theme.padding.l
-        : padding === 'xl'
+        : margin === 'xl'
         ? theme.padding.xl
+        : margin === 'none'
+        ? theme.padding.none
         : theme.padding.m
   };
   const bodyStyle: React.CSSProperties = {
@@ -50,11 +52,11 @@ const Card = ({
         ? theme.padding.l
         : padding === 'xl'
         ? theme.padding.xl
-        : theme.padding.m
+        : theme.padding.l
   };
 
   return (
-    <AntdCard style={cardStyle} bodyStyle={bodyStyle} {...props}>
+    <AntdCard style={{ ...cardStyle, ...style }} bodyStyle={bodyStyle}>
       {children}
     </AntdCard>
   );
