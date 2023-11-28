@@ -2,20 +2,18 @@ import React, { useState } from 'react';
 import theme from '@/theme/theme';
 import BackButton from '@/components/generic/BackButton';
 import SelectableButton from '@/components/generic/SelectableButton';
-import { Simulation, SimulationSchema } from '@/api/schemas/simulation';
+import { Simulation } from '@/api/schemas/simulation';
 import Button from '@/components/generic/Button';
+import useSimulations from '@/hooks/useSimulations';
 
 interface SidebarProps {
   simulation: Simulation;
   selectedChat: number;
-  onSelectionChange: (number) => void;
+  onSelectionChange: (simulationId: number) => void;
 }
 
-// eslint-disable-next-line no-unused-vars
 enum SidebarContent {
-  // eslint-disable-next-line no-unused-vars
   Simulations,
-  // eslint-disable-next-line no-unused-vars
   Chats
 }
 
@@ -70,27 +68,23 @@ const Sidebar = ({
 };
 
 interface SidebarSimulationsProps {
-  onChangeSelection: (Simulation) => void;
+  onChangeSelection: (simulation: Simulation) => void;
 }
 
 const SidebarSimulations = ({ onChangeSelection }: SidebarSimulationsProps) => {
-  const simulations = [
-    SimulationSchema.parse({
-      _id: '123',
-      _v: 1,
-      user: 'user',
-      name: 'Flight Agent Booking',
-      scenario: 'Slot Filling',
-      domain: 'Domain',
-      type: 'Automated',
-      numConversations: 3,
-      agents: [],
-      conversations: [0, 1, 2],
-      status: 'OK',
-      createdAt: '2023-11-27T12:00:00.000Z',
-      updatedAt: '2023-11-27T12:00:00.000Z'
-    })
-  ];
+  const { data: simulations, isLoading, isError, error } = useSimulations();
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  if (!simulations) {
+    return <div>Error</div>;
+  }
 
   return (
     <>
@@ -113,7 +107,7 @@ interface SidebarChatsProps {
   title: string;
   chatIds: number[];
   selectedChat: number;
-  onSelectionChange: (number) => void;
+  onSelectionChange: (chatId: number) => void;
 }
 
 const SidebarChats = ({
