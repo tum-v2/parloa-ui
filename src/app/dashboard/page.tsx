@@ -26,6 +26,7 @@ import {
   IoDiceOutline,
   IoSwapHorizontalOutline
 } from 'react-icons/io5';
+import { ParentSize } from '@visx/responsive';
 import Card from '@/components/generic/Card';
 import LineChart from '@/components/charts/LineChart';
 import CardHighYieldSimulation, {
@@ -142,6 +143,19 @@ const dummyHighYieldSimulationData = [
   }
 ];
 
+const dummyChartData = [
+  [
+    { x: 1, y: 12 },
+    { x: 2, y: 23 },
+    { x: 3, y: 43 },
+    { x: 4, y: 54 },
+    { x: 5, y: 65 },
+    { x: 6, y: 32 },
+    { x: 7, y: 43 },
+    { x: 8, y: 76 }
+  ]
+];
+
 const Dashboard = () => {
   const DashboardLayoutStyle: React.CSSProperties = {
     // TODO: Find the better way to handle this issue.
@@ -175,14 +189,24 @@ const Dashboard = () => {
             ))}
           </Flex>
           <Card
-            height={600}
+            height={800}
             margin="none"
             style={{ marginTop: theme.padding.m }}
           >
             <Typography.Title level={4} style={{ margin: 0 }}>
               Success Rate Graph
             </Typography.Title>
-            {/* <LineChart  /> */}
+            <ParentSize>
+              {({ width, height }) => (
+                <LineChart
+                  data={dummyChartData}
+                  width={width}
+                  height={700}
+                  yUnit="%"
+                  yMax={100}
+                />
+              )}
+            </ParentSize>
             {/* TODO: Try with dummy data */}
           </Card>
         </Content>
@@ -192,24 +216,27 @@ const Dashboard = () => {
         style={{ paddingTop: 34, paddingRight: theme.padding.l }}
       >
         <Typography.Title level={3}>High Yield Simulation</Typography.Title>
-        {/* <List> */}
-        <VirtualList
-          data={dummyHighYieldSimulationData}
-          height={1000}
-          // itemHeight={47}
-          itemKey="id"
-          // onScroll={onScroll}
-        >
-          {(item: CardHighYieldSimulationProps) => (
-            <CardHighYieldSimulation
-              title={item.title}
-              date={item.date}
-              successRateNumber={item.successRateNumber}
-              agentType={item.agentType}
-            />
-          )}
-        </VirtualList>
-        {/* </List> */}
+        <List>
+          <VirtualList
+            data={dummyHighYieldSimulationData}
+            height={1000}
+            // itemHeight={47}
+            itemKey="id"
+            // onScroll={onScroll}
+          >
+            {(item: CardHighYieldSimulationProps) => (
+              <List.Item key={item.id}>
+                <CardHighYieldSimulation
+                  id={item.id}
+                  title={item.title}
+                  date={item.date}
+                  successRateNumber={item.successRateNumber}
+                  agentType={item.agentType}
+                />
+              </List.Item>
+            )}
+          </VirtualList>
+        </List>
       </Sider>
     </Layout>
   );

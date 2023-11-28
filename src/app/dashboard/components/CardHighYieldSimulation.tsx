@@ -9,6 +9,7 @@ import { IoPerson } from 'react-icons/io5';
 const { Text, Title } = Typography;
 
 export interface CardHighYieldSimulationProps {
+  id: string;
   title: string;
   date: string;
   successRateNumber: number;
