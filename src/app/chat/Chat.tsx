@@ -4,26 +4,24 @@ import ChatBubble, { Position } from '@/components/chat-bubble/ChatBubble';
 import { InputField } from '@/components/generic/InputField';
 import Button from '@/components/generic/Button';
 import { IoSend } from 'react-icons/io5';
+import useConversation from '@/hooks/useConversation';
+import { Message } from '@/api/schemas/conversation';
 
 interface ChatProps {
   chatId: number;
 }
 
 const Chat = ({ chatId }: ChatProps) => {
-  const [messages, setMessages] = useState([
-    {
-      id: 1,
-      message: 'Hi',
-      position: 'right'
-    },
-    {
-      id: 2,
-      message: 'Hello, how may I help you today?',
-      position: 'left'
-    }
-  ]);
+  const {
+    data: conversation,
+    isLoading,
+    isError,
+    error
+  } = useConversation(chatId);
 
+  const [messages, setMessages] = useState<Message[]>([]);
   const messagesEndRef = useRef(null);
+  const [inputValue, setInputValue] = useState('');
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -31,9 +29,25 @@ const Chat = ({ chatId }: ChatProps) => {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [conversation, messages]);
 
-  const [inputValue, setInputValue] = useState('');
+  useEffect(() => {
+    if (conversation) {
+      setMessages(conversation.messages);
+    }
+  }, [conversation, conversation?.messages]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  if (!conversation) {
+    return <div>Error</div>;
+  }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -47,7 +61,7 @@ const Chat = ({ chatId }: ChatProps) => {
     setMessages([
       ...messages,
       {
-        id: 13,
+        _id: 13,
         message: inputValue,
         position: 'right'
       }
@@ -85,9 +99,9 @@ const Chat = ({ chatId }: ChatProps) => {
       <div style={chatContainerStyle}>
         <div style={chatStyle}>
           {messages.map(message => (
-            <div key={message.id} style={{ flexGrow: 1 }}>
+            <div key={message._id} style={{ flexGrow: 1 }}>
               <ChatBubble
-                key={message.id}
+                key={message._id}
                 position={
                   message.position === 'left' ? Position.Left : Position.Right
                 }
