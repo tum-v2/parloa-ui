@@ -15,10 +15,15 @@ import { IoAirplaneOutline } from 'react-icons/io5';
 
 const { Content, Sider } = Layout;
 
+const cardOverallIconStyle: React.CSSProperties = {
+  width: 30,
+  height: 30
+};
+
 const dummyDashboardData = [
   {
     title: 'Total Number of Interractions',
-    icon: <IoAirplaneOutline />,
+    icon: <IoAirplaneOutline style={cardOverallIconStyle} />,
 
     numberType: 'number',
     number: 23540,
@@ -27,7 +32,7 @@ const dummyDashboardData = [
   },
   {
     title: 'Simulation Ran',
-    icon: <IoAirplaneOutline />,
+    icon: <IoAirplaneOutline style={cardOverallIconStyle} />,
 
     numberType: 'number',
     number: 54,
@@ -36,7 +41,7 @@ const dummyDashboardData = [
   },
   {
     title: 'Average Success Rate',
-    icon: <IoAirplaneOutline />,
+    icon: <IoAirplaneOutline style={cardOverallIconStyle} />,
 
     numberType: 'percentage',
     number: 78,

@@ -33,11 +33,6 @@ const CardOverall = ({
     width: 300
   };
 
-  const cardOverallIconStyle: React.CSSProperties = {
-    width: 30,
-    height: 30
-  };
-
   const topPartStyle: React.CSSProperties = {
     display: 'flex',
     justifyContent: 'space-between',
@@ -59,9 +54,7 @@ const CardOverall = ({
             <Title style={{ margin: 0 }} level={3}>
               {title}
             </Title>
-            <IconContext.Provider value={{ style: cardOverallIconStyle }}>
-              <div>{icon}</div>
-            </IconContext.Provider>
+            {icon}
           </div>
           <div>
             <Title style={{ margin: 0 }} level={3}>
