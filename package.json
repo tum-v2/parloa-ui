@@ -12,7 +12,7 @@
     "prettier:fix": "prettier . --write",
     "prepare": "husky install",
     "pre-commit": "lint-staged",
-    "test:unit": "jest",
+    "test": "jest",
     "watch:unit": "jest --watch"
   },
   "dependencies": {
