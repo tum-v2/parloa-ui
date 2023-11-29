@@ -63,6 +63,9 @@ const theme = {
     xl: 48,
     xxl: 96
   },
+  navbar: {
+    height: 56
+  },
   /**
    *  AntD:
    **/

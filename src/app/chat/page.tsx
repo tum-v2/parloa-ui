@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Simulation, SimulationSchema } from '@/api/schemas/simulation';
 import Chat from '@/app/chat/Chat';
 import Sidebar from '@/app/chat/Sidebar';
+import theme from '@/theme/theme';
 
 interface ChatPageProps {
   simulation: Simulation;
@@ -30,7 +31,7 @@ const ChatPage = ({ simulation }: ChatPageProps) => {
 
   const pageContainerStyle: React.CSSProperties = {
     display: 'flex',
-    height: '100vh'
+    height: `calc(100vh - ${theme.navbar.height}px)`
   };
 
   return (
