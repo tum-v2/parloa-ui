@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Select, Button, Typography } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
+import theme from '@/theme/theme';
 
 const { Option } = Select;
 const { Text } = Typography;
@@ -19,7 +20,7 @@ const cardStyle: React.CSSProperties = {
   width: 300,
   height: 400,
   border: '1px solid',
-  padding: 20
+  padding: theme.padding.l
 };
 
 const wrapperStyle: React.CSSProperties = {
@@ -30,20 +31,20 @@ const wrapperStyle: React.CSSProperties = {
   justifyContent: 'space-between'
 };
 
-const textStyle: React.CSSProperties = { fontSize: 22 };
+const textStyle: React.CSSProperties = { fontSize: theme.fontSize.xl };
 
-const iconStyle: React.CSSProperties = { margin: 24 };
+const iconStyle: React.CSSProperties = { margin: theme.margin.l };
 
 const selectStyle: React.CSSProperties = {
   width: '100%',
-  marginBottom: 20,
+  marginBottom: theme.margin.m,
   height: 40
 };
 
 const labelStyle: React.CSSProperties = {
   display: 'block',
-  marginBottom: 8,
-  fontSize: 13
+  marginBottom: theme.margin.s,
+  fontSize: theme.fontSize.m
 };
 
 const scenarioWrapperStyle: React.CSSProperties = {
@@ -54,7 +55,7 @@ const scenarioWrapperStyle: React.CSSProperties = {
 
 const scenarioSelectStyle: React.CSSProperties = {
   flex: 1,
-  marginRight: 10,
+  marginRight: theme.margin.m,
   height: 40
 };
 
@@ -64,14 +65,14 @@ const ModelCard = ({
   onModelChange,
   onScenarioChange,
   onButtonClick,
-  icon, // Icon prop
-  title // Title text prop
+  icon,
+  title
 }: ModelCardProps) => {
   return (
     <Card style={cardStyle}>
       <div style={wrapperStyle}>
-        <Text style={textStyle}>{title}</Text> {/* Use title prop */}
-        <div style={iconStyle}>{icon}</div> {/* Use icon prop */}
+        <Text style={textStyle}>{title}</Text>
+        <div style={iconStyle}>{icon}</div>
         <Select
           defaultValue={models[0]}
           style={selectStyle}
@@ -84,7 +85,7 @@ const ModelCard = ({
           ))}
         </Select>
         <label htmlFor="scenario" style={labelStyle}>
-          Instruction Template / Scenario
+          Instruction Template
         </label>
         <div style={scenarioWrapperStyle}>
           <Select

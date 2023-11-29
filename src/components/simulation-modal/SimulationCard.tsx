@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Card, Typography } from 'antd';
+import theme from '@/theme/theme';
 
 const { Text } = Typography;
 
@@ -44,14 +45,14 @@ const iconStyle: React.CSSProperties = {
 const getModeColors = (mode: 'manual' | 'automated') =>
   ({
     manual: {
-      iconAndText: '#4E77DF',
-      border: '#87A9FF',
-      background: '#F0F1FF'
+      iconAndText: theme.color.royalBlue,
+      border: theme.color.skyeBlue,
+      background: theme.color.paleBlue
     },
     automated: {
-      iconAndText: '#BE54DA',
-      border: '#E194F5',
-      background: '#FDF3FF'
+      iconAndText: theme.color.brightLavender,
+      border: theme.color.lilac,
+      background: theme.color.paleLavender
     }
   })[mode];
 

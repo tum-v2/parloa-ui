@@ -6,6 +6,7 @@ import { InputField } from '../generic/InputField';
 import { FaHeadphones, FaUser } from 'react-icons/fa';
 import { AiFillCode } from 'react-icons/ai';
 import { IoReload } from 'react-icons/io5';
+import theme from '@/theme/theme';
 
 const models = ['GPT-3', 'GPT-4', 'BERT', 'XLNet'];
 const scenarios = ['Flight Agent', 'Customer Service', 'Tech Support', 'Sales'];
@@ -22,10 +23,15 @@ const StepContent: React.FC<StepContentProps> = ({
   const [temperature, setTemperature] = useState<number>(0.5);
   const [maxTokens, setMaxTokens] = useState<number>(2048);
 
-  const wrapperStyle: React.CSSProperties = { padding: '20px' };
-  const cardStyle: React.CSSProperties = { width: '300px', padding: '20px' };
-  const inputFieldStyle: React.CSSProperties = { marginBottom: '16px' };
-  const sliderContainerStyle: React.CSSProperties = { marginTop: '20px' };
+  const wrapperStyle: React.CSSProperties = { padding: theme.padding.l };
+  const cardStyle: React.CSSProperties = {
+    width: '300px',
+    padding: theme.padding.l
+  };
+  const inputFieldStyle: React.CSSProperties = { marginBottom: theme.margin.l };
+  const sliderContainerStyle: React.CSSProperties = {
+    marginTop: theme.margin.l
+  };
 
   const handleModelChange = () => {
     console.log(`Selected Model`);
@@ -85,7 +91,7 @@ const StepContent: React.FC<StepContentProps> = ({
               <div style={inputFieldStyle}>
                 <label
                   htmlFor="simulation-name"
-                  style={{ display: 'block', marginBottom: '8px' }}
+                  style={{ display: 'block', marginBottom: theme.padding.s }}
                 >
                   Simulation Name
                 </label>
@@ -99,7 +105,7 @@ const StepContent: React.FC<StepContentProps> = ({
               <div>
                 <label
                   htmlFor="simulation-description"
-                  style={{ display: 'block', marginBottom: '8px' }}
+                  style={{ display: 'block', marginBottom: theme.padding.s }}
                 >
                   Description
                 </label>
@@ -108,7 +114,8 @@ const StepContent: React.FC<StepContentProps> = ({
                   type="textarea"
                   size="large"
                   placeholder="Description"
-                  minRows={6}
+                  minRows={10}
+                  maxRows={10}
                 />
               </div>
             </div>
@@ -162,11 +169,11 @@ const StepContent: React.FC<StepContentProps> = ({
               width: '80%'
             }}
           >
-            <div style={{ width: '40%', padding: '20px' }}>
+            <div style={{ width: '40%', padding: theme.padding.l }}>
               <div style={inputFieldStyle}>
                 <label
                   htmlFor="template-name"
-                  style={{ display: 'block', marginBottom: '8px' }}
+                  style={{ display: 'block', marginBottom: theme.padding.s }}
                 >
                   Template Name
                 </label>
@@ -175,7 +182,7 @@ const StepContent: React.FC<StepContentProps> = ({
               <div style={inputFieldStyle}>
                 <label
                   htmlFor="instructions"
-                  style={{ display: 'block', marginBottom: '8px' }}
+                  style={{ display: 'block', marginBottom: theme.padding.s }}
                 >
                   Instructions
                 </label>
@@ -187,7 +194,7 @@ const StepContent: React.FC<StepContentProps> = ({
                 />
               </div>
             </div>
-            <div style={{ width: '40%', padding: '20px' }}>
+            <div style={{ width: '40%', padding: theme.padding.l }}>
               <Select
                 defaultValue="Sequence"
                 style={{ width: 120 }}

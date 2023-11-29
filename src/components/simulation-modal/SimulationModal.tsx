@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { Modal, Steps, Popover } from 'antd';
-import theme from '@/theme/theme';
+import { Modal, Steps, Popover, Button } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
 import StepContent from './StepContent';
-import { Button } from 'antd';
 import BackButton from '../generic/BackButton';
 import NextButton from '../generic/NextButton';
-import { PlusOutlined } from '@ant-design/icons';
+import theme from '@/theme/theme';
 
 const { Step } = Steps;
 
@@ -18,6 +17,31 @@ const STEP_TITLES = [
 const customDot = (dot: React.ReactNode, { index }: { index: number }) => {
   const content = STEP_TITLES[index] || '';
   return <Popover content={<span>{content}</span>}>{dot}</Popover>;
+};
+
+// Styles
+const modalFooterStyle: React.CSSProperties = {
+  display: 'flex',
+  justifyContent: 'space-around',
+  alignItems: 'center',
+  padding: theme.padding.xs,
+  width: '100%'
+};
+
+const leftAlignStyle: React.CSSProperties = {
+  flex: 1,
+  textAlign: 'left'
+};
+
+const stepsStyle: React.CSSProperties = {
+  flex: 2,
+  justifyContent: 'center',
+  maxWidth: '20%'
+};
+
+const rightAlignStyle: React.CSSProperties = {
+  flex: 1,
+  textAlign: 'right'
 };
 
 const SimulationModal = () => {
@@ -65,18 +89,8 @@ const SimulationModal = () => {
   };
 
   const modalFooter = (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        padding: theme.padding.xs,
-        width: '100%'
-      }}
-    >
-      <div style={{ flex: 1, textAlign: 'left' }}>
-        {' '}
-        {/* Adjusted for flexible sizing and alignment */}
+    <div style={modalFooterStyle}>
+      <div style={leftAlignStyle}>
         {(currentStep > 0 || isWildStep) && (
           <BackButton onClick={handlePrev}>{getPrevStepTitle()}</BackButton>
         )}
@@ -85,19 +99,13 @@ const SimulationModal = () => {
         current={currentStep}
         size="small"
         progressDot={customDot}
-        style={{
-          flex: 2,
-          justifyContent: 'center',
-          maxWidth: '20%'
-        }}
+        style={stepsStyle}
       >
         <Step />
         <Step />
         <Step />
       </Steps>
-      <div style={{ flex: 1, textAlign: 'right' }}>
-        {' '}
-        {/* Adjusted for flexible sizing and alignment */}
+      <div style={rightAlignStyle}>
         {isWildStep ? (
           <Button type="primary" onClick={handlePrev}>
             Save

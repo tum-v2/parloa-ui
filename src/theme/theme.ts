@@ -17,7 +17,20 @@ const theme = {
     pink: '#ca5dd9',
     orange: '#f6b033',
     ligthGray: 'rgba(36, 19, 43, 0.45)',
-    deepPurple: '#24132b'
+    deepPurple: '#24132b',
+    royalBlue: '#4E77DF',
+    skyeBlue: '#87A9FF',
+    paleBlue: 'F0F1FF',
+    brightLavender: '#BE54DA',
+    lilac: '#E194F5',
+    paleLavender: '#FDF3FF'
+  },
+  margin: {
+    xs: 4,
+    s: 8,
+    m: 12,
+    l: 24,
+    xl: 48
   },
   padding: {
     xs: 4,
