@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 const rootStyle: React.CSSProperties = {
-  // @ts-ignore
+  // @ts-expect-error CSSProperties is not compatible with Theme
   '--color-text': theme.color.deepPurple,
   '--font-lexend': theme.font.lexend.style.fontFamily
 };
