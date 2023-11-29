@@ -33,13 +33,8 @@ const Page = () => {
           <SettingOutlined /> Configurations
         </Title>
         <Flex gap={'small'}>
-          {data.agents.map((agentId, i) => (
-            <ConfigurationCard
-              key={agentId}
-              title={i == 0 ? 'Agent' : 'User'}
-              agentId={agentId}
-            />
-          ))}
+          <ConfigurationCard title="Agent" agentId={data.serviceAgent} />
+          <ConfigurationCard title="User" agentId={data.userAgent} />
         </Flex>
       </Flex>
     </Content>

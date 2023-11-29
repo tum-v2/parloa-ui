@@ -16,11 +16,6 @@ const columns: ColumnsType<Simulation> = [
     key: 'scenario'
   },
   {
-    title: 'Domain',
-    dataIndex: 'domain',
-    key: 'domain'
-  },
-  {
     title: 'Type',
     dataIndex: 'type',
     key: 'type'
