@@ -20,7 +20,7 @@ const theme = {
     green: '#4dd495',
     cyan: '#67cfe9',
     royalBlue: '#4E77DF',
-    skyeBlue: '#87A9FF',
+    skyBlue: '#87A9FF',
     paleBlue: 'F0F1FF',
     brightLavender: '#BE54DA',
     lilac: '#E194F5',
