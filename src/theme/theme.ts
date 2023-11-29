@@ -56,6 +56,14 @@ const theme = {
     m: 3,
     l: 6
   },
+  sizing: {
+    xs: 4,
+    s: 8,
+    m: 12,
+    l: 24,
+    xl: 48,
+    xxl: 96
+  },
   /**
    *  AntD:
    **/
