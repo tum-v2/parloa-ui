@@ -50,7 +50,8 @@ const NavBarTab = ({ selectedTab, setSelectedTab }: NavBarTabProps) => {
       theme={{
         components: {
           Segmented: {
-            itemSelectedBg: theme.color.lightPrimary
+            itemSelectedBg: theme.color.lightPrimary,
+            itemSelectedColor: theme.color.deepPurple
           }
         },
         token: {
