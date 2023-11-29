@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { ConversationSchema } from './conversation';
 
 export const AgentSchema = z.object({
   _id: z.string(),
@@ -7,6 +8,7 @@ export const AgentSchema = z.object({
   temperature: z.number(),
   maxTokens: z.number(),
   prompt: z.string(),
+  conversations: ConversationSchema.array(),
   updatedAt: z.string().datetime(),
   createdAt: z.string().datetime()
 });
