@@ -8,7 +8,7 @@ export const AgentSchema = z.object({
   temperature: z.number(),
   maxTokens: z.number(),
   prompt: z.string(),
-  conversations: ConversationSchema.array(),
+  conversations: ConversationSchema.array(), // TODO: remove this when backend figures out how to return this
   updatedAt: z.string().datetime(),
   createdAt: z.string().datetime()
 });
