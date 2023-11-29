@@ -20,7 +20,7 @@ const Chat = ({ chatId }: ChatProps) => {
   } = useConversation(chatId);
 
   const [messages, setMessages] = useState<Message[]>([]);
-  const messagesEndRef = useRef(null);
+  const messagesEndRef = useRef<null | HTMLDivElement>(null);
   const [inputValue, setInputValue] = useState('');
 
   const scrollToBottom = () => {
