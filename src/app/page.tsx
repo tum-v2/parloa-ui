@@ -1,5 +1,5 @@
-// eslint-disable-next-line require-jsdoc
-
-export default function Page() {
+const Page = () => {
   return <></>;
-}
+};
+
+export default Page;
