@@ -6,10 +6,7 @@
     "next/core-web-vitals",
     "prettier"
   ],
-  "plugins": [
-    "eslint-plugin-tsdoc",
-    "prettier"
-  ],
+  "plugins": ["eslint-plugin-tsdoc", "prettier"],
   "rules": {
     "require-jsdoc": "warn",
     "tsdoc/syntax": "warn",
