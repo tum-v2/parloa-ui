@@ -1,11 +1,5 @@
-import NavBar from '@/components/nav-bar';
+// eslint-disable-next-line require-jsdoc
 
-const Page = () => {
-  return (
-    <div>
-      <NavBar />
-    </div>
-  );
-};
-
-export default Page;
+export default function Page() {
+  return <></>;
+}
