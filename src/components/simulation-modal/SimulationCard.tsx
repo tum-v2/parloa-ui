@@ -46,7 +46,7 @@ const getModeColors = (mode: 'manual' | 'automated') =>
   ({
     manual: {
       iconAndText: theme.color.royalBlue,
-      border: theme.color.skyeBlue,
+      border: theme.color.skyBlue,
       background: theme.color.paleBlue
     },
     automated: {

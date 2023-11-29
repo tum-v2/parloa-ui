@@ -242,7 +242,7 @@ const StepContent: React.FC<StepContentProps> = ({
   return (
     <div
       style={{
-        height: '50vh',
+        height: '70vh',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center'
