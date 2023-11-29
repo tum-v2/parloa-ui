@@ -4,7 +4,7 @@ import { Flex, Typography, Button } from 'antd';
 import Pill from '@/components/generic/Pill';
 import { getSimulationTypeStyle } from '@/lib/utils/simulations/simulationStyles';
 import theme from '@/theme/theme';
-import { FileTextOutlined, FolderOpenOutlined } from '@ant-design/icons';
+import { FileTextOutlined } from '@ant-design/icons';
 import { formatLongDateTimeString } from '@/lib/utils/dateTime';
 import { Simulation } from '@/api/schemas/simulation';
 
@@ -13,7 +13,7 @@ interface DetailsHeaderProps {
 }
 
 const DetailsHeader = ({ simulation }: DetailsHeaderProps) => {
-  const { name, createdAt, scenario, domain, type } = simulation;
+  const { name, createdAt, scenario, type } = simulation;
 
   const typeStyle = getSimulationTypeStyle(type);
 
@@ -29,9 +29,6 @@ const DetailsHeader = ({ simulation }: DetailsHeaderProps) => {
       <Flex justify="flex-start" align="center" dir="row">
         <Pill color={typeStyle.color} icon={<typeStyle.icon />}>
           {type}
-        </Pill>
-        <Pill icon={<FolderOpenOutlined />} color={theme.color.green}>
-          {domain}
         </Pill>
         <Pill icon={<FileTextOutlined />} color={theme.color.cyan}>
           {scenario}

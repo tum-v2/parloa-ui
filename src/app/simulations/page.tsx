@@ -1,10 +1,15 @@
 'use client';
 
+import SimulationTable from './SimulationTable';
+import Content from '@/components/generic/Content';
+import Header from '@/components/generic/Header';
+
 const Page = () => {
   return (
-    <>
-      <h1>Hello, Simulations Page!</h1>
-    </>
+    <Content>
+      <Header title="Simulations" />
+      <SimulationTable />
+    </Content>
   );
 };
 
