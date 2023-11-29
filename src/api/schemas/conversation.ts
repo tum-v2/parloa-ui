@@ -1,9 +1,8 @@
 import { z } from 'zod';
-import { AgentSchema } from './agent';
 
 export const MessageSchema = z.object({
   _id: z.string(),
-  sender: AgentSchema,
+  sender: z.string(),
   text: z.string(),
   createdAt: z.string().datetime(),
   updatedAt: z.string().datetime()
