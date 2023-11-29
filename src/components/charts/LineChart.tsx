@@ -89,7 +89,7 @@ const LineChart = ({
         hideTicks
         tickLabelProps={() => ({
           fill: theme.color.ligthGray,
-          fontSize: theme.fontSize,
+          fontSize: theme.fontSize.m,
           textAnchor: 'middle',
           verticalAnchor: 'middle'
         })}
@@ -104,7 +104,7 @@ const LineChart = ({
         hideTicks
         tickLabelProps={() => ({
           fill: theme.color.ligthGray,
-          fontSize: theme.fontSize,
+          fontSize: theme.fontSize.m,
           textAnchor: 'end',
           verticalAnchor: 'middle'
         })}
