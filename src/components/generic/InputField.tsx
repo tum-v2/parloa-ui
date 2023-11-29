@@ -8,7 +8,7 @@ interface InputFieldProps {
   suffix?: React.ReactNode;
   id?: string;
   value?: string;
-  onChange?: () => void;
+  onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   onPressEnter?: () => void;
   maxLength?: number;
   disabled?: boolean;

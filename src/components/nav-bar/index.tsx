@@ -37,7 +37,8 @@ const navBarContainerStyle: React.CSSProperties = {
   // Add blur effect
   backdropFilter: 'blur(8px)',
   WebkitBackdropFilter: 'blur(8px)',
-  backgroundColor: 'rgba(255, 255, 255, 0.8)'
+  backgroundColor: 'rgba(255, 255, 255, 0.8)',
+  height: theme.navbar.height
 };
 
 const NavBar = () => {

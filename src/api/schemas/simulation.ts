@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ConversationSchema } from './conversation';
+import { AgentSchema } from './agent';
 
 export const SimulationSchema = z.object({
   _id: z.string(),
@@ -8,9 +8,8 @@ export const SimulationSchema = z.object({
   scenario: z.string(),
   type: z.enum(['AUTOMATED', 'MANUAL', 'OPTIMIZATION', 'A/B TESTING']),
   numConversations: z.number(),
-  serviceAgent: z.string(),
-  userAgent: z.string(),
-  conversations: ConversationSchema.array().optional(),
+  agents: AgentSchema.array(),
+  conversations: z.number().array(),
   status: z.string(),
   createdAt: z.string().datetime(),
   updatedAt: z.string().datetime()
