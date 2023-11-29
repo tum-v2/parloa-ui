@@ -5,6 +5,7 @@ import StepContent from './StepContent';
 import { Button } from 'antd';
 import BackButton from '../generic/BackButton';
 import NextButton from '../generic/NextButton';
+import { PlusOutlined } from '@ant-design/icons';
 
 const { Step } = Steps;
 
@@ -114,7 +115,7 @@ const SimulationModal = () => {
 
   return (
     <>
-      <Button type="primary" onClick={showModal}>
+      <Button icon={<PlusOutlined />} type="primary" onClick={showModal}>
         Add New
       </Button>
       <Modal
