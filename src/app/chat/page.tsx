@@ -18,7 +18,7 @@ const ChatPage = ({ simulation }: ChatPageProps) => {
     name: 'Flight Agent Booking',
     scenario: 'Slot Filling',
     domain: 'Domain',
-    type: 'Automated',
+    type: 'AUTOMATED',
     numConversations: 3,
     agents: [],
     conversations: [0, 1, 2],
