@@ -1,12 +1,18 @@
-// 'use client';
+'use client';
 // import { InputField } from '@/components/generic/InputField';
 // import { BsFillSendFill } from 'react-icons/bs';
 // import { Flex } from 'antd';
+
+import { Typography } from 'antd';
+import SimulationTable from './SimulationTable';
+
+const { Title } = Typography;
+
 // eslint-disable-next-line require-jsdoc
 export default function Page() {
   return (
     <>
-      <h1>Hello, Simulations Page!</h1>
+      <Title level={2}>Simulations</Title>
       {/* <Flex vertical gap={32}>
         <InputField
           type="text"
@@ -25,6 +31,7 @@ export default function Page() {
           size="large"
         />
       </Flex> */}
+      <SimulationTable />
     </>
   );
 }
