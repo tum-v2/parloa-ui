@@ -3,12 +3,13 @@ import { Card, Typography } from 'antd';
 import theme from '@/theme/theme';
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
 import { setType } from '@/store/features/CreateSimulation/CreateSimulationSlice';
+import { AiFillCode } from 'react-icons/ai';
+import { IoReload } from 'react-icons/io5';
 
 const { Text } = Typography;
 
 interface SimulationCardProps {
   title: string;
-  icon: React.ReactNode;
   children?: React.ReactNode;
   mode: 'manual' | 'automated';
   selectable: boolean;
@@ -60,7 +61,6 @@ const getModeColors = (mode: 'manual' | 'automated') =>
 
 const SimulationCard = ({
   title,
-  icon,
   children,
   mode,
   selectable
@@ -103,6 +103,14 @@ const SimulationCard = ({
       : modeColors.iconAndText
   };
 
+  const CardIcon = () => {
+    if (mode === 'manual') {
+      return <AiFillCode size={100} />;
+    } else {
+      return <IoReload size={100} />;
+    }
+  };
+
   const handleCardClick = () => {
     if (selectable) {
       if (mode === 'manual') {
@@ -122,7 +130,9 @@ const SimulationCard = ({
       onClick={handleCardClick}
     >
       <div style={wrapperStyle}>
-        <span style={{ ...iconStyle, color: textStyle.color }}>{icon}</span>
+        <span style={{ ...iconStyle, color: textStyle.color }}>
+          <CardIcon />
+        </span>
         <Text style={textStyle}>{title}</Text>
         <Text style={textStyle}>Simulation</Text>
         {children}

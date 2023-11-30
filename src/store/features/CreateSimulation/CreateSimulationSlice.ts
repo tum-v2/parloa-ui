@@ -6,6 +6,7 @@ interface SimulationState {
   _id: string;
   __v?: number;
   name: string;
+  description?: string;
   scenario: string;
   type: 'AUTOMATED' | 'MANUAL' | 'OPTIMIZATION' | 'A/B TESTING' | '';
   numConversations: number;
@@ -22,6 +23,7 @@ const initialState: SimulationState = {
   _id: '',
   __v: 0,
   name: '',
+  description: '',
   scenario: '',
   type: '',
   numConversations: 0,
@@ -42,6 +44,9 @@ export const simulationSlice = createSlice({
     },
     setName: (state, action: PayloadAction<string>) => {
       state.name = action.payload;
+    },
+    setDescription: (state, action: PayloadAction<string>) => {
+      state.description = action.payload;
     },
     setScenario: (state, action: PayloadAction<string>) => {
       state.scenario = action.payload;
@@ -83,6 +88,7 @@ export const simulationSlice = createSlice({
 export const {
   setId,
   setName,
+  setDescription,
   setScenario,
   setType,
   setNumConversations,

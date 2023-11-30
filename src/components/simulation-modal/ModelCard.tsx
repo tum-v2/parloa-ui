@@ -8,9 +8,9 @@ const { Text } = Typography;
 
 interface ModelCardProps {
   models: string[];
-  scenarios: string[];
-  onModelChange: () => void;
-  onScenarioChange: () => void;
+  templates: string[];
+  onModelChange: (value: string) => void;
+  onTemplateChange: (value: string) => void;
   onButtonClick: () => void;
   icon: React.ReactNode;
   title: string;
@@ -61,9 +61,9 @@ const scenarioSelectStyle: React.CSSProperties = {
 
 const ModelCard = ({
   models,
-  scenarios,
+  templates,
   onModelChange,
-  onScenarioChange,
+  onTemplateChange,
   onButtonClick,
   icon,
   title
@@ -76,7 +76,7 @@ const ModelCard = ({
         <Select
           defaultValue={models[0]}
           style={selectStyle}
-          onChange={onModelChange}
+          onChange={value => onModelChange(value)}
         >
           {models.map(model => (
             <Option key={model} value={model}>
@@ -90,11 +90,11 @@ const ModelCard = ({
         <div style={scenarioWrapperStyle}>
           <Select
             id="scenario"
-            defaultValue={scenarios[0]}
+            defaultValue={templates[0]}
             style={scenarioSelectStyle}
-            onChange={onScenarioChange}
+            onChange={value => onTemplateChange(value)}
           >
-            {scenarios.map(scenario => (
+            {templates.map(scenario => (
               <Option key={scenario} value={scenario}>
                 {scenario}
               </Option>
@@ -103,7 +103,7 @@ const ModelCard = ({
           <Button
             type="primary"
             icon={<EditOutlined />}
-            onClick={onButtonClick}
+            onClick={() => onButtonClick()}
           />
         </div>
       </div>

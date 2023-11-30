@@ -5,7 +5,8 @@ import StepContent from './StepContent';
 import BackButton from '../generic/BackButton';
 import NextButton from '../generic/NextButton';
 import theme from '@/theme/theme';
-
+import { useAppDispatch } from '@/store/hooks';
+import { resetState } from '@/store/features/CreateSimulation/CreateSimulationSlice';
 const { Step } = Steps;
 
 const STEP_TITLES = [
@@ -49,7 +50,11 @@ const SimulationModal = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isWildStep, setIsWildStep] = useState(false);
 
+  //simulation type state
+  const dispatch = useAppDispatch();
+
   const showModal = () => {
+    dispatch(resetState());
     setOpen(true);
     setCurrentStep(0);
     setIsWildStep(false);
