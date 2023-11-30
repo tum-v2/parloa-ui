@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, Typography } from 'antd';
 import theme from '@/theme/theme';
+import { useAppSelector, useAppDispatch } from '@/store/hooks';
+import { setType } from '@/store/features/CreateSimulation/CreateSimulationSlice';
 
 const { Text } = Typography;
 
@@ -25,8 +27,8 @@ const cardStyleBase: React.CSSProperties = {
 
 const iconAndTextStyle: React.CSSProperties = {
   fontWeight: 'normal',
-  marginBottom: '4px',
-  fontSize: '22px',
+  marginBottom: theme.margin.xs,
+  fontSize: theme.fontSize.xl,
   textAlign: 'center'
 };
 
@@ -67,6 +69,17 @@ const SimulationCard = ({
   const [clicked, setClicked] = useState(false);
   const modeColors = getModeColors(mode);
 
+  //simulation type state
+  const simulation = useAppSelector(state => state.simulation);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (simulation.type === mode.toUpperCase()) {
+      setClicked(true);
+    } else {
+      setClicked(false);
+    }
+  }, [simulation.type, mode]);
+
   const cardStyle = {
     ...cardStyleBase,
     borderColor: selectable
@@ -91,6 +104,13 @@ const SimulationCard = ({
   };
 
   const handleCardClick = () => {
+    if (selectable) {
+      if (mode === 'manual') {
+        dispatch(setType('MANUAL'));
+      } else if (mode === 'automated') {
+        dispatch(setType('AUTOMATED'));
+      }
+    }
     setClicked(!clicked);
   };
 
