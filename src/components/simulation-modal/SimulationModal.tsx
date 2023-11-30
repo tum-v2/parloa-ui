@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Modal, Steps, Popover, Button } from 'antd';
+import { Modal, Steps, Popover, Button, message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import StepContent from './StepContent';
 import BackButton from '../generic/BackButton';
 import NextButton from '../generic/NextButton';
 import theme from '@/theme/theme';
-import { useAppDispatch } from '@/store/hooks';
+import { useAppSelector, useAppDispatch } from '@/store/hooks';
 import { resetState } from '@/store/features/CreateSimulation/CreateSimulationSlice';
 const { Step } = Steps;
 
@@ -51,6 +51,7 @@ const SimulationModal = () => {
   const [isWildStep, setIsWildStep] = useState(false);
 
   //simulation type state
+  const simulation = useAppSelector(state => state.simulation);
   const dispatch = useAppDispatch();
 
   const showModal = () => {
@@ -59,8 +60,26 @@ const SimulationModal = () => {
     setCurrentStep(0);
     setIsWildStep(false);
   };
-
+  const [messageApi, contextHolder] = message.useMessage();
   const handleNext = () => {
+    if (currentStep === 0) {
+      if (simulation.type === '') {
+        messageApi.open({
+          type: 'error',
+          content: 'Please select a simulation type.'
+        });
+        return;
+      }
+    }
+    if (currentStep === 1) {
+      if (simulation.name === '') {
+        messageApi.open({
+          type: 'error',
+          content: 'Please enter a simulation name.'
+        });
+        return;
+      }
+    }
     setCurrentStep(currentStep + 1);
   };
 
@@ -139,6 +158,7 @@ const SimulationModal = () => {
         onCancel={() => setOpen(false)}
         footer={modalFooter}
       >
+        {contextHolder}
         <StepContent
           stepNumber={currentStep + 1}
           enterWildStep={() => {

@@ -54,7 +54,7 @@ export const simulationSlice = createSlice({
     setType: (
       state,
       action: PayloadAction<
-        'AUTOMATED' | 'MANUAL' | 'OPTIMIZATION' | 'A/B TESTING'
+        'AUTOMATED' | 'MANUAL' | 'OPTIMIZATION' | 'A/B TESTING' | ''
       >
     ) => {
       state.type = action.payload;
