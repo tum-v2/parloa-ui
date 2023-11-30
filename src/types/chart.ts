@@ -12,3 +12,9 @@ export interface Datapoint {
   x: number;
   y: number;
 }
+
+export interface TooltipData {
+  x: number;
+  y: number;
+  color: string;
+}
