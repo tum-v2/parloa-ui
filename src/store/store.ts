@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import counterReducer from './features/Counter/CounterSlice';
+import simulationReducer from './features/CreateSimulation/CreateSimulationSlice';
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
-      counter: counterReducer
+      counter: counterReducer,
+      simulation: simulationReducer
     }
   });
 };
