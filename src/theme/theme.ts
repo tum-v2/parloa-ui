@@ -1,8 +1,7 @@
 import { Inter, Lexend } from 'next/font/google';
 
 const lexend = Lexend({
-  subsets: ['latin'],
-  weight: '400'
+  subsets: ['latin']
 });
 
 const inter = Inter({ subsets: ['latin'] });
@@ -17,7 +16,22 @@ const theme = {
     pink: '#ca5dd9',
     orange: '#f6b033',
     ligthGray: 'rgba(36, 19, 43, 0.45)',
-    deepPurple: '#24132b'
+    deepPurple: '#24132b',
+    green: '#4dd495',
+    cyan: '#67cfe9',
+    royalBlue: '#4E77DF',
+    skyBlue: '#87A9FF',
+    paleBlue: 'F0F1FF',
+    brightLavender: '#BE54DA',
+    lilac: '#E194F5',
+    paleLavender: '#FDF3FF'
+  },
+  margin: {
+    xs: 4,
+    s: 8,
+    m: 12,
+    l: 24,
+    xl: 48
   },
   padding: {
     xs: 4,
@@ -63,6 +77,9 @@ const theme = {
     xl: 48,
     xxl: 96
   },
+  navbar: {
+    height: 56
+  },
   /**
    *  AntD:
    **/
@@ -84,6 +101,14 @@ const theme = {
       colorInfo: 'rgb(202, 93, 217)',
       colorInfoBg: 'rgb(251, 234, 255)',
       colorInfoBorder: 'rgb(234, 177, 249)'
+    },
+    Card: {
+      colorBorderSecondary: 'rgb(221, 218, 224)'
+    },
+    Button: {
+      defaultShadow: '',
+      dangerShadow: '',
+      primaryShadow: ''
     }
   }
 };

@@ -6,16 +6,24 @@ type Padding = 'xs' | 's' | 'm' | 'l' | 'xl';
 
 interface CardProps {
   children: React.ReactNode;
+  color?: string;
   width?: number;
   height?: number;
   padding?: Padding;
 }
 
-const Card = ({ children, width, height, padding }: CardProps) => {
+const Card = ({
+  children,
+  color = theme.color.white,
+  width,
+  height,
+  padding
+}: CardProps) => {
   const cardStyle: React.CSSProperties = {
     borderRadius: theme.borderRadius.m,
     width: width || '100%',
-    height: height || '100%'
+    height: height || '100%',
+    backgroundColor: color
   };
   const bodyStyle: React.CSSProperties = {
     padding:

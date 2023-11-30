@@ -3,10 +3,10 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 
-import NavBarTab from './components/NavBarTab';
+import NavBarTab, { navBarTabOptions } from './components/NavBarTab';
 import logo from './components/parloa-logo.png';
 import NavBarLogout from './components/NavBarLogout';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import theme from '@/theme/theme';
 
 const navBarStyle: React.CSSProperties = {
@@ -37,12 +37,24 @@ const navBarContainerStyle: React.CSSProperties = {
   // Add blur effect
   backdropFilter: 'blur(8px)',
   WebkitBackdropFilter: 'blur(8px)',
-  backgroundColor: 'rgba(255, 255, 255, 0.8)'
+  backgroundColor: 'rgba(255, 255, 255, 0.8)',
+  height: theme.navbar.height
 };
 
 const NavBar = () => {
-  const [selectedTab, setSelectedTab] = useState<number>(0);
   const router = useRouter();
+
+  // Get current tab from route
+  const currentTab = `/${usePathname().split('/')[1]}`;
+
+  // Set selected tab
+  const selectedInitialTab = navBarTabOptions.findIndex(
+    option => option.route === currentTab
+  );
+
+  const [selectedTab, setSelectedTab] = useState<number>(
+    selectedInitialTab !== -1 ? selectedInitialTab : 0
+  );
 
   return (
     <div style={navBarContainerStyle}>

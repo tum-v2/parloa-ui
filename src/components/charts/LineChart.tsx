@@ -238,8 +238,8 @@ const LineChart = ({
       </svg>
       {tooltipData && (
         <Tooltip
-          top={(tooltipTop ?? 0) - theme.padding.s}
-          left={(tooltipLeft ?? 0) + theme.padding.s}
+          top={(tooltipTop ?? 0) - theme.padding.l}
+          left={(tooltipLeft ?? 0) + theme.padding.l}
           title={`${tooltipTitle ? tooltipTitle : 'Conversation'} ${
             tooltipData[0].x
           }`}
