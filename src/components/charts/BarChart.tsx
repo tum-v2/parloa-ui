@@ -86,8 +86,6 @@ const BarChart = ({
   const { tooltipLeft, tooltipTop, tooltipData, hideTooltip, showTooltip } =
     useTooltip<TooltipData[]>();
 
-  const [tooltipTitle, setTooltipTitle] = React.useState<string>('');
-
   return (
     <>
       <svg width={width} height={height}>
@@ -123,7 +121,6 @@ const BarChart = ({
                         const top = bar.y + padding;
                         const left =
                           barGroup.x0 + bar.width * (bar.index + 1) + padding;
-                        setTooltipTitle(bar.key);
                         showTooltip({
                           tooltipData: [
                             {
@@ -173,9 +170,7 @@ const BarChart = ({
         <Tooltip
           top={(tooltipTop ?? 0) - theme.padding.s}
           left={(tooltipLeft ?? 0) + theme.padding.s}
-          title={
-            tooltipTitle ? tooltipTitle : `Conversation${tooltipData[0].x}`
-          }
+          title={`Conversation ${tooltipData[0].x}`}
           data={tooltipData}
           coloredTitle
           yUnit={yUnit}
