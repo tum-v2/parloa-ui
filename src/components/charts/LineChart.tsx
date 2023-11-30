@@ -13,6 +13,7 @@ import { useTooltip } from '@visx/tooltip';
 import React from 'react';
 import { GlyphCircle } from '@visx/glyph';
 import Tooltip from './Tooltip';
+import { TooltipData } from '@/types/chart';
 
 interface ChartData {
   x: number;
@@ -88,16 +89,24 @@ const LineChart = ({
 
   // Tooltip
   const { tooltipLeft, tooltipTop, tooltipData, hideTooltip, showTooltip } =
-    useTooltip<ChartData[]>();
+    useTooltip<TooltipData[]>();
 
   // Get tooltip data for all lines at the given x value
   const getData = useCallback(
     (x: number) => {
-      const output = data.flatMap(d =>
-        d.filter(function (el) {
+      const output = data.flatMap(d => {
+        const filteredData = d.filter(function (el) {
           return el.x === x;
-        })
-      );
+        });
+
+        // Add color to data
+        return filteredData.map((d, i) => {
+          return {
+            ...d,
+            color: chartColors[i]
+          };
+        });
+      });
       return output;
     },
     [data]
