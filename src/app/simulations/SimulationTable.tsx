@@ -1,7 +1,11 @@
 'use client';
 import { Simulation } from '@/api/schemas/simulation';
+import Pill from '@/components/generic/Pill';
 import useSimulations from '@/hooks/useSimulations';
-import { getSimulationStatusBadgeStatus } from '@/lib/utils/simulations/simulationStyles';
+import {
+  getSimulationStatusBadgeStatus,
+  getSimulationTypeStyle
+} from '@/lib/utils/simulations/simulationStyles';
 import { firstLetterToUpperCase, underscoresToSpaces } from '@/lib/utils/text';
 import { Badge } from 'antd';
 import Table, { ColumnsType } from 'antd/es/table';
@@ -28,7 +32,12 @@ const columns: ColumnsType<Simulation> = [
     dataIndex: 'type',
     key: 'type',
     render: (type: string) => {
-      return <span>{firstLetterToUpperCase(underscoresToSpaces(type))}</span>;
+      const typeStyle = getSimulationTypeStyle(type);
+      return (
+        <Pill color={typeStyle.color} icon={<typeStyle.icon />}>
+          {firstLetterToUpperCase(type)}
+        </Pill>
+      );
     }
   },
   {
