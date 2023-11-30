@@ -3,6 +3,7 @@ import { StockOutlined } from '@ant-design/icons';
 import LineChart from '@/components/charts/LineChart';
 import { ParentSize } from '@visx/responsive';
 import { useState } from 'react';
+import BarChart from '@/components/charts/BarChart';
 
 const { Title } = Typography;
 
@@ -20,16 +21,56 @@ const mockData = [
 ];
 
 const mockData2 = [
-  [
-    { x: 1, y: 4 },
-    { x: 2, y: 12 },
-    { x: 3, y: 15 },
-    { x: 4, y: 20 },
-    { x: 5, y: 6 },
-    { x: 6, y: 9 },
-    { x: 7, y: 7 },
-    { x: 8, y: 5 }
-  ]
+  {
+    key: 'Simulation 1',
+    dataPoints: [
+      {
+        x: 1,
+        y: 10
+      },
+      {
+        x: 2,
+        y: 20
+      },
+      {
+        x: 3,
+        y: 30
+      },
+      {
+        x: 4,
+        y: 40
+      },
+      {
+        x: 5,
+        y: 50
+      }
+    ]
+  },
+  {
+    key: 'Simulation 2',
+    dataPoints: [
+      {
+        x: 1,
+        y: 20
+      },
+      {
+        x: 2,
+        y: 30
+      },
+      {
+        x: 3,
+        y: 40
+      },
+      {
+        x: 4,
+        y: 50
+      },
+      {
+        x: 5,
+        y: 60
+      }
+    ]
+  }
 ];
 
 const mockData3 = [
@@ -77,7 +118,12 @@ const InsightsCard = () => {
                   />
                 )) ||
                 (selectedChart === 'Amount of steps' && (
-                  <LineChart data={mockData2} width={width} height={height} />
+                  <BarChart
+                    data={mockData2}
+                    width={width}
+                    height={height}
+                    yUnit=" steps"
+                  />
                 )) ||
                 (selectedChart === 'Evaluation Score' && (
                   <LineChart data={mockData3} width={width} height={height} />

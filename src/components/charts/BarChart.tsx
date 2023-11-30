@@ -120,7 +120,7 @@ const BarChart = ({
                       rx={theme.borderRadius.s}
                       onMouseLeave={() => hideTooltip()}
                       onMouseMove={() => {
-                        const top = bar.y + padding * 3;
+                        const top = bar.y + padding;
                         const left =
                           barGroup.x0 + bar.width * (bar.index + 1) + padding;
                         setTooltipTitle(bar.key);
