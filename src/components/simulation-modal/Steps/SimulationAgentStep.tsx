@@ -7,8 +7,10 @@ import { useAppSelector, useAppDispatch } from '@/store/hooks';
 import {
   setUserAgent,
   setServiceAgent,
-  setScenario
+  setScenario,
+  setNumConversations
 } from '@/store/features/CreateSimulation/CreateSimulationSlice';
+import { Form, InputNumber } from 'antd';
 
 const models = ['GPT-3', 'GPT-4', 'BERT', 'XLNet'];
 const scenarios = ['Flight Agent', 'Customer Service', 'Tech Support', 'Sales'];
@@ -63,7 +65,18 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
         return (
           <>
             <div style={wrapperStyle}>
-              <SimulationCard selectable={false} title={Title} mode={mode} />
+              <SimulationCard selectable={false} title={Title} mode={mode}>
+                {mode === 'automated' ? (
+                  <Form.Item label="Simulations">
+                    <InputNumber
+                      value={simulation.numConversations}
+                      onChange={value =>
+                        dispatch(setNumConversations(value as number))
+                      }
+                    />
+                  </Form.Item>
+                ) : null}
+              </SimulationCard>
             </div>
             <div style={wrapperStyle}>
               <ModelCard
