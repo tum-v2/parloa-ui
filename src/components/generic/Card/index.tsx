@@ -6,6 +6,7 @@ type Padding = 'none' | 'xs' | 's' | 'm' | 'l' | 'xl';
 
 interface CardProps {
   children: React.ReactNode;
+  color?: string;
   width?: number;
   height?: number;
   padding?: Padding;
@@ -15,11 +16,12 @@ interface CardProps {
 
 const Card = ({
   children,
+  margin,
+  style,
+  color = theme.color.white,
   width,
   height,
-  padding,
-  margin,
-  style
+  padding
 }: CardProps) => {
   const cardStyle: React.CSSProperties = {
     borderRadius: theme.borderRadius.m,
@@ -38,7 +40,8 @@ const Card = ({
         ? theme.padding.xl
         : margin === 'none'
         ? theme.padding.none
-        : theme.padding.m
+        : theme.padding.m,
+    backgroundColor: color
   };
   const bodyStyle: React.CSSProperties = {
     padding:

@@ -4,6 +4,7 @@
 
 body {
   color: var(--color-text);
+  margin: 0;
 }
 
 button,

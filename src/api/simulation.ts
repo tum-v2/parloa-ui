@@ -17,3 +17,21 @@ export const getSimulation = async (id: string) => {
 
   return zodResponse.data;
 };
+
+/**
+ * /simulation/all Get all simulations
+ */
+export const getAllSimulations = async () => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/simulation/all`
+  );
+
+  const zodResponse = SimulationSchema.array().safeParse(await response.json());
+
+  // Return error to react-query
+  if (!zodResponse.success) {
+    throw new Error(zodResponse.error.message);
+  }
+
+  return zodResponse.data;
+};

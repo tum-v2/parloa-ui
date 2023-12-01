@@ -12,10 +12,11 @@
     "prettier:fix": "prettier . --write",
     "prepare": "husky install",
     "pre-commit": "lint-staged",
-    "test:unit": "jest",
+    "test": "jest",
     "watch:unit": "jest --watch"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.7",
     "@tanstack/react-query": "^5.8.6",
     "@visx/visx": "^3.4.1",
     "antd": "^5.11.0",
@@ -24,6 +25,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^4.12.0",
+    "react-redux": "^8.1.3",
     "zod": "^3.22.4"
   },
   "devDependencies": {
@@ -33,6 +35,8 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
     "autoprefixer": "^10.4.16",
     "eslint": "^8",
     "eslint-config-next": "14.0.1",

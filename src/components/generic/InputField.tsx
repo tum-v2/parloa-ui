@@ -8,7 +8,7 @@ interface InputFieldProps {
   suffix?: React.ReactNode;
   id?: string;
   value?: string;
-  onChange?: () => void;
+  onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   onPressEnter?: () => void;
   maxLength?: number;
   disabled?: boolean;
@@ -36,7 +36,7 @@ export const InputField = (props: InputFieldProps) => {
     return (
       <TextArea
         size={props.size}
-        autoSize={{ minRows: props.minRows, maxRows: 6 || props.maxRows }}
+        autoSize={{ minRows: props.minRows, maxRows: 10 || props.maxRows }}
         placeholder={props.placeholder}
         id={props.id}
         value={props.value}
