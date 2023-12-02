@@ -1,4 +1,3 @@
-import { SimulationType } from '@/api/types/simulation';
 import theme from '@/theme/theme';
 import {
   ReloadOutlined,
@@ -7,7 +6,7 @@ import {
   RocketOutlined
 } from '@ant-design/icons';
 
-export const getSimulationTypeStyle = (type: SimulationType) => {
+export const getSimulationTypeStyle = (type: string) => {
   switch (type) {
     case 'AUTOMATED':
       return {
@@ -45,5 +44,20 @@ export const getAgentLLMColor = (llm: string) => {
       return theme.color.blue;
     default:
       return theme.color.blue;
+  }
+};
+
+export const getSimulationStatusBadgeStatus = (status: string) => {
+  switch (status) {
+    case 'SCHEDULED':
+      return 'default';
+    case 'RUNNING':
+      return 'processing';
+    case 'FAILED':
+      return 'error';
+    case 'FINISHED':
+      return 'success';
+    default:
+      return 'default';
   }
 };

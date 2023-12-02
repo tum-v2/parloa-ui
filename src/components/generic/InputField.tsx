@@ -6,6 +6,7 @@ interface InputFieldProps {
   size?: 'small' | 'middle' | 'large';
   placeholder?: string;
   suffix?: React.ReactNode;
+  prefix?: React.ReactNode;
   id?: string;
   value?: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
@@ -69,6 +70,7 @@ export const InputField = (props: InputFieldProps) => {
         size={props.size}
         placeholder={props.placeholder}
         suffix={props.suffix}
+        prefix={props.prefix}
         id={props.id}
         value={props.value}
         type={props.type}
