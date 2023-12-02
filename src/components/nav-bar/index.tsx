@@ -44,10 +44,10 @@ const navBarContainerStyle: React.CSSProperties = {
 const NavBar = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const hideNavBar = pathname === '/login' ? false : true;
 
   // Get current tab from route
   const currentTab = `/${pathname.split('/')[1]}`;
+  const hideNavBar = currentTab === '/login' ? false : true;
 
   // Set selected tab
   const selectedInitialTab = navBarTabOptions.findIndex(
