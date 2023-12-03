@@ -7,6 +7,8 @@ import NextButton from '../generic/NextButton';
 import theme from '@/theme/theme';
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
 import { resetState } from '@/store/features/CreateSimulation/CreateSimulationSlice';
+// import useCreateSimulation from '@/hooks/useCreateSimulation';
+
 const { Step } = Steps;
 
 const STEP_TITLES = [
@@ -100,14 +102,14 @@ const SimulationModal = () => {
       name: simulation.name,
       numConversations: simulation.numConversations || 1,
       serviceAgentConfig: {
-        llm: 'FAKE',
+        llm: simulation.serviceAgent,
         temperature: 0,
         maxTokens: 260,
         prompt: 'you are an helpful bot',
         domain: 'FLIGHT'
       },
       userAgentConfig: {
-        llm: 'FAKE',
+        llm: simulation.userAgent,
         temperature: 1,
         maxTokens: 260,
         prompt: 'nonative',
