@@ -100,7 +100,7 @@ const SimulationModal = () => {
       scenario: 'SLOT_FILLING',
       type: simulation.type,
       name: simulation.name,
-      numConversations: simulation.numConversations || 1,
+      numConversations: simulation.numConversations,
       serviceAgentConfig: {
         llm: simulation.serviceAgent,
         temperature: 0,
@@ -119,7 +119,22 @@ const SimulationModal = () => {
 
     console.log(request);
 
-    //API call to start simulation
+    // Make a POST request using the Fetch API
+    fetch(`${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/simulation/run`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json' // Set the content type to JSON
+      },
+      body: JSON.stringify(request) // Convert the request object to JSON
+    })
+      .then(response => response.json()) // Parse the response as JSON
+      .then(data => {
+        // Handle the response data here
+        console.log('Response Data:', data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
   };
 
   const getModalTitle = () => {

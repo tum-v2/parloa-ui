@@ -13,7 +13,7 @@ import {
 } from '@/store/features/CreateSimulation/CreateSimulationSlice';
 import { Form, InputNumber, Switch, Space } from 'antd';
 
-const models = ['GPT35', 'GPT35TURBO', 'GPT4', 'LLAMA2', 'FAKE'];
+const models = ['FAKE', 'GPT35', 'GPT35TURBO', 'GPT4', 'LLAMA2'];
 const scenarios = ['Flight Agent', 'Customer Service', 'Tech Support', 'Sales'];
 
 interface SimulationAgentProps {
