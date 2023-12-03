@@ -23,9 +23,11 @@ const { Content, Sider } = Layout;
 const Dashboard = () => {
   const [selectedTimeRange, setSelectedTimeRange] =
     React.useState<DropdownTimeRangeKeyType>('last-24-hours');
+
   const DashboardLayoutStyle: React.CSSProperties = {
     height: 'calc(100vh - 65px)'
   };
+
   const DashboardLeftLayoutStyle: React.CSSProperties = {
     display: 'relative',
     paddingTop: theme.padding.l,
