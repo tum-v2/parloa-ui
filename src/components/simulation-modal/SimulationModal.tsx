@@ -94,6 +94,30 @@ const SimulationModal = () => {
 
   const handleFinish = () => {
     setOpen(false);
+    const request = {
+      scenario: 'SLOT_FILLING',
+      type: simulation.type,
+      name: simulation.name,
+      numConversations: simulation.numConversations || 1,
+      serviceAgentConfig: {
+        llm: 'FAKE',
+        temperature: 0,
+        maxTokens: 260,
+        prompt: 'you are an helpful bot',
+        domain: 'FLIGHT'
+      },
+      userAgentConfig: {
+        llm: 'FAKE',
+        temperature: 1,
+        maxTokens: 260,
+        prompt: 'nonative',
+        domain: 'FLIGHT'
+      }
+    };
+
+    console.log(request);
+
+    //API call to start simulation
   };
 
   const getModalTitle = () => {

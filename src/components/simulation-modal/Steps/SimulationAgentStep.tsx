@@ -5,14 +5,15 @@ import { FaHeadphones, FaUser } from 'react-icons/fa';
 import theme from '@/theme/theme';
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
 import {
+  setType,
   setUserAgent,
   setServiceAgent,
   setScenario,
   setNumConversations
 } from '@/store/features/CreateSimulation/CreateSimulationSlice';
-import { Form, InputNumber } from 'antd';
+import { Form, InputNumber, Switch, Space } from 'antd';
 
-const models = ['GPT-3', 'GPT-4', 'BERT', 'XLNet'];
+const models = ['GPT-4', 'LLaMA-2'];
 const scenarios = ['Flight Agent', 'Customer Service', 'Tech Support', 'Sales'];
 
 interface SimulationAgentProps {
@@ -59,6 +60,16 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
     [dispatch]
   );
 
+  const handleSwitchChange = (checked: boolean) => {
+    if (checked) {
+      console.log('Checked');
+      dispatch(setType('OPTIMIZATION'));
+    } else {
+      console.log('Unchecked');
+      dispatch(setType('AUTOMATED'));
+    }
+  };
+
   const renderContent = () => {
     switch (mode) {
       case 'automated':
@@ -67,14 +78,26 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
             <div style={wrapperStyle}>
               <SimulationCard selectable={false} title={Title} mode={mode}>
                 {mode === 'automated' ? (
-                  <Form.Item label="Simulations">
-                    <InputNumber
-                      value={simulation.numConversations}
-                      onChange={value =>
-                        dispatch(setNumConversations(value as number))
-                      }
-                    />
-                  </Form.Item>
+                  <>
+                    <Form.Item label="Simulations">
+                      <InputNumber
+                        value={simulation.numConversations}
+                        onChange={value =>
+                          dispatch(setNumConversations(value as number))
+                        }
+                      />
+                    </Form.Item>
+                    <Space direction="vertical">
+                      <div>
+                        <Switch
+                          checkedChildren="On"
+                          unCheckedChildren="Off"
+                          onChange={handleSwitchChange}
+                        />
+                        {' Optimization'}
+                      </div>
+                    </Space>
+                  </>
                 ) : null}
               </SimulationCard>
             </div>
