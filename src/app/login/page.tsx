@@ -8,21 +8,39 @@ import { InputField } from '@/components/generic/InputField';
 // import Button from '@/components/generic/Button';
 import { Button, Form } from 'antd';
 import { useRouter } from 'next/navigation';
+import useLogin from '@/hooks/useLogin';
+import { LoginAccessCode } from '@/api/auth';
+import { Auth } from '@/api/schemas/auth';
 
 const Login = () => {
+  const loginMutation = useLogin();
   const router = useRouter();
   const [form] = Form.useForm<{ accessCode: string }>();
 
-  const onFinish = () => {
-    // TODO: Implement Login feature
-    console.log(form.getFieldsValue());
-    console.log('Login success');
-    router.push('/dashboard');
+  const onInvalidAccessCode = () => {
+    form.setFields([
+      {
+        name: 'accessCode',
+        errors: ['Invalid access code.']
+      }
+    ]);
   };
 
-  const onFinishFailed = () => {
-    // TODO: Implement failed login feature
-    console.log('Login failed');
+  const onLogin = () => {
+    // TODO: Implement token when return from backend
+    const loginAccessCode: LoginAccessCode = form.getFieldsValue();
+    loginMutation.mutate(loginAccessCode, {
+      onSuccess: (res: Auth) => {
+        if (res.succes) {
+          router.push('/dashboard');
+        } else {
+          onInvalidAccessCode();
+        }
+      },
+      onError: () => {
+        onInvalidAccessCode();
+      }
+    });
   };
 
   const landingImageBackgroundStyle: React.CSSProperties = {
@@ -73,26 +91,24 @@ const Login = () => {
           priority={false}
         />
         <div style={accessCodeInputStyle}>
-          <Form
-            form={form}
-            layout="vertical"
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-          >
+          <Form form={form} layout="vertical" onFinish={onLogin}>
             <Form.Item
-              style={{ marginBottom: theme.padding.m }}
               label="Access Code"
               name="accessCode"
+              required={false}
+              rules={[
+                { required: true, message: 'Please input your access code.' }
+              ]}
             >
               <InputField type="password" />
             </Form.Item>
             <Form.Item>
               <Button
-                // TODO: Change to our general button
                 style={{ boxShadow: 'none' }}
                 type="primary"
                 htmlType="submit"
                 block
+                loading={loginMutation.isPending}
               >
                 Login
               </Button>

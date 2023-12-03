@@ -7,9 +7,6 @@ interface ButtonProps {
   onClick: () => void;
   disabled?: boolean;
   children?: React.ReactNode;
-  size?: 'small' | 'middle' | 'large';
-  block?: boolean;
-  htmlType?: 'button' | 'submit' | 'reset';
 }
 
 const Button = ({ icon, onClick, disabled = false, children }: ButtonProps) => {
