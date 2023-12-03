@@ -3,11 +3,11 @@
 import React from 'react';
 import { Flex, Layout, Typography } from 'antd';
 import theme from '@/theme/theme';
-import CardOverall, { NumberType, Trend } from './components/CardOverall';
+import MetricsCard, { NumberType } from './components/MetricsCard';
 import { ParentSize } from '@visx/responsive';
-import { Card as AntdCard } from 'antd';
+import { Card } from 'antd';
 import LineChart from '@/components/charts/LineChart';
-import CardHighYieldSimulation from './components/CardHighYieldSimulation';
+import HighYieldSimulationCard from './components/HighYieldSimulationCard';
 import Header from '@/components/generic/Header';
 import DropdownTimeRange, {
   DropdownTimeRangeKeyType
@@ -59,18 +59,17 @@ const Dashboard = () => {
           </Flex>
           <Flex justify="space-between" gap={theme.padding.m}>
             {dummyDashboardData.map(data => (
-              <CardOverall
+              <MetricsCard
                 title={data.title}
                 icon={data.icon}
                 numberType={data.numberType as NumberType}
                 number={data.number}
-                trend={data.trend as Trend}
                 trendNumber={data.trendNumber}
                 key={data.title}
               />
             ))}
           </Flex>
-          <AntdCard style={{ marginTop: theme.padding.m }}>
+          <Card style={{ marginTop: theme.padding.m }}>
             <Typography.Title level={4} style={{ margin: 0 }}>
               Success Rate Graph
             </Typography.Title>
@@ -87,7 +86,7 @@ const Dashboard = () => {
                 )}
               </ParentSize>
             </div>
-          </AntdCard>
+          </Card>
         </Content>
       </Layout>
       <Sider width={400} style={HighYieldSimulationLayoutStyle}>
@@ -95,7 +94,7 @@ const Dashboard = () => {
         <div style={HighYieldSimulationInsideScrollStyle}>
           {dummyHighYieldSimulationData.map(item => (
             <div key={item.id}>
-              <CardHighYieldSimulation
+              <HighYieldSimulationCard
                 id={item.id}
                 title={item.title}
                 date={item.date}

@@ -1,42 +1,38 @@
 'use client';
 
 import React from 'react';
-import Card from '../../../components/generic/Card';
-import { Typography } from 'antd';
-import CardOverallTrend from './CardOverallTrend';
+import { Typography, Card } from 'antd';
+import MetricsCardTrend from './MetricsCardTrend';
 
 const { Title } = Typography;
 
 export type NumberType = 'number' | 'percentage';
-export type Trend = 'up' | 'down';
 
-interface CardOverallProps {
+interface MetricsCardProps {
   title: string;
   icon: React.ReactNode;
   numberType: NumberType;
   number: number;
-  trend: Trend;
-  trendNumber: number;
+  trendNumber?: number;
 }
 
-const CardOverall = ({
+const MetricsCard = ({
   title,
   icon,
   number,
-  trend,
   trendNumber
-}: CardOverallProps) => {
+}: MetricsCardProps) => {
   const topPartStyle: React.CSSProperties = {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    height: 80
+    height: '5rem'
   };
 
   return (
-    <Card margin="none">
+    <Card style={{ width: '100%', height: '100% ' }}>
       <div style={topPartStyle}>
-        <Title style={{ margin: 0 }} level={4}>
+        <Title style={{ margin: 0 }} ellipsis={{ rows: 2 }} level={4}>
           {title}
         </Title>
         {icon}
@@ -45,10 +41,10 @@ const CardOverall = ({
         <Title style={{ margin: 0 }} level={1}>
           {number}
         </Title>
-        <CardOverallTrend trend={trend} trendNumber={trendNumber} />
+        <MetricsCardTrend trendNumber={trendNumber} />
       </div>
     </Card>
   );
 };
 
-export default CardOverall;
+export default MetricsCard;

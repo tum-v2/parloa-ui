@@ -1,13 +1,12 @@
 import React from 'react';
-import Card from '../../../components/generic/Card';
-import { Typography } from 'antd';
+import { Flex, Typography, Card } from 'antd';
 import theme from '@/theme/theme';
 import Pill from '@/components/generic/Pill';
 import { IoPerson } from 'react-icons/io5';
 
 const { Text, Title } = Typography;
 
-export interface CardHighYieldSimulationProps {
+export interface HighYieldSimulationCardProps {
   id: number;
   title: string;
   date: string;
@@ -15,30 +14,32 @@ export interface CardHighYieldSimulationProps {
   agentType: string;
 }
 
-const CardHighYieldSimulation = ({
+const HighYieldSimulationCard = ({
   title,
   date,
   successRateNumber,
   agentType
-}: CardHighYieldSimulationProps) => {
-  const bottomPartStyle: React.CSSProperties = {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  };
-  const topPartStyle: React.CSSProperties = {
-    height: 80
+}: HighYieldSimulationCardProps) => {
+  // const cardStyle: React.CSSProperties = {
+
+  const titleStyle: React.CSSProperties = {
+    height: '5rem'
   };
 
   return (
-    <Card margin="none" style={{ marginBottom: theme.padding.m }}>
-      <div style={topPartStyle}>
-        <Title style={{ margin: 0 }} level={4}>
+    <Card
+      style={{
+        marginBottom: theme.padding.m,
+        borderRadius: theme.borderRadius.m
+      }}
+    >
+      <div style={titleStyle}>
+        <Title style={{ margin: 0 }} ellipsis={{ rows: 2 }} level={4}>
           {title}
         </Title>
-        <Text style={{ margin: 0, color: theme.color.gray }}>{date}</Text>
       </div>
-      <div style={bottomPartStyle}>
+      <Text style={{ margin: 0, color: theme.color.gray }}>{date}</Text>
+      <Flex justify="space-between" align="center">
         <Pill>
           <IoPerson />
           <Text
@@ -54,9 +55,9 @@ const CardHighYieldSimulation = ({
         <Title style={{ margin: 0 }} level={1}>
           {successRateNumber}%
         </Title>
-      </div>
+      </Flex>
     </Card>
   );
 };
 
-export default CardHighYieldSimulation;
+export default HighYieldSimulationCard;

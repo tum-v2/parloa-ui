@@ -5,17 +5,17 @@ import {
   IoDiceOutline,
   IoSwapHorizontalOutline
 } from 'react-icons/io5';
-import { CardHighYieldSimulationProps } from './CardHighYieldSimulation';
+import { HighYieldSimulationCardProps } from './HighYieldSimulationCard';
 
-const cardOverallIconStyle: React.CSSProperties = {
-  width: 30,
-  height: 30
+const metricsCardIconStyle: React.CSSProperties = {
+  width: '2rem',
+  height: '2rem'
 };
 
 const dummyDashboardData = [
   {
     title: 'Total Number of Interractions',
-    icon: <IoSwapHorizontalOutline style={cardOverallIconStyle} />,
+    icon: <IoSwapHorizontalOutline style={metricsCardIconStyle} />,
 
     numberType: 'number',
     number: 23540,
@@ -23,8 +23,8 @@ const dummyDashboardData = [
     trendNumber: 58.2
   },
   {
-    title: 'Simulation Ran',
-    icon: <IoDiceOutline style={cardOverallIconStyle} />,
+    title: 'Simulation Ran ',
+    icon: <IoDiceOutline style={metricsCardIconStyle} />,
 
     numberType: 'number',
     number: 54,
@@ -33,7 +33,7 @@ const dummyDashboardData = [
   },
   {
     title: 'Average Success Rate',
-    icon: <IoAnalyticsOutline style={cardOverallIconStyle} />,
+    icon: <IoAnalyticsOutline style={metricsCardIconStyle} />,
 
     numberType: 'percentage',
     number: 78,
@@ -42,17 +42,19 @@ const dummyDashboardData = [
   }
 ];
 
-const dummyHighYieldSimulationData: CardHighYieldSimulationProps[] = [
+const dummyHighYieldSimulationData: HighYieldSimulationCardProps[] = [
   {
     id: 1,
-    title: 'High Yield Simulation 1',
+    title:
+      'High Yield Simulation 1 with a very long title to test the ellipsis now I need longer',
     date: '2021-01-01',
     successRateNumber: 99,
     agentType: 'Flight Service Agent'
   },
   {
     id: 2,
-    title: 'High Yield Simulation 2',
+    title:
+      'High Yield Simulation 2 with a very long title to test the ellipsis',
     date: '2021-01-01',
     successRateNumber: 95,
     agentType: 'Flight Service Agent'
