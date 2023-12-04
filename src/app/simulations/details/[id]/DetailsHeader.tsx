@@ -7,6 +7,7 @@ import theme from '@/theme/theme';
 import { FileTextOutlined } from '@ant-design/icons';
 import { formatLongDateTimeString } from '@/lib/utils/dateTime';
 import { Simulation } from '@/api/schemas/simulation';
+import { firstLetterToUpperCase, underscoresToSpaces } from '@/lib/utils/text';
 
 interface DetailsHeaderProps {
   simulation: Simulation;
@@ -28,10 +29,10 @@ const DetailsHeader = ({ simulation }: DetailsHeaderProps) => {
       </Typography.Text>
       <Flex justify="flex-start" align="center" dir="row">
         <Pill color={typeStyle.color} icon={<typeStyle.icon />}>
-          {type}
+          {underscoresToSpaces(firstLetterToUpperCase(type))}
         </Pill>
         <Pill icon={<FileTextOutlined />} color={theme.color.cyan}>
-          {scenario}
+          {underscoresToSpaces(firstLetterToUpperCase(scenario))}
         </Pill>
       </Flex>
     </Flex>
