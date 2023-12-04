@@ -5,10 +5,11 @@ import { InputField } from '@/components/generic/InputField';
 import Button from '@/components/generic/Button';
 import { IoSend } from 'react-icons/io5';
 import useConversation from '@/hooks/useConversation';
-import { Message } from '@/api/schemas/conversation';
+import { DisplayedMessage, Message } from '@/api/schemas/conversation';
+import { Spin } from 'antd';
 
 interface ChatProps {
-  chatId: number;
+  chatId: string;
 }
 
 const Chat = ({ chatId }: ChatProps) => {
@@ -19,7 +20,7 @@ const Chat = ({ chatId }: ChatProps) => {
     error
   } = useConversation(chatId);
 
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<DisplayedMessage[]>([]);
   const messagesEndRef = useRef<null | HTMLDivElement>(null);
   const [inputValue, setInputValue] = useState('');
 
@@ -33,12 +34,36 @@ const Chat = ({ chatId }: ChatProps) => {
 
   useEffect(() => {
     if (conversation) {
-      setMessages(conversation.messages);
+      setMessages(
+        conversation.messages
+          .filter(message => !['TOOLOUTPUT', 'HANGUP'].includes(message.type))
+          .map(message => displayedMessage(message))
+      );
     }
   }, [conversation, conversation?.messages]);
 
+  const displayedMessage = (message: Message): DisplayedMessage => {
+    let content: string;
+    if (['TOOL', 'TOOLCALL'].includes(message.type)) {
+      if (message.intermediateMsg) {
+        content = message.intermediateMsg;
+      } else {
+        content = '...';
+      }
+    } else {
+      content = message.text;
+    }
+    content = content.replace(/^(USER: |AGENT: )/, '');
+
+    return {
+      _id: message._id,
+      message: content,
+      position: message.sender === 'USER' ? Position.Right : Position.Left
+    };
+  };
+
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Spin fullscreen size="large" />;
   }
 
   if (isError) {
@@ -61,9 +86,9 @@ const Chat = ({ chatId }: ChatProps) => {
     setMessages([
       ...messages,
       {
-        _id: 13,
+        _id: '42', // TODO
         message: inputValue,
-        position: 'right'
+        position: Position.Right
       }
     ]);
 
@@ -98,14 +123,9 @@ const Chat = ({ chatId }: ChatProps) => {
     <div style={containerStyle}>
       <div style={chatContainerStyle}>
         <div style={chatStyle}>
-          {messages.map(message => (
-            <div key={message._id} style={{ flexGrow: 1 }}>
-              <ChatBubble
-                key={message._id}
-                position={
-                  message.position === 'left' ? Position.Left : Position.Right
-                }
-              >
+          {messages.map((message, idx) => (
+            <div key={idx} style={{ flexGrow: 1 }}>
+              <ChatBubble position={message.position}>
                 {message.message}
               </ChatBubble>
             </div>
