@@ -18,6 +18,11 @@ import useSimulationEvaluation from '@/hooks/useSimulationEvaluation';
 
 const { Title } = Typography;
 
+const metricsCardIconStyle: React.CSSProperties = {
+  width: '2rem',
+  height: '2rem'
+};
+
 const Page = () => {
   const { id } = useParams<{ id: string }>();
   const { data, isLoading } = useSimulation(id);
@@ -33,11 +38,6 @@ const Page = () => {
   if (!data) {
     return <Empty description="Simulation not found" />;
   }
-
-  const metricsCardIconStyle: React.CSSProperties = {
-    width: '2rem',
-    height: '2rem'
-  };
 
   return (
     <Content>
