@@ -1,4 +1,9 @@
-import { SimulationSchema, Simulation } from './schemas/simulation';
+import {
+  SimulationSchema,
+  Simulation,
+  CreateSimulation,
+  createSimulationSchema
+} from './schemas/simulation';
 
 /**
  * /simulation/:id/poll Get simulation
@@ -43,7 +48,7 @@ export const getAllSimulations = async () => {
  * @returns The created simulation data.
  * @throws If there's an error during the creation process.
  */
-export const createSimulation = async (simulationData: Simulation) => {
+export const createSimulation = async (simulationData: CreateSimulation) => {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/simulation/run`,
@@ -60,7 +65,7 @@ export const createSimulation = async (simulationData: Simulation) => {
       throw new Error('Failed to create simulation'); // Handle non-2xx HTTP responses
     }
 
-    const zodResponse = SimulationSchema.safeParse(await response.json());
+    const zodResponse = createSimulationSchema.safeParse(await response.json());
 
     if (!zodResponse.success) {
       throw new Error(zodResponse.error.message);

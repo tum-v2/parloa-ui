@@ -7,6 +7,7 @@ import NextButton from '../generic/NextButton';
 import theme from '@/theme/theme';
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
 import { resetState } from '@/store/features/CreateSimulation/CreateSimulationSlice';
+import useCreateSimulation from '@/hooks/useCreateSimulation';
 // import useCreateSimulation from '@/hooks/useCreateSimulation';
 
 const { Step } = Steps;
@@ -63,6 +64,9 @@ const SimulationModal = () => {
     setIsWildStep(false);
   };
   const [messageApi, contextHolder] = message.useMessage();
+
+  const createSimulationMutation = useCreateSimulation();
+
   const handleNext = () => {
     if (currentStep === 0) {
       if (simulation.type === '') {
@@ -117,24 +121,28 @@ const SimulationModal = () => {
       }
     };
 
-    console.log(request);
+    // console.log(request);
+
+    // createSimulationMutation.mutate(request);
+    // TODO: Fix this illegal schema error
+    // TODO: Implement useCreateSimulation hook below
 
     // Make a POST request using the Fetch API
-    fetch(`${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/simulation/run`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json' // Set the content type to JSON
-      },
-      body: JSON.stringify(request) // Convert the request object to JSON
-    })
-      .then(response => response.json()) // Parse the response as JSON
-      .then(data => {
-        // Handle the response data here
-        console.log('Response Data:', data);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+    // fetch(`${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/simulation/run`, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json' // Set the content type to JSON
+    //   },
+    //   body: JSON.stringify(request) // Convert the request object to JSON
+    // })
+    //   .then(response => response.json()) // Parse the response as JSON
+    //   .then(data => {
+    //     // Handle the response data here
+    //     console.log('Response Data:', data);
+    //   })
+    //   .catch(error => {
+    //     console.error('Error:', error);
+    //   });
   };
 
   const getModalTitle = () => {

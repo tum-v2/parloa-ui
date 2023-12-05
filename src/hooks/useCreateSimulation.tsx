@@ -1,13 +1,13 @@
-import { Simulation } from '@/api/schemas/simulation';
+import { CreateSimulation, Simulation } from '@/api/schemas/simulation';
 import { createSimulation } from '@/api/simulation';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 
-const useCreateSimulation = (simulation: Simulation) => {
-  const query = useQuery<Simulation, Error>({
-    queryKey: ['simulation', simulation],
-    queryFn: () => createSimulation(simulation)
+const useCreateSimulation = () => {
+  const mutation = useMutation<CreateSimulation, Error, Simulation>({
+    mutationKey: ['simulation'],
+    mutationFn: (simulation: Simulation) => createSimulation(simulation)
   });
-  return query;
+  return mutation;
 };
 
 export default useCreateSimulation;

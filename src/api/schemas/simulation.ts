@@ -15,4 +15,16 @@ export const SimulationSchema = z.object({
   updatedAt: z.string().datetime()
 });
 
+export const createSimulationSchema = z.object({
+  name: z.string(),
+  description: z.string().optional(),
+  scenario: z.string(),
+  type: z.enum(['AUTOMATED', 'MANUAL', 'OPTIMIZATION', 'A/B TESTING']),
+  numConversations: z.number(),
+  serviceAgent: z.string(), // TODO: Add type validation for service agent
+  userAgent: z.string(), // TODO: Add type validation for user agent
+  conversations: z.string().array()
+});
+
 export type Simulation = z.infer<typeof SimulationSchema>;
+export type CreateSimulation = z.infer<typeof createSimulationSchema>;
