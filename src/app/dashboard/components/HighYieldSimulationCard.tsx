@@ -1,8 +1,8 @@
 import React from 'react';
 import { Flex, Typography, Card } from 'antd';
 import theme from '@/theme/theme';
-import Pill from '@/components/generic/Pill';
-import { IoPerson } from 'react-icons/io5';
+// import Pill from '@/components/generic/Pill';
+// import { IoPerson } from 'react-icons/io5';
 
 const { Text, Title } = Typography;
 
@@ -17,11 +17,9 @@ export interface HighYieldSimulationCardProps {
 const HighYieldSimulationCard = ({
   title,
   date,
-  successRateNumber,
-  agentType
+  // agentType,
+  successRateNumber
 }: HighYieldSimulationCardProps) => {
-  // const cardStyle: React.CSSProperties = {
-
   const titleStyle: React.CSSProperties = {
     height: '5rem'
   };
@@ -40,7 +38,8 @@ const HighYieldSimulationCard = ({
       </div>
       <Text style={{ margin: 0, color: theme.color.gray }}>{date}</Text>
       <Flex justify="space-between" align="center">
-        <Pill>
+        {/* TODO: comment out this section for now as the backend data is not stable yet
+         <Pill>
           <IoPerson />
           <Text
             style={{
@@ -51,7 +50,8 @@ const HighYieldSimulationCard = ({
           >
             {agentType}
           </Text>
-        </Pill>
+        </Pill> */}
+        <div></div>
         <Title style={{ margin: 0 }} level={1}>
           {successRateNumber}%
         </Title>

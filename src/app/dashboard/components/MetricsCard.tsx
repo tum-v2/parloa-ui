@@ -20,6 +20,7 @@ const MetricsCard = ({
   title,
   icon,
   number,
+  numberType,
   trendNumber
 }: MetricsCardProps) => {
   const topPartStyle: React.CSSProperties = {
@@ -40,6 +41,7 @@ const MetricsCard = ({
       <div>
         <Title style={{ margin: 0 }} level={1}>
           {number}
+          {numberType === 'percentage' && <span>%</span>}
         </Title>
         <MetricsCardTrend trendNumber={trendNumber} />
       </div>
