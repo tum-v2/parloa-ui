@@ -11,6 +11,7 @@ export const SimulationSchema = z.object({
   userAgent: z.string(),
   conversations: z.string().array(),
   status: z.string(),
+  duration: z.number(),
   createdAt: z.string().datetime(),
   updatedAt: z.string().datetime()
 });

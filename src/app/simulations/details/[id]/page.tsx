@@ -15,6 +15,7 @@ import {
   IoTimeOutline
 } from 'react-icons/io5';
 import useSimulationEvaluation from '@/hooks/useSimulationEvaluation';
+import { formatSecondsToMinutesAndSeconds } from '@/lib/utils/dateTime';
 
 const { Title } = Typography;
 
@@ -57,7 +58,7 @@ const Page = () => {
               <MetricsCard
                 title="Time to run"
                 icon={<IoTimeOutline style={metricsCardIconStyle} />}
-                value={'19min 20s'} // TODO Get from backend when this is implemented
+                value={formatSecondsToMinutesAndSeconds(data.duration)} // TODO Get from backend when this is implemented
               />
               <MetricsCard
                 title="Interactions"
