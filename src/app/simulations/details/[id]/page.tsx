@@ -60,12 +60,12 @@ const Page = () => {
                 value={'19min 20s'} // TODO Get from backend when this is implemented
               />
               <MetricsCard
-                title="Number of interactions"
+                title="Interactions"
                 icon={<IoSwapHorizontalOutline style={metricsCardIconStyle} />}
                 value={'150'} // TODO Get from backend when this is implemented
               />
               <MetricsCard
-                title="Number of conversations"
+                title="Conversations"
                 icon={<IoChatboxEllipsesOutline style={metricsCardIconStyle} />}
                 value={data.numConversations}
               />

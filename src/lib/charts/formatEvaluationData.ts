@@ -33,25 +33,25 @@ export const formatEvaluation = (
     // TODO: Change this once we have a better idea of what the data looks like for A/B testing and Optimization
     evaluationScores[0].push({
       x: conversationNumber,
-      y: conversation.score * 100
+      y: Math.round(conversation.score * 100) // Convert score to percentage
     });
     conversation.metrics.forEach(metric => {
       if (metric.name === 'response_time') {
         responseTime[0].dataPoints.push({
           x: conversationNumber,
-          y: metric.rawValue
+          y: Math.round(metric.rawValue)
         });
       } else if (metric.name === 'message_count') {
         messageCount[0].dataPoints.push({
           x: conversationNumber,
-          y: metric.rawValue
+          y: Math.round(metric.rawValue)
         });
       }
     });
   });
 
   return {
-    averageScore: evaluation.averageScore,
+    averageScore: evaluation.averageScore.score,
     evaluationScores,
     responseTime,
     messageCount
