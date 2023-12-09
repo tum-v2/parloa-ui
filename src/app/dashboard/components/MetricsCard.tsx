@@ -1,14 +1,16 @@
 'use client';
 
 import React from 'react';
-import { Typography, Card } from 'antd';
+import { Typography, Card, Skeleton } from 'antd';
 import MetricsCardTrend from './MetricsCardTrend';
 
 const { Title } = Typography;
 
+const skeletonData = [1, 2, 3];
+
 export type NumberType = 'number' | 'percentage';
 
-interface MetricsCardProps {
+export interface MetricsCardProps {
   title: string;
   icon: React.ReactNode;
   numberType: NumberType;
@@ -49,4 +51,12 @@ const MetricsCard = ({
   );
 };
 
-export default MetricsCard;
+const SkeletonMetricsCard = () => {
+  return skeletonData.map(item => (
+    <Card key={item} style={{ width: '100%', height: '100% ' }}>
+      <Skeleton active />
+    </Card>
+  ));
+};
+
+export { MetricsCard, SkeletonMetricsCard };
