@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card as AntdCard, CardProps as AntdCardProps } from 'antd';
+import { Card as AntdCard } from 'antd';
 import theme from '@/theme/theme';
 
 type Padding = 'none' | 'xs' | 's' | 'm' | 'l' | 'xl';

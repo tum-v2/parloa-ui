@@ -1,7 +1,7 @@
 import { DashboardSchema } from './schemas/dashboard';
 
 /**
- * /dashboard?days={days} Get dashboard by given days
+ * /dashboard?days=days Get dashboard by given days
  */
 export const getDashboard = async (days: number) => {
   const response = await fetch(
