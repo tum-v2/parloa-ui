@@ -22,7 +22,11 @@ import DropdownTimeRange, {
 } from './components/DropdownTimeRange';
 import { dummyChartData } from './components/DummyData';
 import useDashboard from '@/hooks/useDashboard';
-import { metricCardData } from './components/DataParser';
+import {
+  IoAnalyticsOutline,
+  IoDiceOutline,
+  IoSwapHorizontalOutline
+} from 'react-icons/io5';
 
 const { Content, Sider } = Layout;
 
@@ -53,6 +57,11 @@ const Dashboard = () => {
     height: 'calc(100vh - 166px)'
   };
 
+  const MetricsCardIconStyle: React.CSSProperties = {
+    width: '2rem',
+    height: '2rem'
+  };
+
   return (
     <Layout style={DashboardLayoutStyle} hasSider>
       <Layout
@@ -67,17 +76,33 @@ const Dashboard = () => {
             />
           </Flex>
           <Flex justify="space-between" gap={theme.padding.m}>
-            {data &&
-              metricCardData(data).map(data => (
+            {data && (
+              <>
                 <MetricsCard
-                  title={data.title}
-                  icon={data.icon}
-                  numberType={data.numberType as NumberType}
-                  number={data.number}
-                  trendNumber={data.trendNumber}
-                  key={data.title}
+                  title="Total Number of Interractions"
+                  icon={
+                    <IoSwapHorizontalOutline style={MetricsCardIconStyle} />
+                  }
+                  numberType={'number' as NumberType}
+                  number={data.interactions || 0}
+                  trendNumber={undefined} // TODO: Add trend number when available from backend
                 />
-              ))}
+                <MetricsCard
+                  title="Simulation Ran"
+                  icon={<IoDiceOutline style={MetricsCardIconStyle} />}
+                  numberType={'number' as NumberType}
+                  number={data.simulationRuns || 0}
+                  trendNumber={undefined} // TODO: Add trend number when available from backend
+                />
+                <MetricsCard
+                  title="Average Success Rate"
+                  icon={<IoAnalyticsOutline style={MetricsCardIconStyle} />}
+                  numberType={'percentage' as NumberType}
+                  number={Math.trunc(data.successRate * 100) || 0}
+                  trendNumber={undefined} // TODO: Add trend number when available from backend
+                />
+              </>
+            )}
             {isLoading && <SkeletonMetricsCard />}
           </Flex>
           <Card style={{ marginTop: theme.padding.m }}>
