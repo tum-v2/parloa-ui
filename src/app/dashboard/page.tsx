@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Flex, Layout, Skeleton, Typography } from 'antd';
 import theme from '@/theme/theme';
 import {
@@ -23,10 +23,24 @@ import DropdownTimeRange, {
 import { dummyChartData } from './components/DummyData';
 import useDashboard from '@/hooks/useDashboard';
 import { metricCardData } from './components/DataParser';
+import { AuthContext } from '@/providers/AuthProvider';
+import { useRouter } from 'next/navigation';
+import { SessionData, defaultSession } from '@/lib/auth/session';
 
 const { Content, Sider } = Layout;
 
 const Dashboard = () => {
+  const { authState } = useContext(AuthContext);
+  const router = useRouter();
+  const [session, setSession] = useState<SessionData>(defaultSession);
+
+  useEffect(() => {
+    // if (!authState.isLoggedIn) {
+    //   router.push('/login');
+    // }
+    console.log(session);
+  }, []);
+
   const [selectedTimeRange, setSelectedTimeRange] =
     React.useState<DropdownTimeRangeKeyType>(
       DropdownTimeRangeKeyEnum.SEVEN_DAYS

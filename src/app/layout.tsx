@@ -5,6 +5,7 @@ import ThemeProvider from '@/providers/ThemeProvider';
 import NavBar from '@/components/nav-bar';
 import theme from '@/theme/theme';
 import ReactQueryClientProvider from '@/providers/ReactQueryClientProvider';
+import AuthProvider from '@/providers/AuthProvider';
 
 export const metadata: Metadata = {
   title: 'Parloa LLM',
@@ -29,10 +30,12 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       <body className={theme.font.inter.className}>
         <ReactQueryClientProvider>
           <ThemeProvider>
-            <div style={childStyle}>
-              <NavBar />
-              <main>{children}</main>
-            </div>
+            <AuthProvider>
+              <div style={childStyle}>
+                <NavBar />
+                <main>{children}</main>
+              </div>
+            </AuthProvider>
           </ThemeProvider>
         </ReactQueryClientProvider>
       </body>

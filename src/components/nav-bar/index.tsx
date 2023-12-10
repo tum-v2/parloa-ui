@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Image from 'next/image';
 
 import NavBarTab, { navBarTabOptions } from './components/NavBarTab';
@@ -8,6 +8,7 @@ import logo from '@/components/parloa-logo.png';
 import NavBarLogout from './components/NavBarLogout';
 import { usePathname, useRouter } from 'next/navigation';
 import theme from '@/theme/theme';
+import { AuthContext } from '@/providers/AuthProvider';
 
 const navBarStyle: React.CSSProperties = {
   display: 'flex',
@@ -44,6 +45,7 @@ const navBarContainerStyle: React.CSSProperties = {
 const NavBar = () => {
   const router = useRouter();
   const pathname = usePathname();
+  const { setAuthState } = useContext(AuthContext);
 
   // Get current tab from route
   const currentTab = `/${pathname.split('/')[1]}`;
@@ -80,6 +82,7 @@ const NavBar = () => {
               onClick={() => {
                 // TODO: Implement Logout feature
                 router.push('/login');
+                setAuthState({ isLoggedIn: false, token: '' });
               }}
             />
           </div>
