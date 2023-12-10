@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dropdown, Space } from 'antd';
+import { Button, Dropdown, Space } from 'antd';
 import type { MenuProps } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 
@@ -13,12 +13,14 @@ const DropdownMenu = (props: DropdownProps) => {
   return (
     <>
       <Dropdown menu={props.menu} trigger={['click']}>
-        <a onClick={e => e.preventDefault()}>
-          <Space>
-            {props.text}
-            <DownOutlined />
-          </Space>
-        </a>
+        <Button>
+          <a onClick={e => e.preventDefault()}>
+            <Space>
+              {props.text}
+              <DownOutlined />
+            </Space>
+          </a>
+        </Button>
       </Dropdown>
     </>
   );
