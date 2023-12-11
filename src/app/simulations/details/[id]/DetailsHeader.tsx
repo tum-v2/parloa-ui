@@ -6,6 +6,7 @@ import { getSimulationTypeStyle } from '@/lib/utils/simulations/simulationStyles
 import { formatLongDateTimeString } from '@/lib/utils/dateTime';
 import { Simulation } from '@/api/schemas/simulation';
 import { firstLetterToUpperCase, underscoresToSpaces } from '@/lib/utils/text';
+import { useRouter } from 'next/navigation';
 
 interface DetailsHeaderProps {
   simulation: Simulation;
@@ -15,12 +16,19 @@ const DetailsHeader = ({ simulation }: DetailsHeaderProps) => {
   const { name, createdAt, type } = simulation;
 
   const typeStyle = getSimulationTypeStyle(type);
+  const router = useRouter();
+
+  const viewChatHistory = () => {
+    router.push(`/simulations/details/${simulation._id}/chat`);
+  };
 
   return (
     <Flex vertical gap={'small'}>
       <Flex justify="space-between" align="center" dir="row">
         <Header title={name} style={{ margin: 0 }} />
-        <Button type="primary">View chat history</Button>
+        <Button type="primary" onClick={viewChatHistory}>
+          View chat history
+        </Button>
       </Flex>
       <Typography.Text type="secondary">
         {formatLongDateTimeString(createdAt)}

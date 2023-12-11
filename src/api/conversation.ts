@@ -1,11 +1,11 @@
 import { ConversationSchema } from './schemas/conversation';
 
 /**
- * /chat/:id Get conversation
+ * /simulation/conversation/:id Get conversation
  */
-export const getSimulation = async (id: string) => {
+export const getConversation = async (id: string) => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/chat/${id}`
+    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/simulation/conversation/${id}`
   );
 
   const zodResponse = ConversationSchema.safeParse(await response.json());

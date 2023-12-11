@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 
 import NavBarTab, { navBarTabOptions } from './components/NavBarTab';
-import logo from './components/parloa-logo.png';
+import logo from '@/components/parloa-logo.png';
 import NavBarLogout from './components/NavBarLogout';
 import { usePathname, useRouter } from 'next/navigation';
 import theme from '@/theme/theme';
@@ -43,9 +43,11 @@ const navBarContainerStyle: React.CSSProperties = {
 
 const NavBar = () => {
   const router = useRouter();
+  const pathname = usePathname();
 
   // Get current tab from route
-  const currentTab = `/${usePathname().split('/')[1]}`;
+  const currentTab = `/${pathname.split('/')[1]}`;
+  const hideNavBar = currentTab === '/login' ? false : true;
 
   // Set selected tab
   const selectedInitialTab = navBarTabOptions.findIndex(
@@ -56,30 +58,36 @@ const NavBar = () => {
     selectedInitialTab !== -1 ? selectedInitialTab : 0
   );
 
-  return (
-    <div style={navBarContainerStyle}>
-      <div style={navBarStyle}>
-        <div style={navBarLeftStyle}>
-          <Image
-            src={logo}
-            alt="logo"
-            width={36}
-            height={36}
-            priority={false}
+  if (hideNavBar) {
+    return (
+      <div style={navBarContainerStyle}>
+        <div style={navBarStyle}>
+          <div style={navBarLeftStyle}>
+            <Image
+              src={logo}
+              alt="logo"
+              width={36}
+              height={36}
+              priority={false}
+            />
+          </div>
+          <NavBarTab
+            selectedTab={selectedTab}
+            setSelectedTab={setSelectedTab}
           />
-        </div>
-        <NavBarTab selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
-        <div style={navBarRightStyle}>
-          <NavBarLogout
-            onClick={() => {
-              // TODO: Implement Logout feature
-              router.push('/login');
-            }}
-          />
+          <div style={navBarRightStyle}>
+            <NavBarLogout
+              onClick={() => {
+                // TODO: Implement Logout feature
+                router.push('/login');
+              }}
+            />
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
+  return null;
 };
 
 export default NavBar;
