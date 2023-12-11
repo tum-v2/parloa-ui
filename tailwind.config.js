@@ -1,10 +1,12 @@
 // eslint-disable-next-line tsdoc/syntax
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./src/**/*.{html,js}'],
-  preflight: false,
+  content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {}
   },
-  plugins: []
+  plugins: [],
+  corePlugins: {
+    preflight: false
+  }
 };
