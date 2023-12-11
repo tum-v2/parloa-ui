@@ -10,6 +10,7 @@ export interface FormattedEvaluation {
   evaluationScores: Datapoint[][];
   responseTime: BarChartData[];
   messageCount: BarChartData[];
+  status: string;
 }
 
 const useSimulationEvaluation = (id: string) => {
@@ -23,7 +24,7 @@ const useSimulationEvaluation = (id: string) => {
 
   useEffect(() => {
     if (data) {
-      setFormatedEvaluation(formatEvaluation(data));
+      setFormatedEvaluation({ ...formatEvaluation(data), status: data.status });
     }
   }, [data]);
 

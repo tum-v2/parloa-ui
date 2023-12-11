@@ -1,5 +1,4 @@
 import { EvaluationBySimulation } from '@/api/schemas/evaluation';
-import { FormattedEvaluation } from '@/hooks/useSimulationEvaluation';
 import { BarChartData, Datapoint } from '@/types/chart';
 
 /**
@@ -7,9 +6,7 @@ import { BarChartData, Datapoint } from '@/types/chart';
  * @param evaluation - Evaluation data from the API
  * @returns formatted evaluation data used for the charts
  */
-export const formatEvaluation = (
-  evaluation: EvaluationBySimulation
-): FormattedEvaluation => {
+export const formatEvaluation = (evaluation: EvaluationBySimulation) => {
   const evaluationScores: Datapoint[][] = [];
   const responseTime: BarChartData[] = [];
   const messageCount: BarChartData[] = [];

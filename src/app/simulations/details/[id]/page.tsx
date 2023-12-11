@@ -44,7 +44,7 @@ const Page = () => {
     <Content>
       <Flex vertical gap={'small'}>
         <DetailsHeader simulation={data} />
-        {evaluationData ? (
+        {evaluationData && evaluationData.status === 'evaluated' ? (
           <>
             <Title level={4}>
               <TableOutlined /> Metrics
