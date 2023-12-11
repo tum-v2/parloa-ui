@@ -3,7 +3,7 @@ import useSimulation from '@/hooks/useSimulation';
 import { useParams } from 'next/navigation';
 import DetailsHeader from './DetailsHeader';
 import InsightsCard from './InsightsCard';
-import { Alert, Empty, Flex, Spin, Typography } from 'antd';
+import { Alert, Empty, Flex, Progress, Spin, Typography } from 'antd';
 import { SettingOutlined, TableOutlined } from '@ant-design/icons';
 import ConfigurationCard from './ConfigurationCard';
 import Content from '@/components/generic/Content';
@@ -74,10 +74,47 @@ const Page = () => {
                 value={data.numConversations}
               />
             </Flex>
-            {data.optimization ? (
-              <OptimizationInsightsCard optimizationId={data.optimization} />
+            {data.numConversations > 1 ? (
+              data.optimization ? (
+                <OptimizationInsightsCard optimizationId={data.optimization} />
+              ) : (
+                <InsightsCard formattedEvaluation={evaluationData} />
+              )
             ) : (
-              <InsightsCard formattedEvaluation={evaluationData} />
+              <>
+                <Flex gap={'small'}>
+                  <div className="w-1/2">
+                    <Title level={5}>Number of steps</Title>
+                    <Progress
+                      percent={
+                        (evaluationData.messageCount[0].dataPoints[0].y / 50) *
+                        100
+                      }
+                      size={[600, 40]}
+                      format={percent => `${((percent ?? 0) / 100) * 50} steps`}
+                    />
+                  </div>
+                  <div>
+                    <Title level={5}>Response time</Title>
+                    <Progress
+                      percent={
+                        (evaluationData.responseTime[0].dataPoints[0].y / 200) *
+                        100
+                      }
+                      size={[600, 40]}
+                      format={percent => `${((percent ?? 0) / 100) * 200} ms`}
+                    />
+                  </div>
+                </Flex>
+                <Alert
+                  message="Insights not available"
+                  description="Insights are only available for simulations with multiple conversations."
+                  type="warning"
+                  showIcon
+                  closable
+                  className="mt-5"
+                />
+              </>
             )}
           </>
         ) : (
