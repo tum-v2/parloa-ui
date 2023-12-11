@@ -16,7 +16,8 @@ const cardStyleBase: React.CSSProperties = {
   border: '1px solid',
   cursor: 'pointer',
   height: '100%',
-  width: '100%'
+  width: '100%',
+  minWidth: '200px'
 };
 
 const iconAndTextStyle: React.CSSProperties = {

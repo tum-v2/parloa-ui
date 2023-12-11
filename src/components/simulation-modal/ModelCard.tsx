@@ -19,7 +19,8 @@ interface ModelCardProps {
 const cardStyle: React.CSSProperties = {
   border: '1px solid',
   height: '100%',
-  width: '100%'
+  width: '100%',
+  minWidth: '200px'
 };
 
 const iconStyle: React.CSSProperties = { margin: theme.margin.l };
