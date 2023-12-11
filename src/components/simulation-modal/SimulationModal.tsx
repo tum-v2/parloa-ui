@@ -8,6 +8,7 @@ import theme from '@/theme/theme';
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
 import { resetState } from '@/store/features/CreateSimulation/CreateSimulationSlice';
 import useCreateSimulation from '@/hooks/useCreateSimulation';
+import { CreateSimulation, Simulation } from '@/api/schemas/simulation';
 // import useCreateSimulation from '@/hooks/useCreateSimulation';
 
 const { Step } = Steps;
@@ -100,49 +101,41 @@ const SimulationModal = () => {
 
   const handleFinish = () => {
     setOpen(false);
-    const request = {
-      scenario: 'SLOT_FILLING',
+    const request: CreateSimulation = {
       type: simulation.type,
       name: simulation.name,
       numConversations: simulation.numConversations,
       serviceAgentConfig: {
-        llm: simulation.serviceAgent,
+        name: 'Name of the service agent',
+        domain: 'FLIGHT',
+        // llm: simulation.serviceAgent, TODO: fix this
+        llm: 'FAKE',
         temperature: 0,
         maxTokens: 260,
-        prompt: 'you are an helpful bot',
-        domain: 'FLIGHT'
+        prompt: 'you are an helpful bot'
       },
       userAgentConfig: {
-        llm: simulation.userAgent,
+        name: 'Name of the user agent',
+        domain: 'FLIGHT',
+        // llm: simulation.userAgent, TODO: fix this
+        llm: 'FAKE',
         temperature: 1,
         maxTokens: 260,
-        prompt: 'nonative',
-        domain: 'FLIGHT'
+        prompt: 'nonative'
       }
     };
 
     // console.log(request);
-
-    // createSimulationMutation.mutate(request);
-    // TODO: Fix this illegal schema error
-    // TODO: Implement useCreateSimulation hook below
-
-    // Make a POST request using the Fetch API
-    // fetch(`${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/simulation/run`, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json' // Set the content type to JSON
-    //   },
-    //   body: JSON.stringify(request) // Convert the request object to JSON
-    // })
-    //   .then(response => response.json()) // Parse the response as JSON
-    //   .then(data => {
-    //     // Handle the response data here
-    //     console.log('Response Data:', data);
-    //   })
-    //   .catch(error => {
-    //     console.error('Error:', error);
-    //   });
+    // TODO: Maybe handle this login in the page?
+    createSimulationMutation.mutate(request, {
+      onSuccess: (res: Simulation) => {
+        console.log(res);
+        // TODO: redirect to simulation detail page of this specific simulation
+      },
+      onError: () => {
+        // TODO: handle error
+      }
+    });
   };
 
   const getModalTitle = () => {

@@ -3,9 +3,9 @@ import { createSimulation } from '@/api/simulation';
 import { useMutation } from '@tanstack/react-query';
 
 const useCreateSimulation = () => {
-  const mutation = useMutation<CreateSimulation, Error, Simulation>({
-    mutationKey: ['simulation'],
-    mutationFn: (simulation: Simulation) => createSimulation(simulation)
+  const mutation = useMutation<Simulation, Error, CreateSimulation>({
+    mutationKey: ['createSimulation'],
+    mutationFn: (simulation: CreateSimulation) => createSimulation(simulation)
   });
   return mutation;
 };

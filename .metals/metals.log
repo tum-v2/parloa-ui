@@ -1,0 +1,3 @@
+2023.12.11 14:26:47 INFO  Started: Metals version 1.1.0 in folders '/Users/guid3d/TUM/Praktikum/parloa-ui' for client Visual Studio Code 1.85.0.
+2023.12.11 14:26:47 WARN  Build server is not auto-connectable.
+2023.12.11 14:26:47 WARN  no build tool detected in workspace '/Users/guid3d/TUM/Praktikum/parloa-ui'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 

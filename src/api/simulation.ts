@@ -2,7 +2,7 @@ import {
   SimulationSchema,
   Simulation,
   CreateSimulation,
-  createSimulationSchema
+  CreateSimulationSchema
 } from './schemas/simulation';
 
 /**
@@ -49,32 +49,26 @@ export const getAllSimulations = async () => {
  * @throws If there's an error during the creation process.
  */
 export const createSimulation = async (simulationData: CreateSimulation) => {
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/simulation/run`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(simulationData)
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error('Failed to create simulation'); // Handle non-2xx HTTP responses
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/simulation/run`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(simulationData)
     }
+  );
 
-    const zodResponse = createSimulationSchema.safeParse(await response.json());
-
-    if (!zodResponse.success) {
-      throw new Error(zodResponse.error.message);
-    }
-
-    return zodResponse.data;
-  } catch (error) {
-    // Handle network errors or unexpected issues here
-    console.error('Error creating simulation:', error);
-    throw error;
+  if (!response.ok) {
+    throw new Error('Failed to create simulation'); // Handle non-2xx HTTP responses
   }
+
+  const zodResponse = SimulationSchema.safeParse(await response.json());
+
+  if (!zodResponse.success) {
+    throw new Error(zodResponse.error.message);
+  }
+
+  return zodResponse.data;
 };
