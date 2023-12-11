@@ -1,11 +1,11 @@
 import { SimulationSchema } from './schemas/simulation';
 
 /**
- * /simulation/:id/poll Get simulation
+ * /simulation/:id Get simulation
  */
 export const getSimulation = async (id: string) => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/simulation/${id}/poll`
+    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/simulation/${id}`
   );
 
   const zodResponse = SimulationSchema.safeParse(await response.json());
