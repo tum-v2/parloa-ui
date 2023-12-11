@@ -16,6 +16,7 @@ import {
 } from 'react-icons/io5';
 import useSimulationEvaluation from '@/hooks/useSimulationEvaluation';
 import { formatSecondsToMinutesAndSeconds } from '@/lib/utils/dateTime';
+import OptimizationInsightsCard from './OptimizationInsightsCard';
 
 const { Title } = Typography;
 
@@ -26,9 +27,11 @@ const metricsCardIconStyle: React.CSSProperties = {
 
 const Page = () => {
   const { id } = useParams<{ id: string }>();
-  const { data, isLoading } = useSimulation(id);
+  const { data, isLoading, error } = useSimulation(id);
   const { data: evaluationData, isLoading: evaluationLoading } =
     useSimulationEvaluation(id);
+
+  console.log(error);
 
   // Show loading indicator while fetching simulation
   if (isLoading || evaluationLoading) {
@@ -71,7 +74,11 @@ const Page = () => {
                 value={data.numConversations}
               />
             </Flex>
-            <InsightsCard formattedEvaluation={evaluationData} />
+            {data.optimization ? (
+              <OptimizationInsightsCard optimizationId={data.optimization} />
+            ) : (
+              <InsightsCard formattedEvaluation={evaluationData} />
+            )}
           </>
         ) : (
           <Alert

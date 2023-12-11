@@ -6,7 +6,7 @@ import {
   getSimulationStatusBadgeStatus,
   getSimulationTypeStyle
 } from '@/lib/utils/simulations/simulationStyles';
-import { firstLetterToUpperCase, underscoresToSpaces } from '@/lib/utils/text';
+import { firstLetterToUpperCase } from '@/lib/utils/text';
 import { Badge } from 'antd';
 import Table, { ColumnsType } from 'antd/es/table';
 import { useRouter } from 'next/navigation';
@@ -16,16 +16,6 @@ const columns: ColumnsType<Simulation> = [
     title: 'Name',
     dataIndex: 'name',
     key: 'name'
-  },
-  {
-    title: 'Scenario',
-    dataIndex: 'scenario',
-    key: 'scenario',
-    render: (scenario: string) => {
-      return (
-        <span>{firstLetterToUpperCase(underscoresToSpaces(scenario))}</span>
-      );
-    }
   },
   {
     title: 'Type',
@@ -72,8 +62,10 @@ const columns: ColumnsType<Simulation> = [
 ];
 
 const SimulationTable = () => {
-  const { data, isLoading } = useSimulations();
+  const { data, isLoading, error } = useSimulations();
   const router = useRouter();
+
+  console.log(error);
 
   //Handle row click
   const handleRowClick = (record: Simulation) => {
