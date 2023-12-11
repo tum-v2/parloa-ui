@@ -62,10 +62,8 @@ const columns: ColumnsType<Simulation> = [
 ];
 
 const SimulationTable = () => {
-  const { data, isLoading, error } = useSimulations();
+  const { data, isLoading } = useSimulations();
   const router = useRouter();
-
-  console.log(error);
 
   //Handle row click
   const handleRowClick = (record: Simulation) => {
