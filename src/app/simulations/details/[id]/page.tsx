@@ -58,12 +58,12 @@ const Page = () => {
               <MetricsCard
                 title="Time to run"
                 icon={<IoTimeOutline style={metricsCardIconStyle} />}
-                value={formatSecondsToMinutesAndSeconds(data.duration)} // TODO Get from backend when this is implemented
+                value={formatSecondsToMinutesAndSeconds(data.duration)}
               />
               <MetricsCard
                 title="Interactions"
                 icon={<IoSwapHorizontalOutline style={metricsCardIconStyle} />}
-                value={'150'} // TODO Get from backend when this is implemented
+                value={data.totalNumberOfInteractions}
               />
               <MetricsCard
                 title="Conversations"
