@@ -2,6 +2,9 @@
   "name": "parloa-ui",
   "version": "0.1.0",
   "private": true,
+  "engines:" {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -20,7 +23,6 @@
     "antd": "^5.11.0",
     "d3": "^7.8.5",
     "next": "14.0.1",
-    "nodejs": "^0.0.0",
     "react": "^18",
     "react-dom": "^18"
   },
