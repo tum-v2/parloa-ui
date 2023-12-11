@@ -28,7 +28,7 @@ const metricsCardIconStyle: React.CSSProperties = {
   height: '2rem'
 };
 
-const RESPONSE_TIME_MAX = 100;
+const RESPONSE_TIME_MAX = 200;
 const MESSAGE_COUNT_MAX = 50;
 
 const Page = () => {
@@ -88,51 +88,48 @@ const Page = () => {
                 value={data.numConversations}
               />
             </Flex>
-            {data.numConversations === 1 ? (
-              data.optimization ? (
-                <OptimizationInsightsCard optimizationId={data.optimization} />
-              ) : (
-                <>
-                  <Flex gap={'small'}>
-                    <MetricsCard
-                      title="Amount of steps to reach goal"
-                      icon={<IoBarChartOutline style={metricsCardIconStyle} />}
-                      value={evaluationData.messageCount[0].dataPoints[0].y}
-                      unit=" steps"
-                      progressOptions={{
-                        min: 0,
-                        max: MESSAGE_COUNT_MAX,
-                        color: scaleValueToColor(
-                          evaluationData.messageCount[0].dataPoints[0].y,
-                          0,
-                          MESSAGE_COUNT_MAX,
-                          true
-                        )
-                      }}
-                    />
-                    <MetricsCard
-                      title="Average response time"
-                      icon={
-                        <IoSpeedometerOutline style={metricsCardIconStyle} />
-                      }
-                      value={evaluationData.responseTime[0].dataPoints[0].y}
-                      unit="ms"
-                      progressOptions={{
-                        min: 0,
-                        max: RESPONSE_TIME_MAX,
-                        color: scaleValueToColor(
-                          evaluationData.responseTime[0].dataPoints[0].y,
-                          0,
-                          RESPONSE_TIME_MAX,
-                          true
-                        )
-                      }}
-                    />
-                  </Flex>
-                </>
-              )
+            <>
+              <Flex gap={'small'}>
+                <MetricsCard
+                  title="Average amount of steps to reach goal"
+                  icon={<IoBarChartOutline style={metricsCardIconStyle} />}
+                  value={evaluationData.messageCount[0].dataPoints[0].y}
+                  unit=" steps"
+                  progressOptions={{
+                    min: 0,
+                    max: MESSAGE_COUNT_MAX,
+                    color: scaleValueToColor(
+                      evaluationData.messageCount[0].dataPoints[0].y,
+                      0,
+                      MESSAGE_COUNT_MAX,
+                      true
+                    )
+                  }}
+                />
+                <MetricsCard
+                  title="Average response time"
+                  icon={<IoSpeedometerOutline style={metricsCardIconStyle} />}
+                  value={evaluationData.responseTime[0].dataPoints[0].y}
+                  unit="ms"
+                  progressOptions={{
+                    min: 0,
+                    max: RESPONSE_TIME_MAX,
+                    color: scaleValueToColor(
+                      evaluationData.responseTime[0].dataPoints[0].y,
+                      0,
+                      RESPONSE_TIME_MAX,
+                      true
+                    )
+                  }}
+                />
+              </Flex>
+            </>
+            {data.optimization ? (
+              <OptimizationInsightsCard optimizationId={data.optimization} />
             ) : (
-              <InsightsCard formattedEvaluation={evaluationData} />
+              data.numConversations > 1 && (
+                <InsightsCard formattedEvaluation={evaluationData} />
+              )
             )}
           </>
         ) : (
