@@ -7,6 +7,7 @@ import theme from '@/theme/theme';
 import { FileTextOutlined } from '@ant-design/icons';
 import { formatLongDateTimeString } from '@/lib/utils/dateTime';
 import { Simulation } from '@/api/schemas/simulation';
+import { useRouter } from 'next/navigation';
 
 interface DetailsHeaderProps {
   simulation: Simulation;
@@ -14,14 +15,20 @@ interface DetailsHeaderProps {
 
 const DetailsHeader = ({ simulation }: DetailsHeaderProps) => {
   const { name, createdAt, scenario, type } = simulation;
-
   const typeStyle = getSimulationTypeStyle(type);
+  const router = useRouter();
+
+  const viewChatHistory = () => {
+    router.push(`/simulations/details/${simulation._id}/chat`);
+  };
 
   return (
     <Flex vertical gap={'small'}>
       <Flex justify="space-between" align="center" dir="row">
         <Header title={name} style={{ margin: 0 }} />
-        <Button type="primary">View chat history</Button>
+        <Button type="primary" onClick={viewChatHistory}>
+          View chat history
+        </Button>
       </Flex>
       <Typography.Text type="secondary">
         {formatLongDateTimeString(createdAt)}
