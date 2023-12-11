@@ -130,14 +130,6 @@ const Page = () => {
                     }}
                   />
                 </Flex>
-                <Alert
-                  message="Insights not available"
-                  description="Insights are only available for simulations with multiple conversations."
-                  type="warning"
-                  showIcon
-                  closable
-                  className="mt-5"
-                />
               </>
             )}
           </>
