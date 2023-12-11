@@ -4,8 +4,9 @@ import LineChart from '@/components/charts/LineChart';
 import { ParentSize } from '@visx/responsive';
 import useOptimizationChildSimulations from '@/hooks/useOptimizationChildSimulations';
 import { useRouter } from 'next/navigation';
+import { InfoCircleOutlined } from '@ant-design/icons';
 
-const { Title } = Typography;
+const { Title, Link } = Typography;
 
 interface OptimizationInsightsCardProps {
   optimizationId: string;
@@ -28,6 +29,9 @@ const OptimizationInsightsCard = ({
       </Title>
       <Card className="w-full">
         <Flex vertical>
+          <Title level={5} style={{ margin: 0 }}>
+            Evaluation Score
+          </Title>
           <div className="h-96">
             <ParentSize>
               {({ width, height }) => (
@@ -41,6 +45,14 @@ const OptimizationInsightsCard = ({
                     router.push(`/simulations/details/${data.ids[index]}`)
                   }
                   tooltipTitle="Simulation"
+                  tooltipExtra={
+                    <div className="mt-2">
+                      <Link>
+                        <InfoCircleOutlined className="mr-2" />
+                        Click to view details
+                      </Link>
+                    </div>
+                  }
                 />
               )}
             </ParentSize>

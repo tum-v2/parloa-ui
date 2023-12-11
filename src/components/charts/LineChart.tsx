@@ -25,6 +25,7 @@ interface LineChartProps {
   yUnit?: string;
   tooltipTitle?: string;
   onClick?: (dataIndex: number) => void;
+  tooltipExtra?: React.ReactNode;
 }
 
 const chartColors = [theme.color.blue, theme.color.pink, theme.color.orange];
@@ -37,7 +38,8 @@ const LineChart = ({
   padding = 50, // Doesn't have to be consistent with our theme
   yUnit,
   tooltipTitle,
-  onClick
+  onClick,
+  tooltipExtra
 }: LineChartProps) => {
   // Get min x
   const xMin = useMemo(
@@ -244,6 +246,7 @@ const LineChart = ({
           }`}
           data={tooltipData}
           yUnit={yUnit}
+          tooltipExtra={tooltipExtra}
         />
       )}
     </>
