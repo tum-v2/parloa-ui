@@ -83,6 +83,7 @@ const SimulationTable = () => {
           onClick: () => handleRowClick(record)
         };
       }}
+      className="cursor-pointer"
     />
   );
 };
