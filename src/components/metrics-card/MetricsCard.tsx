@@ -3,6 +3,7 @@
 import React from 'react';
 import { Typography, Card, Progress, Flex } from 'antd';
 import { scaleValueLinearly } from '@/lib/utils/math';
+import MetricsCardTrend from './MetricsCardTrend';
 
 const { Title } = Typography;
 
@@ -26,6 +27,7 @@ const MetricsCard = ({
   icon,
   value,
   unit,
+  trendNumber,
   progressOptions
 }: MetricsCardProps) => {
   const topPartStyle: React.CSSProperties = {
@@ -76,6 +78,7 @@ const MetricsCard = ({
           >
             {`${value}${unit ?? ''}`}
           </Title>
+          {trendNumber && <MetricsCardTrend trendNumber={trendNumber} />}
         </div>
       </Flex>
     </Card>
