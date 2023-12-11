@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Typography, Card, Progress } from 'antd';
+import { Typography, Card, Progress, Flex } from 'antd';
 import { scaleValueLinearly } from '@/lib/utils/math';
 
 const { Title } = Typography;
@@ -29,42 +29,55 @@ const MetricsCard = ({
   progressOptions
 }: MetricsCardProps) => {
   const topPartStyle: React.CSSProperties = {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
     height: '5rem'
   };
 
   return (
-    <Card style={{ width: '100%' }}>
-      <div style={topPartStyle}>
-        <Title style={{ margin: 0 }} ellipsis={{ rows: 2 }} level={4}>
-          {title}
-        </Title>
-        {icon}
-      </div>
-      <div>
-        <Title
-          style={{
-            margin: 0,
-            color: progressOptions ? progressOptions.color : ''
-          }}
-          level={2}
+    <Card
+      style={{ width: '100%' }}
+      bodyStyle={{ height: '100%', width: '100%' }}
+    >
+      <Flex
+        justify="space-between"
+        align="flex-start"
+        vertical
+        className="w-full h-full"
+        flex={1}
+      >
+        <Flex
+          justify="space-between"
+          align="flex-start"
+          style={topPartStyle}
+          className="w-full"
         >
-          {`${value}${unit ?? ''}`}
-        </Title>
-        {progressOptions && (
-          <Progress
-            percent={scaleValueLinearly(
-              value as number,
-              progressOptions.min,
-              progressOptions.max
-            )}
-            showInfo={false}
-            strokeColor={progressOptions.color}
-          />
-        )}
-      </div>
+          <Title style={{ margin: 0 }} ellipsis={{ rows: 2 }} level={4}>
+            {title}
+          </Title>
+          {icon}
+        </Flex>
+        <div className="w-full">
+          {progressOptions && (
+            <Progress
+              percent={scaleValueLinearly(
+                value as number,
+                progressOptions.min,
+                progressOptions.max
+              )}
+              showInfo={false}
+              strokeColor={progressOptions.color}
+            />
+          )}
+          <Title
+            style={{
+              margin: 0,
+              color: progressOptions ? progressOptions.color : ''
+            }}
+            level={2}
+          >
+            {`${value}${unit ?? ''}`}
+          </Title>
+        </div>
+      </Flex>
     </Card>
   );
 };
