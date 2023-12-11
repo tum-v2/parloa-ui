@@ -2,6 +2,9 @@
   "name": "parloa-ui",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
     "dev": "next dev -p 3001",
     "build": "next build",
@@ -32,7 +35,7 @@
     "@testing-library/jest-dom": "^6.1.4",
     "@testing-library/react": "^14.0.0",
     "@types/jest": "^29.5.8",
-    "@types/node": "^20",
+    "@types/node": "^20.10.4",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@typescript-eslint/eslint-plugin": "^6.13.0",
