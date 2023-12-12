@@ -13,22 +13,19 @@ import { useTooltip } from '@visx/tooltip';
 import React from 'react';
 import { GlyphCircle } from '@visx/glyph';
 import Tooltip from './Tooltip';
-import { TooltipData } from '@/types/chart';
-
-interface ChartData {
-  x: number;
-  y: number;
-}
+import { Datapoint, TooltipData } from '@/types/chart';
 
 interface LineChartProps {
   width: number;
   height: number;
-  data: ChartData[][];
+  data: Datapoint[][];
   yMax?: number;
   padding?: number;
   hideAxis?: boolean;
   yUnit?: string;
   tooltipTitle?: string;
+  onClick?: (dataIndex: number) => void;
+  tooltipExtra?: React.ReactNode;
 }
 
 const chartColors = [theme.color.blue, theme.color.pink, theme.color.orange];
@@ -40,7 +37,9 @@ const LineChart = ({
   yMax,
   padding = 50, // Doesn't have to be consistent with our theme
   yUnit,
-  tooltipTitle
+  tooltipTitle,
+  onClick,
+  tooltipExtra
 }: LineChartProps) => {
   // Get min x
   const xMin = useMemo(
@@ -83,7 +82,7 @@ const LineChart = ({
   );
 
   const bisectXData = useMemo(
-    () => bisector<ChartData, number>(d => d.x).left,
+    () => bisector<Datapoint, number>(d => d.x).left,
     []
   );
 
@@ -207,6 +206,8 @@ const LineChart = ({
               fill="transparent"
               onMouseMove={event => handleTooltip(event)}
               onMouseLeave={hideTooltip}
+              onClick={onClick ? () => onClick(i) : undefined}
+              className="cursor-pointer"
             />
             {tooltipData && (
               <g>
@@ -245,6 +246,7 @@ const LineChart = ({
           }`}
           data={tooltipData}
           yUnit={yUnit}
+          tooltipExtra={tooltipExtra}
         />
       )}
     </>

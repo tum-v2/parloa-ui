@@ -3,10 +3,9 @@ import React from 'react';
 import { Flex, Typography, Button } from 'antd';
 import Pill from '@/components/generic/Pill';
 import { getSimulationTypeStyle } from '@/lib/utils/simulations/simulationStyles';
-import theme from '@/theme/theme';
-import { FileTextOutlined } from '@ant-design/icons';
 import { formatLongDateTimeString } from '@/lib/utils/dateTime';
 import { Simulation } from '@/api/schemas/simulation';
+import { firstLetterToUpperCase, underscoresToSpaces } from '@/lib/utils/text';
 import { useRouter } from 'next/navigation';
 
 interface DetailsHeaderProps {
@@ -14,7 +13,8 @@ interface DetailsHeaderProps {
 }
 
 const DetailsHeader = ({ simulation }: DetailsHeaderProps) => {
-  const { name, createdAt, scenario, type } = simulation;
+  const { name, createdAt, type } = simulation;
+
   const typeStyle = getSimulationTypeStyle(type);
   const router = useRouter();
 
@@ -35,10 +35,7 @@ const DetailsHeader = ({ simulation }: DetailsHeaderProps) => {
       </Typography.Text>
       <Flex justify="flex-start" align="center" dir="row">
         <Pill color={typeStyle.color} icon={<typeStyle.icon />}>
-          {type}
-        </Pill>
-        <Pill icon={<FileTextOutlined />} color={theme.color.cyan}>
-          {scenario}
+          {underscoresToSpaces(firstLetterToUpperCase(type))}
         </Pill>
       </Flex>
     </Flex>
