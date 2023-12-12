@@ -19,7 +19,7 @@ const MetricsCardTrend = ({ trendNumber }: CardMetricsTrendProps) => {
       ) : (
         <IoCaretUp color={theme.color.gray} />
       )}
-      {trendNumber === 0 ? (
+      {trendNumber !== 0 ? (
         <Text
           type={trendNumber > 0 ? 'success' : 'danger'}
           style={{ margin: 0 }}
