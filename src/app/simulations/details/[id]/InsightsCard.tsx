@@ -4,91 +4,17 @@ import LineChart from '@/components/charts/LineChart';
 import { ParentSize } from '@visx/responsive';
 import { useState } from 'react';
 import BarChart from '@/components/charts/BarChart';
+import { FormattedEvaluation } from '@/hooks/useSimulationEvaluation';
 
 const { Title } = Typography;
 
-const mockData = [
-  [
-    { x: 1, y: 12 },
-    { x: 2, y: 23 },
-    { x: 3, y: 43 },
-    { x: 4, y: 54 },
-    { x: 5, y: 65 },
-    { x: 6, y: 32 },
-    { x: 7, y: 43 },
-    { x: 8, y: 76 }
-  ]
-];
+interface InsightsCardProps {
+  formattedEvaluation: FormattedEvaluation;
+}
 
-const mockData2 = [
-  {
-    key: 'Simulation 1',
-    dataPoints: [
-      {
-        x: 1,
-        y: 10
-      },
-      {
-        x: 2,
-        y: 20
-      },
-      {
-        x: 3,
-        y: 30
-      },
-      {
-        x: 4,
-        y: 40
-      },
-      {
-        x: 5,
-        y: 50
-      }
-    ]
-  },
-  {
-    key: 'Simulation 2',
-    dataPoints: [
-      {
-        x: 1,
-        y: 20
-      },
-      {
-        x: 2,
-        y: 30
-      },
-      {
-        x: 3,
-        y: 40
-      },
-      {
-        x: 4,
-        y: 50
-      },
-      {
-        x: 5,
-        y: 60
-      }
-    ]
-  }
-];
-
-const mockData3 = [
-  [
-    { x: 1, y: 0.5 },
-    { x: 2, y: 0.6 },
-    { x: 3, y: 0.7 },
-    { x: 4, y: 0.8 },
-    { x: 5, y: 0.9 },
-    { x: 6, y: 0.8 },
-    { x: 7, y: 0.7 },
-    { x: 8, y: 0.6 }
-  ]
-];
-
-const InsightsCard = () => {
+const InsightsCard = ({ formattedEvaluation }: InsightsCardProps) => {
   const [selectedChart, setSelectedChart] = useState<string | number>(
-    'Success Rate'
+    'Evaluation Score'
   );
 
   return (
@@ -100,7 +26,7 @@ const InsightsCard = () => {
         <Flex vertical>
           <Segmented
             block
-            options={['Success Rate', 'Amount of steps', 'Evaluation Score']}
+            options={['Evaluation Score', 'Amount of steps', 'Response Time']}
             value={selectedChart}
             onChange={setSelectedChart}
             className="w-1/2 self-center"
@@ -108,9 +34,9 @@ const InsightsCard = () => {
           <div className="h-96">
             <ParentSize>
               {({ width, height }) =>
-                (selectedChart === 'Success Rate' && (
+                (selectedChart === 'Evaluation Score' && (
                   <LineChart
-                    data={mockData}
+                    data={formattedEvaluation.evaluationScores}
                     width={width}
                     height={height}
                     yUnit="%"
@@ -119,14 +45,19 @@ const InsightsCard = () => {
                 )) ||
                 (selectedChart === 'Amount of steps' && (
                   <BarChart
-                    data={mockData2}
+                    data={formattedEvaluation.messageCount}
                     width={width}
                     height={height}
                     yUnit=" steps"
                   />
                 )) ||
-                (selectedChart === 'Evaluation Score' && (
-                  <LineChart data={mockData3} width={width} height={height} />
+                (selectedChart === 'Response Time' && (
+                  <BarChart
+                    data={formattedEvaluation.responseTime}
+                    width={width}
+                    height={height}
+                    yUnit=" ms"
+                  />
                 ))
               }
             </ParentSize>
