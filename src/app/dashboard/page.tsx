@@ -3,11 +3,6 @@
 import React from 'react';
 import { Flex, Layout, Skeleton, Typography } from 'antd';
 import theme from '@/theme/theme';
-import {
-  MetricsCard,
-  NumberType,
-  SkeletonMetricsCard
-} from './components/MetricsCard';
 import { ParentSize } from '@visx/responsive';
 import { Card } from 'antd';
 import LineChart from '@/components/charts/LineChart';
@@ -27,6 +22,8 @@ import {
   IoDiceOutline,
   IoSwapHorizontalOutline
 } from 'react-icons/io5';
+import MetricsCard from '@/components/metrics-card/MetricsCard';
+import SkeletonMetricsCard from '@/components/metrics-card/SkeletonMetricsCard';
 
 const { Content, Sider } = Layout;
 
@@ -83,22 +80,20 @@ const Dashboard = () => {
                   icon={
                     <IoSwapHorizontalOutline style={MetricsCardIconStyle} />
                   }
-                  numberType={'number' as NumberType}
-                  number={data.interactions || 0}
+                  value={data.interactions || 0}
                   trendNumber={undefined} // TODO: Add trend number when available from backend
                 />
                 <MetricsCard
                   title="Simulation Ran"
                   icon={<IoDiceOutline style={MetricsCardIconStyle} />}
-                  numberType={'number' as NumberType}
-                  number={data.simulationRuns || 0}
+                  value={data.simulationRuns || 0}
                   trendNumber={undefined} // TODO: Add trend number when available from backend
                 />
                 <MetricsCard
                   title="Average Success Rate"
                   icon={<IoAnalyticsOutline style={MetricsCardIconStyle} />}
-                  numberType={'percentage' as NumberType}
-                  number={Math.trunc(data.successRate * 100) || 0}
+                  value={Math.trunc(data.successRate * 100) || 0}
+                  unit="%"
                   trendNumber={undefined} // TODO: Add trend number when available from backend
                 />
               </>
