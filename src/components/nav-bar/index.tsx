@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 
 import NavBarTab, { navBarTabOptions } from './components/NavBarTab';
@@ -46,17 +46,18 @@ const NavBar = () => {
   const pathname = usePathname();
 
   // Get current tab from route
-  const currentTab = `/${pathname.split('/')[1]}`;
-  const hideNavBar = currentTab === '/login' ? false : true;
+  const currentTab = useMemo(() => `/${pathname.split('/')[1]}`, [pathname]);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
+  const [hideNavBar, setHideNavBar] = useState<boolean>(false);
 
-  // Set selected tab
-  const selectedInitialTab = navBarTabOptions.findIndex(
-    option => option.route === currentTab
-  );
-
-  const [selectedTab, setSelectedTab] = useState<number>(
-    selectedInitialTab !== -1 ? selectedInitialTab : 0
-  );
+  useEffect(() => {
+    // Set selected tab
+    const selectedInitialTab = navBarTabOptions.findIndex(
+      option => option.route === currentTab
+    );
+    setSelectedTab(selectedInitialTab);
+    setHideNavBar(currentTab === '/login' ? false : true);
+  }, [currentTab]);
 
   if (hideNavBar) {
     return (
