@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { SimulationSchema } from '@/api/schemas/simulation';
 
 export const DashboardSchema = z.object({
   interactions: z.number(),
@@ -10,15 +11,7 @@ export const DashboardSchema = z.object({
       successRate: z.number()
     })
   ),
-  top10Simulations: z.array(
-    z.object({
-      _id: z.string(),
-      name: z.string(),
-      createdAt: z.string(),
-      successRate: z.number(),
-      domain: z.string()
-    })
-  )
+  top10Simulations: z.array(SimulationSchema)
 });
 
 export type Dashboard = z.infer<typeof DashboardSchema>;
