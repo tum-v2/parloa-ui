@@ -4,7 +4,6 @@ import React, { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 
 import NavBarTab, { navBarTabOptions } from './components/NavBarTab';
-import logo from '@/components/parloa-logo.png';
 import NavBarLogout from './components/NavBarLogout';
 import { usePathname, useRouter } from 'next/navigation';
 import theme from '@/theme/theme';
@@ -65,7 +64,7 @@ const NavBar = () => {
         <div style={navBarStyle}>
           <div style={navBarLeftStyle}>
             <Image
-              src={logo}
+              src="/parloa-logo.png"
               alt="logo"
               width={36}
               height={36}
