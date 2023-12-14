@@ -7,6 +7,8 @@ import { formatLongDateTimeString } from '@/lib/utils/dateTime';
 import { Simulation } from '@/api/schemas/simulation';
 import { firstLetterToUpperCase, underscoresToSpaces } from '@/lib/utils/text';
 import { useRouter } from 'next/navigation';
+import theme from '@/theme/theme';
+import { SlidersOutlined } from '@ant-design/icons';
 
 interface DetailsHeaderProps {
   simulation: Simulation;
@@ -37,6 +39,11 @@ const DetailsHeader = ({ simulation }: DetailsHeaderProps) => {
         <Pill color={typeStyle.color} icon={<typeStyle.icon />}>
           {underscoresToSpaces(firstLetterToUpperCase(type))}
         </Pill>
+        {simulation.type === 'OPTIMIZATION' && !simulation.optimization && (
+          <Pill color={theme.color.cyan} icon={<SlidersOutlined />}>
+            {'Child simulation'}
+          </Pill>
+        )}
       </Flex>
     </Flex>
   );
