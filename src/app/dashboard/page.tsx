@@ -27,6 +27,31 @@ import SkeletonMetricsCard from '@/components/metrics-card/SkeletonMetricsCard';
 
 const { Content, Sider } = Layout;
 
+const DashboardLeftLayoutStyle: React.CSSProperties = {
+  display: 'relative',
+  paddingTop: theme.padding.l,
+  overflowY: 'scroll',
+  height: '100%'
+};
+const HighYieldSimulationLayoutStyle: React.CSSProperties = {
+  paddingTop: 34,
+  paddingRight: theme.padding.l
+};
+
+const HighYieldSimulationInsideScrollStyle: React.CSSProperties = {
+  overflowY: 'scroll',
+  height: 'calc(100vh - 166px)'
+};
+
+const MetricsCardIconStyle: React.CSSProperties = {
+  width: '2rem',
+  height: '2rem'
+};
+
+const ChartStyle: React.CSSProperties = {
+  height: 'calc(100vh - 400px)'
+};
+
 const Dashboard = () => {
   const [selectedTimeRange, setSelectedTimeRange] =
     React.useState<DropdownTimeRangeKeyType>(
@@ -34,33 +59,8 @@ const Dashboard = () => {
     );
   const { data, isLoading } = useDashboard(selectedTimeRange);
 
-  const DashboardLayoutStyle: React.CSSProperties = {
-    height: 'calc(100vh - 65px)'
-  };
-
-  const DashboardLeftLayoutStyle: React.CSSProperties = {
-    display: 'relative',
-    paddingTop: theme.padding.l,
-    overflowY: 'scroll',
-    height: '100%'
-  };
-  const HighYieldSimulationLayoutStyle: React.CSSProperties = {
-    paddingTop: 34,
-    paddingRight: theme.padding.l
-  };
-
-  const HighYieldSimulationInsideScrollStyle: React.CSSProperties = {
-    overflowY: 'scroll',
-    height: 'calc(100vh - 166px)'
-  };
-
-  const MetricsCardIconStyle: React.CSSProperties = {
-    width: '2rem',
-    height: '2rem'
-  };
-
   return (
-    <Layout style={DashboardLayoutStyle} hasSider>
+    <Layout hasSider>
       <Layout
         style={{ paddingLeft: theme.padding.l, paddingRight: theme.padding.l }}
       >
@@ -104,7 +104,7 @@ const Dashboard = () => {
             <Typography.Title level={4} style={{ margin: 0 }}>
               Success Rate Graph
             </Typography.Title>
-            <div className="h-96">
+            <div style={ChartStyle}>
               {data && (
                 <ParentSize>
                   {({ width, height }) => (
