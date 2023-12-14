@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Select, Slider, Segmented } from 'antd';
+import { Select, Slider, Segmented, Flex } from 'antd';
 import SimulationCard from './SimulationCard';
 import ModelCard from './ModelCard';
 import { InputField } from '../generic/InputField';
@@ -23,16 +23,6 @@ const StepContent: React.FC<StepContentProps> = ({
   const [temperature, setTemperature] = useState<number>(0.5);
   const [maxTokens, setMaxTokens] = useState<number>(2048);
 
-  const wrapperStyle: React.CSSProperties = { padding: theme.padding.l };
-  const cardStyle: React.CSSProperties = {
-    width: '300px',
-    padding: theme.padding.l
-  };
-  const inputFieldStyle: React.CSSProperties = { marginBottom: theme.margin.l };
-  const sliderContainerStyle: React.CSSProperties = {
-    marginTop: theme.margin.l
-  };
-
   const handleModelChange = () => {
     console.log(`Selected Model`);
   };
@@ -49,8 +39,8 @@ const StepContent: React.FC<StepContentProps> = ({
     switch (stepNumber) {
       case 1:
         return (
-          <div style={{ display: 'flex' }}>
-            <div style={wrapperStyle}>
+          <Flex className="w-full h-full" align="center" justify="center">
+            <div className="w-1/5 h-3/4 px-6">
               <SimulationCard
                 selectable={true}
                 title="Manual"
@@ -58,7 +48,7 @@ const StepContent: React.FC<StepContentProps> = ({
                 icon={<AiFillCode size={100} />}
               />
             </div>
-            <div style={wrapperStyle}>
+            <div className="w-1/5 h-3/4 px-6">
               <SimulationCard
                 selectable={true}
                 title="Automated"
@@ -66,20 +56,13 @@ const StepContent: React.FC<StepContentProps> = ({
                 icon={<IoReload size={100} />}
               />
             </div>
-          </div>
+          </Flex>
         );
 
       case 2:
         return (
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: '100%'
-            }}
-          >
-            <div style={cardStyle}>
+          <Flex justify="center" align="flex-start" className="h-3/4 w-full">
+            <div className="w-1/5 h-full px-6">
               <SimulationCard
                 selectable={false}
                 title="Automated"
@@ -87,45 +70,43 @@ const StepContent: React.FC<StepContentProps> = ({
                 icon={<AiFillCode size={100} />}
               />
             </div>
-            <div style={cardStyle}>
-              <div style={inputFieldStyle}>
+            <Flex vertical className="w-1/3 px-6" gap={'middle'}>
+              <div>
                 <label
                   htmlFor="simulation-name"
-                  style={{ display: 'block', marginBottom: theme.padding.s }}
+                  style={{ display: 'block', marginBottom: theme.margin.s }}
                 >
                   Simulation Name
                 </label>
                 <InputField
                   id="simulation-name"
                   type="text"
-                  size="large"
                   placeholder="Simulation Name"
                 />
               </div>
               <div>
                 <label
                   htmlFor="simulation-description"
-                  style={{ display: 'block', marginBottom: theme.padding.s }}
+                  style={{ display: 'block', marginBottom: theme.margin.s }}
                 >
                   Description
                 </label>
                 <InputField
                   id="simulation-description"
                   type="textarea"
-                  size="large"
                   placeholder="Description"
                   minRows={10}
                   maxRows={10}
                 />
               </div>
-            </div>
-          </div>
+            </Flex>
+          </Flex>
         );
 
       case 3:
         return (
-          <div style={{ display: 'flex' }}>
-            <div style={wrapperStyle}>
+          <Flex justify="center" align="center" className="h-3/4 w-full">
+            <div className="w-1/5 h-full px-6">
               <SimulationCard
                 selectable={false}
                 title="Automated"
@@ -133,7 +114,7 @@ const StepContent: React.FC<StepContentProps> = ({
                 icon={<AiFillCode size={100} />}
               />
             </div>
-            <div style={wrapperStyle}>
+            <div className="w-1/5 h-full px-6">
               <ModelCard
                 models={models}
                 scenarios={scenarios}
@@ -144,7 +125,7 @@ const StepContent: React.FC<StepContentProps> = ({
                 title="Agent LLM"
               />
             </div>
-            <div style={wrapperStyle}>
+            <div className="w-1/5 h-full px-6">
               <ModelCard
                 models={models}
                 scenarios={scenarios}
@@ -155,58 +136,63 @@ const StepContent: React.FC<StepContentProps> = ({
                 title="User LLM"
               />
             </div>
-          </div>
+          </Flex>
         );
 
       case 9:
         return (
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              height: '100%',
-              width: '80%'
-            }}
-          >
-            <div style={{ width: '40%', padding: theme.padding.l }}>
-              <div style={inputFieldStyle}>
+          <Flex justify="space-between" align="flex-start" className="w-full">
+            <Flex
+              vertical
+              gap="middle"
+              className="w-full"
+              style={{ padding: theme.padding.l }}
+            >
+              <div>
                 <label
                   htmlFor="template-name"
-                  style={{ display: 'block', marginBottom: theme.padding.s }}
+                  style={{ display: 'block', marginBottom: theme.margin.s }}
                 >
                   Template Name
                 </label>
-                <InputField id="template-name" type="text" size="large" />
+                <InputField id="template-name" type="text" />
               </div>
-              <div style={inputFieldStyle}>
+              <div>
                 <label
                   htmlFor="instructions"
-                  style={{ display: 'block', marginBottom: theme.padding.s }}
+                  style={{ display: 'block', marginBottom: theme.margin.s }}
                 >
                   Instructions
                 </label>
-                <InputField
-                  id="instructions"
-                  type="textarea"
-                  size="large"
-                  minRows={6}
+                <InputField id="instructions" type="textarea" minRows={6} />
+              </div>
+            </Flex>
+            <Flex
+              vertical
+              gap="middle"
+              className="w-full"
+              style={{ padding: theme.padding.l }}
+            >
+              <div>
+                <label
+                  htmlFor="instructions"
+                  style={{ display: 'block', marginBottom: theme.margin.s }}
+                >
+                  Scenario
+                </label>
+                <Select
+                  defaultValue="Sequence"
+                  onChange={handleScenarioTypeChange}
+                  options={[
+                    { value: 'Sequence', label: 'Sequence' },
+                    { value: 'Slot Filling', label: 'Slot Filling' },
+                    { value: 'Call Forward', label: 'Call Forward' }
+                  ]}
                 />
               </div>
-            </div>
-            <div style={{ width: '40%', padding: theme.padding.l }}>
-              <Select
-                defaultValue="Sequence"
-                style={{ width: 120 }}
-                onChange={handleScenarioTypeChange}
-                options={[
-                  { value: 'Sequence', label: 'Sequence' },
-                  { value: 'Slot Filling', label: 'Slot Filling' },
-                  { value: 'Call Forward', label: 'Call Forward' }
-                ]}
-              />
-              <div style={sliderContainerStyle}>
-                <label>Temperature (0 - 1):</label>
+
+              <div>
+                <label>Temperature (0 - 1)</label>
                 <Slider
                   min={0}
                   max={1}
@@ -215,8 +201,8 @@ const StepContent: React.FC<StepContentProps> = ({
                   onChange={value => setTemperature(value as number)}
                 />
               </div>
-              <div style={sliderContainerStyle}>
-                <label>Max Tokens (1024 - 4096):</label>
+              <div>
+                <label>Max Tokens (1024 - 4096)</label>
                 <Slider
                   min={1024}
                   max={4096}
@@ -225,13 +211,16 @@ const StepContent: React.FC<StepContentProps> = ({
                   onChange={value => setMaxTokens(value as number)}
                 />
               </div>
-              <div style={sliderContainerStyle}>
-                <label>Overwrite Template:</label>
-                <br />
+              <div>
+                <label
+                  style={{ display: 'block', marginBottom: theme.margin.s }}
+                >
+                  Overwrite Template
+                </label>
                 <Segmented options={['Yes', 'No']} />
               </div>
-            </div>
-          </div>
+            </Flex>
+          </Flex>
         );
 
       default:

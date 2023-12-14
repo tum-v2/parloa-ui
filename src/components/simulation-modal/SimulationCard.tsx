@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Typography } from 'antd';
+import { Card, Flex, Typography } from 'antd';
 import theme from '@/theme/theme';
 
 const { Text } = Typography;
@@ -13,33 +13,21 @@ interface SimulationCardProps {
 }
 
 const cardStyleBase: React.CSSProperties = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: 300,
-  height: 400,
   border: '1px solid',
-  cursor: 'pointer'
+  cursor: 'pointer',
+  height: '100%',
+  width: '100%',
+  minWidth: '200px'
 };
 
 const iconAndTextStyle: React.CSSProperties = {
-  fontWeight: 'normal',
-  marginBottom: '4px',
-  fontSize: '22px',
+  marginBottom: theme.margin.xs,
+  fontSize: theme.fontSize.xl,
   textAlign: 'center'
 };
 
-const wrapperStyle: React.CSSProperties = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  height: '100%'
-};
-
 const iconStyle: React.CSSProperties = {
-  marginBottom: '24px'
+  marginBottom: theme.margin.l
 };
 
 const getModeColors = (mode: 'manual' | 'automated') =>
@@ -100,13 +88,14 @@ const SimulationCard = ({
       onMouseEnter={() => selectable && setHover(true)}
       onMouseLeave={() => selectable && setHover(false)}
       onClick={handleCardClick}
+      bodyStyle={{ height: '100%' }}
     >
-      <div style={wrapperStyle}>
+      <Flex justify="center" align="center" className="h-full" vertical>
         <span style={{ ...iconStyle, color: textStyle.color }}>{icon}</span>
         <Text style={textStyle}>{title}</Text>
         <Text style={textStyle}>Simulation</Text>
         {children}
-      </div>
+      </Flex>
     </Card>
   );
 };
