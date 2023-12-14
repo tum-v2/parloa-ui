@@ -15,7 +15,6 @@ import DropdownTimeRange, {
   DropdownTimeRangeKeyEnum,
   DropdownTimeRangeKeyType
 } from './components/DropdownTimeRange';
-import { dummyChartData } from './components/DummyData';
 import useDashboard from '@/hooks/useDashboard';
 import {
   IoAnalyticsOutline,
@@ -110,7 +109,7 @@ const Dashboard = () => {
                   {({ width, height }) => (
                     // TODO: Find the right way for parsing LineChart data
                     <LineChart
-                      data={dummyChartData}
+                      data={data.chartData}
                       width={width}
                       height={height}
                       yUnit="%"
