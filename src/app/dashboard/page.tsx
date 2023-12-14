@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Flex, Layout, Skeleton, Typography } from 'antd';
+import Content from '@/components/generic/Content';
 import theme from '@/theme/theme';
 import { ParentSize } from '@visx/responsive';
 import { Card } from 'antd';
@@ -24,8 +25,6 @@ import {
 } from 'react-icons/io5';
 import MetricsCard from '@/components/metrics-card/MetricsCard';
 import SkeletonMetricsCard from '@/components/metrics-card/SkeletonMetricsCard';
-
-const { Content, Sider } = Layout;
 
 const Dashboard = () => {
   const [selectedTimeRange, setSelectedTimeRange] =
@@ -60,89 +59,94 @@ const Dashboard = () => {
   };
 
   return (
-    <Layout style={DashboardLayoutStyle} hasSider>
-      <Layout
-        style={{ paddingLeft: theme.padding.l, paddingRight: theme.padding.l }}
-      >
-        <Content style={DashboardLeftLayoutStyle}>
-          <Flex justify="space-between" align="center">
-            <Header title="Dashboard" />
-            <DropdownTimeRange
-              selectedTimeRange={selectedTimeRange}
-              setSelectedTimeRange={setSelectedTimeRange}
-            />
-          </Flex>
-          <Flex justify="space-between" gap={theme.padding.m}>
-            {data && (
-              <>
-                <MetricsCard
-                  title="Total Number of Interractions"
-                  icon={
-                    <IoSwapHorizontalOutline style={MetricsCardIconStyle} />
-                  }
-                  value={data.interactions || 0}
-                  trendNumber={undefined} // TODO: Add trend number when available from backend
-                />
-                <MetricsCard
-                  title="Simulation Ran"
-                  icon={<IoDiceOutline style={MetricsCardIconStyle} />}
-                  value={data.simulationRuns || 0}
-                  trendNumber={undefined} // TODO: Add trend number when available from backend
-                />
-                <MetricsCard
-                  title="Average Success Rate"
-                  icon={<IoAnalyticsOutline style={MetricsCardIconStyle} />}
-                  value={Math.trunc(data.successRate * 100) || 0}
-                  unit="%"
-                  trendNumber={undefined} // TODO: Add trend number when available from backend
-                />
-              </>
-            )}
-            {isLoading && <SkeletonMetricsCard />}
-          </Flex>
-          <Card style={{ marginTop: theme.padding.m }}>
-            <Typography.Title level={4} style={{ margin: 0 }}>
-              Success Rate Graph
-            </Typography.Title>
-            <div className="h-96">
+    <Content>
+      <Layout style={DashboardLayoutStyle} hasSider>
+        <Layout
+          style={{
+            paddingLeft: theme.padding.l,
+            paddingRight: theme.padding.l
+          }}
+        >
+          <Layout.Content style={DashboardLeftLayoutStyle}>
+            <Flex justify="space-between" align="center">
+              <Header title="Dashboard" />
+              <DropdownTimeRange
+                selectedTimeRange={selectedTimeRange}
+                setSelectedTimeRange={setSelectedTimeRange}
+              />
+            </Flex>
+            <Flex justify="space-between" gap={theme.padding.m}>
               {data && (
-                <ParentSize>
-                  {({ width, height }) => (
-                    // TODO: Find the right way for parsing LineChart data
-                    <LineChart
-                      data={dummyChartData}
-                      width={width}
-                      height={height}
-                      yUnit="%"
-                      yMax={100}
-                    />
-                  )}
-                </ParentSize>
+                <>
+                  <MetricsCard
+                    title="Total Number of Interractions"
+                    icon={
+                      <IoSwapHorizontalOutline style={MetricsCardIconStyle} />
+                    }
+                    value={data.interactions || 0}
+                    trendNumber={undefined} // TODO: Add trend number when available from backend
+                  />
+                  <MetricsCard
+                    title="Simulation Ran"
+                    icon={<IoDiceOutline style={MetricsCardIconStyle} />}
+                    value={data.simulationRuns || 0}
+                    trendNumber={undefined} // TODO: Add trend number when available from backend
+                  />
+                  <MetricsCard
+                    title="Average Success Rate"
+                    icon={<IoAnalyticsOutline style={MetricsCardIconStyle} />}
+                    value={Math.trunc(data.successRate * 100) || 0}
+                    unit="%"
+                    trendNumber={undefined} // TODO: Add trend number when available from backend
+                  />
+                </>
               )}
-              {isLoading && <Skeleton active />}
-            </div>
-          </Card>
-        </Content>
-      </Layout>
-      <Sider width={400} style={HighYieldSimulationLayoutStyle}>
-        <Typography.Title level={3}>High Yield Simulation</Typography.Title>
-        <div style={HighYieldSimulationInsideScrollStyle}>
-          {data &&
-            data.top10Simulations.map(item => (
-              <div key={item._id}>
-                <SimulationCard
-                  _id={item._id}
-                  name={item.name}
-                  createdAt={item.createdAt}
-                  successRate={item.successRate}
-                  domain={item.domain}
-                />
+              {isLoading && <SkeletonMetricsCard />}
+            </Flex>
+            <Card style={{ marginTop: theme.padding.m }}>
+              <Typography.Title level={4} style={{ margin: 0 }}>
+                Success Rate Graph
+              </Typography.Title>
+              <div className="h-96">
+                {data && (
+                  <ParentSize>
+                    {({ width, height }) => (
+                      // TODO: Find the right way for parsing LineChart data
+                      <LineChart
+                        data={dummyChartData}
+                        width={width}
+                        height={height}
+                        yUnit="%"
+                        yMax={100}
+                      />
+                    )}
+                  </ParentSize>
+                )}
+                {isLoading && <Skeleton active />}
               </div>
-            ))}
-          {isLoading && <SkeletonSimulationCard />}
-        </div>
-      </Sider>
-    </Layout>
+            </Card>
+          </Layout.Content>
+        </Layout>
+        <Layout.Sider width={400} style={HighYieldSimulationLayoutStyle}>
+          <Typography.Title level={3}>High Yield Simulation</Typography.Title>
+          <div style={HighYieldSimulationInsideScrollStyle}>
+            {data &&
+              data.top10Simulations.map(item => (
+                <div key={item._id}>
+                  <SimulationCard
+                    _id={item._id}
+                    name={item.name}
+                    createdAt={item.createdAt}
+                    successRate={item.successRate}
+                    domain={item.domain}
+                  />
+                </div>
+              ))}
+            {isLoading && <SkeletonSimulationCard />}
+          </div>
+        </Layout.Sider>
+      </Layout>
+    </Content>
   );
 };
 
