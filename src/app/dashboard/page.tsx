@@ -125,7 +125,9 @@ const Dashboard = () => {
         </Content>
       </Layout>
       <Sider width={400} style={HighYieldSimulationLayoutStyle}>
-        <Typography.Title level={3}>High Yield Simulation</Typography.Title>
+        <Typography.Title level={3} style={{ marginTop: 0 }}>
+          High Yield Simulation
+        </Typography.Title>
         <div style={HighYieldSimulationInsideScrollStyle}>
           {data &&
             data.top10Simulations.map(item => (
