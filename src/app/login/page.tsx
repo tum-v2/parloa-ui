@@ -1,7 +1,5 @@
 'use client';
 import React from 'react';
-import background from './components/background.png';
-import logo from '@/components/parloa-logo.png';
 import Image from 'next/image';
 import theme from '@/theme/theme';
 import { InputField } from '@/components/generic/InputField';
@@ -74,7 +72,7 @@ const Login = () => {
     <div>
       <Image
         style={landingImageBackgroundStyle}
-        src={background}
+        src="/login-background.png"
         alt="background"
         priority={false}
         layout="fill"
@@ -84,7 +82,7 @@ const Login = () => {
       <div style={accessCodeContainerStyle}>
         <Image
           style={logoStyle}
-          src={logo}
+          src="/parloa-logo.png"
           alt="logo"
           width={50}
           height={50}
