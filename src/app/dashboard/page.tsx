@@ -7,9 +7,9 @@ import { ParentSize } from '@visx/responsive';
 import { Card } from 'antd';
 import LineChart from '@/components/charts/LineChart';
 import {
-  HighYieldSimulationCard,
-  SkeletonHighYieldSimulationCard
-} from './components/HighYieldSimulationCard';
+  SimulationCard,
+  SkeletonSimulationCard
+} from './components/SimulationCard';
 import Header from '@/components/generic/Header';
 import DropdownTimeRange, {
   DropdownTimeRangeKeyEnum,
@@ -130,7 +130,7 @@ const Dashboard = () => {
           {data &&
             data.top10Simulations.map(item => (
               <div key={item._id}>
-                <HighYieldSimulationCard
+                <SimulationCard
                   _id={item._id}
                   name={item.name}
                   createdAt={item.createdAt}
@@ -139,7 +139,7 @@ const Dashboard = () => {
                 />
               </div>
             ))}
-          {isLoading && <SkeletonHighYieldSimulationCard />}
+          {isLoading && <SkeletonSimulationCard />}
         </div>
       </Sider>
     </Layout>

@@ -10,7 +10,7 @@ const { Text, Title } = Typography;
 
 const skeletonData = [1, 2, 3, 4, 5];
 
-export interface HighYieldSimulationCardProps {
+export interface SimulationCardProps {
   _id: string;
   name: string;
   createdAt: string;
@@ -18,13 +18,13 @@ export interface HighYieldSimulationCardProps {
   domain: string;
 }
 
-const HighYieldSimulationCard = ({
+const SimulationCard = ({
   _id,
   name,
   createdAt,
   domain,
   successRate
-}: HighYieldSimulationCardProps) => {
+}: SimulationCardProps) => {
   const router = useRouter();
 
   const onClick = () => {
@@ -74,7 +74,7 @@ const HighYieldSimulationCard = ({
   );
 };
 
-const SkeletonHighYieldSimulationCard = () => {
+const SkeletonSimulationCard = () => {
   return skeletonData.map(item => (
     <Card
       key={item}
@@ -88,4 +88,4 @@ const SkeletonHighYieldSimulationCard = () => {
   ));
 };
 
-export { HighYieldSimulationCard, SkeletonHighYieldSimulationCard };
+export { SimulationCard, SkeletonSimulationCard };
