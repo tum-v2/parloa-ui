@@ -18,7 +18,6 @@ const rootStyle: React.CSSProperties = {
 };
 
 const childStyle: React.CSSProperties = {
-  maxWidth: 1440, // maxWidth copy from GitHub.com way
   marginRight: 'auto',
   marginLeft: 'auto'
 };
