@@ -6,9 +6,12 @@ import theme from '@/theme/theme';
 import { useParams } from 'next/navigation';
 import useSimulation from '@/hooks/useSimulation';
 import { Empty, Spin } from 'antd';
+import Content from '@/components/generic/Content';
 
 const ChatPage = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{
+    id: string;
+  }>();
   const { data, isLoading } = useSimulation(id);
   const [selectedChat, setSelectedChat] = useState<string>('');
 
@@ -28,7 +31,8 @@ const ChatPage = () => {
 
   const pageContainerStyle: React.CSSProperties = {
     display: 'flex',
-    height: `calc(100vh - ${theme.navbar.height}px)`
+    height: `calc(100vh - ${theme.navbar.height}px)`,
+    width: '100%'
   };
 
   return (
@@ -38,7 +42,13 @@ const ChatPage = () => {
         selectedChat={selectedChat}
         onSelectionChange={setSelectedChat}
       />
-      <Chat chatId={selectedChat} />
+      <Content>
+        <Chat
+          simulationId={id}
+          chatId={selectedChat}
+          interactive={data.type === 'CHAT'}
+        />
+      </Content>
     </div>
   );
 };

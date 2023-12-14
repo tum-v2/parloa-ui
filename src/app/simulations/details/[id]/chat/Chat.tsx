@@ -4,69 +4,61 @@ import ChatBubble, { Position } from '@/components/chat-bubble/ChatBubble';
 import { InputField } from '@/components/generic/InputField';
 import Button from '@/components/generic/Button';
 import { IoSend } from 'react-icons/io5';
-import useConversation from '@/hooks/useConversation';
-import { DisplayedMessage, Message } from '@/api/schemas/conversation';
 import { Spin } from 'antd';
+import { Message } from '@/api/schemas/conversation';
+import { postMessage } from '@/api/conversation';
+import useConversation from '@/hooks/useConversation';
 
 interface ChatProps {
+  simulationId: string;
   chatId: string;
+  interactive?: boolean;
 }
 
-const Chat = ({ chatId }: ChatProps) => {
-  const {
-    data: conversation,
-    isLoading,
-    isError,
-    error
-  } = useConversation(chatId);
-
-  const [messages, setMessages] = useState<DisplayedMessage[]>([]);
+const Chat = ({ simulationId, chatId, interactive = false }: ChatProps) => {
+  const [messages, setMessages] = useState<Message[]>([]);
   const messagesEndRef = useRef<null | HTMLDivElement>(null);
   const [inputValue, setInputValue] = useState('');
 
-  const scrollToBottom = () => {
+  // Only enable polling for non-interactive conversations.
+  const [shouldPoll, setShouldPoll] = useState<boolean>(!interactive);
+
+  const {
+    data: conversation,
+    isLoading,
+    error
+  } = useConversation(chatId, shouldPoll);
+
+  useEffect(() => {
+    if (!conversation) {
+      return;
+    }
+
+    setMessages(conversation.messages);
+
+    if (!interactive) {
+      return;
+    }
+
+    const lastMessage = conversation.messages.at(-1);
+    if (!lastMessage) {
+      return;
+    }
+
+    if (lastMessage.sender !== 'USER') {
+      setShouldPoll(false);
+    }
+  }, [conversation, interactive]);
+
+  useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [conversation, messages]);
-
-  useEffect(() => {
-    if (conversation) {
-      setMessages(
-        conversation.messages
-          .filter(message => !['TOOLOUTPUT', 'HANGUP'].includes(message.type))
-          .map(message => displayedMessage(message))
-      );
-    }
-  }, [conversation, conversation?.messages]);
-
-  const displayedMessage = (message: Message): DisplayedMessage => {
-    let content: string;
-    if (['TOOL', 'TOOLCALL'].includes(message.type)) {
-      if (message.intermediateMsg) {
-        content = message.intermediateMsg;
-      } else {
-        content = '...';
-      }
-    } else {
-      content = message.text;
-    }
-    content = content.replace(/^(USER: |AGENT: )/, '');
-
-    return {
-      _id: message._id,
-      message: content,
-      position: message.sender === 'USER' ? Position.Right : Position.Left
-    };
-  };
+  }, [messages]);
 
   if (isLoading) {
     return <Spin fullscreen size="large" />;
   }
 
-  if (isError) {
+  if (error) {
     return <div>Error: {error.message}</div>;
   }
 
@@ -79,26 +71,49 @@ const Chat = ({ chatId }: ChatProps) => {
   };
 
   const handleSubmit = () => {
+    if (!canSend()) {
+      return;
+    }
+
     if (inputValue.length === 0) {
       return;
     }
 
-    setMessages([
-      ...messages,
-      {
-        _id: '42', // TODO
-        message: inputValue,
-        position: Position.Right
-      }
-    ]);
+    const now = new Date();
+    const message: Message = {
+      sender: 'USER',
+      text: inputValue,
+      timestamp: now.toISOString(),
+      userCanReply: false
+    };
+
+    setMessages([...messages, message]);
+
+    postMessage(simulationId, inputValue).then((replyMessage: Message) => {
+      setMessages([...messages, message, replyMessage]);
+    });
 
     setInputValue('');
+  };
+
+  const canSend = () => {
+    if (inputValue.length === 0) {
+      return false;
+    }
+
+    const lastMessage = messages.at(-1);
+    if (lastMessage === undefined) {
+      return true;
+    }
+
+    return lastMessage.userCanReply;
   };
 
   const containerStyle: React.CSSProperties = {
     display: 'flex',
     flexDirection: 'column',
-    flex: 1
+    flex: 1,
+    height: '100%'
   };
 
   const chatContainerStyle: React.CSSProperties = {
@@ -123,31 +138,37 @@ const Chat = ({ chatId }: ChatProps) => {
     <div style={containerStyle}>
       <div style={chatContainerStyle}>
         <div style={chatStyle}>
-          {messages.map((message, idx) => (
-            <div key={idx} style={{ flexGrow: 1 }}>
-              <ChatBubble position={message.position}>
-                {message.message}
+          {messages.map((message, index) => (
+            <div key={index} style={{ flexGrow: 1 }}>
+              <ChatBubble
+                position={
+                  message.sender === 'USER' ? Position.Right : Position.Left
+                }
+              >
+                {message.text}
               </ChatBubble>
             </div>
           ))}
           <div ref={messagesEndRef} />
         </div>
       </div>
-      <div style={inputFieldStyle}>
-        <InputField
-          type={'text'}
-          value={inputValue}
-          onChange={handleInputChange}
-          onPressEnter={handleSubmit}
-          suffix={
-            <Button
-              icon={<IoSend />}
-              onClick={handleSubmit}
-              disabled={inputValue.length === 0}
-            />
-          }
-        />
-      </div>
+      {interactive && (
+        <div style={inputFieldStyle}>
+          <InputField
+            type={'text'}
+            value={inputValue}
+            onChange={handleInputChange}
+            onPressEnter={handleSubmit}
+            suffix={
+              <Button
+                icon={<IoSend />}
+                onClick={handleSubmit}
+                disabled={!canSend()}
+              />
+            }
+          />
+        </div>
+      )}
     </div>
   );
 };
