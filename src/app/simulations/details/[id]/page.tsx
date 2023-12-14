@@ -42,7 +42,7 @@ const Page = () => {
             {data.optimization ? (
               <OptimizationInsightsCard optimizationId={data.optimization} />
             ) : (
-              data.numConversations > 1 && (
+              (data.numConversations ?? 0) > 1 && (
                 <InsightsCard formattedEvaluation={evaluationData} />
               )
             )}
@@ -63,7 +63,9 @@ const Page = () => {
         </Title>
         <Flex gap={'small'}>
           <ConfigurationCard title="Agent" agentId={data.serviceAgent} />
-          <ConfigurationCard title="User" agentId={data.userAgent} />
+          {data.userAgent && (
+            <ConfigurationCard title="User" agentId={data.userAgent} />
+          )}
         </Flex>
       </Flex>
     </Content>
