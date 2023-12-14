@@ -25,6 +25,8 @@ import {
 } from 'react-icons/io5';
 import MetricsCard from '@/components/metrics-card/MetricsCard';
 import SkeletonMetricsCard from '@/components/metrics-card/SkeletonMetricsCard';
+import { useRouter } from 'next/navigation';
+import { Simulation } from '@/api/schemas/simulation';
 
 const Dashboard = () => {
   const [selectedTimeRange, setSelectedTimeRange] =
@@ -56,6 +58,12 @@ const Dashboard = () => {
   const MetricsCardIconStyle: React.CSSProperties = {
     width: '2rem',
     height: '2rem'
+  };
+
+  const router = useRouter();
+
+  const openSimulation = (simulation: Simulation) => {
+    router.push(`/simulations/details/${simulation._id}`);
   };
 
   return (
@@ -134,11 +142,11 @@ const Dashboard = () => {
               data.top10Simulations.map(item => (
                 <div key={item._id}>
                   <SimulationCard
-                    _id={item._id}
-                    name={item.name}
-                    createdAt={item.createdAt}
-                    successRate={item.successRate}
-                    domain={item.domain}
+                    simulation={item}
+                    value={item.successRate ?? undefined}
+                    onClick={() => {
+                      openSimulation(item);
+                    }}
                   />
                 </div>
               ))}
