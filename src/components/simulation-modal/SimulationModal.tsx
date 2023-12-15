@@ -89,6 +89,7 @@ const SimulationModal = () => {
         return;
       }
     }
+
     setCurrentStep(currentStep + 1);
   };
 
@@ -102,6 +103,14 @@ const SimulationModal = () => {
   };
 
   const handleFinish = () => {
+    if (simulation.numConversations <= 0) {
+      messageApi.open({
+        type: 'error',
+        content: 'Please enter a number of conversations.'
+      });
+      return;
+    }
+
     const request: CreateSimulation = {
       type: simulation.type,
       name: simulation.name,

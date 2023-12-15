@@ -11,6 +11,7 @@ import {
   setNumConversations
 } from '@/store/features/CreateSimulation/CreateSimulationSlice';
 import { Form, InputNumber, Switch, Space, Flex } from 'antd';
+import InputField from '../AgentNameInput';
 import { SimulationMode } from '../SimulationTypeCard';
 
 const models = ['FAKE', 'GPT35', 'GPT35TURBO', 'GPT4', 'LLAMA2'];
@@ -62,29 +63,23 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
     [dispatch, serviceAgentConfig]
   );
 
-  const handleServiceAgentNameChange = useCallback(
-    (value: string) => {
-      dispatch(
-        setServiceAgent({
-          ...serviceAgentConfig,
-          name: value
-        })
-      );
-    },
-    [dispatch, serviceAgentConfig]
-  );
+  const handleServiceAgentNameChange = (value: string) => {
+    dispatch(
+      setServiceAgent({
+        ...serviceAgentConfig,
+        name: value
+      })
+    );
+  };
 
-  const handleUserAgentNameChange = useCallback(
-    (value: string) => {
-      dispatch(
-        setUserAgent({
-          ...userAgentConfig,
-          name: value
-        })
-      );
-    },
-    [dispatch, userAgentConfig]
-  );
+  const handleUserAgentNameChange = (value: string) => {
+    dispatch(
+      setUserAgent({
+        ...userAgentConfig,
+        name: value
+      })
+    );
+  };
 
   const handleSwitchChange = (checked: boolean) => {
     if (checked) {
@@ -130,7 +125,12 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
             <div className="h-full px-6">
               <ModelCard
                 models={models}
-                onInputChange={handleServiceAgentNameChange}
+                inputField={
+                  <InputField
+                    value={simulation.serviceAgentConfig.name}
+                    onChange={handleServiceAgentNameChange}
+                  />
+                }
                 onModelChange={handleServiceAgentChange}
                 onButtonClick={enterWildStep}
                 icon={<FaHeadphones size={100} />}
@@ -139,7 +139,12 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
             </div>
             <div className="h-full px-6">
               <ModelCard
-                onInputChange={handleUserAgentNameChange}
+                inputField={
+                  <InputField
+                    value={simulation.userAgentConfig.name}
+                    onChange={handleUserAgentNameChange}
+                  />
+                }
                 models={models}
                 onModelChange={handleUserAgentChange}
                 onButtonClick={enterWildStep}
@@ -161,8 +166,13 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
             </div>
             <div className="h-full px-6">
               <ModelCard
+                inputField={
+                  <InputField
+                    value={simulation.serviceAgentConfig.name}
+                    onChange={handleServiceAgentNameChange}
+                  />
+                }
                 models={models}
-                onInputChange={handleServiceAgentNameChange}
                 onModelChange={handleServiceAgentChange}
                 onButtonClick={enterWildStep}
                 icon={<FaHeadphones size={100} />}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Select, Input, Button, Typography, Flex } from 'antd';
+import { Card, Select, Button, Typography, Flex } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import theme from '@/theme/theme';
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
@@ -10,7 +10,7 @@ const { Title } = Typography;
 
 interface ModelCardProps {
   models: string[];
-  onInputChange: (value: string) => void;
+  inputField: React.ReactElement;
   onModelChange: (value: string) => void;
   onButtonClick: () => void;
   icon: React.ReactNode;
@@ -31,11 +31,6 @@ const labelStyle: React.CSSProperties = {
 };
 const iconStyle: React.CSSProperties = { margin: theme.margin.l };
 
-const inputStyle: React.CSSProperties = {
-  width: '100%',
-  marginBottom: theme.margin.m
-};
-
 const selectStyle: React.CSSProperties = {
   flex: 1,
   marginRight: theme.margin.m
@@ -43,7 +38,7 @@ const selectStyle: React.CSSProperties = {
 
 const ModelCard = ({
   models,
-  onInputChange,
+  inputField,
   onModelChange,
   onButtonClick,
   icon,
@@ -67,11 +62,8 @@ const ModelCard = ({
       <Flex justify="center" align="center" className="h-full" vertical>
         <Title level={4}>{title}</Title>
         <div style={iconStyle}>{icon}</div>
-        <Input
-          placeholder="Please Name your Agent"
-          style={inputStyle}
-          onChange={e => onInputChange(e.target.value)}
-        />
+        {inputField}
+
         <label htmlFor="model" style={labelStyle}>
           Chose a LLM Model
         </label>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Slider, Segmented } from 'antd';
 import { InputField } from '../../generic/InputField';
 import theme from '@/theme/theme';
@@ -12,6 +12,24 @@ const SimulationScenario = () => {
   const simulation = useAppSelector(state => state.simulation);
   const dispatch = useAppDispatch();
 
+  // Set default values based on simulation.Flag
+  useEffect(() => {
+    if (simulation.Flag === 'ServiceAgent') {
+      setDomain(simulation.serviceAgentConfig.domain || '');
+      setPrompt(simulation.serviceAgentConfig.prompt || '');
+      setTemperature(simulation.serviceAgentConfig.temperature || 0.5);
+      setMaxTokens(simulation.serviceAgentConfig.maxTokens || 2048);
+    } else {
+      setDomain(simulation.userAgentConfig.domain || '');
+      setPrompt(simulation.userAgentConfig.prompt || '');
+      setTemperature(simulation.userAgentConfig.temperature || 0.5);
+      setMaxTokens(simulation.userAgentConfig.maxTokens || 2048);
+    }
+  }, [
+    simulation.Flag,
+    simulation.serviceAgentConfig,
+    simulation.userAgentConfig
+  ]);
   // New state variables for domain and prompt
   const [domain, setDomain] = useState('');
   const [prompt, setPrompt] = useState('');
