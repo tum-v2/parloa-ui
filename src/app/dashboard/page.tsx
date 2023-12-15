@@ -25,6 +25,8 @@ import {
 import MetricsCard from '@/components/metrics-card/MetricsCard';
 import SkeletonMetricsCard from '@/components/metrics-card/SkeletonMetricsCard';
 import Content from '@/components/generic/Content';
+import { useRouter } from 'next/navigation';
+import { InfoCircleOutlined } from '@ant-design/icons';
 
 const DashboardLeftLayoutStyle: React.CSSProperties = {
   display: 'relative',
@@ -52,6 +54,7 @@ const ChartStyle: React.CSSProperties = {
 };
 
 const Dashboard = () => {
+  const router = useRouter();
   const [selectedTimeRange, setSelectedTimeRange] =
     React.useState<DropdownTimeRangeKeyType>(
       DropdownTimeRangeKeyEnum.SEVEN_DAYS
@@ -111,13 +114,28 @@ const Dashboard = () => {
                 {data && (
                   <ParentSize>
                     {({ width, height }) => (
-                      // TODO: Find the right way for parsing LineChart data
                       <LineChart
-                        data={dummyChartData}
+                        data={data.formatedSimulationSuccessGraph.chartData}
                         width={width}
                         height={height}
                         yUnit="%"
                         yMax={100}
+                        onClick={index => {
+                          // TODO: Fix on click return index always 0
+                          console.log(index);
+                          router.push(
+                            `/simulations/details/${data.formatedSimulationSuccessGraph.ids[index]}`
+                          );
+                        }}
+                        tooltipTitle="Simulation"
+                        tooltipExtra={
+                          <div className="mt-2">
+                            <Typography.Link>
+                              <InfoCircleOutlined className="mr-2" />
+                              Click to view details
+                            </Typography.Link>
+                          </div>
+                        }
                       />
                     )}
                   </ParentSize>
