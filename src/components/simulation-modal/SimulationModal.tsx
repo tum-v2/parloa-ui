@@ -104,20 +104,19 @@ const SimulationModal = () => {
     const request: CreateSimulation = {
       type: simulation.type,
       name: simulation.name,
+      description: simulation.description,
       numConversations: simulation.numConversations,
       serviceAgentConfig: {
-        name: 'Name of the service agent',
         domain: 'FLIGHT',
-        // llm: simulation.serviceAgent, TODO: fix this
+        name: 'Dummy Name',
         llm: 'FAKE',
         temperature: 0,
         maxTokens: 260,
         prompt: 'you are an helpful bot'
       },
       userAgentConfig: {
-        name: 'Name of the user agent',
+        name: 'Dummy Name',
         domain: 'FLIGHT',
-        // llm: simulation.userAgent, TODO: fix this
         llm: 'FAKE',
         temperature: 1,
         maxTokens: 260,

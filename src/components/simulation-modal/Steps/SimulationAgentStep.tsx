@@ -8,13 +8,12 @@ import {
   setType,
   setUserAgent,
   setServiceAgent,
-  setScenario,
   setNumConversations
 } from '@/store/features/CreateSimulation/CreateSimulationSlice';
 import { Form, InputNumber, Switch, Space, Flex } from 'antd';
 
 const models = ['FAKE', 'GPT35', 'GPT35TURBO', 'GPT4', 'LLAMA2'];
-const scenarios = ['Flight Agent', 'Customer Service', 'Tech Support', 'Sales'];
+const scenarios = ['FLIGHT'];
 
 interface SimulationAgentProps {
   enterWildStep: () => void;
@@ -23,6 +22,8 @@ interface SimulationAgentProps {
 const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
   const simulation = useAppSelector(state => state.simulation);
   const dispatch = useAppDispatch();
+  const serviceAgentConfig = simulation.serviceAgentConfig;
+  const userAgentConfig = simulation.userAgentConfig;
 
   const [mode, setMode] = React.useState<'manual' | 'automated'>('manual');
   const [Title, setTitle] = React.useState<string>('');
@@ -39,24 +40,31 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
 
   const handleUserAgentChange = useCallback(
     (value: string) => {
-      dispatch(setUserAgent(value));
+      dispatch(
+        setUserAgent({
+          ...userAgentConfig,
+          llm: value
+        })
+      );
     },
-    [dispatch]
+    [dispatch, userAgentConfig]
   );
 
   const handleServiceAgentChange = useCallback(
     (value: string) => {
-      dispatch(setServiceAgent(value));
+      dispatch(
+        setServiceAgent({
+          ...serviceAgentConfig,
+          llm: value
+        })
+      );
     },
-    [dispatch]
+    [dispatch, serviceAgentConfig]
   );
 
-  const handleTemplateChange = useCallback(
-    (value: string) => {
-      dispatch(setScenario(value));
-    },
-    [dispatch]
-  );
+  const handleTemplateChange = useCallback((value: string) => {
+    console.log(value);
+  }, []);
 
   const handleSwitchChange = (checked: boolean) => {
     if (checked) {
