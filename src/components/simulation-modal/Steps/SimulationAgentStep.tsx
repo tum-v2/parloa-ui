@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import SimulationTypeCard from '../SimulationTypeCard';
 import ModelCard from '../ModelCard';
 import { FaHeadphones, FaUser } from 'react-icons/fa';
-import theme from '@/theme/theme';
+// import theme from '@/theme/theme';
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
 import {
   setType,

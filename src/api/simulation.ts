@@ -1,9 +1,4 @@
-import {
-  SimulationSchema,
-  Simulation,
-  CreateSimulation,
-  CreateSimulationSchema
-} from './schemas/simulation';
+import { SimulationSchema, CreateSimulation } from './schemas/simulation';
 
 /**
  * /simulation/:id Get simulation
