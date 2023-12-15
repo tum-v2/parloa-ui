@@ -1,5 +1,5 @@
 import React from 'react';
-import SimulationCard from '../SimulationCard';
+import SimulationTypeCard from '../SimulationTypeCard';
 import { InputField } from '../../generic/InputField';
 import theme from '@/theme/theme';
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
@@ -7,15 +7,9 @@ import {
   setName,
   setDescription
 } from '@/store/features/CreateSimulation/CreateSimulationSlice';
-
-const inputFieldStyle = { marginBottom: theme.margin.l };
+import { Flex } from 'antd';
 
 const SimulationName = () => {
-  const cardStyle = {
-    width: '300px',
-    padding: theme.padding.l
-  };
-
   //Simulation State
   const simulation = useAppSelector(state => state.simulation);
   const dispatch = useAppDispatch();
@@ -34,19 +28,12 @@ const SimulationName = () => {
   }, [simulation.type]);
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100%'
-      }}
-    >
-      <div style={cardStyle}>
-        <SimulationCard selectable={false} title={Title} mode={mode} />
+    <Flex justify="center" align="flex-start" className="h-3/4 w-full">
+      <div className="w-1/5 h-full px-6">
+        <SimulationTypeCard selectable={false} title={Title} mode={mode} />
       </div>
-      <div style={cardStyle}>
-        <div style={inputFieldStyle}>
+      <Flex vertical className="w-1/3 px-6" gap={'middle'}>
+        <div>
           <label
             htmlFor="simulation-name"
             style={{ display: 'block', marginBottom: theme.padding.s }}
@@ -78,8 +65,8 @@ const SimulationName = () => {
             onChange={e => dispatch(setDescription(e.target.value))}
           />
         </div>
-      </div>
-    </div>
+      </Flex>
+    </Flex>
   );
 };
 

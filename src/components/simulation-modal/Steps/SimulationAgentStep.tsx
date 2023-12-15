@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import SimulationCard from '../SimulationCard';
+import SimulationTypeCard from '../SimulationTypeCard';
 import ModelCard from '../ModelCard';
 import { FaHeadphones, FaUser } from 'react-icons/fa';
 import theme from '@/theme/theme';
@@ -11,7 +11,7 @@ import {
   setScenario,
   setNumConversations
 } from '@/store/features/CreateSimulation/CreateSimulationSlice';
-import { Form, InputNumber, Switch, Space } from 'antd';
+import { Form, InputNumber, Switch, Space, Flex } from 'antd';
 
 const models = ['FAKE', 'GPT35', 'GPT35TURBO', 'GPT4', 'LLAMA2'];
 const scenarios = ['Flight Agent', 'Customer Service', 'Tech Support', 'Sales'];
@@ -19,8 +19,6 @@ const scenarios = ['Flight Agent', 'Customer Service', 'Tech Support', 'Sales'];
 interface SimulationAgentProps {
   enterWildStep: () => void;
 }
-
-const wrapperStyle = { padding: theme.padding.l };
 
 const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
   const simulation = useAppSelector(state => state.simulation);
@@ -74,9 +72,9 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
     switch (mode) {
       case 'automated':
         return (
-          <>
-            <div style={wrapperStyle}>
-              <SimulationCard selectable={false} title={Title} mode={mode}>
+          <Flex justify="center" align="center" className="w-full">
+            <div className="h-full px-6">
+              <SimulationTypeCard selectable={false} title={Title} mode={mode}>
                 {mode === 'automated' ? (
                   <>
                     <Form.Item label="Simulations">
@@ -99,9 +97,9 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
                     </Space>
                   </>
                 ) : null}
-              </SimulationCard>
+              </SimulationTypeCard>
             </div>
-            <div style={wrapperStyle}>
+            <div className="h-full px-6">
               <ModelCard
                 models={models}
                 templates={scenarios}
@@ -112,7 +110,7 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
                 title="Agent LLM"
               />
             </div>
-            <div style={wrapperStyle}>
+            <div className="h-full px-6">
               <ModelCard
                 models={models}
                 templates={scenarios}
@@ -123,15 +121,19 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
                 title="User LLM"
               />
             </div>
-          </>
+          </Flex>
         );
       case 'manual':
         return (
-          <>
-            <div style={wrapperStyle}>
-              <SimulationCard selectable={false} title={Title} mode={mode} />
+          <Flex justify="center" align="center">
+            <div className="h-full px-6">
+              <SimulationTypeCard
+                selectable={false}
+                title={Title}
+                mode={mode}
+              />
             </div>
-            <div style={wrapperStyle}>
+            <div className="h-full px-6">
               <ModelCard
                 models={models}
                 templates={scenarios}
@@ -142,7 +144,7 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
                 title="Agent LLM"
               />
             </div>
-          </>
+          </Flex>
         );
       default:
         return null;
