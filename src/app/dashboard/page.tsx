@@ -121,7 +121,7 @@ const Dashboard = () => {
                         yUnit="%"
                         yMax={100}
                         onClick={index => {
-                          // TODO: Fix on click return index always 0
+                          // TODO: Fix on click return index always 0, Find the way to display date on x-axis
                           console.log(index);
                           router.push(
                             `/simulations/details/${data.formatedSimulationSuccessGraph.ids[index]}`
