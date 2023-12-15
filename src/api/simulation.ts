@@ -67,3 +67,30 @@ export const createSimulation = async (simulationData: CreateSimulation) => {
 
   return zodResponse.data;
 };
+
+export const createOptimizedSimulation = async (
+  simulationData: CreateSimulation
+) => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/optimization/run`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(simulationData)
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error('Failed to create simulation'); // Handle non-2xx HTTP responses
+  }
+
+  const zodResponse = SimulationSchema.safeParse(await response.json());
+
+  if (!zodResponse.success) {
+    throw new Error(zodResponse.error.message);
+  }
+
+  return zodResponse.data;
+};
