@@ -4,7 +4,7 @@ import theme from '@/theme/theme';
 
 const { Text } = Typography;
 
-interface SimulationCardProps {
+interface SimulationTypeCardProps {
   title: string;
   icon: React.ReactNode;
   children?: React.ReactNode;
@@ -44,13 +44,13 @@ const getModeColors = (mode: 'manual' | 'automated') =>
     }
   })[mode];
 
-const SimulationCard = ({
+const SimulationTypeCard = ({
   title,
   icon,
   children,
   mode,
   selectable
-}: SimulationCardProps) => {
+}: SimulationTypeCardProps) => {
   const [hover, setHover] = useState(false);
   const [clicked, setClicked] = useState(false);
   const modeColors = getModeColors(mode);
@@ -100,4 +100,4 @@ const SimulationCard = ({
   );
 };
 
-export default SimulationCard;
+export default SimulationTypeCard;

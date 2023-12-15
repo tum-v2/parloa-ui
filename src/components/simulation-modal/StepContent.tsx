@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Select, Slider, Segmented, Flex } from 'antd';
-import SimulationCard from './SimulationCard';
+import SimulationTypeCard from './SimulationTypeCard';
 import ModelCard from './ModelCard';
 import { InputField } from '../generic/InputField';
 import { FaHeadphones, FaUser } from 'react-icons/fa';
@@ -41,7 +41,7 @@ const StepContent: React.FC<StepContentProps> = ({
         return (
           <Flex className="w-full h-full" align="center" justify="center">
             <div className="w-1/5 h-3/4 px-6">
-              <SimulationCard
+              <SimulationTypeCard
                 selectable={true}
                 title="Manual"
                 mode="manual"
@@ -49,7 +49,7 @@ const StepContent: React.FC<StepContentProps> = ({
               />
             </div>
             <div className="w-1/5 h-3/4 px-6">
-              <SimulationCard
+              <SimulationTypeCard
                 selectable={true}
                 title="Automated"
                 mode="automated"
@@ -63,7 +63,7 @@ const StepContent: React.FC<StepContentProps> = ({
         return (
           <Flex justify="center" align="flex-start" className="h-3/4 w-full">
             <div className="w-1/5 h-full px-6">
-              <SimulationCard
+              <SimulationTypeCard
                 selectable={false}
                 title="Automated"
                 mode="automated"
@@ -107,7 +107,7 @@ const StepContent: React.FC<StepContentProps> = ({
         return (
           <Flex justify="center" align="center" className="h-3/4 w-full">
             <div className="w-1/5 h-full px-6">
-              <SimulationCard
+              <SimulationTypeCard
                 selectable={false}
                 title="Automated"
                 mode="automated"
