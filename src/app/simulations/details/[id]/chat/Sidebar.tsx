@@ -8,8 +8,8 @@ import useSimulations from '@/hooks/useSimulations';
 
 interface SidebarProps {
   simulation: Simulation;
-  selectedChat: number;
-  onSelectionChange: (simulationId: number) => void;
+  selectedChat: string;
+  onSelectionChange: (simulationId: string) => void;
 }
 
 enum SidebarContent {
@@ -105,9 +105,9 @@ const SidebarSimulations = ({ onChangeSelection }: SidebarSimulationsProps) => {
 
 interface SidebarChatsProps {
   title: string;
-  chatIds: number[];
-  selectedChat: number;
-  onSelectionChange: (chatId: number) => void;
+  chatIds: string[];
+  selectedChat: string;
+  onSelectionChange: (chatId: string) => void;
 }
 
 const SidebarChats = ({

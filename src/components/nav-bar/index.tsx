@@ -1,10 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 
 import NavBarTab, { navBarTabOptions } from './components/NavBarTab';
-import logo from './components/parloa-logo.png';
 import NavBarLogout from './components/NavBarLogout';
 import { usePathname, useRouter } from 'next/navigation';
 import theme from '@/theme/theme';
@@ -43,43 +42,52 @@ const navBarContainerStyle: React.CSSProperties = {
 
 const NavBar = () => {
   const router = useRouter();
+  const pathname = usePathname();
 
   // Get current tab from route
-  const currentTab = `/${usePathname().split('/')[1]}`;
+  const currentTab = useMemo(() => `/${pathname.split('/')[1]}`, [pathname]);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
+  const [hideNavBar, setHideNavBar] = useState<boolean>(false);
 
-  // Set selected tab
-  const selectedInitialTab = navBarTabOptions.findIndex(
-    option => option.route === currentTab
-  );
+  useEffect(() => {
+    // Set selected tab
+    const selectedInitialTab = navBarTabOptions.findIndex(
+      option => option.route === currentTab
+    );
+    setSelectedTab(selectedInitialTab);
+    setHideNavBar(currentTab === '/login' ? false : true);
+  }, [currentTab]);
 
-  const [selectedTab, setSelectedTab] = useState<number>(
-    selectedInitialTab !== -1 ? selectedInitialTab : 0
-  );
-
-  return (
-    <div style={navBarContainerStyle}>
-      <div style={navBarStyle}>
-        <div style={navBarLeftStyle}>
-          <Image
-            src={logo}
-            alt="logo"
-            width={36}
-            height={36}
-            priority={false}
+  if (hideNavBar) {
+    return (
+      <div style={navBarContainerStyle}>
+        <div style={navBarStyle}>
+          <div style={navBarLeftStyle}>
+            <Image
+              src="/parloa-logo.png"
+              alt="logo"
+              width={36}
+              height={36}
+              priority={false}
+            />
+          </div>
+          <NavBarTab
+            selectedTab={selectedTab}
+            setSelectedTab={setSelectedTab}
           />
-        </div>
-        <NavBarTab selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
-        <div style={navBarRightStyle}>
-          <NavBarLogout
-            onClick={() => {
-              // TODO: Implement Logout feature
-              router.push('/login');
-            }}
-          />
+          <div style={navBarRightStyle}>
+            <NavBarLogout
+              onClick={() => {
+                // TODO: Implement Logout feature
+                router.push('/login');
+              }}
+            />
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
+  return null;
 };
 
 export default NavBar;

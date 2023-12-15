@@ -17,14 +17,21 @@ const rootStyle: React.CSSProperties = {
   '--font-lexend': theme.font.lexend.style.fontFamily
 };
 
+const childStyle: React.CSSProperties = {
+  marginRight: 'auto',
+  marginLeft: 'auto'
+};
+
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en" style={rootStyle}>
       <body className={theme.font.inter.className}>
         <ReactQueryClientProvider>
           <ThemeProvider>
-            <NavBar />
-            <main>{children}</main>
+            <div style={childStyle}>
+              <NavBar />
+              <main>{children}</main>
+            </div>
           </ThemeProvider>
         </ReactQueryClientProvider>
       </body>

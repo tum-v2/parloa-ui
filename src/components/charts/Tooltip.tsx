@@ -11,6 +11,7 @@ interface TooltipProps {
   yUnit?: string;
   coloredCircle?: boolean;
   coloredTitle?: boolean;
+  tooltipExtra?: React.ReactNode;
 }
 
 const { Title, Text } = Typography;
@@ -24,7 +25,8 @@ const Tooltip = ({
   left,
   yUnit,
   coloredTitle,
-  coloredCircle
+  coloredCircle,
+  tooltipExtra
 }: TooltipProps) => {
   return (
     <TooltipWithBounds
@@ -62,6 +64,7 @@ const Tooltip = ({
             <Text>{`${d.y}${yUnit ?? ''}`}</Text>
           </div>
         ))}
+        {tooltipExtra}
       </div>
     </TooltipWithBounds>
   );

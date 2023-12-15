@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Typography } from 'antd';
+import { Card, Flex, Typography } from 'antd';
 import theme from '@/theme/theme';
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
 import { setType } from '@/store/features/CreateSimulation/CreateSimulationSlice';
@@ -8,7 +8,7 @@ import { IoReload } from 'react-icons/io5';
 
 const { Text } = Typography;
 
-interface SimulationCardProps {
+interface SimulationTypeCardProps {
   title: string;
   children?: React.ReactNode;
   mode: 'manual' | 'automated';
@@ -16,33 +16,21 @@ interface SimulationCardProps {
 }
 
 const cardStyleBase: React.CSSProperties = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: 300,
-  height: 400,
   border: '1px solid',
-  cursor: 'pointer'
+  cursor: 'pointer',
+  height: '100%',
+  width: '100%',
+  minWidth: '200px'
 };
 
 const iconAndTextStyle: React.CSSProperties = {
-  fontWeight: 'normal',
   marginBottom: theme.margin.xs,
   fontSize: theme.fontSize.xl,
   textAlign: 'center'
 };
 
-const wrapperStyle: React.CSSProperties = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  height: '100%'
-};
-
 const iconStyle: React.CSSProperties = {
-  marginBottom: '24px'
+  marginBottom: theme.margin.l
 };
 
 const getModeColors = (mode: 'manual' | 'automated') =>
@@ -59,12 +47,12 @@ const getModeColors = (mode: 'manual' | 'automated') =>
     }
   })[mode];
 
-const SimulationCard = ({
+const SimulationTypeCard = ({
   title,
   children,
   mode,
   selectable
-}: SimulationCardProps) => {
+}: SimulationTypeCardProps) => {
   const [hover, setHover] = useState(false);
   const [clicked, setClicked] = useState(false);
   const modeColors = getModeColors(mode);
@@ -72,6 +60,7 @@ const SimulationCard = ({
   //simulation type state
   const simulation = useAppSelector(state => state.simulation);
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     if (simulation.type === mode.toUpperCase()) {
       setClicked(true);
@@ -128,17 +117,18 @@ const SimulationCard = ({
       onMouseEnter={() => selectable && setHover(true)}
       onMouseLeave={() => selectable && setHover(false)}
       onClick={handleCardClick}
+      bodyStyle={{ height: '100%' }}
     >
-      <div style={wrapperStyle}>
+      <Flex justify="center" align="center" className="h-full" vertical>
         <span style={{ ...iconStyle, color: textStyle.color }}>
           <CardIcon />
         </span>
         <Text style={textStyle}>{title}</Text>
         <Text style={textStyle}>Simulation</Text>
         {children}
-      </div>
+      </Flex>
     </Card>
   );
 };
 
-export default SimulationCard;
+export default SimulationTypeCard;

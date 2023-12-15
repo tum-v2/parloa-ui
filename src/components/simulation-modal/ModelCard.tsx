@@ -1,10 +1,10 @@
 import React from 'react';
-import { Card, Select, Button, Typography } from 'antd';
+import { Card, Select, Button, Typography, Flex } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import theme from '@/theme/theme';
 
 const { Option } = Select;
-const { Text } = Typography;
+const { Title } = Typography;
 
 interface ModelCardProps {
   models: string[];
@@ -17,28 +17,17 @@ interface ModelCardProps {
 }
 
 const cardStyle: React.CSSProperties = {
-  width: 300,
-  height: 400,
   border: '1px solid',
-  padding: theme.padding.l
-};
-
-const wrapperStyle: React.CSSProperties = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
   height: '100%',
-  justifyContent: 'space-between'
+  width: '100%',
+  minWidth: '200px'
 };
-
-const textStyle: React.CSSProperties = { fontSize: theme.fontSize.xl };
 
 const iconStyle: React.CSSProperties = { margin: theme.margin.l };
 
 const selectStyle: React.CSSProperties = {
   width: '100%',
-  marginBottom: theme.margin.m,
-  height: 40
+  marginBottom: theme.margin.m
 };
 
 const labelStyle: React.CSSProperties = {
@@ -47,16 +36,9 @@ const labelStyle: React.CSSProperties = {
   fontSize: theme.fontSize.m
 };
 
-const scenarioWrapperStyle: React.CSSProperties = {
-  display: 'flex',
-  alignItems: 'center',
-  width: '100%'
-};
-
 const scenarioSelectStyle: React.CSSProperties = {
   flex: 1,
-  marginRight: theme.margin.m,
-  height: 40
+  marginRight: theme.margin.m
 };
 
 const ModelCard = ({
@@ -69,9 +51,9 @@ const ModelCard = ({
   title
 }: ModelCardProps) => {
   return (
-    <Card style={cardStyle}>
-      <div style={wrapperStyle}>
-        <Text style={textStyle}>{title}</Text>
+    <Card style={cardStyle} bodyStyle={{ height: '100%' }}>
+      <Flex justify="center" align="center" className="h-full" vertical>
+        <Title level={4}>{title}</Title>
         <div style={iconStyle}>{icon}</div>
         <Select
           defaultValue={models[0]}
@@ -87,7 +69,7 @@ const ModelCard = ({
         <label htmlFor="scenario" style={labelStyle}>
           Instruction Template
         </label>
-        <div style={scenarioWrapperStyle}>
+        <Flex align="center" className="w-full">
           <Select
             id="scenario"
             defaultValue={templates[0]}
@@ -105,8 +87,8 @@ const ModelCard = ({
             icon={<EditOutlined />}
             onClick={() => onButtonClick()}
           />
-        </div>
-      </div>
+        </Flex>
+      </Flex>
     </Card>
   );
 };
