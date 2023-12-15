@@ -2,13 +2,22 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../../store';
 
 // Define a type for the slice state based on SimulationSchema
+
+type SimulationType =
+  | 'AUTOMATED'
+  | 'MANUAL'
+  | 'OPTIMIZATION'
+  | 'A/B TESTING'
+  | '';
+
 interface SimulationState {
-  type: 'AUTOMATED' | 'MANUAL' | 'OPTIMIZATION' | 'A/B TESTING' | '';
+  type: SimulationType;
   name: string;
   description?: string;
   numConversations: number;
   serviceAgentConfig: AgentSchema;
   userAgentConfig: AgentSchema;
+  Flag?: 'ServiceAgent' | 'UserAgent' | '';
 }
 interface AgentSchema {
   domain: string;
@@ -24,18 +33,19 @@ const AgentInitialState: AgentSchema = {
   name: 'FAKE AGENT',
   llm: 'FAKE',
   temperature: 0,
-  maxTokens: 0,
+  maxTokens: 256,
   prompt: 'FAKE PROMPT'
 };
 
 // Define the initial state using that type
 const initialState: SimulationState = {
+  type: '',
   name: '',
   description: '',
-  type: '',
   numConversations: 0,
   serviceAgentConfig: AgentInitialState,
-  userAgentConfig: AgentInitialState
+  userAgentConfig: AgentInitialState,
+  Flag: ''
 };
 
 export const simulationSlice = createSlice({
@@ -48,12 +58,7 @@ export const simulationSlice = createSlice({
     setDescription: (state, action: PayloadAction<string>) => {
       state.description = action.payload;
     },
-    setType: (
-      state,
-      action: PayloadAction<
-        'AUTOMATED' | 'MANUAL' | 'OPTIMIZATION' | 'A/B TESTING' | ''
-      >
-    ) => {
+    setType: (state, action: PayloadAction<SimulationType>) => {
       state.type = action.payload;
     },
     setNumConversations: (state, action: PayloadAction<number>) => {
@@ -64,6 +69,12 @@ export const simulationSlice = createSlice({
     },
     setUserAgent: (state, action: PayloadAction<AgentSchema>) => {
       state.userAgentConfig = action.payload;
+    },
+    setSimulationFlag: (
+      state,
+      action: PayloadAction<'ServiceAgent' | 'UserAgent' | ''>
+    ) => {
+      state.Flag = action.payload;
     },
     resetState: () => initialState
   }
@@ -77,6 +88,7 @@ export const {
   setNumConversations,
   setServiceAgent,
   setUserAgent,
+  setSimulationFlag,
   resetState
 } = simulationSlice.actions;
 

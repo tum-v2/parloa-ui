@@ -13,7 +13,6 @@ import {
 import { Form, InputNumber, Switch, Space, Flex } from 'antd';
 
 const models = ['FAKE', 'GPT35', 'GPT35TURBO', 'GPT4', 'LLAMA2'];
-const scenarios = ['FLIGHT'];
 
 interface SimulationAgentProps {
   enterWildStep: () => void;
@@ -62,9 +61,29 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
     [dispatch, serviceAgentConfig]
   );
 
-  const handleTemplateChange = useCallback((value: string) => {
-    console.log(value);
-  }, []);
+  const handleServiceAgentNameChange = useCallback(
+    (value: string) => {
+      dispatch(
+        setServiceAgent({
+          ...serviceAgentConfig,
+          name: value
+        })
+      );
+    },
+    [dispatch, serviceAgentConfig]
+  );
+
+  const handleUserAgentNameChange = useCallback(
+    (value: string) => {
+      dispatch(
+        setUserAgent({
+          ...userAgentConfig,
+          name: value
+        })
+      );
+    },
+    [dispatch, userAgentConfig]
+  );
 
   const handleSwitchChange = (checked: boolean) => {
     if (checked) {
@@ -110,9 +129,8 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
             <div className="h-full px-6">
               <ModelCard
                 models={models}
-                templates={scenarios}
+                onInputChange={handleServiceAgentNameChange}
                 onModelChange={handleServiceAgentChange}
-                onTemplateChange={handleTemplateChange}
                 onButtonClick={enterWildStep}
                 icon={<FaHeadphones size={100} />}
                 title="Agent LLM"
@@ -120,10 +138,9 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
             </div>
             <div className="h-full px-6">
               <ModelCard
+                onInputChange={handleUserAgentNameChange}
                 models={models}
-                templates={scenarios}
                 onModelChange={handleUserAgentChange}
-                onTemplateChange={handleTemplateChange}
                 onButtonClick={enterWildStep}
                 icon={<FaUser size={100} />}
                 title="User LLM"
@@ -144,9 +161,8 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
             <div className="h-full px-6">
               <ModelCard
                 models={models}
-                templates={scenarios}
+                onInputChange={handleServiceAgentNameChange}
                 onModelChange={handleServiceAgentChange}
-                onTemplateChange={handleTemplateChange}
                 onButtonClick={enterWildStep}
                 icon={<FaHeadphones size={100} />}
                 title="Agent LLM"

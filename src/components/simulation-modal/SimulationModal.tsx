@@ -106,22 +106,8 @@ const SimulationModal = () => {
       name: simulation.name,
       description: simulation.description,
       numConversations: simulation.numConversations,
-      serviceAgentConfig: {
-        domain: 'FLIGHT',
-        name: 'Dummy Name',
-        llm: 'FAKE',
-        temperature: 0,
-        maxTokens: 260,
-        prompt: 'you are an helpful bot'
-      },
-      userAgentConfig: {
-        name: 'Dummy Name',
-        domain: 'FLIGHT',
-        llm: 'FAKE',
-        temperature: 1,
-        maxTokens: 260,
-        prompt: 'nonative'
-      }
+      serviceAgentConfig: simulation.serviceAgentConfig,
+      userAgentConfig: simulation.userAgentConfig
     };
 
     // console.log(request);
