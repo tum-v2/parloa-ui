@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Slider, Segmented } from 'antd';
+import { Slider, Segmented, Flex } from 'antd';
 import { InputField } from '../../generic/InputField';
 import theme from '@/theme/theme';
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
@@ -121,15 +121,7 @@ const SimulationScenario = () => {
   const sliderContainerStyle = { marginTop: theme.margin.l };
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        height: '100%',
-        width: '80%'
-      }}
-    >
+    <Flex justify="center" align="flex-start" className="h-3/4 w-full">
       <div style={{ width: '40%', padding: theme.padding.l }}>
         <div style={inputFieldStyle}>
           <label
@@ -190,7 +182,7 @@ const SimulationScenario = () => {
           <Segmented options={['Yes', 'No']} />
         </div>
       </div>
-    </div>
+    </Flex>
   );
 };
 
