@@ -11,7 +11,7 @@ const { Title } = Typography;
 const Header = ({ title, style }: HeaderProps) => {
   return (
     <>
-      <Title level={2} style={style}>
+      <Title level={2} style={{ marginTop: 0, ...style }}>
         {title}
       </Title>
     </>
