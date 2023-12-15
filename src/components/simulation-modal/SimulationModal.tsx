@@ -100,7 +100,6 @@ const SimulationModal = () => {
   };
 
   const handleFinish = () => {
-    setOpen(false);
     const request: CreateSimulation = {
       type: simulation.type,
       name: simulation.name,
@@ -121,6 +120,8 @@ const SimulationModal = () => {
         // TODO: handle error
       }
     });
+
+    setOpen(false);
   };
 
   const getModalTitle = () => {
