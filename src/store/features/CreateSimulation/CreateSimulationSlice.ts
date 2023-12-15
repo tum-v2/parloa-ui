@@ -42,7 +42,7 @@ const initialState: SimulationState = {
   type: '',
   name: '',
   description: '',
-  numConversations: 0,
+  numConversations: 1,
   serviceAgentConfig: AgentInitialState,
   userAgentConfig: AgentInitialState,
   Flag: ''
