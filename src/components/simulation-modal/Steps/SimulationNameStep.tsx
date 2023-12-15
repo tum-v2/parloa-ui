@@ -8,21 +8,22 @@ import {
   setDescription
 } from '@/store/features/CreateSimulation/CreateSimulationSlice';
 import { Flex } from 'antd';
+import { SimulationMode } from '../SimulationTypeCard';
 
 const SimulationName = () => {
   //Simulation State
   const simulation = useAppSelector(state => state.simulation);
   const dispatch = useAppDispatch();
 
-  const [mode, setMode] = React.useState<'manual' | 'automated'>('manual');
+  const [mode, setMode] = React.useState<SimulationMode>(SimulationMode.MANUAL);
   const [Title, setTitle] = React.useState<string>('');
 
   React.useEffect(() => {
     if (simulation.type === 'MANUAL') {
-      setMode('manual');
+      setMode(SimulationMode.MANUAL);
       setTitle('Manual');
     } else {
-      setMode('automated');
+      setMode(SimulationMode.AUTOMATED);
       setTitle('Automated');
     }
   }, [simulation.type]);

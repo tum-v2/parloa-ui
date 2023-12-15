@@ -11,6 +11,7 @@ import {
   setNumConversations
 } from '@/store/features/CreateSimulation/CreateSimulationSlice';
 import { Form, InputNumber, Switch, Space, Flex } from 'antd';
+import { SimulationMode } from '../SimulationTypeCard';
 
 const models = ['FAKE', 'GPT35', 'GPT35TURBO', 'GPT4', 'LLAMA2'];
 
@@ -24,15 +25,15 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
   const serviceAgentConfig = simulation.serviceAgentConfig;
   const userAgentConfig = simulation.userAgentConfig;
 
-  const [mode, setMode] = React.useState<'manual' | 'automated'>('manual');
+  const [mode, setMode] = React.useState<SimulationMode>(SimulationMode.MANUAL);
   const [Title, setTitle] = React.useState<string>('');
 
   React.useEffect(() => {
     if (simulation.type === 'MANUAL') {
-      setMode('manual');
+      setMode(SimulationMode.MANUAL);
       setTitle('Manual');
     } else {
-      setMode('automated');
+      setMode(SimulationMode.AUTOMATED);
       setTitle('Automated');
     }
   }, [simulation.type]);
@@ -97,12 +98,12 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
 
   const renderContent = () => {
     switch (mode) {
-      case 'automated':
+      case SimulationMode.AUTOMATED:
         return (
           <Flex justify="center" align="center" className="w-full">
             <div className="h-full px-6">
               <SimulationTypeCard selectable={false} title={Title} mode={mode}>
-                {mode === 'automated' ? (
+                {mode === SimulationMode.AUTOMATED ? (
                   <>
                     <Form.Item label="Simulations">
                       <InputNumber
@@ -148,7 +149,7 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
             </div>
           </Flex>
         );
-      case 'manual':
+      case SimulationMode.MANUAL:
         return (
           <Flex justify="center" align="center">
             <div className="h-full px-6">

@@ -8,10 +8,16 @@ import { IoReload } from 'react-icons/io5';
 
 const { Text } = Typography;
 
+export enum SimulationMode {
+  MANUAL = 'MANUAL',
+  AUTOMATED = 'AUTOMATED'
+  // Add other modes if necessary
+}
+
 interface SimulationTypeCardProps {
   title: string;
   children?: React.ReactNode;
-  mode: 'manual' | 'automated';
+  mode: SimulationMode;
   selectable: boolean;
 }
 
@@ -33,14 +39,14 @@ const iconStyle: React.CSSProperties = {
   marginBottom: theme.margin.l
 };
 
-const getModeColors = (mode: 'manual' | 'automated') =>
+const getModeColors = (mode: SimulationMode) =>
   ({
-    manual: {
+    [SimulationMode.MANUAL]: {
       iconAndText: theme.color.royalBlue,
       border: theme.color.skyBlue,
       background: theme.color.paleBlue
     },
-    automated: {
+    [SimulationMode.AUTOMATED]: {
       iconAndText: theme.color.brightLavender,
       border: theme.color.lilac,
       background: theme.color.paleLavender
@@ -57,17 +63,19 @@ const SimulationTypeCard = ({
   const [clicked, setClicked] = useState(false);
   const modeColors = getModeColors(mode);
 
-  //simulation type state
   const simulation = useAppSelector(state => state.simulation);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (simulation.type === mode.toUpperCase()) {
-      setClicked(true);
-    } else {
-      setClicked(false);
-    }
+    setClicked(simulation.type === mode.toString());
   }, [simulation.type, mode]);
+
+  const handleCardClick = () => {
+    if (selectable) {
+      dispatch(setType(mode));
+      setClicked(!clicked);
+    }
+  };
 
   const cardStyle = {
     ...cardStyleBase,
@@ -93,22 +101,11 @@ const SimulationTypeCard = ({
   };
 
   const CardIcon = () => {
-    if (mode === 'manual') {
+    if (mode === SimulationMode.MANUAL) {
       return <AiFillCode size={100} />;
     } else {
       return <IoReload size={100} />;
     }
-  };
-
-  const handleCardClick = () => {
-    if (selectable) {
-      if (mode === 'manual') {
-        dispatch(setType('MANUAL'));
-      } else if (mode === 'automated') {
-        dispatch(setType('AUTOMATED'));
-      }
-    }
-    setClicked(!clicked);
   };
 
   return (
