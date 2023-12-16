@@ -10,6 +10,7 @@ import { resetState } from '@/store/features/CreateSimulation/CreateSimulationSl
 import useCreateSimulation from '@/hooks/useCreateSimulation';
 import useCreateOptimizedSimulation from '@/hooks/useCreateOptimizedSimulation';
 import { CreateSimulation } from '@/api/schemas/simulation';
+import useCreateChatSimulation from '@/hooks/useCreateChatSimulation';
 // import useCreateSimulation from '@/hooks/useCreateSimulation';
 
 const { Step } = Steps;
@@ -69,6 +70,7 @@ const SimulationModal = () => {
 
   const createSimulationMutation = useCreateSimulation();
   const createOptimizedSimulationMutation = useCreateOptimizedSimulation();
+  const createChatSimulationMutation = useCreateChatSimulation();
 
   const handleNext = () => {
     if (currentStep === 0) {
@@ -120,10 +122,19 @@ const SimulationModal = () => {
       userAgentConfig: simulation.userAgentConfig
     };
 
-    if (simulation.type == 'OPTIMIZATION') {
-      createOptimizedSimulationMutation.mutate(request);
-    } else {
-      createSimulationMutation.mutate(request);
+    switch (simulation.type) {
+      case 'CHAT':
+        createChatSimulationMutation.mutate({
+          name: request.name,
+          agentConfig: request.serviceAgentConfig
+        });
+        break;
+      case 'OPTIMIZATION':
+        createOptimizedSimulationMutation.mutate(request);
+        break;
+      default:
+        createSimulationMutation.mutate(request);
+        break;
     }
 
     setOpen(false);
