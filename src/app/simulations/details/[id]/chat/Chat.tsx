@@ -7,7 +7,7 @@ import { IoSend } from 'react-icons/io5';
 import { Spin } from 'antd';
 import { Message } from '@/api/schemas/conversation';
 import { postMessage } from '@/api/conversation';
-import useConversation from '@/hooks/useConversation';
+import useChatMessages from '@/hooks/useChatMessages';
 
 interface ChatProps {
   simulationId: string;
@@ -16,59 +16,19 @@ interface ChatProps {
 }
 
 const Chat = ({ simulationId, chatId, interactive = false }: ChatProps) => {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const {
+    messages,
+    setMessages,
+    initiallyLoading,
+    displayAgentLoading,
+    error
+  } = useChatMessages(simulationId, chatId, interactive);
   const messagesEndRef = useRef<null | HTMLDivElement>(null);
   const [inputValue, setInputValue] = useState('');
-
-  // Only enable polling for non-interactive conversations.
-  const [shouldPoll, setShouldPoll] = useState<boolean>(!interactive);
-
-  const {
-    data: conversation,
-    isLoading,
-    error
-  } = useConversation(chatId, shouldPoll);
-
-  useEffect(() => {
-    if (!conversation) {
-      return;
-    }
-
-    setMessages(conversation.messages);
-
-    if (!interactive) {
-      return;
-    }
-
-    const lastMessage = conversation.messages.at(-1);
-    if (!lastMessage) {
-      return;
-    }
-
-    if (lastMessage.sender !== 'USER') {
-      setShouldPoll(false);
-    }
-  }, [conversation, interactive]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
-
-  if (isLoading) {
-    return <Spin fullscreen size="large" />;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-
-  if (!conversation) {
-    return <div>Error</div>;
-  }
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-  };
 
   const handleSubmit = () => {
     if (!canSend()) {
@@ -107,6 +67,18 @@ const Chat = ({ simulationId, chatId, interactive = false }: ChatProps) => {
     }
 
     return lastMessage.userCanReply;
+  };
+
+  if (initiallyLoading) {
+    return <Spin fullscreen size="large" />;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
   };
 
   const containerStyle: React.CSSProperties = {
@@ -149,6 +121,13 @@ const Chat = ({ simulationId, chatId, interactive = false }: ChatProps) => {
               </ChatBubble>
             </div>
           ))}
+          {displayAgentLoading && (
+            <div style={{ flexGrow: 1 }}>
+              <ChatBubble position={Position.Left}>
+                <Spin size={'small'} />
+              </ChatBubble>
+            </div>
+          )}
           <div ref={messagesEndRef} />
         </div>
       </div>

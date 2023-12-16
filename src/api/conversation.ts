@@ -19,6 +19,24 @@ export const getConversation = async (id: string) => {
     throw new Error(zodResponse.error.message);
   }
 
+  return zodResponse.data.messages;
+};
+
+export const loadManualConversation = async (simulationId: string) => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/chat/${simulationId}/load`
+  );
+
+  const r = await response.json();
+  console.log(r);
+
+  const zodResponse = MessageSchema.array().safeParse(r);
+
+  // Return error to react-query
+  if (!zodResponse.success) {
+    throw new Error(zodResponse.error.message);
+  }
+
   return zodResponse.data;
 };
 
