@@ -94,7 +94,7 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
       case SimulationMode.AUTOMATED:
         return (
           <Flex justify="center" align="center" className="h-3/4 w-full">
-            <div className="h-full aspect-[3/4] px-6">
+            <div className="h-full aspect-[3/4] px-6 max-w-sm">
               <SimulationTypeCard selectable={false} title={Title} mode={mode}>
                 {mode === SimulationMode.AUTOMATED ? (
                   <>
@@ -120,7 +120,7 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
                 ) : null}
               </SimulationTypeCard>
             </div>
-            <div className="h-full aspect-[3/4] px-6">
+            <div className="h-full aspect-[3/4] px-6 max-w-sm">
               <ModelCard
                 models={models}
                 inputField={
@@ -135,7 +135,7 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
                 title="Agent LLM"
               />
             </div>
-            <div className="h-full aspect-[3/4] px-6">
+            <div className="h-full aspect-[3/4] px-6 max-w-sm">
               <ModelCard
                 inputField={
                   <InputField
@@ -155,14 +155,14 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
       case SimulationMode.CHAT:
         return (
           <Flex justify="center" align="center" className="h-3/4 w-full">
-            <div className="h-full aspect-[3/4] px-6">
+            <div className="h-full aspect-[3/4] px-6 max-w-sm">
               <SimulationTypeCard
                 selectable={false}
                 title={Title}
                 mode={mode}
               />
             </div>
-            <div className="h-full aspect-[3/4] px-6">
+            <div className="h-full aspect-[3/4] px-6 max-w-sm">
               <ModelCard
                 inputField={
                   <InputField

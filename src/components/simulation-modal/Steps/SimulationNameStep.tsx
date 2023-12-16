@@ -30,7 +30,7 @@ const SimulationName = () => {
 
   return (
     <Flex justify="center" align="flex-start" className="h-3/4 w-full">
-      <div className="aspect-[3/4] h-full px-6">
+      <div className="aspect-[3/4] h-full px-6 max-w-sm">
         <SimulationTypeCard selectable={false} title={Title} mode={mode} />
       </div>
       <Flex vertical className="w-1/3 px-6" gap={'middle'}>
