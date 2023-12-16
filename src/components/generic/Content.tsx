@@ -8,7 +8,7 @@ interface ContentProps {
 const Content = ({ children }: ContentProps) => {
   const contentStyle: React.CSSProperties = {
     padding: theme.padding.l,
-    width: '100%',
+    // width: '100%',
     maxWidth: 1440,
     marginLeft: 'auto',
     marginRight: 'auto'
