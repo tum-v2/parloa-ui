@@ -15,12 +15,16 @@ const columns: ColumnsType<Simulation> = [
   {
     title: 'Name',
     dataIndex: 'name',
-    key: 'name'
+    key: 'name',
+    sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a.name.localeCompare(b.name)
   },
   {
     title: 'Type',
     dataIndex: 'type',
     key: 'type',
+    sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a.type.localeCompare(b.type),
     render: (type: SimulationType) => {
       const typeStyle = getSimulationTypeStyle(type);
       return (
@@ -34,6 +38,8 @@ const columns: ColumnsType<Simulation> = [
     title: 'Status',
     dataIndex: 'status',
     key: 'status',
+    sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a.status.localeCompare(b.status),
     render: (status: string) => {
       return (
         <Badge
@@ -47,6 +53,11 @@ const columns: ColumnsType<Simulation> = [
     title: 'Created At',
     dataIndex: 'createdAt',
     key: 'createdAt',
+    defaultSortOrder: 'descend',
+    sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => {
+      return Date.parse(a.createdAt) - Date.parse(b.createdAt);
+    },
     render: (createdAt: string) => {
       return <span>{new Date(createdAt).toLocaleString()}</span>; // TODO: Change to appropiate format (ask client)
     }
@@ -55,6 +66,10 @@ const columns: ColumnsType<Simulation> = [
     title: 'Updated At',
     dataIndex: 'updatedAt',
     key: 'updatedAt',
+    sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => {
+      return Date.parse(a.updatedAt) - Date.parse(b.updatedAt);
+    },
     render: (updatedAt: string) => {
       return <span>{new Date(updatedAt).toLocaleString()}</span>;
     }
