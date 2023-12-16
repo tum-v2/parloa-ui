@@ -1,5 +1,5 @@
 'use client';
-import { Simulation } from '@/api/schemas/simulation';
+import { Simulation, SimulationType } from '@/api/schemas/simulation';
 import Pill from '@/components/generic/Pill';
 import useSimulations from '@/hooks/useSimulations';
 import {
@@ -21,7 +21,7 @@ const columns: ColumnsType<Simulation> = [
     title: 'Type',
     dataIndex: 'type',
     key: 'type',
-    render: (type: string) => {
+    render: (type: SimulationType) => {
       const typeStyle = getSimulationTypeStyle(type);
       return (
         <Pill color={typeStyle.color} icon={<typeStyle.icon />}>

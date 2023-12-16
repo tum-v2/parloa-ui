@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
-import { Modal, Steps, Popover, Button } from 'antd';
+import { Modal, Steps, Popover, Button, message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import StepContent from './StepContent';
 import BackButton from '../generic/BackButton';
 import NextButton from '../generic/NextButton';
 import theme from '@/theme/theme';
+import { useAppSelector, useAppDispatch } from '@/store/hooks';
+import { resetState } from '@/store/features/CreateSimulation/CreateSimulationSlice';
+import useCreateSimulation from '@/hooks/useCreateSimulation';
+import useCreateOptimizedSimulation from '@/hooks/useCreateOptimizedSimulation';
+import { CreateSimulation } from '@/api/schemas/simulation';
+import useCreateChatSimulation from '@/hooks/useCreateChatSimulation';
+// import useCreateSimulation from '@/hooks/useCreateSimulation';
 
 const { Step } = Steps;
 
@@ -49,13 +56,42 @@ const SimulationModal = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isWildStep, setIsWildStep] = useState(false);
 
+  //simulation type state
+  const simulation = useAppSelector(state => state.simulation);
+  const dispatch = useAppDispatch();
+
   const showModal = () => {
+    dispatch(resetState());
     setOpen(true);
     setCurrentStep(0);
     setIsWildStep(false);
   };
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const createSimulationMutation = useCreateSimulation();
+  const createOptimizedSimulationMutation = useCreateOptimizedSimulation();
+  const createChatSimulationMutation = useCreateChatSimulation();
 
   const handleNext = () => {
+    if (currentStep === 0) {
+      if (simulation.type === '') {
+        messageApi.open({
+          type: 'error',
+          content: 'Please select a simulation type.'
+        });
+        return;
+      }
+    }
+    if (currentStep === 1) {
+      if (simulation.name === '') {
+        messageApi.open({
+          type: 'error',
+          content: 'Please enter a simulation name.'
+        });
+        return;
+      }
+    }
+
     setCurrentStep(currentStep + 1);
   };
 
@@ -69,6 +105,38 @@ const SimulationModal = () => {
   };
 
   const handleFinish = () => {
+    if (simulation.numConversations <= 0) {
+      messageApi.open({
+        type: 'error',
+        content: 'Please enter a number of conversations.'
+      });
+      return;
+    }
+
+    const request: CreateSimulation = {
+      type: simulation.type,
+      name: simulation.name,
+      description: simulation.description,
+      numConversations: simulation.numConversations,
+      serviceAgentConfig: simulation.serviceAgentConfig,
+      userAgentConfig: simulation.userAgentConfig
+    };
+
+    switch (simulation.type) {
+      case 'CHAT':
+        createChatSimulationMutation.mutate({
+          name: request.name,
+          agentConfig: request.serviceAgentConfig
+        });
+        break;
+      case 'OPTIMIZATION':
+        createOptimizedSimulationMutation.mutate(request);
+        break;
+      default:
+        createSimulationMutation.mutate(request);
+        break;
+    }
+
     setOpen(false);
   };
 
@@ -134,6 +202,7 @@ const SimulationModal = () => {
         onCancel={() => setOpen(false)}
         footer={modalFooter}
       >
+        {contextHolder}
         <StepContent
           stepNumber={currentStep + 1}
           enterWildStep={() => {
