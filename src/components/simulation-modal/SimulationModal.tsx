@@ -9,7 +9,7 @@ import { useAppSelector, useAppDispatch } from '@/store/hooks';
 import { resetState } from '@/store/features/CreateSimulation/CreateSimulationSlice';
 import useCreateSimulation from '@/hooks/useCreateSimulation';
 import useCreateOptimizedSimulation from '@/hooks/useCreateOptimizedSimulation';
-import { CreateSimulation, Simulation } from '@/api/schemas/simulation';
+import { CreateSimulation } from '@/api/schemas/simulation';
 // import useCreateSimulation from '@/hooks/useCreateSimulation';
 
 const { Step } = Steps;
@@ -121,27 +121,9 @@ const SimulationModal = () => {
     };
 
     if (simulation.type == 'OPTIMIZATION') {
-      createOptimizedSimulationMutation.mutate(request, {
-        onSuccess: (res: Simulation) => {
-          console.log(res);
-          // TODO: redirect to simulation detail page of this specific simulation
-        },
-        onError: () => {
-          // TODO: handle error
-        }
-      });
+      createOptimizedSimulationMutation.mutate(request);
     } else {
-      // console.log(request);
-      // TODO: Maybe handle this login in the page?
-      createSimulationMutation.mutate(request, {
-        onSuccess: (res: Simulation) => {
-          console.log(res);
-          // TODO: redirect to simulation detail page of this specific simulation
-        },
-        onError: () => {
-          // TODO: handle error
-        }
-      });
+      createSimulationMutation.mutate(request);
     }
 
     setOpen(false);

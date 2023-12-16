@@ -1,4 +1,9 @@
-import { SimulationSchema, CreateSimulation } from './schemas/simulation';
+import { CreateOptimizationResponseSchema } from './schemas/optimization';
+import {
+  SimulationSchema,
+  CreateSimulation,
+  CreateSimulationResponseSchema
+} from './schemas/simulation';
 
 /**
  * /simulation/:id Get simulation
@@ -59,7 +64,9 @@ export const createSimulation = async (simulationData: CreateSimulation) => {
     throw new Error('Failed to create simulation'); // Handle non-2xx HTTP responses
   }
 
-  const zodResponse = SimulationSchema.safeParse(await response.json());
+  const zodResponse = CreateSimulationResponseSchema.safeParse(
+    await response.json()
+  );
 
   if (!zodResponse.success) {
     throw new Error(zodResponse.error.message);
@@ -86,7 +93,9 @@ export const createOptimizedSimulation = async (
     throw new Error('Failed to create simulation'); // Handle non-2xx HTTP responses
   }
 
-  const zodResponse = SimulationSchema.safeParse(await response.json());
+  const zodResponse = CreateOptimizationResponseSchema.safeParse(
+    await response.json()
+  );
 
   if (!zodResponse.success) {
     throw new Error(zodResponse.error.message);

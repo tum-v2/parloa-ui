@@ -52,5 +52,49 @@ export const CreateSimulationSchema = z.object({
   })
 });
 
+export const CreateSimulationResponseSchema = z.object({
+  _id: z.string(),
+  __v: z.number().optional(),
+  name: z.string(),
+  scenario: z.string().optional().nullable(),
+  type: z.enum(SIMULATION_TYPES),
+  numConversations: z.number().optional().nullable(),
+  totalNumberOfInteractions: z.number(),
+  optimization: z.string().optional().nullable(),
+  serviceAgent: z.object({
+    _id: z.string(),
+    name: z.string(),
+    domain: z.string(),
+    llm: z.string(),
+    temperature: z.number(),
+    maxTokens: z.number(),
+    prompt: z.string(),
+    temporary: z.boolean(),
+    createdAt: z.string().datetime(),
+    updatedAt: z.string().datetime()
+  }),
+  userAgent: z.object({
+    _id: z.string(),
+    name: z.string(),
+    domain: z.string(),
+    llm: z.string(),
+    temperature: z.number(),
+    maxTokens: z.number(),
+    prompt: z.string(),
+    temporary: z.boolean(),
+    createdAt: z.string().datetime(),
+    updatedAt: z.string().datetime()
+  }),
+  conversations: z.string().array(),
+  status: z.string(),
+  duration: z.number(),
+  evaluation: z.string().optional(),
+  createdAt: z.string().datetime(),
+  updatedAt: z.string().datetime()
+});
+
 export type Simulation = z.infer<typeof SimulationSchema>;
 export type CreateSimulation = z.infer<typeof CreateSimulationSchema>;
+export type CreateSimulationResponse = z.infer<
+  typeof CreateSimulationResponseSchema
+>;

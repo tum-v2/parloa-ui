@@ -1,11 +1,27 @@
-import { CreateSimulation, Simulation } from '@/api/schemas/simulation';
+import {
+  CreateSimulation,
+  CreateSimulationResponse
+} from '@/api/schemas/simulation';
 import { createSimulation } from '@/api/simulation';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const useCreateSimulation = () => {
-  const mutation = useMutation<Simulation, Error, CreateSimulation>({
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation<
+    CreateSimulationResponse,
+    Error,
+    CreateSimulation
+  >({
     mutationKey: ['createSimulation'],
-    mutationFn: (simulation: CreateSimulation) => createSimulation(simulation)
+    mutationFn: (simulation: CreateSimulation) => createSimulation(simulation),
+    onSuccess: () => {
+      // Update all simulations query
+      queryClient.invalidateQueries({ queryKey: ['simulations'] });
+    },
+    onError: error => {
+      console.log(error);
+    }
   });
   return mutation;
 };
