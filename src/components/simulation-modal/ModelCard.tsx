@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, Select, Button, Typography, Flex } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import theme from '@/theme/theme';
-import { useAppSelector, useAppDispatch } from '@/store/hooks';
+import { useAppDispatch } from '@/store/hooks';
 import { setSimulationFlag } from '@/store/features/CreateSimulation/CreateSimulationSlice';
 
 const { Option } = Select;
@@ -44,7 +44,6 @@ const ModelCard = ({
   icon,
   title
 }: ModelCardProps) => {
-  const simulation = useAppSelector(state => state.simulation);
   const dispatch = useAppDispatch();
 
   const handleButtonClick = () => {
@@ -54,7 +53,6 @@ const ModelCard = ({
     } else {
       dispatch(setSimulationFlag('UserAgent'));
     }
-    console.log(`Simulation Flag changed to: ${simulation.Flag}`);
   };
 
   return (

@@ -83,10 +83,8 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
 
   const handleSwitchChange = (checked: boolean) => {
     if (checked) {
-      console.log('Checked');
       dispatch(setType('OPTIMIZATION'));
     } else {
-      console.log('Unchecked');
       dispatch(setType('AUTOMATED'));
     }
   };
@@ -156,7 +154,7 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
         );
       case SimulationMode.CHAT:
         return (
-          <Flex justify="center" align="center">
+          <Flex justify="center" align="center" className="h-3/4 w-full">
             <div className="h-full w-1/4 px-6">
               <SimulationTypeCard
                 selectable={false}

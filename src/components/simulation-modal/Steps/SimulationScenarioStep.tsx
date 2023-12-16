@@ -39,7 +39,6 @@ const SimulationScenario = () => {
   // Handlers for state changes
   const handleDomainChange = (newDomain: string) => {
     setDomain(newDomain);
-    console.log(`Domain changed to: ${newDomain}`);
     if (simulation.Flag == 'ServiceAgent') {
       dispatch(
         setServiceAgent({
@@ -59,7 +58,6 @@ const SimulationScenario = () => {
 
   const handlePromptChange = (newPrompt: string) => {
     setPrompt(newPrompt);
-    console.log(`Prompt changed to: ${newPrompt}`);
     if (simulation.Flag == 'ServiceAgent') {
       dispatch(
         setServiceAgent({
@@ -79,7 +77,6 @@ const SimulationScenario = () => {
 
   const handleMaxTokensChange = (newMaxTokens: number) => {
     setMaxTokens(newMaxTokens);
-    console.log(`Max Tokens changed to: ${newMaxTokens}`);
     if (simulation.Flag == 'ServiceAgent') {
       dispatch(
         setServiceAgent({
@@ -99,7 +96,6 @@ const SimulationScenario = () => {
 
   const handleTemperatureChange = (newTemperature: number) => {
     setTemperature(newTemperature);
-    console.log(`Temperature changed to: ${newTemperature}`);
     if (simulation.Flag == 'ServiceAgent') {
       dispatch(
         setServiceAgent({
