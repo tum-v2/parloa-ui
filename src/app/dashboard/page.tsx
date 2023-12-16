@@ -25,8 +25,6 @@ import {
 import MetricsCard from '@/components/metrics-card/MetricsCard';
 import SkeletonMetricsCard from '@/components/metrics-card/SkeletonMetricsCard';
 import Content from '@/components/generic/Content';
-import { useRouter } from 'next/navigation';
-import { InfoCircleOutlined } from '@ant-design/icons';
 
 const DashboardLeftLayoutStyle: React.CSSProperties = {
   display: 'relative',
