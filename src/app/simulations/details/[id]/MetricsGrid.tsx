@@ -55,11 +55,13 @@ const MetricsGrid = ({ simulation, evaluation }: MetricsGridProps) => {
           icon={<IoSwapHorizontalOutline style={metricsCardIconStyle} />}
           value={simulation.totalNumberOfInteractions}
         />
-        <MetricsCard
-          title="Conversations"
-          icon={<IoChatboxEllipsesOutline style={metricsCardIconStyle} />}
-          value={simulation.numConversations}
-        />
+        {simulation.numConversations && (
+          <MetricsCard
+            title="Conversations"
+            icon={<IoChatboxEllipsesOutline style={metricsCardIconStyle} />}
+            value={simulation.numConversations}
+          />
+        )}
       </Flex>
       <Flex gap={'small'}>
         <MetricsCard
