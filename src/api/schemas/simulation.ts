@@ -26,7 +26,8 @@ export const SimulationSchema = z.object({
   duration: z.number(),
   evaluation: z.string().optional(),
   createdAt: z.string().datetime(),
-  updatedAt: z.string().datetime()
+  updatedAt: z.string().datetime(),
+  successRate: z.number().optional().nullable()
 });
 
 export const CreateSimulationSchema = z.object({

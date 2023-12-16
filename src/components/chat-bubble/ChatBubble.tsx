@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card } from 'antd';
 import theme from '@/theme/theme';
+import Card from '@/components/generic/Card';
 
 export enum Position {
   Left = 'left',
@@ -20,6 +20,7 @@ const ChatBubble = ({ position, children }: ChatBubbleProps) => {
       position === Position.Right ? theme.borderRadius.xs : 'auto',
     backgroundColor:
       position === Position.Left ? theme.color.gray : theme.color.primary,
+    width: 'auto',
     maxWidth: 'min(500px, 60%)',
     float: position
   };
@@ -29,7 +30,7 @@ const ChatBubble = ({ position, children }: ChatBubbleProps) => {
   };
 
   return (
-    <Card style={bubbleStyle}>
+    <Card style={bubbleStyle} padding={theme.padding.m}>
       <span style={textStyle}>{children}</span>
     </Card>
   );
