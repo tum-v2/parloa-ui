@@ -6,8 +6,9 @@ export const DashboardSchema = z.object({
   successRate: z.number(),
   simulationSuccessGraph: z.array(
     z.object({
-      _id: z.string(),
-      successRate: z.number()
+      id: z.string(),
+      successRate: z.number(),
+      date: z.number()
     })
   ),
   top10Simulations: z.array(

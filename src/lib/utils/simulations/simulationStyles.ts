@@ -1,3 +1,4 @@
+import { SimulationType } from '@/api/schemas/simulation';
 import theme from '@/theme/theme';
 import {
   ReloadOutlined,
@@ -6,14 +7,14 @@ import {
   RocketOutlined
 } from '@ant-design/icons';
 
-export const getSimulationTypeStyle = (type: string) => {
+export const getSimulationTypeStyle = (type: SimulationType) => {
   switch (type) {
     case 'AUTOMATED':
       return {
         color: theme.color.pink,
         icon: ReloadOutlined
       };
-    case 'MANUAL':
+    case 'CHAT':
       return {
         color: theme.color.blue,
         icon: CodeOutlined

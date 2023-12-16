@@ -174,7 +174,7 @@ const LineChart = ({
           hideZero
         />
         {data.map((lineData, i) => (
-          <>
+          <React.Fragment key={`line-group-${i}`}>
             <LinearGradient
               key={`background-gradient-${i}`}
               id={`background-gradient-${i}`}
@@ -223,7 +223,7 @@ const LineChart = ({
             )}
             {tooltipData &&
               tooltipData.map((d, i) => (
-                <g key={i}>
+                <g key={`tooltip-circle-${i}`}>
                   <GlyphCircle
                     left={tooltipLeft ?? 0}
                     top={scaleY(d.y)}
@@ -234,7 +234,7 @@ const LineChart = ({
                   />
                 </g>
               ))}
-          </>
+          </React.Fragment>
         ))}
       </svg>
       {tooltipData && (

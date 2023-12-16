@@ -1,71 +1,81 @@
-import React, { useState } from 'react';
-import { Card, Typography } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Card, Flex, Typography } from 'antd';
 import theme from '@/theme/theme';
+import { useAppSelector, useAppDispatch } from '@/store/hooks';
+import { setType } from '@/store/features/CreateSimulation/CreateSimulationSlice';
+import { AiFillCode } from 'react-icons/ai';
+import { IoReload } from 'react-icons/io5';
 
 const { Text } = Typography;
 
-interface SimulationCardProps {
+export enum SimulationMode {
+  CHAT = 'CHAT',
+  AUTOMATED = 'AUTOMATED'
+  // Add other modes if necessary
+}
+
+interface SimulationTypeCardProps {
   title: string;
-  icon: React.ReactNode;
   children?: React.ReactNode;
-  mode: 'manual' | 'automated';
+  mode: SimulationMode;
   selectable: boolean;
 }
 
 const cardStyleBase: React.CSSProperties = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: 300,
-  height: 400,
   border: '1px solid',
-  cursor: 'pointer'
+  cursor: 'pointer',
+  height: '100%',
+  width: '100%',
+  minWidth: '200px'
 };
 
 const iconAndTextStyle: React.CSSProperties = {
-  fontWeight: 'normal',
-  marginBottom: '4px',
-  fontSize: '22px',
+  marginBottom: theme.margin.xs,
+  fontSize: theme.fontSize.xl,
   textAlign: 'center'
 };
 
-const wrapperStyle: React.CSSProperties = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  height: '100%'
-};
-
 const iconStyle: React.CSSProperties = {
-  marginBottom: '24px'
+  marginBottom: theme.margin.l
 };
 
-const getModeColors = (mode: 'manual' | 'automated') =>
+const getModeColors = (mode: SimulationMode) =>
   ({
-    manual: {
+    [SimulationMode.CHAT]: {
       iconAndText: theme.color.royalBlue,
       border: theme.color.skyBlue,
       background: theme.color.paleBlue
     },
-    automated: {
+    [SimulationMode.AUTOMATED]: {
       iconAndText: theme.color.brightLavender,
       border: theme.color.lilac,
       background: theme.color.paleLavender
     }
   })[mode];
 
-const SimulationCard = ({
+const SimulationTypeCard = ({
   title,
-  icon,
   children,
   mode,
   selectable
-}: SimulationCardProps) => {
+}: SimulationTypeCardProps) => {
   const [hover, setHover] = useState(false);
   const [clicked, setClicked] = useState(false);
   const modeColors = getModeColors(mode);
+
+  const simulation = useAppSelector(state => state.simulation);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    setClicked(simulation.type === mode.toString());
+  }, [simulation.type, mode]);
+
+  const handleCardClick = () => {
+    if (selectable) {
+      dispatch(setType(mode));
+      setClicked(!clicked);
+    }
+  };
 
   const cardStyle = {
     ...cardStyleBase,
@@ -90,8 +100,12 @@ const SimulationCard = ({
       : modeColors.iconAndText
   };
 
-  const handleCardClick = () => {
-    setClicked(!clicked);
+  const CardIcon = () => {
+    if (mode === SimulationMode.CHAT) {
+      return <AiFillCode size={100} />;
+    } else {
+      return <IoReload size={100} />;
+    }
   };
 
   return (
@@ -100,15 +114,18 @@ const SimulationCard = ({
       onMouseEnter={() => selectable && setHover(true)}
       onMouseLeave={() => selectable && setHover(false)}
       onClick={handleCardClick}
+      bodyStyle={{ height: '100%' }}
     >
-      <div style={wrapperStyle}>
-        <span style={{ ...iconStyle, color: textStyle.color }}>{icon}</span>
+      <Flex justify="center" align="center" className="h-full" vertical>
+        <span style={{ ...iconStyle, color: textStyle.color }}>
+          <CardIcon />
+        </span>
         <Text style={textStyle}>{title}</Text>
         <Text style={textStyle}>Simulation</Text>
         {children}
-      </div>
+      </Flex>
     </Card>
   );
 };
 
-export default SimulationCard;
+export default SimulationTypeCard;

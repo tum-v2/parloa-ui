@@ -13,20 +13,23 @@ const SelectableButton = ({
   onClick,
   children
 }: SelectableButtonProps) => {
-  const buttonStyle: React.CSSProperties = {
-    cursor: 'pointer'
-  };
-
   const childrenStyle: React.CSSProperties = {
     color: selected ? theme.color.white : theme.color.deepPurple
   };
 
+  const cardStyle: React.CSSProperties = {
+    cursor: 'pointer'
+  };
+
   return (
-    <div style={buttonStyle} onClick={onClick}>
-      <Card color={selected ? theme.color.primary : theme.color.white}>
-        <div style={childrenStyle}>{children}</div>
-      </Card>
-    </div>
+    <Card
+      color={selected ? theme.color.primary : theme.color.white}
+      padding={theme.padding.m}
+      onClick={onClick}
+      style={cardStyle}
+    >
+      <div style={childrenStyle}>{children}</div>
+    </Card>
   );
 };
 
