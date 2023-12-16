@@ -42,7 +42,7 @@ const ChatPage = () => {
         selectedChat={selectedChat}
         onSelectionChange={setSelectedChat}
       />
-      <Content>
+      <Content style={{ width: '100%' }}>
         <Chat
           simulationId={id}
           chatId={selectedChat}

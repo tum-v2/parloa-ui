@@ -5,8 +5,6 @@ import { InputField } from '@/components/generic/InputField';
 import Button from '@/components/generic/Button';
 import { IoSend } from 'react-icons/io5';
 import { Spin } from 'antd';
-import { Message } from '@/api/schemas/conversation';
-import { postMessage } from '@/api/conversation';
 import useChatMessages from '@/hooks/useChatMessages';
 
 interface ChatProps {
@@ -15,12 +13,37 @@ interface ChatProps {
   interactive?: boolean;
 }
 
+const containerStyle: React.CSSProperties = {
+  display: 'flex',
+  flexDirection: 'column',
+  flex: 1,
+  height: '100%'
+};
+
+const chatContainerStyle: React.CSSProperties = {
+  overflowY: 'auto',
+  padding: theme.padding.l,
+  flex: 1
+};
+
+const chatStyle: React.CSSProperties = {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.padding.s
+};
+
+const inputFieldStyle: React.CSSProperties = {
+  paddingLeft: theme.padding.xl,
+  paddingRight: theme.padding.xl,
+  paddingBottom: theme.padding.m
+};
+
 const Chat = ({ simulationId, chatId, interactive = false }: ChatProps) => {
   const {
     messages,
-    setMessages,
     initiallyLoading,
     displayAgentLoading,
+    sendMutation,
     error
   } = useChatMessages(simulationId, chatId, interactive);
   const messagesEndRef = useRef<null | HTMLDivElement>(null);
@@ -39,18 +62,9 @@ const Chat = ({ simulationId, chatId, interactive = false }: ChatProps) => {
       return;
     }
 
-    const now = new Date();
-    const message: Message = {
-      sender: 'USER',
-      text: inputValue,
-      timestamp: now.toISOString(),
-      userCanReply: false
-    };
-
-    setMessages([...messages, message]);
-
-    postMessage(simulationId, inputValue).then((replyMessage: Message) => {
-      setMessages([...messages, message, replyMessage]);
+    sendMutation.mutate({
+      simulationId,
+      message: inputValue
     });
 
     setInputValue('');
@@ -61,7 +75,7 @@ const Chat = ({ simulationId, chatId, interactive = false }: ChatProps) => {
       return false;
     }
 
-    const lastMessage = messages.at(-1);
+    const lastMessage = messages?.at(-1);
     if (lastMessage === undefined) {
       return true;
     }
@@ -81,46 +95,22 @@ const Chat = ({ simulationId, chatId, interactive = false }: ChatProps) => {
     setInputValue(e.target.value);
   };
 
-  const containerStyle: React.CSSProperties = {
-    display: 'flex',
-    flexDirection: 'column',
-    flex: 1,
-    height: '100%'
-  };
-
-  const chatContainerStyle: React.CSSProperties = {
-    overflowY: 'auto',
-    padding: theme.padding.l,
-    flex: 1
-  };
-
-  const chatStyle: React.CSSProperties = {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: theme.padding.s
-  };
-
-  const inputFieldStyle: React.CSSProperties = {
-    paddingLeft: theme.padding.xl,
-    paddingRight: theme.padding.xl,
-    paddingBottom: theme.padding.m
-  };
-
   return (
     <div style={containerStyle}>
       <div style={chatContainerStyle}>
         <div style={chatStyle}>
-          {messages.map((message, index) => (
-            <div key={index} style={{ flexGrow: 1 }}>
-              <ChatBubble
-                position={
-                  message.sender === 'USER' ? Position.Right : Position.Left
-                }
-              >
-                {message.text}
-              </ChatBubble>
-            </div>
-          ))}
+          {messages &&
+            messages.map((message, index) => (
+              <div key={index} style={{ flexGrow: 1 }}>
+                <ChatBubble
+                  position={
+                    message.sender === 'USER' ? Position.Right : Position.Left
+                  }
+                >
+                  {message.text}
+                </ChatBubble>
+              </div>
+            ))}
           {displayAgentLoading && (
             <div style={{ flexGrow: 1 }}>
               <ChatBubble position={Position.Left}>

@@ -1,9 +1,9 @@
 import { z } from 'zod';
 
 export const MessageSchema = z.object({
-  sender: z.enum(['AGENT', 'USER']),
+  sender: z.enum(['AGENT', 'USER']).optional(),
   text: z.string(),
-  timestamp: z.string().datetime(),
+  timestamp: z.string().datetime().optional(),
   userCanReply: z.boolean()
 });
 
