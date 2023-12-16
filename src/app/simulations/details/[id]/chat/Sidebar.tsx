@@ -3,7 +3,6 @@ import theme from '@/theme/theme';
 import BackButton from '@/components/generic/BackButton';
 import SelectableButton from '@/components/generic/SelectableButton';
 import { Simulation } from '@/api/schemas/simulation';
-import Button from '@/components/generic/Button';
 import useSimulations from '@/hooks/useSimulations';
 import { SimulationCard } from '@/app/dashboard/components/SimulationCard';
 import { useRouter } from 'next/navigation';
