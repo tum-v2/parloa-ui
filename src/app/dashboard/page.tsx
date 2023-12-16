@@ -41,7 +41,7 @@ const HighYieldSimulationLayoutStyle: React.CSSProperties = {
 
 const HighYieldSimulationInsideScrollStyle: React.CSSProperties = {
   overflowY: 'scroll',
-  height: 'calc(100vh - 166px)'
+  height: 'calc(100vh - 140px)'
 };
 
 const MetricsCardIconStyle: React.CSSProperties = {
@@ -54,7 +54,6 @@ const ChartStyle: React.CSSProperties = {
 };
 
 const Dashboard = () => {
-  const router = useRouter();
   const [selectedTimeRange, setSelectedTimeRange] =
     React.useState<DropdownTimeRangeKeyType>(
       DropdownTimeRangeKeyEnum.SEVEN_DAYS
@@ -114,28 +113,37 @@ const Dashboard = () => {
                 {data && (
                   <ParentSize>
                     {({ width, height }) => (
+                      // TODO: Comment out for now, as we might have to change to specific LineChart for Dashboard
+                      // <LineChart
+                      //   data={data.formatedSimulationSuccessGraph.chartData}
+                      //   width={width}
+                      //   height={height}
+                      //   yUnit="%"
+                      //   yMax={100}
+                      //   onClick={index => {
+                      //     // TODO: Fix on click return index always 0, Find the way to display date on x-axis
+                      //     console.log(index);
+                      //     router.push(
+                      //       `/simulations/details/${data.formatedSimulationSuccessGraph.ids[index]}`
+                      //     );
+                      //   }}
+                      //   tooltipTitle="Simulation"
+                      //   tooltipExtra={
+                      //     <div className="mt-2">
+                      //       <Typography.Link>
+                      //         <InfoCircleOutlined className="mr-2" />
+                      //         Click to view details
+                      //       </Typography.Link>
+                      //     </div>
+                      //   }
+                      // />
+
                       <LineChart
-                        data={data.formatedSimulationSuccessGraph.chartData}
+                        data={dummyChartData}
                         width={width}
                         height={height}
                         yUnit="%"
                         yMax={100}
-                        onClick={index => {
-                          // TODO: Fix on click return index always 0, Find the way to display date on x-axis
-                          console.log(index);
-                          router.push(
-                            `/simulations/details/${data.formatedSimulationSuccessGraph.ids[index]}`
-                          );
-                        }}
-                        tooltipTitle="Simulation"
-                        tooltipExtra={
-                          <div className="mt-2">
-                            <Typography.Link>
-                              <InfoCircleOutlined className="mr-2" />
-                              Click to view details
-                            </Typography.Link>
-                          </div>
-                        }
                       />
                     )}
                   </ParentSize>
