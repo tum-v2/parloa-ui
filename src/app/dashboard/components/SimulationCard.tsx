@@ -1,8 +1,6 @@
 import React from 'react';
 import { Flex, Typography, Card, Skeleton } from 'antd';
 import theme from '@/theme/theme';
-import Pill from '@/components/generic/Pill';
-import { IoPerson } from 'react-icons/io5';
 import { formatLongDateTimeString } from '@/lib/utils/dateTime';
 import { Simulation } from '@/api/schemas/simulation';
 
@@ -11,7 +9,7 @@ const { Text, Title } = Typography;
 const skeletonData = [1, 2, 3, 4, 5];
 
 export interface SimulationCardProps {
-  simulation: Simulation;
+  simulation: Partial<Simulation>;
   onClick?: () => void;
   value?: number;
 }
@@ -37,23 +35,13 @@ const SimulationCard = ({
             {simulation.name}
           </Title>
           <Text style={{ margin: 0, color: theme.color.gray }}>
-            {formatLongDateTimeString(simulation.createdAt)}
+            {formatLongDateTimeString(
+              simulation?.createdAt || new Date().toDateString()
+            )}
           </Text>
         </div>
 
-        <Flex justify="space-between" align="center">
-          <Pill>
-            <IoPerson />
-            <Text
-              style={{
-                margin: 0,
-                marginLeft: theme.padding.xs,
-                color: theme.color.white
-              }}
-            >
-              Domain Placeholder
-            </Text>
-          </Pill>
+        <Flex justify="flex-end" align="center">
           {value && (
             <Title style={{ margin: 0 }} level={1}>
               {Math.trunc(value * 100)}%

@@ -25,7 +25,6 @@ import {
 import MetricsCard from '@/components/metrics-card/MetricsCard';
 import SkeletonMetricsCard from '@/components/metrics-card/SkeletonMetricsCard';
 import { useRouter } from 'next/navigation';
-import { Simulation } from '@/api/schemas/simulation';
 
 const { Content, Sider } = Layout;
 
@@ -60,6 +59,7 @@ const Dashboard = () => {
       DropdownTimeRangeKeyEnum.SEVEN_DAYS
     );
   const { data, isLoading } = useDashboard(selectedTimeRange);
+  const router = useRouter();
 
   return (
     <Layout hasSider>
@@ -135,11 +135,11 @@ const Dashboard = () => {
             data.top10Simulations.map(item => (
               <div key={item._id}>
                 <SimulationCard
-                  _id={item._id}
-                  name={item.name}
-                  createdAt={item.createdAt}
-                  successRate={item.successRate}
-                  domain={item.domain}
+                  simulation={item}
+                  onClick={() =>
+                    router.push(`/simulations/details/${item._id}`)
+                  }
+                  value={item.successRate}
                 />
               </div>
             ))}
