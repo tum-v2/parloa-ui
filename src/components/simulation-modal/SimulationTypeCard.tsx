@@ -9,7 +9,7 @@ import { IoReload } from 'react-icons/io5';
 const { Text } = Typography;
 
 export enum SimulationMode {
-  MANUAL = 'MANUAL',
+  CHAT = 'CHAT',
   AUTOMATED = 'AUTOMATED'
   // Add other modes if necessary
 }
@@ -41,7 +41,7 @@ const iconStyle: React.CSSProperties = {
 
 const getModeColors = (mode: SimulationMode) =>
   ({
-    [SimulationMode.MANUAL]: {
+    [SimulationMode.CHAT]: {
       iconAndText: theme.color.royalBlue,
       border: theme.color.skyBlue,
       background: theme.color.paleBlue
@@ -101,7 +101,7 @@ const SimulationTypeCard = ({
   };
 
   const CardIcon = () => {
-    if (mode === SimulationMode.MANUAL) {
+    if (mode === SimulationMode.CHAT) {
       return <AiFillCode size={100} />;
     } else {
       return <IoReload size={100} />;

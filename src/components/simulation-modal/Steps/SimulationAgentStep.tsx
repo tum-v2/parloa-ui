@@ -26,12 +26,12 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
   const serviceAgentConfig = simulation.serviceAgentConfig;
   const userAgentConfig = simulation.userAgentConfig;
 
-  const [mode, setMode] = React.useState<SimulationMode>(SimulationMode.MANUAL);
+  const [mode, setMode] = React.useState<SimulationMode>(SimulationMode.CHAT);
   const [Title, setTitle] = React.useState<string>('');
 
   React.useEffect(() => {
-    if (simulation.type === 'MANUAL') {
-      setMode(SimulationMode.MANUAL);
+    if (simulation.type === 'CHAT') {
+      setMode(SimulationMode.CHAT);
       setTitle('Manual');
     } else {
       setMode(SimulationMode.AUTOMATED);
@@ -154,7 +154,7 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
             </div>
           </Flex>
         );
-      case SimulationMode.MANUAL:
+      case SimulationMode.CHAT:
         return (
           <Flex justify="center" align="center">
             <div className="h-full px-6">

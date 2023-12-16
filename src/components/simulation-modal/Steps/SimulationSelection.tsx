@@ -10,14 +10,14 @@ const SimulationSelection = () => {
         <SimulationTypeCard
           selectable={true}
           title="Manual"
-          mode={SimulationMode.MANUAL}
+          mode={SimulationMode.CHAT}
         />
       </div>
       <div className="w-1/5 h-3/4 px-6">
         <SimulationTypeCard
           selectable={true}
           title="Automated"
-          mode={SimulationMode.AUTOMATED}
+          mode={SimulationMode.CHAT}
         />
       </div>
     </Flex>

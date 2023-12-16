@@ -15,12 +15,12 @@ const SimulationName = () => {
   const simulation = useAppSelector(state => state.simulation);
   const dispatch = useAppDispatch();
 
-  const [mode, setMode] = React.useState<SimulationMode>(SimulationMode.MANUAL);
+  const [mode, setMode] = React.useState<SimulationMode>(SimulationMode.CHAT);
   const [Title, setTitle] = React.useState<string>('');
 
   React.useEffect(() => {
-    if (simulation.type === 'MANUAL') {
-      setMode(SimulationMode.MANUAL);
+    if (simulation.type === 'CHAT') {
+      setMode(SimulationMode.CHAT);
       setTitle('Manual');
     } else {
       setMode(SimulationMode.AUTOMATED);

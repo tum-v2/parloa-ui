@@ -1,14 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../../store';
-
-// Define a type for the slice state based on SimulationSchema
-
-type SimulationType =
-  | 'AUTOMATED'
-  | 'MANUAL'
-  | 'OPTIMIZATION'
-  | 'A/B TESTING'
-  | '';
+import { SimulationType } from '@/api/schemas/simulation';
 
 interface SimulationState {
   type: SimulationType;

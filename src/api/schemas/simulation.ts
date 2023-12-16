@@ -1,19 +1,21 @@
 import { z } from 'zod';
 
-const typeOfSimulation = [
+export const SIMULATION_TYPES = [
   'AUTOMATED',
-  'MANUAL',
+  'CHAT',
   'OPTIMIZATION',
   'A/B TESTING',
   ''
 ] as const;
+
+export type SimulationType = (typeof SIMULATION_TYPES)[number];
 
 export const SimulationSchema = z.object({
   _id: z.string(),
   __v: z.number().optional(),
   name: z.string(),
   scenario: z.string().optional().nullable(),
-  type: z.enum(['AUTOMATED', 'CHAT', 'OPTIMIZATION', 'A/B TESTING']),
+  type: z.enum(SIMULATION_TYPES),
   numConversations: z.number().optional().nullable(),
   totalNumberOfInteractions: z.number(),
   optimization: z.string().optional().nullable(),
@@ -28,7 +30,7 @@ export const SimulationSchema = z.object({
 });
 
 export const CreateSimulationSchema = z.object({
-  type: z.enum(typeOfSimulation),
+  type: z.enum(SIMULATION_TYPES),
   name: z.string(),
   description: z.string().optional(),
   numConversations: z.number(),
