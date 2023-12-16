@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import SimulationTypeCard from '../SimulationTypeCard';
 import { InputField } from '../../generic/InputField';
 import theme from '@/theme/theme';
@@ -15,10 +15,10 @@ const SimulationName = () => {
   const simulation = useAppSelector(state => state.simulation);
   const dispatch = useAppDispatch();
 
-  const [mode, setMode] = React.useState<SimulationMode>(SimulationMode.CHAT);
-  const [Title, setTitle] = React.useState<string>('');
+  const [mode, setMode] = useState<SimulationMode>(SimulationMode.CHAT);
+  const [Title, setTitle] = useState<string>('');
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (simulation.type === 'CHAT') {
       setMode(SimulationMode.CHAT);
       setTitle('Manual');
@@ -30,7 +30,7 @@ const SimulationName = () => {
 
   return (
     <Flex justify="center" align="flex-start" className="h-3/4 w-full">
-      <div className="w-1/5 h-full px-6">
+      <div className="w-1/4 h-full px-6">
         <SimulationTypeCard selectable={false} title={Title} mode={mode} />
       </div>
       <Flex vertical className="w-1/3 px-6" gap={'middle'}>

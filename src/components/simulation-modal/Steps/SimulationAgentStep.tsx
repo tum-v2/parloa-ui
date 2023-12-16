@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import SimulationTypeCard from '../SimulationTypeCard';
 import ModelCard from '../ModelCard';
 import { FaHeadphones, FaUser } from 'react-icons/fa';
@@ -26,10 +26,10 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
   const serviceAgentConfig = simulation.serviceAgentConfig;
   const userAgentConfig = simulation.userAgentConfig;
 
-  const [mode, setMode] = React.useState<SimulationMode>(SimulationMode.CHAT);
-  const [Title, setTitle] = React.useState<string>('');
+  const [mode, setMode] = useState<SimulationMode>(SimulationMode.CHAT);
+  const [Title, setTitle] = useState<string>('');
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (simulation.type === 'CHAT') {
       setMode(SimulationMode.CHAT);
       setTitle('Manual');
@@ -95,8 +95,8 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
     switch (mode) {
       case SimulationMode.AUTOMATED:
         return (
-          <Flex justify="center" align="center" className="w-full">
-            <div className="h-full px-6">
+          <Flex justify="center" align="center" className="h-3/4 w-full">
+            <div className="h-full w-1/4 px-6">
               <SimulationTypeCard selectable={false} title={Title} mode={mode}>
                 {mode === SimulationMode.AUTOMATED ? (
                   <>
@@ -122,7 +122,7 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
                 ) : null}
               </SimulationTypeCard>
             </div>
-            <div className="h-full px-6">
+            <div className="h-full w-1/4 px-6">
               <ModelCard
                 models={models}
                 inputField={
@@ -137,7 +137,7 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
                 title="Agent LLM"
               />
             </div>
-            <div className="h-full px-6">
+            <div className="h-full w-1/4 px-6">
               <ModelCard
                 inputField={
                   <InputField
@@ -157,14 +157,14 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
       case SimulationMode.CHAT:
         return (
           <Flex justify="center" align="center">
-            <div className="h-full px-6">
+            <div className="h-full w-1/4 px-6">
               <SimulationTypeCard
                 selectable={false}
                 title={Title}
                 mode={mode}
               />
             </div>
-            <div className="h-full px-6">
+            <div className="h-full w-1/4 px-6">
               <ModelCard
                 inputField={
                   <InputField
@@ -186,7 +186,7 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
     }
   };
 
-  return <div style={{ display: 'flex' }}>{renderContent()}</div>;
+  return renderContent();
 };
 
 export default SimulationAgent;
