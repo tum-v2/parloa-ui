@@ -9,10 +9,7 @@ interface StepContentProps {
   enterWildStep: () => void;
 }
 
-const StepContent: React.FC<StepContentProps> = ({
-  stepNumber,
-  enterWildStep
-}) => {
+const StepContent = ({ stepNumber, enterWildStep }: StepContentProps) => {
   const renderContentForStep = () => {
     switch (stepNumber) {
       case 1:
