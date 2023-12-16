@@ -57,7 +57,6 @@ const Dashboard = () => {
       DropdownTimeRangeKeyEnum.SEVEN_DAYS
     );
   const { data, isLoading } = useDashboard(selectedTimeRange);
-  console.log(data);
   return (
     <Content>
       <Layout hasSider>
