@@ -106,7 +106,12 @@ const SimulationTable = () => {
 
   //Handle row click
   const handleRowClick = (record: Simulation) => {
-    router.push(`/simulations/details/${record._id}`);
+    //Route to simulation chat page if simulation is of type CHAT
+    if (record.type === 'CHAT') {
+      router.push(`/simulations/details/${record._id}/chat`);
+    } else {
+      router.push(`/simulations/details/${record._id}`);
+    }
   };
 
   return (
@@ -115,11 +120,6 @@ const SimulationTable = () => {
       dataSource={data}
       loading={isLoading}
       rowKey={record => record._id}
-      // onRow={record => {
-      //   return {
-      //     // onClick: () => handleRowClick(record)
-      //   };
-      // }}
       className="cursor-pointer"
     />
   );
