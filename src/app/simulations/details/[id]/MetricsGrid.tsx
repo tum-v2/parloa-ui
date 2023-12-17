@@ -23,8 +23,8 @@ const metricsCardIconStyle: React.CSSProperties = {
   height: '2rem'
 };
 
-const RESPONSE_TIME_MAX = 200;
-const MESSAGE_COUNT_MAX = 50;
+const RESPONSE_TIME_MAX = 500;
+const MESSAGE_COUNT_MAX = 20;
 
 const MetricsGrid = ({ simulation, evaluation }: MetricsGridProps) => {
   return (
