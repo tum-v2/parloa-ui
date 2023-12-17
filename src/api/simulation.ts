@@ -2,7 +2,8 @@ import { CreateOptimizationResponseSchema } from './schemas/optimization';
 import {
   SimulationSchema,
   CreateSimulation,
-  CreateSimulationResponseSchema
+  CreateSimulationResponseSchema,
+  DeleteSimulation
 } from './schemas/simulation';
 
 /**
@@ -102,4 +103,24 @@ export const createOptimizedSimulation = async (
   }
 
   return zodResponse.data;
+};
+
+export const deleteSimulation = async (
+  deleteSimulationData: DeleteSimulation
+) => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/simulation/${deleteSimulationData._id}`,
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error('Failed to create simulation'); // Handle non-2xx HTTP responses
+  }
+  // Becuase the response is empty, we can't use zod to parse it
+  return response;
 };

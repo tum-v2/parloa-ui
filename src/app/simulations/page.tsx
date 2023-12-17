@@ -7,10 +7,13 @@ import { InputField } from '@/components/generic/InputField';
 import SimulationModal from '@/components/simulation-modal/SimulationModal';
 import { SearchOutlined } from '@ant-design/icons';
 import { Flex, DatePicker, Space } from 'antd';
+import { useState } from 'react';
 
 const { RangePicker } = DatePicker;
 
 const Page = () => {
+  // TODO: Handle Search
+  const [search, setSearch] = useState<string>('');
   return (
     <Content>
       <Header title="Simulations" />
@@ -25,6 +28,8 @@ const Page = () => {
             placeholder="Search"
             type="text"
             prefix={<SearchOutlined />}
+            value={search}
+            onChange={e => setSearch(e.target.value)}
           />
           <RangePicker
             showTime={{ format: 'HH:mm' }}

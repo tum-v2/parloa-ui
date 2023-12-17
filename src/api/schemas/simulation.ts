@@ -94,8 +94,13 @@ export const CreateSimulationResponseSchema = z.object({
   updatedAt: z.string().datetime()
 });
 
+export const DeleteSimulationSchema = z.object({
+  _id: z.string()
+});
+
 export type Simulation = z.infer<typeof SimulationSchema>;
 export type CreateSimulation = z.infer<typeof CreateSimulationSchema>;
 export type CreateSimulationResponse = z.infer<
   typeof CreateSimulationResponseSchema
 >;
+export type DeleteSimulation = z.infer<typeof DeleteSimulationSchema>;
