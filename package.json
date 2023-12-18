@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "next dev -p 3001",
     "build": "next build && cp -R public .next/standalone/public && cp -R .next/static .next/standalone/.next/static",
-    "start": "next start",
+    "start": "node .next/standalone/server.js",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "prettier:check": "prettier . --check",
@@ -29,7 +29,6 @@
     "react-dom": "^18",
     "react-icons": "^4.12.0",
     "react-redux": "^8.1.3",
-    "sharp": "^0.33.1",
     "zod": "^3.22.4"
   },
   "devDependencies": {
