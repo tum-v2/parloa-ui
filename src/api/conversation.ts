@@ -5,11 +5,11 @@ import {
 } from './schemas/conversation';
 
 /**
- * /simulation/conversation/:id Get conversation
+ * /simulations/conversations/:id Get conversation
  */
 export const getConversation = async (id: string) => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/simulation/conversation/${id}`
+    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/simulations/conversations/${id}`
   );
 
   const zodResponse = ConversationSchema.safeParse(await response.json());
@@ -24,7 +24,7 @@ export const getConversation = async (id: string) => {
 
 export const loadManualConversation = async (simulationId: string) => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/chat/${simulationId}/load`
+    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/chats/${simulationId}`
   );
 
   const r = await response.json();
@@ -45,7 +45,7 @@ export const postMessage = async (
   message: string
 ): Promise<Message> => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/chat/${simulationId}/send-message`,
+    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/chats/${simulationId}`,
     {
       method: 'POST',
       headers: {
