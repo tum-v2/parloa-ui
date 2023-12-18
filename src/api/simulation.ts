@@ -7,11 +7,11 @@ import {
 } from './schemas/simulation';
 
 /**
- * /simulation/:id Get simulation
+ * /simulations/:id Get simulation
  */
 export const getSimulation = async (id: string) => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/simulation/${id}`
+    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/simulations/${id}`
   );
 
   const zodResponse = SimulationSchema.safeParse(await response.json());
@@ -25,11 +25,11 @@ export const getSimulation = async (id: string) => {
 };
 
 /**
- * /simulation/all Get all simulations
+ * /simulations Get all simulations
  */
 export const getAllSimulations = async () => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/simulation/all`
+    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/simulations`
   );
 
   const zodResponse = SimulationSchema.array().safeParse(await response.json());
@@ -51,7 +51,7 @@ export const getAllSimulations = async () => {
  */
 export const createSimulation = async (simulationData: CreateSimulation) => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/simulation/run`,
+    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/simulations`,
     {
       method: 'POST',
       headers: {
@@ -80,7 +80,7 @@ export const createOptimizedSimulation = async (
   simulationData: CreateSimulation
 ) => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/optimization/run`,
+    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/optimizations`,
     {
       method: 'POST',
       headers: {
@@ -109,7 +109,7 @@ export const deleteSimulation = async (
   deleteSimulationData: DeleteSimulation
 ) => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/simulation/${deleteSimulationData._id}`,
+    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/simulations/${deleteSimulationData._id}`,
     {
       method: 'DELETE',
       headers: {

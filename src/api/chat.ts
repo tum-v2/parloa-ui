@@ -2,7 +2,7 @@ import { CreateChat, CreateChatResponseSchema } from './schemas/chat';
 
 export const createChatSimulation = async (chat: CreateChat) => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/chat/start`,
+    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/chats`,
     {
       method: 'POST',
       headers: {
