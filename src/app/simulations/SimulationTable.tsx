@@ -13,7 +13,11 @@ import { useRouter } from 'next/navigation';
 import { DeleteOutlined } from '@ant-design/icons';
 import useDeleteSimulation from '@/hooks/useDeleteSimulation';
 
-const SimulationTable = () => {
+type SimulationTableProps = {
+  search: string;
+};
+
+const SimulationTable = ({ search }: SimulationTableProps) => {
   const { data, isLoading } = useSimulations();
   const router = useRouter();
   const deleteSimulation = useDeleteSimulation();
@@ -27,7 +31,12 @@ const SimulationTable = () => {
       sorter: (a, b) => a.name.localeCompare(b.name),
       render: (_, record) => (
         <a onClick={() => handleRowClick(record)}>{record.name}</a>
-      )
+      ),
+      onFilter: (value, record) =>
+        record['name']
+          .toString()
+          .toLowerCase()
+          .includes((search as string).toLowerCase())
     },
     {
       title: 'Type',

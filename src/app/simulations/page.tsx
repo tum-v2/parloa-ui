@@ -38,7 +38,7 @@ const Page = () => {
         </Space>
         <SimulationModal />
       </Flex>
-      <SimulationTable />
+      <SimulationTable search={search} />
     </Content>
   );
 };
