@@ -32,10 +32,10 @@ const Sidebar = ({
 
   const sidebarStyle: React.CSSProperties = {
     minWidth: '250px',
-    width: '350px',
+    width: '250px',
     maxWidth: '40%',
-    borderRight: `${theme.strokeWidth.xs}px solid ${theme.color.ligthGray}`,
     padding: theme.padding.m,
+    paddingLeft: theme.padding.l,
     overflowY: 'auto'
   };
 
@@ -51,7 +51,11 @@ const Sidebar = ({
   };
 
   return (
-    <div style={sidebarStyle}>
+    <div
+      style={{
+        borderRight: `${theme.strokeWidth.xs}px solid ${theme.color.ligthGray}`
+      }}
+    >
       {sidebarContent === SidebarContent.Chats ? (
         <>
           <BackButton
@@ -61,15 +65,19 @@ const Sidebar = ({
           >
             Simulations
           </BackButton>
-          <SidebarChats
-            title={displayedSimulation.name}
-            chatIds={displayedSimulation.conversations}
-            selectedChat={selectedChat}
-            onSelectionChange={onSelectionChange}
-          />
+          <div style={sidebarStyle}>
+            <SidebarChats
+              title={displayedSimulation.name}
+              chatIds={displayedSimulation.conversations}
+              selectedChat={selectedChat}
+              onSelectionChange={onSelectionChange}
+            />
+          </div>
         </>
       ) : (
-        <SidebarSimulations onChangeSelection={selectSimulation} />
+        <div style={sidebarStyle}>
+          <SidebarSimulations onChangeSelection={selectSimulation} />
+        </div>
       )}
     </div>
   );

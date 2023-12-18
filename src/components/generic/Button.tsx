@@ -7,14 +7,22 @@ interface ButtonProps {
   onClick: () => void;
   disabled?: boolean;
   children?: React.ReactNode;
+  style?: React.CSSProperties;
 }
 
-const Button = ({ icon, onClick, disabled = false, children }: ButtonProps) => {
+const Button = ({
+  icon,
+  onClick,
+  disabled = false,
+  children,
+  style
+}: ButtonProps) => {
   const buttonStyle: React.CSSProperties = {
     borderRadius: theme.borderRadius.m,
     width: icon && !children ? '35px' : 'max-content',
     height: '35px',
-    boxShadow: 'none' // Remove the default shadow of the AntD component.
+    boxShadow: 'none', // Remove the default shadow of the AntD component.
+    ...style
   };
 
   return (
