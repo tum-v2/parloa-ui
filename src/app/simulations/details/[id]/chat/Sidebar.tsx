@@ -75,9 +75,16 @@ const Sidebar = ({
           </div>
         </>
       ) : (
-        <div style={sidebarStyle}>
+        <>
+          <BackButton
+            onClick={() => {
+              router.push(`/simulations/details/${simulation._id}`);
+            }}
+          >
+            Simulations Details
+          </BackButton>
           <SidebarSimulations onChangeSelection={selectSimulation} />
-        </div>
+        </>
       )}
     </div>
   );
