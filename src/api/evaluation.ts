@@ -2,7 +2,7 @@ import { EvaluationBySimulation } from './schemas/evaluation';
 
 export const getEvaluationBySimulation = async (id: string) => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/evaluation/results-for-simulation/${id}`
+    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/evaluations/simulations/${id}`
   );
 
   const zodResponse = EvaluationBySimulation.safeParse(await response.json());

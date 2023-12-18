@@ -2,11 +2,11 @@ import { getEvaluationBySimulation } from './evaluation';
 import { OptimizationSchema } from './schemas/optimization';
 
 /**
- * /optimization/:id Get child simulations of optimization
+ * /optimizations/:id Get child simulations of optimization
  */
 export const getChildSimulations = async (id: string) => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/optimization/${id}`
+    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/optimizations/${id}`
   );
 
   const zodResponse = OptimizationSchema.safeParse(await response.json());
