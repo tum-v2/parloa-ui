@@ -33,8 +33,8 @@ const chatStyle: React.CSSProperties = {
 };
 
 const inputFieldStyle: React.CSSProperties = {
-  paddingLeft: theme.padding.xl,
-  paddingRight: theme.padding.xl,
+  paddingLeft: theme.padding.l,
+  paddingRight: theme.padding.l,
   paddingBottom: theme.padding.m
 };
 
@@ -133,6 +133,11 @@ const Chat = ({ simulationId, chatId, interactive = false }: ChatProps) => {
                 icon={<IoSend />}
                 onClick={handleSubmit}
                 disabled={!canSend()}
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}
               />
             }
           />

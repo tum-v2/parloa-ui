@@ -82,7 +82,7 @@ const Dashboard = () => {
               {data && (
                 <>
                   <MetricsCard
-                    title="Total Number of Interractions"
+                    title="Interactions"
                     icon={
                       <IoSwapHorizontalOutline style={MetricsCardIconStyle} />
                     }
@@ -90,7 +90,7 @@ const Dashboard = () => {
                     trendNumber={undefined} // TODO: Add trend number when available from backend
                   />
                   <MetricsCard
-                    title="Simulation Ran"
+                    title="Simulations Run"
                     icon={<IoDiceOutline style={MetricsCardIconStyle} />}
                     value={data.simulationRuns || 0}
                     trendNumber={undefined} // TODO: Add trend number when available from backend
@@ -156,7 +156,7 @@ const Dashboard = () => {
         </Layout>
         <Layout.Sider width={400} style={HighYieldSimulationLayoutStyle}>
           <Typography.Title level={3} style={{ marginTop: 0 }}>
-            High Yield Simulation
+            Best Simulations
           </Typography.Title>
           <div style={HighYieldSimulationInsideScrollStyle}>
             {data &&

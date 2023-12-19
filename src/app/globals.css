@@ -22,3 +22,11 @@ h5,
 h6 {
   font-family: var(--font-lexend);
 }
+
+/* TODO: is it possible to disable it via the theme? */
+.ant-select-focused .ant-select-selector,
+.ant-select-selector:focus,
+.ant-select-selector:active,
+.ant-select-open .ant-select-selector {
+  box-shadow: none !important;
+}
