@@ -31,12 +31,16 @@ const Sidebar = ({
     useState<Simulation>(simulation);
 
   const sidebarStyle: React.CSSProperties = {
+    borderRight: `${theme.strokeWidth.xs}px solid ${theme.color.ligthGray}`,
+    overflowY: 'auto',
     minWidth: '250px',
     width: '250px',
-    maxWidth: '40%',
+    maxWidth: '40%'
+  };
+
+  const sidebarContentStyle: React.CSSProperties = {
     padding: theme.padding.m,
-    paddingLeft: theme.padding.l,
-    overflowY: 'auto'
+    paddingLeft: theme.padding.l
   };
 
   const router = useRouter();
@@ -51,11 +55,7 @@ const Sidebar = ({
   };
 
   return (
-    <div
-      style={{
-        borderRight: `${theme.strokeWidth.xs}px solid ${theme.color.ligthGray}`
-      }}
-    >
+    <div style={sidebarStyle}>
       {sidebarContent === SidebarContent.Chats ? (
         <>
           <BackButton
@@ -65,7 +65,7 @@ const Sidebar = ({
           >
             Simulations
           </BackButton>
-          <div style={sidebarStyle}>
+          <div style={sidebarContentStyle}>
             <SidebarChats
               title={displayedSimulation.name}
               chatIds={displayedSimulation.conversations}
@@ -83,7 +83,9 @@ const Sidebar = ({
           >
             Simulations Details
           </BackButton>
-          <SidebarSimulations onChangeSelection={selectSimulation} />
+          <div style={sidebarContentStyle}>
+            <SidebarSimulations onChangeSelection={selectSimulation} />
+          </div>
         </>
       )}
     </div>
