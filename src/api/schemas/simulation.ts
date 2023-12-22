@@ -15,9 +15,7 @@ export const BaseSimulationSchema = z.object({
   name: z.string(),
   type: z.enum(SIMULATION_TYPES),
   totalNumberOfInteractions: z.number(),
-  optimization: z.string().optional().nullable(),
   serviceAgent: z.string(),
-  userAgent: z.string().optional().nullable(),
   conversations: z.string().array(),
   status: z.string(),
   duration: z.number(),
@@ -28,14 +26,16 @@ export const BaseSimulationSchema = z.object({
 export const AutomatedSimulationSchema = BaseSimulationSchema.extend({
   type: z.literal('AUTOMATED'),
   numConversations: z.number(),
-  optimzation: z.null(),
+  userAgent: z.string(),
+  optimization: z.null(),
   evaluation: z.string().optional()
 });
 
 export const ABTestingSimulationSchema = BaseSimulationSchema.extend({
   type: z.literal('A/B TESTING'),
   numConversations: z.number(),
-  optimzation: z.null(),
+  userAgent: z.string(),
+  optimization: z.null(),
   evaluation: z.string().optional(),
   abPartner: z.string()
 });
@@ -43,13 +43,14 @@ export const ABTestingSimulationSchema = BaseSimulationSchema.extend({
 export const OptimizationSimulationSchema = BaseSimulationSchema.extend({
   type: z.literal('OPTIMIZATION'),
   numConversations: z.number(),
-  optimzation: z.string(),
+  userAgent: z.string(),
+  optimization: z.string().nullable(), // TODO ask backend to make this non-optional for OPTIMIZATION type
   evaluation: z.string().optional()
 });
 
 export const ChatSimulationSchema = BaseSimulationSchema.extend({
   type: z.literal('CHAT'),
-  optimzation: z.null()
+  optimization: z.null()
 });
 
 export const SimulationSchema = z.discriminatedUnion('type', [
@@ -128,6 +129,13 @@ export const DeleteSimulationSchema = z.object({
 });
 
 export type Simulation = z.infer<typeof SimulationSchema>;
+export type AutomatedSimulation = z.infer<typeof AutomatedSimulationSchema>;
+export type ABTestingSimulation = z.infer<typeof ABTestingSimulationSchema>;
+export type OptimizationSimulation = z.infer<
+  typeof OptimizationSimulationSchema
+>;
+export type ChatSimulation = z.infer<typeof ChatSimulationSchema>;
+
 export type CreateSimulation = z.infer<typeof CreateSimulationSchema>;
 export type CreateSimulationResponse = z.infer<
   typeof CreateSimulationResponseSchema

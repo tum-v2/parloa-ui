@@ -93,13 +93,13 @@ const LineChart = ({
   // Get tooltip data for all lines at the given x value
   const getData = useCallback(
     (x: number) => {
-      const output = data.flatMap(d => {
+      const output = data.flatMap((d, i) => {
         const filteredData = d.filter(function (el) {
           return el.x === x;
         });
 
         // Add color to data
-        return filteredData.map((d, i) => {
+        return filteredData.map(d => {
           return {
             ...d,
             color: chartColors[i]
@@ -247,6 +247,7 @@ const LineChart = ({
           data={tooltipData}
           yUnit={yUnit}
           tooltipExtra={tooltipExtra}
+          coloredCircle={data.length > 1}
         />
       )}
     </>

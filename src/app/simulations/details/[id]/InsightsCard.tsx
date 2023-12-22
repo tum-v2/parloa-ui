@@ -2,20 +2,59 @@ import { Card, Flex, Segmented, Typography } from 'antd';
 import { StockOutlined } from '@ant-design/icons';
 import LineChart from '@/components/charts/LineChart';
 import { ParentSize } from '@visx/responsive';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import BarChart from '@/components/charts/BarChart';
 import { FormattedEvaluation } from '@/hooks/useSimulationEvaluation';
+import { BarChartData, Datapoint } from '@/types/chart';
 
 const { Title } = Typography;
 
 interface InsightsCardProps {
-  formattedEvaluation: FormattedEvaluation;
+  formattedEvaluations: FormattedEvaluation[];
 }
 
-const InsightsCard = ({ formattedEvaluation }: InsightsCardProps) => {
+const InsightsCard = ({ formattedEvaluations }: InsightsCardProps) => {
   const [selectedChart, setSelectedChart] = useState<string | number>(
     'Evaluation Score'
   );
+
+  const evaluationScoresData: Datapoint[][] = useMemo(() => {
+    if (formattedEvaluations.length > 1) {
+      // If there are multiple evaluations format line chart data
+      return formattedEvaluations.flatMap(
+        evaluation => evaluation.evaluationScores
+      );
+    } else {
+      // If there is only one evaluation format line chart data
+      return formattedEvaluations[0].evaluationScores;
+    }
+  }, [formattedEvaluations]);
+
+  const stepsData: BarChartData[] = useMemo(() => {
+    if (formattedEvaluations.length > 1) {
+      // If there are multiple evaluations format bar chart data
+      return formattedEvaluations.map((evaluation, i) => ({
+        key: `Simulation ${i + 1}`,
+        dataPoints: evaluation.messageCount[0].dataPoints
+      }));
+    } else {
+      // If there is only one evaluation format bar chart data
+      return formattedEvaluations[0].messageCount;
+    }
+  }, [formattedEvaluations]);
+
+  const responseTimeData: BarChartData[] = useMemo(() => {
+    if (formattedEvaluations.length > 1) {
+      // If there are multiple evaluations format bar chart data
+      return formattedEvaluations.map((evaluation, i) => ({
+        key: `Simulation ${i + 1}`,
+        dataPoints: evaluation.responseTime[0].dataPoints
+      }));
+    } else {
+      // If there is only one evaluation format bar chart data
+      return formattedEvaluations[0].responseTime;
+    }
+  }, [formattedEvaluations]);
 
   return (
     <>
@@ -36,7 +75,7 @@ const InsightsCard = ({ formattedEvaluation }: InsightsCardProps) => {
               {({ width, height }) =>
                 (selectedChart === 'Evaluation Score' && (
                   <LineChart
-                    data={formattedEvaluation.evaluationScores}
+                    data={evaluationScoresData}
                     width={width}
                     height={height}
                     yUnit="%"
@@ -45,7 +84,7 @@ const InsightsCard = ({ formattedEvaluation }: InsightsCardProps) => {
                 )) ||
                 (selectedChart === 'Amount of steps' && (
                   <BarChart
-                    data={formattedEvaluation.messageCount}
+                    data={stepsData}
                     width={width}
                     height={height}
                     yUnit=" steps"
@@ -53,7 +92,7 @@ const InsightsCard = ({ formattedEvaluation }: InsightsCardProps) => {
                 )) ||
                 (selectedChart === 'Response Time' && (
                   <BarChart
-                    data={formattedEvaluation.responseTime}
+                    data={responseTimeData}
                     width={width}
                     height={height}
                     yUnit=" ms"

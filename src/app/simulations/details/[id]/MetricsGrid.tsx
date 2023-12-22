@@ -1,4 +1,8 @@
-import { Simulation } from '@/api/schemas/simulation';
+import {
+  ABTestingSimulation,
+  AutomatedSimulation,
+  OptimizationSimulation
+} from '@/api/schemas/simulation';
 import MetricsCard from '@/components/metrics-card/MetricsCard';
 import { FormattedEvaluation } from '@/hooks/useSimulationEvaluation';
 import { scaleValueToColor } from '@/lib/utils/color';
@@ -14,7 +18,10 @@ import {
 } from 'react-icons/io5';
 
 interface MetricsGridProps {
-  simulation: Simulation;
+  simulation:
+    | AutomatedSimulation
+    | ABTestingSimulation
+    | OptimizationSimulation;
   evaluation: FormattedEvaluation;
 }
 
@@ -28,7 +35,7 @@ const MESSAGE_COUNT_MAX = 20;
 
 const MetricsGrid = ({ simulation, evaluation }: MetricsGridProps) => {
   return (
-    <>
+    <Flex vertical gap={'small'}>
       <Flex gap={'small'} align="stretch">
         <MetricsCard
           title="Average score"
@@ -55,7 +62,7 @@ const MetricsGrid = ({ simulation, evaluation }: MetricsGridProps) => {
           icon={<IoSwapHorizontalOutline style={metricsCardIconStyle} />}
           value={simulation.totalNumberOfInteractions}
         />
-        {simulation.numConversations && (
+        {simulation.numConversations && simulation.type !== 'A/B TESTING' && (
           <MetricsCard
             title="Conversations"
             icon={<IoChatboxEllipsesOutline style={metricsCardIconStyle} />}
@@ -97,7 +104,7 @@ const MetricsGrid = ({ simulation, evaluation }: MetricsGridProps) => {
           }}
         />
       </Flex>
-    </>
+    </Flex>
   );
 };
 
