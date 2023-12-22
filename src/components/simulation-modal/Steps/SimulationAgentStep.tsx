@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import SimulationTypeCard from '../SimulationTypeCard';
 import ModelCard from '../ModelCard';
 import { FaHeadphones, FaUser } from 'react-icons/fa';
-// import theme from '@/theme/theme';
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
 import {
   setType,
@@ -28,8 +27,16 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
 
   const [mode, setMode] = useState<SimulationMode>(SimulationMode.CHAT);
   const [Title, setTitle] = useState<string>('');
+  const [isOptimizationOn, setIsOptimizationOn] = useState(
+    simulation.type === 'OPTIMIZATION'
+  );
+  const [isABTestingOn, setIsABTestingOn] = useState(
+    simulation.type === 'A/B TESTING'
+  );
 
   useEffect(() => {
+    setIsOptimizationOn(simulation.type === 'OPTIMIZATION');
+    setIsABTestingOn(simulation.type === 'A/B TESTING');
     if (simulation.type === 'CHAT') {
       setMode(SimulationMode.CHAT);
       setTitle('Manual');
@@ -81,13 +88,21 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
     );
   };
 
-  const handleSwitchChange = (checked: boolean) => {
-    if (checked) {
-      dispatch(setType('OPTIMIZATION'));
-    } else {
-      dispatch(setType('AUTOMATED'));
-    }
-  };
+  const handleOptimizationSwitchChange = useCallback(
+    (checked: boolean) => {
+      setIsOptimizationOn(checked);
+      dispatch(setType(checked ? 'OPTIMIZATION' : 'AUTOMATED'));
+    },
+    [dispatch]
+  );
+
+  const handleABTestingSwitchChange = useCallback(
+    (checked: boolean) => {
+      setIsABTestingOn(checked);
+      dispatch(setType(checked ? 'A/B TESTING' : 'AUTOMATED'));
+    },
+    [dispatch]
+  );
 
   const renderContent = () => {
     switch (mode) {
@@ -111,9 +126,19 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
                         <Switch
                           checkedChildren="On"
                           unCheckedChildren="Off"
-                          onChange={handleSwitchChange}
+                          checked={isOptimizationOn}
+                          onChange={handleOptimizationSwitchChange}
                         />
                         {' Optimization'}
+                      </div>
+                      <div>
+                        <Switch
+                          checkedChildren="On"
+                          unCheckedChildren="Off"
+                          checked={isABTestingOn}
+                          onChange={handleABTestingSwitchChange}
+                        />
+                        {' A/B Testing'}
                       </div>
                     </Space>
                   </>
@@ -135,6 +160,23 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
                 title="Agent LLM"
               />
             </div>
+            {isABTestingOn && (
+              <div className="h-full aspect-[3/4] px-6 max-w-sm">
+                <ModelCard
+                  models={models}
+                  inputField={
+                    <InputField
+                      value={simulation.serviceAgentConfig.name}
+                      onChange={handleServiceAgentNameChange}
+                    />
+                  }
+                  onModelChange={handleServiceAgentChange}
+                  onButtonClick={enterWildStep}
+                  icon={<FaUser size={100} />}
+                  title="A/B Testing Agent LLM"
+                />
+              </div>
+            )}
             <div className="h-full aspect-[3/4] px-6 max-w-sm">
               <ModelCard
                 inputField={
