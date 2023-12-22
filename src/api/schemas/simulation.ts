@@ -4,19 +4,16 @@ export const SIMULATION_TYPES = [
   'AUTOMATED',
   'CHAT',
   'OPTIMIZATION',
-  'A/B TESTING',
-  ''
+  'A/B TESTING'
 ] as const;
 
 export type SimulationType = (typeof SIMULATION_TYPES)[number];
 
-export const SimulationSchema = z.object({
+export const BaseSimulationSchema = z.object({
   _id: z.string(),
   __v: z.number().optional(),
   name: z.string(),
-  scenario: z.string().optional().nullable(),
   type: z.enum(SIMULATION_TYPES),
-  numConversations: z.number().optional().nullable(),
   totalNumberOfInteractions: z.number(),
   optimization: z.string().optional().nullable(),
   serviceAgent: z.string(),
@@ -24,11 +21,43 @@ export const SimulationSchema = z.object({
   conversations: z.string().array(),
   status: z.string(),
   duration: z.number(),
-  evaluation: z.string().optional(),
   createdAt: z.string().datetime(),
-  updatedAt: z.string().datetime(),
-  successRate: z.number().optional().nullable()
+  updatedAt: z.string().datetime()
 });
+
+export const AutomatedSimulationSchema = BaseSimulationSchema.extend({
+  type: z.literal('AUTOMATED'),
+  numConversations: z.number(),
+  optimzation: z.null(),
+  evaluation: z.string().optional()
+});
+
+export const ABTestingSimulationSchema = BaseSimulationSchema.extend({
+  type: z.literal('A/B TESTING'),
+  numConversations: z.number(),
+  optimzation: z.null(),
+  evaluation: z.string().optional(),
+  abPartner: z.string()
+});
+
+export const OptimizationSimulationSchema = BaseSimulationSchema.extend({
+  type: z.literal('OPTIMIZATION'),
+  numConversations: z.number(),
+  optimzation: z.string(),
+  evaluation: z.string().optional()
+});
+
+export const ChatSimulationSchema = BaseSimulationSchema.extend({
+  type: z.literal('CHAT'),
+  optimzation: z.null()
+});
+
+export const SimulationSchema = z.discriminatedUnion('type', [
+  AutomatedSimulationSchema,
+  ABTestingSimulationSchema,
+  OptimizationSimulationSchema,
+  ChatSimulationSchema
+]);
 
 export const CreateSimulationSchema = z.object({
   type: z.enum(SIMULATION_TYPES),
