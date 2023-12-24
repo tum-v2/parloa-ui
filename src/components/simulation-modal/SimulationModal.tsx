@@ -11,6 +11,11 @@ import useCreateSimulation from '@/hooks/useCreateSimulation';
 import useCreateOptimizedSimulation from '@/hooks/useCreateOptimizedSimulation';
 import { CreateSimulation } from '@/api/schemas/simulation';
 import useCreateChatSimulation from '@/hooks/useCreateChatSimulation';
+import {
+  setCurrentStep,
+  setIsWildStep,
+  resetControlState
+} from '@/store/features/CreateSimulation/SimulationControlSlice';
 
 const { Step } = Steps;
 
@@ -52,18 +57,23 @@ const rightAlignStyle: React.CSSProperties = {
 
 const SimulationModal = () => {
   const [open, setOpen] = useState(false);
-  const [currentStep, setCurrentStep] = useState(0);
-  const [isWildStep, setIsWildStep] = useState(false);
+  // const [currentStep, setCurrentStep] = useState(0);
+  // const [isWildStep, setIsWildStep] = useState(false);
 
   //simulation type state
   const simulation = useAppSelector(state => state.simulation);
   const dispatch = useAppDispatch();
 
+  const { currentStep, isWildStep } = useAppSelector(
+    state => state.simulationControl
+  );
+
   const showModal = () => {
     dispatch(resetState());
     setOpen(true);
-    setCurrentStep(0);
-    setIsWildStep(false);
+    // setCurrentStep(0);
+    // setIsWildStep(false);
+    dispatch(resetControlState());
   };
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -91,15 +101,15 @@ const SimulationModal = () => {
       }
     }
 
-    setCurrentStep(currentStep + 1);
+    dispatch(setCurrentStep(currentStep + 1));
   };
 
   const handlePrev = () => {
     if (isWildStep) {
-      setIsWildStep(false);
-      setCurrentStep(2);
+      dispatch(setIsWildStep(false));
+      dispatch(setCurrentStep(2));
     } else {
-      setCurrentStep(currentStep - 1);
+      dispatch(setCurrentStep(currentStep - 1));
     }
   };
 
@@ -205,8 +215,8 @@ const SimulationModal = () => {
         <StepContent
           stepNumber={currentStep + 1}
           enterWildStep={() => {
-            setCurrentStep(8);
-            setIsWildStep(true);
+            dispatch(setCurrentStep(8));
+            dispatch(setIsWildStep(true));
           }}
         />
       </Modal>
