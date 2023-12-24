@@ -28,8 +28,8 @@ const MESSAGE_COUNT_MAX = 20;
 
 const MetricsGrid = ({ simulation, evaluation }: MetricsGridProps) => {
   return (
-    <>
-      <Flex gap={'small'} align="stretch">
+    <Flex gap={'middle'} vertical>
+      <Flex gap={'middle'} align="stretch">
         <MetricsCard
           title="Average score"
           icon={<IoAnalyticsOutline style={metricsCardIconStyle} />}
@@ -63,7 +63,7 @@ const MetricsGrid = ({ simulation, evaluation }: MetricsGridProps) => {
           />
         )}
       </Flex>
-      <Flex gap={'small'}>
+      <Flex gap={'middle'}>
         <MetricsCard
           title="Average amount of steps to reach goal"
           icon={<IoBarChartOutline style={metricsCardIconStyle} />}
@@ -97,7 +97,7 @@ const MetricsGrid = ({ simulation, evaluation }: MetricsGridProps) => {
           }}
         />
       </Flex>
-    </>
+    </Flex>
   );
 };
 
