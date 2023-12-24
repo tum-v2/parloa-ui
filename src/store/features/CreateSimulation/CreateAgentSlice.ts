@@ -8,7 +8,7 @@ interface AgentState {
   temperature: number;
   maxTokens: number;
   domain: string; // ConversationDomain as string
-  temporary: boolean;
+  temporary?: boolean;
   userGoal?: Goal;
   prompt: PromptPart[];
 }
@@ -28,7 +28,7 @@ enum ConversationScenario {
 interface Goal {
   name: string;
   description: string;
-  scenarios: ConversationScenario[]; // Assuming ConversationScenario is defined elsewhere
+  scenarios: ConversationScenario[];
 }
 
 const AgentInitialState: AgentState = {
