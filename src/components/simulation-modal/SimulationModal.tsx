@@ -213,7 +213,7 @@ const SimulationModal = () => {
       >
         {contextHolder}
         <StepContent
-          stepNumber={currentStep + 1}
+          stepNumber={currentStep}
           enterWildStep={() => {
             dispatch(setCurrentStep(8));
             dispatch(setIsWildStep(true));

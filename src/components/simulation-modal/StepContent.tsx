@@ -12,13 +12,13 @@ interface StepContentProps {
 const StepContent = ({ stepNumber, enterWildStep }: StepContentProps) => {
   const renderContentForStep = () => {
     switch (stepNumber) {
-      case 1:
+      case 0:
         return <SimulationSelection />;
 
-      case 2:
+      case 1:
         return <SimulationName />;
 
-      case 3:
+      case 2:
         return <SimulationAgent enterWildStep={enterWildStep} />;
 
       case 9:
