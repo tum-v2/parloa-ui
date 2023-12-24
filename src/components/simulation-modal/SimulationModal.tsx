@@ -21,7 +21,7 @@ const { Step } = Steps;
 
 const STEP_TITLES = [
   'Create a New Simulation',
-  'Name & Configuration',
+  'Name & Description',
   'Configure Simulation'
 ];
 
