@@ -151,7 +151,7 @@ const SimulationModal = () => {
 
   const getModalTitle = () => {
     if (isWildStep) {
-      return 'Edit LLM Template';
+      return 'Agent Configuration';
     } else {
       return STEP_TITLES[currentStep] || '';
     }
