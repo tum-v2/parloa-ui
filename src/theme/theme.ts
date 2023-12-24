@@ -16,6 +16,7 @@ const theme = {
     pink: '#ca5dd9',
     orange: '#f6b033',
     ligthGray: 'rgba(36, 19, 43, 0.45)',
+    veryLightGray: 'rgb(221, 218, 224)',
     deepPurple: '#24132b',
     green: '#4dd495',
     cyan: '#67cfe9',
