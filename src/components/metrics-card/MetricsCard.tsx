@@ -78,7 +78,9 @@ const MetricsCard = ({
           >
             {`${value}${unit ?? ''}`}
           </Title>
-          {trendNumber && <MetricsCardTrend trendNumber={trendNumber} />}
+          {typeof trendNumber === 'number' && (
+            <MetricsCardTrend trendNumber={trendNumber} />
+          )}
         </div>
       </Flex>
     </Card>

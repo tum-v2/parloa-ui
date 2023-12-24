@@ -39,7 +39,7 @@ const SingleSimulationDetails = ({
             />
           ) : (
             simulation.numConversations > 1 && (
-              <InsightsCard formattedEvaluations={[evaluationData]} />
+              <InsightsCard formattedEvaluations={evaluationData} />
             )
           )}
         </>

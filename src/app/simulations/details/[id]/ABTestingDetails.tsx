@@ -12,6 +12,7 @@ import MetricsGrid from './MetricsGrid';
 import { ABTestingSimulation } from '@/api/schemas/simulation';
 import { FaCircle } from 'react-icons/fa';
 import theme from '@/theme/theme';
+import { useMemo } from 'react';
 
 const { Title } = Typography;
 
@@ -21,12 +22,71 @@ interface ABTestingDetailsProps {
 }
 
 const ABTestingDetails = ({
-  simulation,
-  evaluationData
+  simulation: simulationA,
+  evaluationData: evaluationA
 }: ABTestingDetailsProps) => {
-  const { data: simulationB, isLoading } = useSimulation(simulation.abPartner);
-  const { data: simulationBEvaluationData, isLoading: evaluationLoading } =
-    useSimulationEvaluation(simulation.abPartner);
+  const { data: simulationB, isLoading } = useSimulation(simulationA.abPartner);
+  const { data: evaluationB, isLoading: evaluationLoading } =
+    useSimulationEvaluation(simulationA.abPartner);
+
+  // Get AB comparison data
+  const formattedEvaluation: FormattedEvaluation | null = useMemo(() => {
+    if (evaluationA && evaluationB) {
+      return {
+        ...evaluationA,
+        evaluationScores: [
+          evaluationA.evaluationScores[0],
+          evaluationB.evaluationScores[0]
+        ],
+        messageCount: [
+          {
+            key: 'Simulation A',
+            dataPoints: evaluationA.messageCount[0].dataPoints
+          },
+          {
+            key: 'Simulation B',
+            dataPoints: evaluationB.messageCount[0].dataPoints
+          }
+        ],
+        responseTime: [
+          {
+            key: 'Simulation A',
+            dataPoints: evaluationA.responseTime[0].dataPoints
+          },
+          {
+            key: 'Simulation B',
+            dataPoints: evaluationB.responseTime[0].dataPoints
+          }
+        ]
+      };
+    } else {
+      return null;
+    }
+  }, [evaluationA, evaluationB]);
+
+  // Get trend data between the two simulations e.g. success rate is 10% higher in simulation A
+  const evaluationScoreTrend = useMemo(() => {
+    if (evaluationA && evaluationB) {
+      const diff = evaluationA.averageScore - evaluationB.averageScore;
+      return Math.round((diff / evaluationB.averageScore) * 100);
+    }
+  }, [evaluationA, evaluationB]);
+
+  const timeToRunTrend = useMemo(() => {
+    if (simulationA && simulationB) {
+      const diff = simulationA.duration - simulationB.duration;
+      return Math.round(-(diff / simulationB.duration) * 100);
+    }
+  }, [simulationA, simulationB]);
+
+  const messageCountTrend = useMemo(() => {
+    if (simulationA && simulationB) {
+      const diff =
+        simulationA.totalNumberOfInteractions -
+        simulationB.totalNumberOfInteractions;
+      return (diff / simulationB.totalNumberOfInteractions) * 100;
+    }
+  }, [simulationA, simulationB]);
 
   // Show loading indicator while fetching simulation
   if (isLoading || evaluationLoading) {
@@ -40,11 +100,12 @@ const ABTestingDetails = ({
 
   return (
     <>
-      <DetailsHeader simulation={simulation} />
-      {evaluationData &&
-      simulationBEvaluationData &&
-      evaluationData.status === 'evaluated' &&
-      simulationBEvaluationData.status === 'evaluated' ? (
+      <DetailsHeader simulation={simulationA} />
+      {evaluationA &&
+      evaluationB &&
+      evaluationA.status === 'evaluated' &&
+      evaluationB.status === 'evaluated' &&
+      formattedEvaluation ? (
         <>
           <Title level={4}>
             <TableOutlined /> Metrics
@@ -68,18 +129,22 @@ const ABTestingDetails = ({
               </Title>
             </Flex>
           </Flex>
-          <Flex gap={'middle'}>
-            <MetricsGrid simulation={simulation} evaluation={evaluationData} />
+          <Flex gap={'middle'} align="stretch">
+            <MetricsGrid
+              simulation={simulationA}
+              evaluation={evaluationA}
+              evaluationScoreTrend={evaluationScoreTrend}
+              timeToRunTrend={timeToRunTrend}
+              messageCountTrend={messageCountTrend}
+            />
             <MetricsGrid
               simulation={simulationB as ABTestingSimulation}
-              evaluation={simulationBEvaluationData}
+              evaluation={evaluationB}
             />
           </Flex>
 
-          {simulation.numConversations > 1 && (
-            <InsightsCard
-              formattedEvaluations={[evaluationData, simulationBEvaluationData]}
-            />
+          {simulationA.numConversations > 1 && (
+            <InsightsCard formattedEvaluations={formattedEvaluation} />
           )}
         </>
       ) : (
@@ -97,9 +162,9 @@ const ABTestingDetails = ({
         <SettingOutlined /> Configurations
       </Title>
       <Flex gap={'small'}>
-        <ConfigurationCard title="Agent A" agentId={simulation.serviceAgent} />
+        <ConfigurationCard title="Agent A" agentId={simulationA.serviceAgent} />
         <ConfigurationCard title="Agent B" agentId={simulationB.serviceAgent} />
-        <ConfigurationCard title="User" agentId={simulation.userAgent} />
+        <ConfigurationCard title="User" agentId={simulationA.userAgent} />
       </Flex>
     </>
   );
