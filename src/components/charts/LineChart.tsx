@@ -14,6 +14,7 @@ import React from 'react';
 import { GlyphCircle } from '@visx/glyph';
 import Tooltip from './Tooltip';
 import { Datapoint, TooltipData } from '@/types/chart';
+import { GridRows } from '@visx/grid';
 
 interface LineChartProps {
   width: number;
@@ -67,7 +68,8 @@ const LineChart = ({
     () =>
       scaleLinear({
         domain: [xMin, xMax],
-        range: [padding, width - padding]
+        range: [padding, width - padding],
+        round: true
       }),
     [xMin, xMax, padding, width]
   );
@@ -147,31 +149,38 @@ const LineChart = ({
           scale={scaleX}
           top={height - padding}
           orientation="bottom"
-          stroke={theme.color.ligthGray}
           hideTicks
+          hideAxisLine
           tickLabelProps={() => ({
             fill: theme.color.ligthGray,
             fontSize: theme.fontSize.m,
             textAnchor: 'middle',
             verticalAnchor: 'middle'
           })}
-          tickValues={data[0].map(d => d.x)} // Only show ticks for x values
-          tickFormat={value => `${value}`}
+          tickValues={scaleX.ticks().filter(Number.isInteger)} // Only show integer values
+          tickFormat={d => d.toString()} // Avoid .0 values
         />
         <Axis
           scale={scaleY}
           left={padding}
           orientation="left"
-          stroke={theme.color.ligthGray}
           hideTicks
+          hideAxisLine
           tickLabelProps={() => ({
             fill: theme.color.ligthGray,
             fontSize: theme.fontSize.m,
             textAnchor: 'end',
             verticalAnchor: 'middle'
           })}
-          tickFormat={yUnit ? value => `${value}${yUnit}` : undefined}
+          numTicks={5}
           hideZero
+        />
+        <GridRows
+          scale={scaleY}
+          width={width - padding * 2}
+          left={padding}
+          stroke={theme.color.veryLightGray}
+          numTicks={5}
         />
         {data.map((lineData, i) => (
           <React.Fragment key={`line-group-${i}`}>
