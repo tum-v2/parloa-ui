@@ -11,7 +11,6 @@ import useCreateSimulation from '@/hooks/useCreateSimulation';
 import useCreateOptimizedSimulation from '@/hooks/useCreateOptimizedSimulation';
 import { CreateSimulation } from '@/api/schemas/simulation';
 import useCreateChatSimulation from '@/hooks/useCreateChatSimulation';
-// import useCreateSimulation from '@/hooks/useCreateSimulation';
 
 const { Step } = Steps;
 
