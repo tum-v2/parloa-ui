@@ -12,14 +12,17 @@ import {
 import { Form, InputNumber, Switch, Space, Flex } from 'antd';
 import InputField from '../AgentNameInput';
 import { SimulationMode } from '../SimulationTypeCard';
-
-const models = ['FAKE', 'GPT35', 'GPT35TURBO', 'GPT4', 'LLAMA2'];
+import useLLMs from '@/hooks/useLLMs';
 
 interface SimulationAgentProps {
   enterWildStep: () => void;
 }
 
 const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
+  const { data } = useLLMs();
+  console.log('The models are :', data);
+  const models = ['FAKE', 'GPT35', 'GPT35TURBO', 'GPT4', 'LLAMA2'];
+
   const simulation = useAppSelector(state => state.simulation);
   const dispatch = useAppDispatch();
   const serviceAgentConfig = simulation.serviceAgentConfig;
