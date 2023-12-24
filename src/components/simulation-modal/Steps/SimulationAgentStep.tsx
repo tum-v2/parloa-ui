@@ -10,7 +10,6 @@ import {
   setNumConversations
 } from '@/store/features/CreateSimulation/CreateSimulationSlice';
 import { Form, InputNumber, Switch, Space, Flex } from 'antd';
-import InputField from '../AgentNameInput';
 import { SimulationMode } from '../SimulationTypeCard';
 import useLLMs from '@/hooks/useLLMs';
 
@@ -21,7 +20,11 @@ interface SimulationAgentProps {
 const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
   const { data } = useLLMs();
   console.log('The models are :', data);
-  const models = ['FAKE', 'GPT35', 'GPT35TURBO', 'GPT4', 'LLAMA2'];
+  const agents = [
+    { value: 'jack', label: 'Jack' },
+    { value: 'lucy', label: 'Lucy' },
+    { value: 'Yiminghe', label: 'yiminghe' }
+  ];
 
   const simulation = useAppSelector(state => state.simulation);
   const dispatch = useAppDispatch();
@@ -72,24 +75,6 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
     },
     [dispatch, serviceAgentConfig]
   );
-
-  const handleServiceAgentNameChange = (value: string) => {
-    dispatch(
-      setServiceAgent({
-        ...serviceAgentConfig,
-        name: value
-      })
-    );
-  };
-
-  const handleUserAgentNameChange = (value: string) => {
-    dispatch(
-      setUserAgent({
-        ...userAgentConfig,
-        name: value
-      })
-    );
-  };
 
   const handleOptimizationSwitchChange = useCallback(
     (checked: boolean) => {
@@ -150,14 +135,9 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
             </div>
             <div className="h-full aspect-[3/4] px-6 max-w-sm">
               <ModelCard
-                models={models}
-                inputField={
-                  <InputField
-                    value={simulation.serviceAgentConfig.name}
-                    onChange={handleServiceAgentNameChange}
-                  />
-                }
-                onModelChange={handleServiceAgentChange}
+                agents={agents}
+                onAgentChange={handleServiceAgentChange}
+                onAddClick={() => console.log('Add clicked')}
                 onButtonClick={enterWildStep}
                 icon={<FaHeadphones size={100} />}
                 title="Agent LLM"
@@ -166,14 +146,9 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
             {isABTestingOn && (
               <div className="h-full aspect-[3/4] px-6 max-w-sm">
                 <ModelCard
-                  models={models}
-                  inputField={
-                    <InputField
-                      value={simulation.serviceAgentConfig.name}
-                      onChange={handleServiceAgentNameChange}
-                    />
-                  }
-                  onModelChange={handleServiceAgentChange}
+                  agents={agents}
+                  onAgentChange={handleServiceAgentChange}
+                  onAddClick={() => console.log('Add clicked')}
                   onButtonClick={enterWildStep}
                   icon={<FaUser size={100} />}
                   title="A/B Testing Agent LLM"
@@ -182,14 +157,9 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
             )}
             <div className="h-full aspect-[3/4] px-6 max-w-sm">
               <ModelCard
-                inputField={
-                  <InputField
-                    value={simulation.userAgentConfig.name}
-                    onChange={handleUserAgentNameChange}
-                  />
-                }
-                models={models}
-                onModelChange={handleUserAgentChange}
+                agents={agents}
+                onAgentChange={handleUserAgentChange}
+                onAddClick={() => console.log('Add clicked')}
                 onButtonClick={enterWildStep}
                 icon={<FaUser size={100} />}
                 title="User LLM"
@@ -209,14 +179,9 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
             </div>
             <div className="h-full aspect-[3/4] px-6 max-w-sm">
               <ModelCard
-                inputField={
-                  <InputField
-                    value={simulation.serviceAgentConfig.name}
-                    onChange={handleServiceAgentNameChange}
-                  />
-                }
-                models={models}
-                onModelChange={handleServiceAgentChange}
+                agents={agents}
+                onAgentChange={handleServiceAgentChange}
+                onAddClick={() => console.log('Add clicked')}
                 onButtonClick={enterWildStep}
                 icon={<FaHeadphones size={100} />}
                 title="Agent LLM"

@@ -21,7 +21,7 @@ const StepContent = ({ stepNumber, enterWildStep }: StepContentProps) => {
       case 2:
         return <SimulationAgent enterWildStep={enterWildStep} />;
 
-      case 9:
+      case 8:
         return <SimulationScenario />;
 
       default:

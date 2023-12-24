@@ -1,18 +1,21 @@
 import React from 'react';
 import { Card, Select, Button, Typography, Flex } from 'antd';
-import { EditOutlined } from '@ant-design/icons';
+import { EditOutlined, PlusOutlined } from '@ant-design/icons';
 import theme from '@/theme/theme';
 import { useAppDispatch } from '@/store/hooks';
 import { setSimulationFlag } from '@/store/features/CreateSimulation/CreateSimulationSlice';
 
-const { Option } = Select;
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
+interface Agent {
+  value: string;
+  label: string;
+}
 interface ModelCardProps {
-  models: string[];
-  inputField: React.ReactElement;
-  onModelChange: (value: string) => void;
+  agents: Agent[];
+  onAgentChange: (value: string) => void;
   onButtonClick: () => void;
+  onAddClick: () => void; // New prop for handling the click on the plus button
   icon: React.ReactNode;
   title: string;
 }
@@ -29,6 +32,7 @@ const labelStyle: React.CSSProperties = {
   marginBottom: theme.margin.s,
   fontSize: theme.fontSize.m
 };
+
 const iconStyle: React.CSSProperties = { margin: theme.margin.l };
 
 const selectStyle: React.CSSProperties = {
@@ -36,11 +40,19 @@ const selectStyle: React.CSSProperties = {
   marginRight: theme.margin.m
 };
 
+const textStyle: React.CSSProperties = {
+  marginTop: theme.margin.s // Adding top margin for spacing
+};
+
+const buttonStyle: React.CSSProperties = {
+  marginRight: theme.margin.s // Adding right margin for spacing between buttons
+};
+
 const ModelCard = ({
-  models,
-  inputField,
-  onModelChange,
+  agents,
+  onAgentChange,
   onButtonClick,
+  onAddClick,
   icon,
   title
 }: ModelCardProps) => {
@@ -60,30 +72,31 @@ const ModelCard = ({
       <Flex justify="center" align="center" className="h-full" vertical>
         <Title level={4}>{title}</Title>
         <div style={iconStyle}>{icon}</div>
-        {inputField}
 
-        <label htmlFor="model" style={labelStyle}>
-          Chose a LLM Model
+        <label htmlFor="agent" style={labelStyle}>
+          Choose an Agent
         </label>
         <Flex align="center" className="w-full">
           <Select
-            id="model"
-            defaultValue={models[0]}
+            placeholder="Select an agent"
             style={selectStyle}
-            onChange={value => onModelChange(value)}
-          >
-            {models.map(model => (
-              <Option key={model} value={model}>
-                {model}
-              </Option>
-            ))}
-          </Select>
+            onChange={value => onAgentChange(value)}
+            options={agents}
+          />
           <Button
+            style={buttonStyle}
             type="primary"
             icon={<EditOutlined />}
             onClick={handleButtonClick}
           />
+          <Button
+            icon={<PlusOutlined />}
+            onClick={onAddClick} // Using the new click handler
+          />
         </Flex>
+
+        <Text style={textStyle}>Domain: Flight</Text>
+        <Text style={textStyle}>LLM Model: GPT 4</Text>
       </Flex>
     </Card>
   );
