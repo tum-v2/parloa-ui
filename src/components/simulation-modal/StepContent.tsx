@@ -1,13 +1,25 @@
 import React from 'react';
 import SimulationSelection from './Steps/SimulationSelection';
 import SimulationName from './Steps/SimulationNameStep';
-import SimulationAgent from './Steps/SimulationAgentStep';
-import SimulationScenario from './Steps/SimulationScenarioStep';
+import SimulationAgent from './Steps/SimulationAgentSelectStep';
+import SimulationAgentConfigurationStep from './Steps/SimulationAgentConfigurationStep';
 
 interface StepContentProps {
   stepNumber: number;
   enterWildStep: () => void;
 }
+
+const onGoalAdd = () => {
+  // Do something here
+};
+
+const onGoalEdit = () => {
+  // Do something here
+};
+
+const onLoadPrompt = () => {
+  // Do something here
+};
 
 const StepContent = ({ stepNumber, enterWildStep }: StepContentProps) => {
   const renderContentForStep = () => {
@@ -20,9 +32,15 @@ const StepContent = ({ stepNumber, enterWildStep }: StepContentProps) => {
 
       case 2:
         return <SimulationAgent enterWildStep={enterWildStep} />;
-
-      case 8:
-        return <SimulationScenario />;
+      case 3:
+        return (
+          <SimulationAgentConfigurationStep
+            type="user"
+            onGoalAdd={onGoalAdd}
+            onLoadPrompt={onLoadPrompt}
+            onGoalEdit={onGoalEdit}
+          />
+        );
 
       default:
         return <p>{`Step ${stepNumber}`}</p>;

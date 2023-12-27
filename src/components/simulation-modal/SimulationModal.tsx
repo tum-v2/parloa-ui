@@ -215,7 +215,6 @@ const SimulationModal = () => {
         <StepContent
           stepNumber={currentStep}
           enterWildStep={() => {
-            dispatch(setCurrentStep(8));
             dispatch(setIsWildStep(true));
           }}
         />

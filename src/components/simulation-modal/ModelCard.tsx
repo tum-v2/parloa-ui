@@ -4,6 +4,7 @@ import { EditOutlined, PlusOutlined } from '@ant-design/icons';
 import theme from '@/theme/theme';
 import { useAppDispatch } from '@/store/hooks';
 import { setSimulationFlag } from '@/store/features/CreateSimulation/CreateSimulationSlice';
+import { setCurrentStep } from '@/store/features/CreateSimulation/SimulationControlSlice';
 
 const { Title, Text } = Typography;
 
@@ -65,6 +66,7 @@ const ModelCard = ({
     } else {
       dispatch(setSimulationFlag('UserAgent'));
     }
+    dispatch(setCurrentStep(3));
   };
 
   return (
