@@ -78,7 +78,7 @@ const ModelCard = ({
         <label htmlFor="agent" style={labelStyle}>
           Choose an Agent
         </label>
-        <Flex align="center" className="w-full">
+        <Flex align="center" className="w-full mb-4">
           <Select
             placeholder="Select an agent"
             style={selectStyle}
@@ -91,12 +91,13 @@ const ModelCard = ({
             icon={<EditOutlined />}
             onClick={handleButtonClick}
           />
-          <Button
-            icon={<PlusOutlined />}
-            onClick={onAddClick} // Using the new click handler
-          />
         </Flex>
-
+        <Button
+          icon={<PlusOutlined />}
+          onClick={onAddClick} // Using the new click handler
+        >
+          Create New Agent
+        </Button>
         <Text style={textStyle}>Domain: Flight</Text>
         <Text style={textStyle}>LLM Model: GPT 4</Text>
       </Flex>
