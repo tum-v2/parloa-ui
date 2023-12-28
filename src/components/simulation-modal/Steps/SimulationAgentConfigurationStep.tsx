@@ -2,6 +2,7 @@ import React from 'react';
 import { Form, Button, Row, Col, Select, Slider, Space } from 'antd';
 import { InputField } from '@/components/generic/InputField';
 import { EditOutlined, PlusOutlined } from '@ant-design/icons';
+import useLLMs from '@/hooks/useLLMs';
 
 interface Props {
   onGoalEdit: () => void;
@@ -18,6 +19,11 @@ const SimulationAgentConfigurationStep = ({
   onLoadPrompt,
   type
 }: Props) => {
+  const { data } = useLLMs();
+  const LLMs = data?.map(llm => ({ value: llm, label: llm }));
+  // const defaultLLM = LLMs?.[0].value;
+  const defaultLLM = 'FAKE';
+
   const [form] = Form.useForm();
 
   return (
@@ -27,6 +33,13 @@ const SimulationAgentConfigurationStep = ({
         <Col span={12}>
           <Form.Item label="Agent Name">
             <InputField placeholder="Agent Name" type="text" />
+          </Form.Item>
+          <Form.Item label="LLM Model">
+            <Select
+              defaultValue={defaultLLM}
+              style={{ width: 120 }}
+              options={LLMs}
+            />
           </Form.Item>
 
           <Form.Item label="Prompt">
