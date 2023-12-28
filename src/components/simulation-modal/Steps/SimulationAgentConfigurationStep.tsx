@@ -27,74 +27,86 @@ const SimulationAgentConfigurationStep = ({
   const [form] = Form.useForm();
 
   return (
-    <Form form={form} layout="vertical">
-      <Row gutter={24}>
-        {/* First column */}
-        <Col span={12}>
-          <Form.Item label="Agent Name">
-            <InputField placeholder="Agent Name" type="text" />
-          </Form.Item>
-          <Form.Item label="LLM Model">
-            <Select
-              defaultValue={defaultLLM}
-              style={{ width: 120 }}
-              options={LLMs}
-            />
-          </Form.Item>
+    <div className="flex justify-center items-center h-screen w-full">
+      <div className="w-full max-w-4xl mx-auto p-4">
+        <Form form={form} layout="vertical">
+          <Row gutter={24}>
+            {/* First column */}
+            <Col span={12}>
+              <Form.Item label="Agent Name">
+                <InputField placeholder="Agent Name" type="text" />
+              </Form.Item>
+              <Form.Item label="LLM Model">
+                <Select
+                  defaultValue={defaultLLM}
+                  style={{ width: 120 }}
+                  options={LLMs}
+                />
+              </Form.Item>
 
-          <Form.Item label="Prompt">
-            <Space direction="vertical" size="middle">
-              <Button onClick={onLoadPrompt}>Load</Button>
-              <InputField placeholder="Name" type="text" />
-              <InputField placeholder="Content" type="textarea" minRows={4} />
-            </Space>
-          </Form.Item>
+              <Form.Item label="Prompt">
+                <Form.Item>
+                  <Button onClick={onLoadPrompt}>Load</Button>
+                </Form.Item>
+                <Form.Item>
+                  <InputField placeholder="Name" type="text" />
+                </Form.Item>
+                <Form.Item>
+                  <InputField
+                    placeholder="Content"
+                    type="textarea"
+                    minRows={4}
+                  />
+                </Form.Item>
+              </Form.Item>
 
-          <Form.Item>
-            <Space>
-              <Button onClick={onGoalEdit}>Edit</Button>
-              <Button onClick={onGoalAdd}>Add</Button>
-            </Space>
-          </Form.Item>
-        </Col>
+              <Form.Item>
+                <Space>
+                  <Button onClick={onGoalEdit}>Edit</Button>
+                  <Button onClick={onGoalAdd}>Add</Button>
+                </Space>
+              </Form.Item>
+            </Col>
 
-        {/* Second column */}
-        <Col span={12}>
-          <Form.Item label="Domain">
-            <Select defaultValue="demo">
-              <Option value="demo">Demo</Option>
-              {/* Add more options as needed */}
-            </Select>
-          </Form.Item>
+            {/* Second column */}
+            <Col span={12}>
+              <Form.Item label="Domain">
+                <Select defaultValue="demo">
+                  <Option value="demo">Demo</Option>
+                  {/* Add more options as needed */}
+                </Select>
+              </Form.Item>
 
-          {type === 'user' && (
-            <Form.Item label="Goal">
-              <Row gutter={8}>
-                <Col flex="auto">
-                  <Select defaultValue="demo" style={{ width: '100%' }}>
-                    <Option value="demo">Demo</Option>
-                    {/* Add more options as needed */}
-                  </Select>
-                </Col>
-                <Col>
-                  <Button icon={<EditOutlined />} onClick={onGoalEdit} />
-                </Col>
-                <Col>
-                  <Button icon={<PlusOutlined />} onClick={onGoalAdd} />
-                </Col>
-              </Row>
-            </Form.Item>
-          )}
+              {type === 'user' && (
+                <Form.Item label="Goal">
+                  <Row gutter={8}>
+                    <Col flex="auto">
+                      <Select defaultValue="demo" style={{ width: '100%' }}>
+                        <Option value="demo">Demo</Option>
+                        {/* Add more options as needed */}
+                      </Select>
+                    </Col>
+                    <Col>
+                      <Button icon={<EditOutlined />} onClick={onGoalEdit} />
+                    </Col>
+                    <Col>
+                      <Button icon={<PlusOutlined />} onClick={onGoalAdd} />
+                    </Col>
+                  </Row>
+                </Form.Item>
+              )}
 
-          <Form.Item label="Temperature">
-            <Slider />
-          </Form.Item>
-          <Form.Item label="Max Tokens">
-            <Slider />
-          </Form.Item>
-        </Col>
-      </Row>
-    </Form>
+              <Form.Item label="Temperature">
+                <Slider />
+              </Form.Item>
+              <Form.Item label="Max Tokens">
+                <Slider />
+              </Form.Item>
+            </Col>
+          </Row>
+        </Form>
+      </div>
+    </div>
   );
 };
 
