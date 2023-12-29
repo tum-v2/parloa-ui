@@ -8,7 +8,7 @@ import { setCurrentStep } from '@/store/features/CreateSimulation/SimulationCont
 
 const { Title, Text } = Typography;
 
-interface Agent {
+export interface Agent {
   value: string;
   label: string;
 }
@@ -16,7 +16,6 @@ interface ModelCardProps {
   agents: Agent[];
   onAgentChange: (value: string) => void;
   onButtonClick: () => void;
-  onAddClick: () => void; // New prop for handling the click on the plus button
   icon: React.ReactNode;
   title: string;
 }
@@ -53,7 +52,6 @@ const ModelCard = ({
   agents,
   onAgentChange,
   onButtonClick,
-  onAddClick,
   icon,
   title
 }: ModelCardProps) => {
@@ -69,37 +67,55 @@ const ModelCard = ({
     dispatch(setCurrentStep(3));
   };
 
+  const onAddClick = () => {
+    if (title == 'Agent LLM') {
+      dispatch(setSimulationFlag('ServiceAgent'));
+    } else {
+      dispatch(setSimulationFlag('UserAgent'));
+    }
+    dispatch(setCurrentStep(3));
+  };
+
   return (
     <Card style={cardStyle} bodyStyle={{ height: '100%' }}>
       <Flex justify="center" align="center" className="h-full" vertical>
         <Title level={4}>{title}</Title>
         <div style={iconStyle}>{icon}</div>
 
-        <label htmlFor="agent" style={labelStyle}>
-          Choose an Agent
-        </label>
-        <Flex align="center" className="w-full mb-4">
-          <Select
-            placeholder="Select an agent"
-            style={selectStyle}
-            onChange={value => onAgentChange(value)}
-            options={agents}
-          />
-          <Button
-            style={buttonStyle}
-            type="primary"
-            icon={<EditOutlined />}
-            onClick={handleButtonClick}
-          />
-        </Flex>
+        {agents.length > 0 && (
+          <>
+            <label htmlFor="agent" style={labelStyle}>
+              Choose an Agent
+            </label>
+            <Flex align="center" className="w-full mb-4">
+              <Select
+                placeholder="Select an agent"
+                style={selectStyle}
+                onChange={value => onAgentChange(value)}
+                options={agents}
+              />
+              <Button
+                style={buttonStyle}
+                type="primary"
+                icon={<EditOutlined />}
+                onClick={handleButtonClick}
+              />
+            </Flex>
+          </>
+        )}
+
         <Button
           icon={<PlusOutlined />}
           onClick={onAddClick} // Using the new click handler
         >
           Create New Agent
         </Button>
-        <Text style={textStyle}>Domain: Flight</Text>
-        <Text style={textStyle}>LLM Model: GPT 4</Text>
+        {agents.length > 0 && (
+          <>
+            <Text style={textStyle}>Domain: Flight</Text>
+            <Text style={textStyle}>LLM Model: GPT 4</Text>
+          </>
+        )}
       </Flex>
     </Card>
   );

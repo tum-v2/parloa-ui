@@ -11,20 +11,14 @@ import {
 } from '@/store/features/CreateSimulation/CreateSimulationSlice';
 import { Form, InputNumber, Switch, Space, Flex } from 'antd';
 import { SimulationMode } from '../SimulationTypeCard';
-import useLLMs from '@/hooks/useLLMs';
+import { Agent } from '../ModelCard';
 
 interface SimulationAgentProps {
   enterWildStep: () => void;
 }
 
 const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
-  const { data } = useLLMs();
-  console.log('The models are :', data);
-  const agents = [
-    { value: 'jack', label: 'Jack' },
-    { value: 'lucy', label: 'Lucy' },
-    { value: 'Yiminghe', label: 'yiminghe' }
-  ];
+  const agents: Agent[] = [];
 
   const simulation = useAppSelector(state => state.simulation);
   const dispatch = useAppDispatch();
@@ -137,7 +131,6 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
               <ModelCard
                 agents={agents}
                 onAgentChange={handleServiceAgentChange}
-                onAddClick={() => console.log('Add clicked')}
                 onButtonClick={enterWildStep}
                 icon={<FaHeadphones size={100} />}
                 title="Agent LLM"
@@ -148,7 +141,6 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
                 <ModelCard
                   agents={agents}
                   onAgentChange={handleServiceAgentChange}
-                  onAddClick={() => console.log('Add clicked')}
                   onButtonClick={enterWildStep}
                   icon={<FaUser size={100} />}
                   title="A/B Testing Agent LLM"
@@ -159,7 +151,6 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
               <ModelCard
                 agents={agents}
                 onAgentChange={handleUserAgentChange}
-                onAddClick={() => console.log('Add clicked')}
                 onButtonClick={enterWildStep}
                 icon={<FaUser size={100} />}
                 title="User LLM"
@@ -181,7 +172,6 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
               <ModelCard
                 agents={agents}
                 onAgentChange={handleServiceAgentChange}
-                onAddClick={() => console.log('Add clicked')}
                 onButtonClick={enterWildStep}
                 icon={<FaHeadphones size={100} />}
                 title="Agent LLM"
