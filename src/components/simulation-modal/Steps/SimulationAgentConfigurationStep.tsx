@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Button, Row, Col, Select, Slider, Space } from 'antd';
 import { InputField } from '@/components/generic/InputField';
 import { EditOutlined, PlusOutlined } from '@ant-design/icons';
@@ -21,10 +21,52 @@ const SimulationAgentConfigurationStep = ({
 }: Props) => {
   const { data } = useLLMs();
   const LLMs = data?.map(llm => ({ value: llm, label: llm }));
-  // const defaultLLM = LLMs?.[0].value;
   const defaultLLM = 'FAKE';
 
+  const [agentName, setAgentName] = useState<string>('');
+  const [llm, setLLM] = useState<string>(defaultLLM);
+  const [promptName, setPromptName] = useState<string>('');
+  const [promptContent, setPromptContent] = useState<string>('');
+  const [temperature, setTemperature] = useState<number>(0.5);
+  const [maxTokens, setMaxTokens] = useState<number>(10);
+  const [domain, setDomain] = useState<string>('demo');
+  const [goal, setGoal] = useState<string>('demo');
+
   const [form] = Form.useForm();
+
+  const handleTemperatureChange = (value: number) => {
+    setTemperature(value);
+  };
+
+  const handleMaxTokensChange = (value: number) => {
+    setMaxTokens(value);
+  };
+
+  const handleDomainChange = (value: string) => {
+    setDomain(value);
+  };
+
+  const handleGoalChange = (value: string) => {
+    setGoal(value);
+  };
+
+  const handleLLMChange = (value: string) => {
+    setLLM(value);
+  };
+
+  const handleAgentNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAgentName(e.target.value);
+  };
+
+  const handlePromptNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPromptName(e.target.value);
+  };
+
+  const handlePromptContentChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setPromptContent(e.target.value);
+  };
 
   return (
     <div className="flex justify-center items-center h-screen w-full">
@@ -34,13 +76,20 @@ const SimulationAgentConfigurationStep = ({
             {/* First column */}
             <Col span={12}>
               <Form.Item label="Agent Name">
-                <InputField placeholder="Agent Name" type="text" />
+                <InputField
+                  placeholder="Agent Name"
+                  type="text"
+                  value={agentName}
+                  onChange={handleAgentNameChange}
+                />
               </Form.Item>
               <Form.Item label="LLM Model">
                 <Select
                   defaultValue={defaultLLM}
                   style={{ width: 120 }}
+                  onChange={handleLLMChange}
                   options={LLMs}
+                  value={llm}
                 />
               </Form.Item>
 
@@ -49,13 +98,20 @@ const SimulationAgentConfigurationStep = ({
                   <Button onClick={onLoadPrompt}>Load</Button>
                 </Form.Item>
                 <Form.Item>
-                  <InputField placeholder="Name" type="text" />
+                  <InputField
+                    placeholder="Name"
+                    type="text"
+                    value={promptName}
+                    onChange={handlePromptNameChange}
+                  />
                 </Form.Item>
                 <Form.Item>
                   <InputField
                     placeholder="Content"
                     type="textarea"
                     minRows={4}
+                    value={promptContent}
+                    onChange={handlePromptContentChange}
                   />
                 </Form.Item>
               </Form.Item>
@@ -71,7 +127,11 @@ const SimulationAgentConfigurationStep = ({
             {/* Second column */}
             <Col span={12}>
               <Form.Item label="Domain">
-                <Select defaultValue="demo">
+                <Select
+                  defaultValue="demo"
+                  onChange={handleDomainChange}
+                  value={domain}
+                >
                   <Option value="demo">Demo</Option>
                   {/* Add more options as needed */}
                 </Select>
@@ -81,7 +141,12 @@ const SimulationAgentConfigurationStep = ({
                 <Form.Item label="Goal">
                   <Row gutter={8}>
                     <Col flex="auto">
-                      <Select defaultValue="demo" style={{ width: '100%' }}>
+                      <Select
+                        defaultValue="demo"
+                        style={{ width: '100%' }}
+                        onChange={handleGoalChange}
+                        value={goal}
+                      >
                         <Option value="demo">Demo</Option>
                         {/* Add more options as needed */}
                       </Select>
@@ -97,10 +162,22 @@ const SimulationAgentConfigurationStep = ({
               )}
 
               <Form.Item label="Temperature">
-                <Slider />
+                <Slider
+                  min={0}
+                  max={1}
+                  value={temperature}
+                  onChange={handleTemperatureChange}
+                  step={0.01}
+                />
               </Form.Item>
               <Form.Item label="Max Tokens">
-                <Slider />
+                <Slider
+                  value={maxTokens}
+                  onChange={handleMaxTokensChange}
+                  min={0}
+                  max={4096}
+                  step={128}
+                />
               </Form.Item>
             </Col>
           </Row>

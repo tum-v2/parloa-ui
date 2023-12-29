@@ -9,7 +9,7 @@ interface AgentState {
   maxTokens: number;
   domain: string; // ConversationDomain as string
   temporary?: boolean;
-  userGoal?: Goal;
+  userGoal?: Goal | string;
   prompt: PromptPart[];
 }
 
