@@ -218,7 +218,7 @@ const SimulationModal = () => {
       <Modal
         title={getModalTitle()}
         centered
-        width={1500}
+        width={2000}
         open={open}
         onCancel={() => setOpen(false)}
         footer={modalFooter}
