@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Button, Row, Col, Select, Slider, Space } from 'antd';
+import { Form, Button, Row, Col, Select, Slider } from 'antd';
 import { InputField } from '@/components/generic/InputField';
 import { EditOutlined, PlusOutlined } from '@ant-design/icons';
 import useLLMs from '@/hooks/useLLMs';
@@ -11,6 +11,7 @@ import {
   setMaxTokens,
   setDomain
 } from '../../../store/features/CreateSimulation/CreateAgentSlice';
+import PromptInput from '../PromptInput';
 
 interface Props {
   onGoalEdit: () => void;
@@ -24,7 +25,6 @@ const { Option } = Select;
 const SimulationAgentConfigurationStep = ({
   onGoalEdit,
   onGoalAdd,
-  onLoadPrompt,
   type
 }: Props) => {
   const { data } = useLLMs();
@@ -60,25 +60,7 @@ const SimulationAgentConfigurationStep = ({
                   value={llm}
                 />
               </Form.Item>
-
-              <Form.Item label="Prompt">
-                <Form.Item>
-                  <Button onClick={onLoadPrompt}>Load</Button>
-                </Form.Item>
-                <Form.Item>
-                  <InputField placeholder="Name" type="text" />
-                </Form.Item>
-                <Form.Item>
-                  <InputField placeholder="Content" type="textarea" />
-                </Form.Item>
-              </Form.Item>
-
-              <Form.Item>
-                <Space>
-                  <Button onClick={onGoalEdit}>Edit</Button>
-                  <Button onClick={onGoalAdd}>Add</Button>
-                </Space>
-              </Form.Item>
+              <PromptInput />
             </Col>
 
             {/* Second column */}
