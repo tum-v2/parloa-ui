@@ -17,8 +17,6 @@ interface Props {
   type: 'user' | 'service';
 }
 
-const { Option } = Select;
-
 const SimulationAgentConfigurationStep = ({ type }: Props) => {
   const { data } = useLLMs();
   const LLMs = data?.map(llm => ({ value: llm, label: llm }));
@@ -61,13 +59,9 @@ const SimulationAgentConfigurationStep = ({ type }: Props) => {
             <Col span={12}>
               <Form.Item label="Domain">
                 <Select
-                  defaultValue="demo"
                   onChange={value => dispatch(setDomain(value))}
                   value={domain}
-                >
-                  <Option value="demo">Demo</Option>
-                  {/* Add more options as needed */}
-                </Select>
+                ></Select>
               </Form.Item>
 
               {type === 'user' && <UserGoalSelect />}
