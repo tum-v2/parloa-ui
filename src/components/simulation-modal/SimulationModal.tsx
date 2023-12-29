@@ -22,7 +22,9 @@ const { Step } = Steps;
 const STEP_TITLES = [
   'Create a New Simulation',
   'Name & Description',
-  'Configure Simulation'
+  'Configure Simulation',
+  'Agent Configuration',
+  'Goal Configuration'
 ];
 
 const customDot = (dot: React.ReactNode, { index }: { index: number }) => {
@@ -150,11 +152,7 @@ const SimulationModal = () => {
   };
 
   const getModalTitle = () => {
-    if (isWildStep) {
-      return 'Agent Configuration';
-    } else {
-      return STEP_TITLES[currentStep] || '';
-    }
+    return STEP_TITLES[currentStep] || '';
   };
 
   const getNextStepTitle = () => {
