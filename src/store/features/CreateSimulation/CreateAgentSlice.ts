@@ -34,10 +34,10 @@ interface Goal {
 const AgentInitialState: AgentState = {
   name: '',
   type: '',
-  llm: '',
+  llm: 'FAKE',
   temperature: 0.7,
   maxTokens: 512,
-  domain: '',
+  domain: 'FLIGHT',
   temporary: false,
   userGoal: undefined,
   prompt: [

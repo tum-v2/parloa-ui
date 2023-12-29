@@ -1,8 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Form, Button, Row, Col, Select, Slider, Space } from 'antd';
 import { InputField } from '@/components/generic/InputField';
 import { EditOutlined, PlusOutlined } from '@ant-design/icons';
 import useLLMs from '@/hooks/useLLMs';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import {
+  setName,
+  setLLM,
+  setTemperature,
+  setMaxTokens,
+  setDomain
+} from '../../../store/features/CreateSimulation/CreateAgentSlice';
 
 interface Props {
   onGoalEdit: () => void;
@@ -22,51 +30,11 @@ const SimulationAgentConfigurationStep = ({
   const { data } = useLLMs();
   const LLMs = data?.map(llm => ({ value: llm, label: llm }));
   const defaultLLM = 'FAKE';
-
-  const [agentName, setAgentName] = useState<string>('');
-  const [llm, setLLM] = useState<string>(defaultLLM);
-  const [promptName, setPromptName] = useState<string>('');
-  const [promptContent, setPromptContent] = useState<string>('');
-  const [temperature, setTemperature] = useState<number>(0.5);
-  const [maxTokens, setMaxTokens] = useState<number>(10);
-  const [domain, setDomain] = useState<string>('demo');
-  const [goal, setGoal] = useState<string>('demo');
+  const dispatch = useAppDispatch();
+  const { name, llm, temperature, maxTokens, domain, userGoal } =
+    useAppSelector(state => state.agent);
 
   const [form] = Form.useForm();
-
-  const handleTemperatureChange = (value: number) => {
-    setTemperature(value);
-  };
-
-  const handleMaxTokensChange = (value: number) => {
-    setMaxTokens(value);
-  };
-
-  const handleDomainChange = (value: string) => {
-    setDomain(value);
-  };
-
-  const handleGoalChange = (value: string) => {
-    setGoal(value);
-  };
-
-  const handleLLMChange = (value: string) => {
-    setLLM(value);
-  };
-
-  const handleAgentNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAgentName(e.target.value);
-  };
-
-  const handlePromptNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPromptName(e.target.value);
-  };
-
-  const handlePromptContentChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setPromptContent(e.target.value);
-  };
 
   return (
     <div className="flex justify-center items-center h-screen w-full">
@@ -79,15 +47,15 @@ const SimulationAgentConfigurationStep = ({
                 <InputField
                   placeholder="Agent Name"
                   type="text"
-                  value={agentName}
-                  onChange={handleAgentNameChange}
+                  value={name}
+                  onChange={e => dispatch(setName(e.target.value))}
                 />
               </Form.Item>
               <Form.Item label="LLM Model">
                 <Select
                   defaultValue={defaultLLM}
                   style={{ width: 120 }}
-                  onChange={handleLLMChange}
+                  onChange={value => dispatch(setLLM(value))}
                   options={LLMs}
                   value={llm}
                 />
@@ -98,21 +66,10 @@ const SimulationAgentConfigurationStep = ({
                   <Button onClick={onLoadPrompt}>Load</Button>
                 </Form.Item>
                 <Form.Item>
-                  <InputField
-                    placeholder="Name"
-                    type="text"
-                    value={promptName}
-                    onChange={handlePromptNameChange}
-                  />
+                  <InputField placeholder="Name" type="text" />
                 </Form.Item>
                 <Form.Item>
-                  <InputField
-                    placeholder="Content"
-                    type="textarea"
-                    minRows={4}
-                    value={promptContent}
-                    onChange={handlePromptContentChange}
-                  />
+                  <InputField placeholder="Content" type="textarea" />
                 </Form.Item>
               </Form.Item>
 
@@ -129,7 +86,7 @@ const SimulationAgentConfigurationStep = ({
               <Form.Item label="Domain">
                 <Select
                   defaultValue="demo"
-                  onChange={handleDomainChange}
+                  onChange={value => dispatch(setDomain(value))}
                   value={domain}
                 >
                   <Option value="demo">Demo</Option>
@@ -144,8 +101,7 @@ const SimulationAgentConfigurationStep = ({
                       <Select
                         defaultValue="demo"
                         style={{ width: '100%' }}
-                        onChange={handleGoalChange}
-                        value={goal}
+                        value={userGoal}
                       >
                         <Option value="demo">Demo</Option>
                         {/* Add more options as needed */}
@@ -166,14 +122,14 @@ const SimulationAgentConfigurationStep = ({
                   min={0}
                   max={1}
                   value={temperature}
-                  onChange={handleTemperatureChange}
+                  onChange={value => dispatch(setTemperature(value))}
                   step={0.01}
                 />
               </Form.Item>
               <Form.Item label="Max Tokens">
                 <Slider
                   value={maxTokens}
-                  onChange={handleMaxTokensChange}
+                  onChange={value => dispatch(setMaxTokens(value))}
                   min={0}
                   max={4096}
                   step={128}
