@@ -63,7 +63,7 @@ const PromptInput = () => {
       </Space>
 
       {/* Tags are now placed inside a div, which will make them appear below the Load button */}
-      <div>
+      <div className="m-1">
         <Space>
           {tags.map((tag, index) => (
             <>
