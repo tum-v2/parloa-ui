@@ -108,8 +108,22 @@ const SimulationModal = () => {
 
   const handlePrev = () => {
     if (isWildStep) {
+      if (currentStep === 3) {
+        dispatch(setIsWildStep(false));
+        dispatch(setCurrentStep(currentStep - 1));
+      }
+      if (currentStep === 4) {
+        dispatch(setCurrentStep(currentStep - 1));
+      }
+    } else {
+      dispatch(setCurrentStep(currentStep - 1));
+    }
+  };
+
+  const handleSave = () => {
+    if (currentStep === 3) {
       dispatch(setIsWildStep(false));
-      dispatch(setCurrentStep(2));
+      dispatch(setCurrentStep(currentStep - 1));
     } else {
       dispatch(setCurrentStep(currentStep - 1));
     }
@@ -182,7 +196,7 @@ const SimulationModal = () => {
       </Steps>
       <div style={rightAlignStyle}>
         {isWildStep ? (
-          <Button type="primary" onClick={handlePrev}>
+          <Button type="primary" onClick={handleSave}>
             Save
           </Button>
         ) : currentStep === 2 ? (

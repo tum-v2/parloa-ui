@@ -68,6 +68,7 @@ const ModelCard = ({
   };
 
   const onAddClick = () => {
+    onButtonClick();
     if (title == 'Agent LLM') {
       dispatch(setSimulationFlag('ServiceAgent'));
     } else {
