@@ -1,7 +1,6 @@
 import React from 'react';
-import { Form, Button, Row, Col, Select, Slider } from 'antd';
+import { Form, Row, Col, Select, Slider } from 'antd';
 import { InputField } from '@/components/generic/InputField';
-import { EditOutlined, PlusOutlined } from '@ant-design/icons';
 import useLLMs from '@/hooks/useLLMs';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {
@@ -12,27 +11,22 @@ import {
   setDomain
 } from '../../../store/features/CreateSimulation/CreateAgentSlice';
 import PromptInput from '../PromptInput';
+import UserGoalSelect from '../UserGoalSelect';
 
 interface Props {
-  onGoalEdit: () => void;
-  onGoalAdd: () => void;
-  onLoadPrompt: () => void;
   type: 'user' | 'service';
 }
 
 const { Option } = Select;
 
-const SimulationAgentConfigurationStep = ({
-  onGoalEdit,
-  onGoalAdd,
-  type
-}: Props) => {
+const SimulationAgentConfigurationStep = ({ type }: Props) => {
   const { data } = useLLMs();
   const LLMs = data?.map(llm => ({ value: llm, label: llm }));
   const defaultLLM = 'FAKE';
   const dispatch = useAppDispatch();
-  const { name, llm, temperature, maxTokens, domain, userGoal } =
-    useAppSelector(state => state.agent);
+  const { name, llm, temperature, maxTokens, domain } = useAppSelector(
+    state => state.agent
+  );
 
   const [form] = Form.useForm();
 
@@ -76,28 +70,7 @@ const SimulationAgentConfigurationStep = ({
                 </Select>
               </Form.Item>
 
-              {type === 'user' && (
-                <Form.Item label="Goal">
-                  <Row gutter={8}>
-                    <Col flex="auto">
-                      <Select
-                        defaultValue="demo"
-                        style={{ width: '100%' }}
-                        value={userGoal}
-                      >
-                        <Option value="demo">Demo</Option>
-                        {/* Add more options as needed */}
-                      </Select>
-                    </Col>
-                    <Col>
-                      <Button icon={<EditOutlined />} onClick={onGoalEdit} />
-                    </Col>
-                    <Col>
-                      <Button icon={<PlusOutlined />} onClick={onGoalAdd} />
-                    </Col>
-                  </Row>
-                </Form.Item>
-              )}
+              {type === 'user' && <UserGoalSelect />}
 
               <Form.Item label="Temperature">
                 <Slider

@@ -4,8 +4,6 @@ import SimulationName from './Steps/SimulationNameStep';
 import SimulationAgent from './Steps/SimulationAgentSelectStep';
 import SimulationAgentConfigurationStep from './Steps/SimulationAgentConfigurationStep';
 import SimulationGoalEditStep from './Steps/SimulationGoalEditStep';
-import { useAppDispatch } from '@/store/hooks';
-import { setCurrentStep } from '@/store/features/CreateSimulation/SimulationControlSlice';
 
 interface StepContentProps {
   stepNumber: number;
@@ -13,18 +11,6 @@ interface StepContentProps {
 }
 
 const StepContent = ({ stepNumber, enterWildStep }: StepContentProps) => {
-  const dispatch = useAppDispatch();
-  const onGoalAdd = () => {
-    // Do something here
-  };
-
-  const onGoalEdit = () => {
-    dispatch(setCurrentStep(4));
-  };
-
-  const onLoadPrompt = () => {
-    // Do something here
-  };
   const renderContentForStep = () => {
     switch (stepNumber) {
       case 0:
@@ -36,14 +22,7 @@ const StepContent = ({ stepNumber, enterWildStep }: StepContentProps) => {
       case 2:
         return <SimulationAgent enterWildStep={enterWildStep} />;
       case 3:
-        return (
-          <SimulationAgentConfigurationStep
-            type="user"
-            onGoalAdd={onGoalAdd}
-            onLoadPrompt={onLoadPrompt}
-            onGoalEdit={onGoalEdit}
-          />
-        );
+        return <SimulationAgentConfigurationStep type="user" />;
       case 4:
         return <SimulationGoalEditStep />;
 
