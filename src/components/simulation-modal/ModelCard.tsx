@@ -60,9 +60,9 @@ const ModelCard = ({
   const handleButtonClick = () => {
     onButtonClick();
     if (title == 'Agent LLM') {
-      dispatch(setSimulationFlag('ServiceAgent'));
+      dispatch(setSimulationFlag('serviceAgent'));
     } else {
-      dispatch(setSimulationFlag('UserAgent'));
+      dispatch(setSimulationFlag('userAgent'));
     }
     dispatch(setCurrentStep(3));
   };
@@ -70,9 +70,9 @@ const ModelCard = ({
   const onAddClick = () => {
     onButtonClick();
     if (title == 'Agent LLM') {
-      dispatch(setSimulationFlag('ServiceAgent'));
+      dispatch(setSimulationFlag('serviceAgent'));
     } else {
-      dispatch(setSimulationFlag('UserAgent'));
+      dispatch(setSimulationFlag('userAgent'));
     }
     dispatch(setCurrentStep(3));
   };

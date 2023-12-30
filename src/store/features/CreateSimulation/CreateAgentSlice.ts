@@ -1,39 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../../store';
-
-interface AgentState {
-  name: string;
-  type: string; // AgentType as string
-  llm: string; // LLMModel as string
-  temperature: number;
-  maxTokens: number;
-  domain: string; // ConversationDomain as string
-  temporary?: boolean;
-  userGoal?: Goal | string;
-  prompt: PromptPart[];
-}
-
-interface PromptPart {
-  name: string;
-  content: string;
-  optimizable?: boolean;
-}
-
-enum ConversationScenario {
-  SEQUENCE = 'SEQUENCE',
-  SLOT_FILLING = 'SLOT_FILLING',
-  CALL_FORWARDING = 'CALL_FORWARDING'
-}
-
-interface Goal {
-  name: string;
-  description: string;
-  scenarios: ConversationScenario[];
-}
+import {
+  AgentState,
+  AgentType,
+  Goal,
+  PromptPart
+} from './simulationDefinitions';
 
 const AgentInitialState: AgentState = {
   name: '',
-  type: '',
+  type: 'userAgent',
   llm: 'FAKE',
   temperature: 0.7,
   maxTokens: 512,
@@ -52,7 +28,7 @@ export const agentSlice = createSlice({
     setName: (state, action: PayloadAction<string>) => {
       state.name = action.payload;
     },
-    setType: (state, action: PayloadAction<string>) => {
+    setType: (state, action: PayloadAction<AgentType>) => {
       state.type = action.payload;
     },
     setLLM: (state, action: PayloadAction<string>) => {

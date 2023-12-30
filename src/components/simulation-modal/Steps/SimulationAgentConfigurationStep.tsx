@@ -14,7 +14,7 @@ import PromptInput from '../PromptInput';
 import UserGoalSelect from '../UserGoalSelect';
 
 interface Props {
-  type: 'user' | 'service';
+  type: 'userAgent' | 'serviceAgent';
 }
 
 const SimulationAgentConfigurationStep = ({ type }: Props) => {
@@ -64,7 +64,7 @@ const SimulationAgentConfigurationStep = ({ type }: Props) => {
                 ></Select>
               </Form.Item>
 
-              {type === 'user' && <UserGoalSelect />}
+              {type === 'userAgent' && <UserGoalSelect />}
 
               <Form.Item label="Temperature">
                 <Slider

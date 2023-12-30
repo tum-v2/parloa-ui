@@ -1,32 +1,23 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../../store';
-import { SimulationType } from '@/api/schemas/simulation';
+import {
+  AgentState,
+  SimulationState,
+  SimulationType
+} from './simulationDefinitions';
 
-interface SimulationState {
-  type: SimulationType;
-  name: string;
-  description?: string;
-  numConversations: number;
-  serviceAgentConfig: AgentSchema;
-  userAgentConfig: AgentSchema;
-  Flag?: 'ServiceAgent' | 'UserAgent' | '';
-}
-interface AgentSchema {
-  domain: string;
-  name: string;
-  llm: string;
-  temperature: number;
-  maxTokens: number;
-  prompt: string;
-}
-
-const AgentInitialState: AgentSchema = {
-  domain: 'FLIGHT',
-  name: 'FAKE AGENT',
+const AgentInitialState: AgentState = {
+  name: '',
+  type: 'userAgent',
   llm: 'FAKE',
-  temperature: 0,
-  maxTokens: 256,
-  prompt: 'FAKE PROMPT'
+  temperature: 0.7,
+  maxTokens: 512,
+  domain: 'FLIGHT',
+  temporary: false,
+  userGoal: undefined,
+  prompt: [
+    { name: 'DefaultPrompt', content: 'Default Content', optimizable: false }
+  ]
 };
 
 // Define the initial state using that type
@@ -56,15 +47,15 @@ export const simulationSlice = createSlice({
     setNumConversations: (state, action: PayloadAction<number>) => {
       state.numConversations = action.payload;
     },
-    setServiceAgent: (state, action: PayloadAction<AgentSchema>) => {
+    setServiceAgent: (state, action: PayloadAction<AgentState>) => {
       state.serviceAgentConfig = action.payload;
     },
-    setUserAgent: (state, action: PayloadAction<AgentSchema>) => {
+    setUserAgent: (state, action: PayloadAction<AgentState>) => {
       state.userAgentConfig = action.payload;
     },
     setSimulationFlag: (
       state,
-      action: PayloadAction<'ServiceAgent' | 'UserAgent' | ''>
+      action: PayloadAction<'serviceAgent' | 'userAgent' | ''>
     ) => {
       state.Flag = action.payload;
     },

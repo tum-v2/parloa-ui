@@ -4,6 +4,7 @@ import SimulationName from './Steps/SimulationNameStep';
 import SimulationAgent from './Steps/SimulationAgentSelectStep';
 import SimulationAgentConfigurationStep from './Steps/SimulationAgentConfigurationStep';
 import SimulationGoalEditStep from './Steps/SimulationGoalEditStep';
+import { useAppSelector } from '@/store/hooks';
 
 interface StepContentProps {
   stepNumber: number;
@@ -11,6 +12,7 @@ interface StepContentProps {
 }
 
 const StepContent = ({ stepNumber, enterWildStep }: StepContentProps) => {
+  const agent = useAppSelector(state => state.agent);
   const renderContentForStep = () => {
     switch (stepNumber) {
       case 0:
@@ -22,7 +24,7 @@ const StepContent = ({ stepNumber, enterWildStep }: StepContentProps) => {
       case 2:
         return <SimulationAgent enterWildStep={enterWildStep} />;
       case 3:
-        return <SimulationAgentConfigurationStep type="user" />;
+        return <SimulationAgentConfigurationStep type={agent.type} />;
       case 4:
         return <SimulationGoalEditStep />;
 

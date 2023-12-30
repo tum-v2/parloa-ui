@@ -1,10 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../../store';
-
-interface SimulationControlState {
-  currentStep: number;
-  isWildStep: boolean;
-}
+import { SimulationControlState } from './simulationDefinitions';
 
 const initialState: SimulationControlState = {
   currentStep: 0,
