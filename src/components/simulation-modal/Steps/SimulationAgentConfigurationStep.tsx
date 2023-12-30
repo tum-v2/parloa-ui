@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Row, Col, Select, Slider } from 'antd';
+import { Form, Row, Col, Select, Slider, InputNumber } from 'antd';
 import { InputField } from '@/components/generic/InputField';
 import useLLMs from '@/hooks/useLLMs';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
@@ -37,6 +37,7 @@ const SimulationAgentConfigurationStep = ({ type }: Props) => {
             <Col span={12}>
               <Form.Item label="Agent Name">
                 <InputField
+                  size="large"
                   placeholder="Agent Name"
                   type="text"
                   value={name}
@@ -45,8 +46,8 @@ const SimulationAgentConfigurationStep = ({ type }: Props) => {
               </Form.Item>
               <Form.Item label="LLM Model">
                 <Select
+                  size="large"
                   defaultValue={defaultLLM}
-                  style={{ width: 120 }}
                   onChange={value => dispatch(setLLM(value))}
                   options={LLMs}
                   value={llm}
@@ -59,6 +60,7 @@ const SimulationAgentConfigurationStep = ({ type }: Props) => {
             <Col span={12}>
               <Form.Item label="Domain">
                 <Select
+                  size="large"
                   onChange={value => dispatch(setDomain(value))}
                   value={domain}
                 ></Select>
@@ -67,22 +69,52 @@ const SimulationAgentConfigurationStep = ({ type }: Props) => {
               {type === 'userAgent' && <UserGoalSelect />}
 
               <Form.Item label="Temperature">
-                <Slider
-                  min={0}
-                  max={1}
-                  value={temperature}
-                  onChange={value => dispatch(setTemperature(value))}
-                  step={0.01}
-                />
+                <Row>
+                  <Col span={12}>
+                    <Slider
+                      min={0}
+                      max={1}
+                      value={temperature}
+                      onChange={value => dispatch(setTemperature(value))}
+                      step={0.01}
+                    />
+                  </Col>
+                  <Col span={12}>
+                    <InputNumber
+                      min={0}
+                      max={1}
+                      value={temperature}
+                      onChange={value =>
+                        dispatch(setTemperature(value as number))
+                      }
+                      step={0.01}
+                    />
+                  </Col>
+                </Row>
               </Form.Item>
               <Form.Item label="Max Tokens">
-                <Slider
-                  value={maxTokens}
-                  onChange={value => dispatch(setMaxTokens(value))}
-                  min={0}
-                  max={4096}
-                  step={128}
-                />
+                <Row>
+                  <Col span={12}>
+                    <Slider
+                      value={maxTokens}
+                      onChange={value => dispatch(setMaxTokens(value))}
+                      min={0}
+                      max={4096}
+                      step={128}
+                    />
+                  </Col>
+                  <Col span={12}>
+                    <InputNumber
+                      value={maxTokens}
+                      onChange={value =>
+                        dispatch(setMaxTokens(value as number))
+                      }
+                      min={0}
+                      max={4096}
+                      step={128}
+                    />
+                  </Col>
+                </Row>
               </Form.Item>
             </Col>
           </Row>

@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Form, Button, Input, Space, Tag } from 'antd';
+import { Form, Button, Space, Tag } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+import { InputField } from '@/components/generic/InputField';
 import theme from '@/theme/theme';
-
-const { TextArea } = Input;
 
 interface TagData {
   name: string;
@@ -105,14 +104,19 @@ const PromptInput = () => {
       </div>
 
       <Form.Item>
-        <Input
+        <InputField
+          size="large"
+          type="text"
           placeholder="Name"
           value={inputNameValue}
           onChange={e => setInputNameValue(e.target.value)}
         />
       </Form.Item>
       <Form.Item>
-        <TextArea
+        <InputField
+          size="large"
+          minRows={4}
+          type="textarea"
           placeholder="Content"
           value={inputContentValue}
           onChange={e => setInputContentValue(e.target.value)}

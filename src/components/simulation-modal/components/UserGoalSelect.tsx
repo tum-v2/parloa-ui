@@ -29,7 +29,7 @@ const UserGoalSelect = () => {
   if (goals.length === 0) {
     return (
       <Form.Item label="Goal">
-        <Button icon={<PlusOutlined />} onClick={onSetUserGoal}>
+        <Button size="large" icon={<PlusOutlined />} onClick={onSetUserGoal}>
           Set User Goal
         </Button>
       </Form.Item>
