@@ -70,7 +70,7 @@ const SimulationAgentConfigurationStep = ({ type }: Props) => {
 
               <Form.Item label="Temperature">
                 <Row>
-                  <Col span={12}>
+                  <Col span={18}>
                     <Slider
                       min={0}
                       max={1}
@@ -79,7 +79,7 @@ const SimulationAgentConfigurationStep = ({ type }: Props) => {
                       step={0.01}
                     />
                   </Col>
-                  <Col span={12}>
+                  <Col span={6}>
                     <InputNumber
                       min={0}
                       max={1}
@@ -94,7 +94,7 @@ const SimulationAgentConfigurationStep = ({ type }: Props) => {
               </Form.Item>
               <Form.Item label="Max Tokens">
                 <Row>
-                  <Col span={12}>
+                  <Col span={18}>
                     <Slider
                       value={maxTokens}
                       onChange={value => dispatch(setMaxTokens(value))}
@@ -103,7 +103,7 @@ const SimulationAgentConfigurationStep = ({ type }: Props) => {
                       step={128}
                     />
                   </Col>
-                  <Col span={12}>
+                  <Col span={6}>
                     <InputNumber
                       value={maxTokens}
                       onChange={value =>
