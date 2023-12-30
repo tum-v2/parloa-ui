@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Input, Space, Tag } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+import theme from '@/theme/theme';
 
 const { TextArea } = Input;
 
@@ -15,6 +16,19 @@ const initialTags: TagData[] = [
   { name: 'Help', content: 'How can I assist you today?' },
   { name: 'Goodbye', content: 'Thank you for visiting us.' }
 ];
+
+const pillStyle: React.CSSProperties = {
+  borderRadius: 50,
+  width: 'max-content',
+  maxWidth: '150px',
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+  paddingTop: theme.padding.xs,
+  paddingLeft: theme.padding.m,
+  paddingRight: theme.padding.m,
+  paddingBottom: theme.padding.xs
+};
 
 const PromptInput = () => {
   const [tags, setTags] = useState<TagData[]>([]);
@@ -68,6 +82,8 @@ const PromptInput = () => {
           {tags.map((tag, index) => (
             <>
               <Tag
+                style={pillStyle}
+                color={theme.color.primary}
                 key={tag.name}
                 onClick={() => handleTagClick(index)}
                 closable
