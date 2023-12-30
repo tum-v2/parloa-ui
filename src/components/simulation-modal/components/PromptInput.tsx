@@ -19,7 +19,6 @@ const initialTags: TagData[] = [
 const pillStyle: React.CSSProperties = {
   borderRadius: 50,
   width: 'max-content',
-  maxWidth: '150px',
   overflow: 'hidden',
   whiteSpace: 'nowrap',
   textOverflow: 'ellipsis',
