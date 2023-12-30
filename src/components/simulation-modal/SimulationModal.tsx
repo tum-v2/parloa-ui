@@ -13,8 +13,8 @@ import {
   setIsWildStep,
   resetControlState
 } from '@/store/features/CreateSimulation/SimulationControlSlice';
-import ModalTitle from './SimulationModalTitle';
-import SimulationModalFooter from './SimulationModalFooter';
+import ModalTitle from './components/SimulationModalTitle';
+import SimulationModalFooter from './components/SimulationModalFooter';
 
 const SimulationModal = () => {
   const [open, setOpen] = useState(false);

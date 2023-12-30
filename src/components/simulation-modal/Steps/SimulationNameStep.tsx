@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import SimulationTypeCard from '../SimulationTypeCard';
+import SimulationTypeCard from '../components/SimulationTypeCard';
 import { InputField } from '../../generic/InputField';
 import theme from '@/theme/theme';
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
@@ -8,7 +8,7 @@ import {
   setDescription
 } from '@/store/features/CreateSimulation/CreateSimulationSlice';
 import { Flex } from 'antd';
-import { SimulationMode } from '../SimulationTypeCard';
+import { SimulationMode } from '../components/SimulationTypeCard';
 
 const SimulationName = () => {
   //Simulation State

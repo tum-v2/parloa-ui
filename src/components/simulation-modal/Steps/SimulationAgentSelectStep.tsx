@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import SimulationTypeCard from '../SimulationTypeCard';
-import ModelCard from '../ModelCard';
+import SimulationTypeCard from '../components/SimulationTypeCard';
+import ModelCard from '../components/ModelCard';
 import { FaHeadphones, FaUser } from 'react-icons/fa';
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
 import {
@@ -10,8 +10,8 @@ import {
   setNumConversations
 } from '@/store/features/CreateSimulation/CreateSimulationSlice';
 import { Form, InputNumber, Switch, Space, Flex } from 'antd';
-import { SimulationMode } from '../SimulationTypeCard';
-import { Agent } from '../ModelCard';
+import { SimulationMode } from '../components/SimulationTypeCard';
+import { Agent } from '../components/ModelCard';
 
 interface SimulationAgentProps {
   enterWildStep: () => void;

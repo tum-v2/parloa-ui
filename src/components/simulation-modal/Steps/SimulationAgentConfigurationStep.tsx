@@ -10,8 +10,8 @@ import {
   setMaxTokens,
   setDomain
 } from '../../../store/features/CreateSimulation/CreateAgentSlice';
-import PromptInput from '../PromptInput';
-import UserGoalSelect from '../UserGoalSelect';
+import PromptInput from '../components/PromptInput';
+import UserGoalSelect from '../components/UserGoalSelect';
 
 interface Props {
   type: 'userAgent' | 'serviceAgent';
