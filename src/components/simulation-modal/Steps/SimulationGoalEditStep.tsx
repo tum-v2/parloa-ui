@@ -18,7 +18,7 @@ const SimulationGoalEditStep = () => {
             {/* First column */}
             <Col span={12}>
               <Form.Item label="Goal Name">
-                <InputField size="large" placeholder="Agent Name" type="text" />
+                <InputField size="large" placeholder="Goal Name" type="text" />
               </Form.Item>
 
               <Form.Item label="Description">
