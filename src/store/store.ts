@@ -3,14 +3,15 @@ import counterReducer from './features/Counter/CounterSlice';
 import simulationReducer from './features/CreateSimulation/CreateSimulationSlice';
 import agentReducer from './features/CreateSimulation/CreateAgentSlice';
 import simulationControlReducer from './features/CreateSimulation/SimulationControlSlice';
-
+import SimulationDataReducer from './features/CreateSimulation/SimulationDataSlice';
 export const makeStore = () => {
   return configureStore({
     reducer: {
       counter: counterReducer,
       simulation: simulationReducer,
       agent: agentReducer,
-      simulationControl: simulationControlReducer
+      simulationControl: simulationControlReducer,
+      simulationData: SimulationDataReducer
     }
   });
 };
