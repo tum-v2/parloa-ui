@@ -1,6 +1,14 @@
-import { PromptPart } from './simulationDefinitions';
+import { AgentState, PromptPart } from './simulationDefinitions';
 
-export const serviceAgentFlight: PromptPart[] = [
+export const llms = ['GPT35', 'GPT35TURBO', 'GPT4', 'LLAMA2', 'FAKE'];
+export const domains = ['FLIGHT', 'INSURANCE'];
+
+export const serviceAgentsWithConfig: AgentState[] = [];
+export const serviceAgents = [];
+export const userAgentswithConfig = [];
+export const userAgents = [];
+
+export const prompts: PromptPart[] = [
   {
     name: 'welcomeMessage',
     content: "Hello, I'm an agent from KronosJet. How can I help you?"
@@ -32,20 +40,4 @@ export const serviceAgentFlight: PromptPart[] = [
   }
 ];
 
-export const userAgentFlight: PromptPart[] = [
-  {
-    name: 'role',
-    content:
-      'You are a human calling a call center trying to change your flight booking.\n'
-  },
-  {
-    name: 'persona',
-    content:
-      '- You provide all the necessary information at once, very concisely, in the shortest form possible.\n- Never repeat the same information twice unless explicitly asked.'
-  },
-  {
-    name: 'conversationStrategy',
-    content:
-      '- Your primary objective is to change your existing booking.\n- Your booking number is PARL0A.\n- Your name is Claudio Diniz.\n- Your flight date for your booking is November, 12th, 2023. at 11 am.\n- Your flight is from New York to Boston.\n- Your booking is for 3 people.\n- You want to change it to November 17, 18, or 19, ideally 2 pm but any time is fine.\n- Generate your responses in a realistic way to a phone conversation.\n- Include common voice-to-text transcription errors in the text.\n- When you successfully changed your booking return { "action": "message_to_user", "action_input": "/hangup"}\n'
-  }
-];
+export const goals = [];
