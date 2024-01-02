@@ -52,6 +52,8 @@ export interface SimulationState {
   description?: string;
   numConversations: number;
   serviceAgentConfig: AgentState;
+  serviceAgent?: string;
+  userAgent?: string;
   userAgentConfig: AgentState;
 }
 
