@@ -1,13 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../../store';
 import { AgentState, PromptPart, Goal } from './simulationDefinitions';
+import { serviceAgentFlight } from './prompts';
 
 // Define a type for the slice state
 interface SimulationDataState {
   serviceAgents: AgentState[];
   userAgents: AgentState[];
+  llms: string[];
   prompts: PromptPart[];
-  domains: [];
+  domains: string[];
   goals: Goal[];
 }
 
@@ -15,8 +17,9 @@ interface SimulationDataState {
 const initialState: SimulationDataState = {
   serviceAgents: [],
   userAgents: [],
-  prompts: [],
-  domains: [],
+  llms: ['GPT35', 'GPT35TURBO', 'GPT4', 'LLAMA2', 'FAKE'],
+  prompts: serviceAgentFlight,
+  domains: ['FLIGHT', 'INSURANCE'],
   goals: []
 };
 
@@ -30,6 +33,9 @@ export const simulationDataSlice = createSlice({
     },
     setUserAgents: (state, action: PayloadAction<AgentState[]>) => {
       state.userAgents = action.payload;
+    },
+    setLLMs: (state, action: PayloadAction<string[]>) => {
+      state.llms = action.payload;
     },
     setPrompts: (state, action: PayloadAction<PromptPart[]>) => {
       state.prompts = action.payload;
@@ -48,6 +54,9 @@ export const simulationDataSlice = createSlice({
     resetUserAgents: state => {
       state.userAgents = [];
     },
+    resetLLMs: state => {
+      state.llms = [];
+    },
     resetPrompts: state => {
       state.prompts = [];
     },
@@ -64,11 +73,13 @@ export const simulationDataSlice = createSlice({
 export const {
   setServiceAgents,
   setUserAgents,
+  setLLMs,
   setPrompts,
   setDomains,
   setGoals,
   resetServiceAgents,
   resetUserAgents,
+  resetLLMs,
   resetPrompts,
   resetDomains,
   resetGoals

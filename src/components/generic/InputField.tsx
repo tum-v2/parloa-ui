@@ -37,7 +37,7 @@ export const InputField = (props: InputFieldProps) => {
     return (
       <TextArea
         size={props.size}
-        autoSize={{ minRows: props.minRows, maxRows: 10 || props.maxRows }}
+        autoSize={{ minRows: props.minRows, maxRows: props.maxRows }}
         placeholder={props.placeholder}
         id={props.id}
         value={props.value}

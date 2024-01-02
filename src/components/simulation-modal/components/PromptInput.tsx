@@ -3,22 +3,13 @@ import { Form, Button, Space, Tag } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { InputField } from '@/components/generic/InputField';
 import theme from '@/theme/theme';
-
-interface TagData {
-  name: string;
-  content: string;
-}
-
-// Dummy tags to load
-const initialTags: TagData[] = [
-  { name: 'Welcome', content: 'Welcome to our service.' },
-  { name: 'Help', content: 'How can I assist you today?' },
-  { name: 'Goodbye', content: 'Thank you for visiting us.' }
-];
+import { PromptPart } from '@/store/features/CreateSimulation/simulationDefinitions';
+import { useAppSelector } from '@/store/hooks';
 
 const pillStyle: React.CSSProperties = {
   borderRadius: 50,
   width: 'max-content',
+  maxWidth: '150px',
   overflow: 'hidden',
   whiteSpace: 'nowrap',
   textOverflow: 'ellipsis',
@@ -29,7 +20,8 @@ const pillStyle: React.CSSProperties = {
 };
 
 const PromptInput = () => {
-  const [tags, setTags] = useState<TagData[]>([]);
+  const { prompts } = useAppSelector(state => state.simulationData);
+  const [tags, setTags] = useState<PromptPart[]>([]);
   const [inputNameValue, setInputNameValue] = useState('');
   const [inputContentValue, setInputContentValue] = useState('');
   const [editTagIndex, setEditTagIndex] = useState<number | null>(null);
@@ -63,76 +55,79 @@ const PromptInput = () => {
   };
 
   const handleLoad = () => {
-    setTags(initialTags);
+    setTags(prompts);
   };
 
   return (
-    <Form layout="vertical">
-      <Space size="middle">
-        <span>Prompt</span>{' '}
-        {/* Replace 'span' with a 'label' if needed for form semantics */}
-        <Button onClick={handleLoad}>Load</Button>
-      </Space>
-
-      {/* Tags are now placed inside a div, which will make them appear below the Load button */}
-      <div className="m-1">
-        <Space>
-          {tags.map((tag, index) => (
-            <>
-              <Tag
-                style={pillStyle}
-                color={theme.color.primary}
-                key={tag.name}
-                onClick={() => handleTagClick(index)}
-                closable
-                onClose={e => {
-                  e.preventDefault(); // Prevent the tag click handler when closing the tag
-                  setTags(tags.filter((_, i) => i !== index));
-                  if (editTagIndex === index) {
-                    setEditTagIndex(null);
-                    setInputNameValue('');
-                    setInputContentValue('');
-                  }
-                }}
-              >
-                {tag.name}
-              </Tag>
-            </>
-          ))}
+    <>
+      <Form layout="vertical">
+        <Space size="middle">
+          <span>Prompt</span>{' '}
+          {/* Replace 'span' with a 'label' if needed for form semantics */}
+          <Button onClick={handleLoad}>Load</Button>
         </Space>
-      </div>
 
-      <Form.Item>
-        <InputField
-          size="large"
-          type="text"
-          placeholder="Name"
-          value={inputNameValue}
-          onChange={e => setInputNameValue(e.target.value)}
-        />
-      </Form.Item>
-      <Form.Item>
-        <InputField
-          size="large"
-          minRows={4}
-          type="textarea"
-          placeholder="Content"
-          value={inputContentValue}
-          onChange={e => setInputContentValue(e.target.value)}
-        />
-      </Form.Item>
-      <Form.Item>
-        <Space>
-          {editTagIndex !== null ? (
-            <Button onClick={handleEdit}>Edit</Button>
-          ) : (
-            <Button icon={<PlusOutlined />} onClick={handleAdd}>
-              Add
-            </Button>
-          )}
-        </Space>
-      </Form.Item>
-    </Form>
+        {/* Tags are now placed inside a div, which will make them appear below the Load button */}
+        <div className="m-4 flex flex-wrap gap-2 overflow-y-auto">
+          <Space>
+            {tags.map((tag, index) => (
+              <>
+                <Tag
+                  style={pillStyle}
+                  color={theme.color.primary}
+                  key={tag.name}
+                  onClick={() => handleTagClick(index)}
+                  closable
+                  onClose={e => {
+                    e.preventDefault(); // Prevent the tag click handler when closing the tag
+                    setTags(tags.filter((_, i) => i !== index));
+                    if (editTagIndex === index) {
+                      setEditTagIndex(null);
+                      setInputNameValue('');
+                      setInputContentValue('');
+                    }
+                  }}
+                >
+                  {tag.name}
+                </Tag>
+              </>
+            ))}
+          </Space>
+        </div>
+
+        <Form.Item>
+          <InputField
+            size="large"
+            type="text"
+            placeholder="Name"
+            value={inputNameValue}
+            onChange={e => setInputNameValue(e.target.value)}
+          />
+        </Form.Item>
+        <Form.Item>
+          <InputField
+            size="large"
+            minRows={6}
+            maxRows={6}
+            type="textarea"
+            placeholder="Content"
+            value={inputContentValue}
+            onChange={e => setInputContentValue(e.target.value)}
+          />
+        </Form.Item>
+        <Form.Item>
+          <Space>
+            {editTagIndex !== null ? (
+              <Button onClick={handleEdit}>Edit</Button>
+            ) : (
+              <Button icon={<PlusOutlined />} onClick={handleAdd}>
+                Add
+              </Button>
+            )}
+          </Space>
+        </Form.Item>
+      </Form>
+    </>
   );
 };
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Form, Row, Col, Select, Slider, InputNumber } from 'antd';
 import { InputField } from '@/components/generic/InputField';
-import useLLMs from '@/hooks/useLLMs';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {
   setName,
@@ -18,14 +17,14 @@ interface Props {
 }
 
 const SimulationAgentConfigurationStep = ({ type }: Props) => {
-  const { data } = useLLMs();
-  const LLMs = data?.map(llm => ({ value: llm, label: llm }));
-  const defaultLLM = 'FAKE';
   const dispatch = useAppDispatch();
   const { name, llm, temperature, maxTokens, domain } = useAppSelector(
     state => state.agent
   );
-
+  const { llms, domains } = useAppSelector(state => state.simulationData);
+  const LLMs = llms?.map(llm => ({ value: llm, label: llm }));
+  const DOMAINS = domains?.map(domain => ({ value: domain, label: domain }));
+  const defaultLLM = 'FAKE';
   const [form] = Form.useForm();
 
   return (
@@ -63,6 +62,7 @@ const SimulationAgentConfigurationStep = ({ type }: Props) => {
                   size="large"
                   onChange={value => dispatch(setDomain(value))}
                   value={domain}
+                  options={DOMAINS}
                 ></Select>
               </Form.Item>
 
