@@ -4,11 +4,18 @@ import { InputField } from '@/components/generic/InputField';
 
 const SimulationGoalEditStep = () => {
   const [form] = Form.useForm();
-  const [activeButton, setActiveButton] = useState<string | null>(null);
+  const [activeButtons, setActiveButtons] = useState<string[]>([]);
 
   const handleButtonClick = (buttonName: string) => {
-    setActiveButton(buttonName);
+    if (activeButtons.includes(buttonName)) {
+      setActiveButtons(activeButtons.filter(btn => btn !== buttonName));
+    } else {
+      setActiveButtons([...activeButtons, buttonName]);
+    }
   };
+
+  const isButtonActive = (buttonName: string) =>
+    activeButtons.includes(buttonName);
 
   return (
     <div className="flex justify-center items-center h-screen w-full">
@@ -36,7 +43,7 @@ const SimulationGoalEditStep = () => {
               <Form.Item label="Scenarios" className="flex flex-col gap-2">
                 <Button
                   size="large"
-                  type={activeButton === 'SlotFilling' ? 'primary' : 'default'}
+                  type={isButtonActive('SlotFilling') ? 'primary' : 'default'}
                   onClick={() => handleButtonClick('SlotFilling')}
                   className="w-full m-4"
                 >
@@ -45,7 +52,7 @@ const SimulationGoalEditStep = () => {
                 <Button
                   size="large"
                   type={
-                    activeButton === 'CallForwarding' ? 'primary' : 'default'
+                    isButtonActive('CallForwarding') ? 'primary' : 'default'
                   }
                   onClick={() => handleButtonClick('CallForwarding')}
                   className="w-full m-4"
@@ -54,7 +61,7 @@ const SimulationGoalEditStep = () => {
                 </Button>
                 <Button
                   size="large"
-                  type={activeButton === 'Sequence' ? 'primary' : 'default'}
+                  type={isButtonActive('Sequence') ? 'primary' : 'default'}
                   onClick={() => handleButtonClick('Sequence')}
                   className="w-full m-4"
                 >
