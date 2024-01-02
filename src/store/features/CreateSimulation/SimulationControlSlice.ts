@@ -4,7 +4,8 @@ import { SimulationControlState } from './simulationDefinitions';
 
 const initialState: SimulationControlState = {
   currentStep: 0,
-  isWildStep: false
+  isWildStep: false,
+  agentFlag: 'userAgent'
 };
 
 export const simulationControlSlice = createSlice({
@@ -17,13 +18,23 @@ export const simulationControlSlice = createSlice({
     setIsWildStep: (state, action: PayloadAction<boolean>) => {
       state.isWildStep = action.payload;
     },
+    setAgentFlag: (
+      state,
+      action: PayloadAction<'serviceAgent' | 'userAgent'>
+    ) => {
+      state.agentFlag = action.payload;
+    },
     resetControlState: () => initialState
   }
 });
 
 // Export actions
-export const { setCurrentStep, setIsWildStep, resetControlState } =
-  simulationControlSlice.actions;
+export const {
+  setCurrentStep,
+  setIsWildStep,
+  setAgentFlag,
+  resetControlState
+} = simulationControlSlice.actions;
 
 // Selector to access the state
 export const selectSimulationControl = (state: RootState) =>

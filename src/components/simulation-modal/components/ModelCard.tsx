@@ -3,21 +3,20 @@ import { Card, Select, Button, Typography, Flex } from 'antd';
 import { EditOutlined, PlusOutlined } from '@ant-design/icons';
 import theme from '@/theme/theme';
 import { useAppDispatch } from '@/store/hooks';
-import { setSimulationFlag } from '@/store/features/CreateSimulation/CreateSimulationSlice';
-import { setCurrentStep } from '@/store/features/CreateSimulation/SimulationControlSlice';
+import {
+  setCurrentStep,
+  setAgentFlag
+} from '@/store/features/CreateSimulation/SimulationControlSlice';
+import { Dropdown } from '@/store/features/CreateSimulation/simulationDefinitions';
 
 const { Title, Text } = Typography;
 
-export interface Agent {
-  value: string;
-  label: string;
-}
 interface ModelCardProps {
-  agents: Agent[];
+  agents: Dropdown[];
   onAgentChange: (value: string) => void;
   onButtonClick: () => void;
   icon: React.ReactNode;
-  title: string;
+  type: 'serviceAgent' | 'userAgent'; // Replaced title with type
 }
 
 const cardStyle: React.CSSProperties = {
@@ -53,34 +52,31 @@ const ModelCard = ({
   onAgentChange,
   onButtonClick,
   icon,
-  title
+  type // Using type prop
 }: ModelCardProps) => {
   const dispatch = useAppDispatch();
 
-  const handleButtonClick = () => {
-    onButtonClick();
-    if (title == 'Agent LLM') {
-      dispatch(setSimulationFlag('serviceAgent'));
-    } else {
-      dispatch(setSimulationFlag('userAgent'));
+  const getTitle = () => {
+    switch (type) {
+      case 'serviceAgent':
+        return 'Agent LLM'; // Title for serviceAgent
+      case 'userAgent':
+        return 'User LLM'; // Title for userAgent
+      default:
+        return 'Unknown'; // Default title
     }
-    dispatch(setCurrentStep(3));
   };
 
-  const onAddClick = () => {
+  const handleButtonClick = () => {
     onButtonClick();
-    if (title == 'Agent LLM') {
-      dispatch(setSimulationFlag('serviceAgent'));
-    } else {
-      dispatch(setSimulationFlag('userAgent'));
-    }
+    dispatch(setAgentFlag(type));
     dispatch(setCurrentStep(3));
   };
 
   return (
     <Card style={cardStyle} bodyStyle={{ height: '100%' }}>
       <Flex justify="center" align="center" className="h-full" vertical>
-        <Title level={4}>{title}</Title>
+        <Title level={4}>{getTitle()}</Title>
         <div style={iconStyle}>{icon}</div>
 
         {agents.length > 0 && (
@@ -105,10 +101,7 @@ const ModelCard = ({
           </>
         )}
 
-        <Button
-          icon={<PlusOutlined />}
-          onClick={onAddClick} // Using the new click handler
-        >
+        <Button icon={<PlusOutlined />} onClick={handleButtonClick}>
           Create New Agent
         </Button>
         {agents.length > 0 && (

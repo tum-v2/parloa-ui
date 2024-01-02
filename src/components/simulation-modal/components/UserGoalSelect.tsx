@@ -3,13 +3,12 @@ import { Form, Row, Col, Select, Button } from 'antd';
 import { EditOutlined, PlusOutlined } from '@ant-design/icons';
 import { useAppDispatch } from '@/store/hooks';
 import { setCurrentStep } from '@/store/features/CreateSimulation/SimulationControlSlice';
-
-type goals = { value: string; label: string }[];
+import { Dropdown } from '@/store/features/CreateSimulation/simulationDefinitions';
 
 const UserGoalSelect = () => {
   const [userGoal, setUserGoal] = useState<string>(); // or the appropriate type
   const dispatch = useAppDispatch();
-  const goals: goals = []; // Populate this array as needed
+  const goals: Dropdown[] = []; // Populate this array as needed
 
   // Handlers for Edit and Add buttons
   const onGoalEdit = () => {

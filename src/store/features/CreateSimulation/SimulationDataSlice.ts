@@ -1,12 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../../store';
-import { AgentState, PromptPart, Goal } from './simulationDefinitions';
+import { PromptPart, Goal } from './simulationDefinitions';
 import { serviceAgentFlight } from './prompts';
+import { Dropdown } from './simulationDefinitions';
 
 // Define a type for the slice state
 interface SimulationDataState {
-  serviceAgents: AgentState[];
-  userAgents: AgentState[];
+  serviceAgents: Dropdown[];
+  userAgents: Dropdown[];
   llms: string[];
   prompts: PromptPart[];
   domains: string[];
@@ -28,10 +29,10 @@ export const simulationDataSlice = createSlice({
   initialState,
   reducers: {
     // Setters
-    setServiceAgents: (state, action: PayloadAction<AgentState[]>) => {
+    setServiceAgents: (state, action: PayloadAction<Dropdown[]>) => {
       state.serviceAgents = action.payload;
     },
-    setUserAgents: (state, action: PayloadAction<AgentState[]>) => {
+    setUserAgents: (state, action: PayloadAction<Dropdown[]>) => {
       state.userAgents = action.payload;
     },
     setLLMs: (state, action: PayloadAction<string[]>) => {

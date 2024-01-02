@@ -11,14 +11,14 @@ import {
 } from '@/store/features/CreateSimulation/CreateSimulationSlice';
 import { Form, InputNumber, Switch, Space, Flex } from 'antd';
 import { SimulationMode } from '../components/SimulationTypeCard';
-import { Agent } from '../components/ModelCard';
+import { Dropdown } from '@/store/features/CreateSimulation/simulationDefinitions';
 
 interface SimulationAgentProps {
   enterWildStep: () => void;
 }
 
 const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
-  const agents: Agent[] = [];
+  const agents: Dropdown[] = [];
 
   const simulation = useAppSelector(state => state.simulation);
   const dispatch = useAppDispatch();
@@ -133,7 +133,7 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
                 onAgentChange={handleServiceAgentChange}
                 onButtonClick={enterWildStep}
                 icon={<FaHeadphones size={100} />}
-                title="Agent LLM"
+                type="serviceAgent"
               />
             </div>
             {isABTestingOn && (
@@ -143,7 +143,7 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
                   onAgentChange={handleServiceAgentChange}
                   onButtonClick={enterWildStep}
                   icon={<FaUser size={100} />}
-                  title="A/B Testing Agent LLM"
+                  type="serviceAgent"
                 />
               </div>
             )}
@@ -153,7 +153,7 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
                 onAgentChange={handleUserAgentChange}
                 onButtonClick={enterWildStep}
                 icon={<FaUser size={100} />}
-                title="User LLM"
+                type="userAgent"
               />
             </div>
           </Flex>
@@ -174,7 +174,7 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
                 onAgentChange={handleServiceAgentChange}
                 onButtonClick={enterWildStep}
                 icon={<FaHeadphones size={100} />}
-                title="Agent LLM"
+                type="serviceAgent"
               />
             </div>
           </Flex>

@@ -27,8 +27,7 @@ const initialState: SimulationState = {
   description: '',
   numConversations: 1,
   serviceAgentConfig: AgentInitialState,
-  userAgentConfig: AgentInitialState,
-  Flag: ''
+  userAgentConfig: AgentInitialState
 };
 
 export const simulationSlice = createSlice({
@@ -53,12 +52,7 @@ export const simulationSlice = createSlice({
     setUserAgent: (state, action: PayloadAction<AgentState>) => {
       state.userAgentConfig = action.payload;
     },
-    setSimulationFlag: (
-      state,
-      action: PayloadAction<'serviceAgent' | 'userAgent' | ''>
-    ) => {
-      state.Flag = action.payload;
-    },
+
     resetState: () => initialState
   }
 });
@@ -71,7 +65,6 @@ export const {
   setNumConversations,
   setServiceAgent,
   setUserAgent,
-  setSimulationFlag,
   resetState
 } = simulationSlice.actions;
 

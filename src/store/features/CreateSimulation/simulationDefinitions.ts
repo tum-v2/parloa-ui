@@ -1,6 +1,7 @@
 export interface SimulationControlState {
   currentStep: number;
   isWildStep: boolean;
+  agentFlag: 'serviceAgent' | 'userAgent';
 }
 
 export type AgentType = 'userAgent' | 'serviceAgent';
@@ -52,5 +53,9 @@ export interface SimulationState {
   numConversations: number;
   serviceAgentConfig: AgentState;
   userAgentConfig: AgentState;
-  Flag?: 'serviceAgent' | 'userAgent' | '';
+}
+
+export interface Dropdown {
+  value: string;
+  label: string;
 }

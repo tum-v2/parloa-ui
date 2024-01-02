@@ -12,7 +12,7 @@ interface StepContentProps {
 }
 
 const StepContent = ({ stepNumber, enterWildStep }: StepContentProps) => {
-  const agent = useAppSelector(state => state.agent);
+  const { agentFlag } = useAppSelector(state => state.simulationControl);
   const renderContentForStep = () => {
     switch (stepNumber) {
       case 0:
@@ -24,7 +24,7 @@ const StepContent = ({ stepNumber, enterWildStep }: StepContentProps) => {
       case 2:
         return <SimulationAgent enterWildStep={enterWildStep} />;
       case 3:
-        return <SimulationAgentConfigurationStep type={agent.type} />;
+        return <SimulationAgentConfigurationStep type={agentFlag} />;
       case 4:
         return <SimulationGoalEditStep />;
 
