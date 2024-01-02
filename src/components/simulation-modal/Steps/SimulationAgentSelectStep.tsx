@@ -52,7 +52,7 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
       dispatch(
         setUserAgent({
           ...userAgentConfig,
-          llm: value
+          name: value
         })
       );
     },
@@ -64,7 +64,7 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
       dispatch(
         setServiceAgent({
           ...serviceAgentConfig,
-          llm: value
+          name: value
         })
       );
     },
