@@ -9,10 +9,10 @@ import { useAppSelector } from '@/store/hooks';
 const pillStyle: React.CSSProperties = {
   borderRadius: 50,
   width: 'max-content',
-  maxWidth: '150px',
+  maxWidth: '200px',
   overflow: 'hidden',
-  whiteSpace: 'nowrap',
   textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
   paddingTop: theme.padding.xs,
   paddingLeft: theme.padding.m,
   paddingRight: theme.padding.m,
@@ -68,31 +68,29 @@ const PromptInput = () => {
         </Space>
 
         {/* Tags are now placed inside a div, which will make them appear below the Load button */}
-        <div className="m-4 flex flex-wrap gap-2 overflow-y-auto">
-          <Space>
-            {tags.map((tag, index) => (
-              <>
-                <Tag
-                  style={pillStyle}
-                  color={theme.color.primary}
-                  key={tag.name}
-                  onClick={() => handleTagClick(index)}
-                  closable
-                  onClose={e => {
-                    e.preventDefault(); // Prevent the tag click handler when closing the tag
-                    setTags(tags.filter((_, i) => i !== index));
-                    if (editTagIndex === index) {
-                      setEditTagIndex(null);
-                      setInputNameValue('');
-                      setInputContentValue('');
-                    }
-                  }}
-                >
-                  {tag.name}
-                </Tag>
-              </>
-            ))}
-          </Space>
+        <div className="m-4">
+          {tags.map((tag, index) => (
+            <>
+              <Tag
+                style={pillStyle}
+                color={theme.color.primary}
+                key={tag.name}
+                onClick={() => handleTagClick(index)}
+                closable
+                onClose={e => {
+                  e.preventDefault(); // Prevent the tag click handler when closing the tag
+                  setTags(tags.filter((_, i) => i !== index));
+                  if (editTagIndex === index) {
+                    setEditTagIndex(null);
+                    setInputNameValue('');
+                    setInputContentValue('');
+                  }
+                }}
+              >
+                {tag.name}
+              </Tag>
+            </>
+          ))}
         </div>
 
         <Form.Item>
