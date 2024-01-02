@@ -16,8 +16,16 @@ interface SimulationDataState {
 
 // Define the initial state using that type
 const initialState: SimulationDataState = {
-  serviceAgents: [],
-  userAgents: [],
+  serviceAgents: [
+    { value: 'Agent 1', label: 'Agent 1' },
+    { value: 'Agent 2', label: 'Agent 2' },
+    { value: 'Agent 3', label: 'Agent 3' }
+  ],
+  userAgents: [
+    { value: 'User 1', label: 'User 1' },
+    { value: 'User 2', label: 'User 2' },
+    { value: 'User 3', label: 'User 3' }
+  ],
   llms: ['GPT35', 'GPT35TURBO', 'GPT4', 'LLAMA2', 'FAKE'],
   prompts: serviceAgentFlight,
   domains: ['FLIGHT', 'INSURANCE'],

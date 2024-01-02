@@ -4,7 +4,7 @@ export interface SimulationControlState {
   agentFlag: 'serviceAgent' | 'userAgent';
 }
 
-export type AgentType = 'userAgent' | 'serviceAgent';
+export type AgentType = 'userAgent' | 'serviceAgent' | '';
 
 export interface AgentState {
   name: string;

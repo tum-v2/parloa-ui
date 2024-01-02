@@ -11,14 +11,15 @@ import {
 } from '@/store/features/CreateSimulation/CreateSimulationSlice';
 import { Form, InputNumber, Switch, Space, Flex } from 'antd';
 import { SimulationMode } from '../components/SimulationTypeCard';
-import { Dropdown } from '@/store/features/CreateSimulation/simulationDefinitions';
 
 interface SimulationAgentProps {
   enterWildStep: () => void;
 }
 
 const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
-  const agents: Dropdown[] = [];
+  const { serviceAgents, userAgents } = useAppSelector(
+    state => state.simulationData
+  );
 
   const simulation = useAppSelector(state => state.simulation);
   const dispatch = useAppDispatch();
@@ -129,7 +130,7 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
             </div>
             <div className="h-full aspect-[3/4] px-6 max-w-sm">
               <ModelCard
-                agents={agents}
+                agents={serviceAgents}
                 onAgentChange={handleServiceAgentChange}
                 onButtonClick={enterWildStep}
                 icon={<FaHeadphones size={100} />}
@@ -139,7 +140,7 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
             {isABTestingOn && (
               <div className="h-full aspect-[3/4] px-6 max-w-sm">
                 <ModelCard
-                  agents={agents}
+                  agents={serviceAgents}
                   onAgentChange={handleServiceAgentChange}
                   onButtonClick={enterWildStep}
                   icon={<FaUser size={100} />}
@@ -149,7 +150,7 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
             )}
             <div className="h-full aspect-[3/4] px-6 max-w-sm">
               <ModelCard
-                agents={agents}
+                agents={userAgents}
                 onAgentChange={handleUserAgentChange}
                 onButtonClick={enterWildStep}
                 icon={<FaUser size={100} />}
@@ -170,7 +171,7 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
             </div>
             <div className="h-full aspect-[3/4] px-6 max-w-sm">
               <ModelCard
-                agents={agents}
+                agents={serviceAgents}
                 onAgentChange={handleServiceAgentChange}
                 onButtonClick={enterWildStep}
                 icon={<FaHeadphones size={100} />}

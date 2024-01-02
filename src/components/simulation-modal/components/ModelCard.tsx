@@ -2,14 +2,15 @@ import React from 'react';
 import { Card, Select, Button, Typography, Flex } from 'antd';
 import { EditOutlined, PlusOutlined } from '@ant-design/icons';
 import theme from '@/theme/theme';
-import { useAppDispatch } from '@/store/hooks';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {
   setCurrentStep,
   setAgentFlag
 } from '@/store/features/CreateSimulation/SimulationControlSlice';
 import { Dropdown } from '@/store/features/CreateSimulation/simulationDefinitions';
+import Pill from '@/components/generic/Pill';
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 
 interface ModelCardProps {
   agents: Dropdown[];
@@ -39,10 +40,6 @@ const selectStyle: React.CSSProperties = {
   marginRight: theme.margin.m
 };
 
-const textStyle: React.CSSProperties = {
-  marginTop: theme.margin.s // Adding top margin for spacing
-};
-
 const buttonStyle: React.CSSProperties = {
   marginRight: theme.margin.s // Adding right margin for spacing between buttons
 };
@@ -54,14 +51,25 @@ const ModelCard = ({
   icon,
   type // Using type prop
 }: ModelCardProps) => {
+  const simulation = useAppSelector(state => state.simulation);
+
+  const domain =
+    type === 'serviceAgent'
+      ? simulation.serviceAgentConfig.domain
+      : simulation.userAgentConfig.domain;
+  const llm =
+    type === 'serviceAgent'
+      ? simulation.serviceAgentConfig.llm
+      : simulation.userAgentConfig.llm;
+
   const dispatch = useAppDispatch();
 
   const getTitle = () => {
     switch (type) {
       case 'serviceAgent':
-        return 'Agent LLM'; // Title for serviceAgent
+        return 'Service Agent'; // Title for serviceAgent
       case 'userAgent':
-        return 'User LLM'; // Title for userAgent
+        return 'User Agent'; // Title for userAgent
       default:
         return 'Unknown'; // Default title
     }
@@ -105,10 +113,10 @@ const ModelCard = ({
           Create New Agent
         </Button>
         {agents.length > 0 && (
-          <>
-            <Text style={textStyle}>Domain: Flight</Text>
-            <Text style={textStyle}>LLM Model: GPT 4</Text>
-          </>
+          <div className="flex m-4">
+            <Pill color={theme.color.blue}>{domain}</Pill>
+            <Pill color={theme.color.pink}>{llm}</Pill>
+          </div>
         )}
       </Flex>
     </Card>

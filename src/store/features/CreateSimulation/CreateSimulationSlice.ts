@@ -8,13 +8,12 @@ import {
 
 const AgentInitialState: AgentState = {
   name: '',
-  type: 'userAgent',
-  llm: 'FAKE',
+  type: '',
+  llm: '',
   temperature: 0.7,
   maxTokens: 512,
-  domain: 'FLIGHT',
+  domain: '',
   temporary: false,
-  userGoal: undefined,
   prompt: [
     { name: 'DefaultPrompt', content: 'Default Content', optimizable: false }
   ]
