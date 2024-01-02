@@ -7,6 +7,7 @@ import {
   setCurrentStep,
   setAgentFlag
 } from '@/store/features/CreateSimulation/SimulationControlSlice';
+import { resetAgentState } from '@/store/features/CreateSimulation/CreateAgentSlice';
 import { Dropdown } from '@/store/features/CreateSimulation/simulationDefinitions';
 import Pill from '@/components/generic/Pill';
 
@@ -81,6 +82,13 @@ const ModelCard = ({
     dispatch(setCurrentStep(3));
   };
 
+  const handleAddButtonClick = () => {
+    dispatch(resetAgentState());
+    onButtonClick();
+    dispatch(setAgentFlag(type));
+    dispatch(setCurrentStep(3));
+  };
+
   return (
     <Card style={cardStyle} bodyStyle={{ height: '100%' }}>
       <Flex justify="center" align="center" className="h-full" vertical>
@@ -109,7 +117,7 @@ const ModelCard = ({
           </>
         )}
 
-        <Button icon={<PlusOutlined />} onClick={handleButtonClick}>
+        <Button icon={<PlusOutlined />} onClick={handleAddButtonClick}>
           Create New Agent
         </Button>
         {agents.length > 0 && (

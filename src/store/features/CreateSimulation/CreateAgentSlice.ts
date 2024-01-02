@@ -52,7 +52,7 @@ export const agentSlice = createSlice({
     setPrompt: (state, action: PayloadAction<PromptPart[]>) => {
       state.prompt = action.payload;
     },
-    resetState: () => AgentInitialState
+    resetAgentState: () => AgentInitialState
   }
 });
 
@@ -67,7 +67,7 @@ export const {
   setTemporary,
   setUserGoal,
   setPrompt,
-  resetState
+  resetAgentState
 } = agentSlice.actions;
 
 // Selector to access the state
