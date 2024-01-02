@@ -4,7 +4,8 @@ import { PlusOutlined } from '@ant-design/icons';
 import { InputField } from '@/components/generic/InputField';
 import theme from '@/theme/theme';
 import { PromptPart } from '@/store/features/CreateSimulation/simulationDefinitions';
-import { useAppSelector } from '@/store/hooks';
+import { useAppSelector, useAppDispatch } from '@/store/hooks';
+import { setPrompt } from '@/store/features/CreateSimulation/CreateAgentSlice';
 
 const pillStyle: React.CSSProperties = {
   borderRadius: 50,
@@ -21,6 +22,7 @@ const pillStyle: React.CSSProperties = {
 
 const PromptInput = () => {
   const { prompts } = useAppSelector(state => state.simulationData);
+  const dispatch = useAppDispatch();
   const [tags, setTags] = useState<PromptPart[]>([]);
   const [inputNameValue, setInputNameValue] = useState('');
   const [inputContentValue, setInputContentValue] = useState('');
@@ -41,6 +43,7 @@ const PromptInput = () => {
       };
       setTags(newTags);
       setEditTagIndex(null);
+      dispatch(setPrompt(newTags));
       setInputNameValue('');
       setInputContentValue('');
     }
@@ -49,6 +52,12 @@ const PromptInput = () => {
   const handleAdd = () => {
     if (inputNameValue && !tags.find(tag => tag.name === inputNameValue)) {
       setTags([...tags, { name: inputNameValue, content: inputContentValue }]);
+      dispatch(
+        setPrompt([
+          ...tags,
+          { name: inputNameValue, content: inputContentValue }
+        ])
+      );
       setInputNameValue('');
       setInputContentValue('');
     }
@@ -56,6 +65,7 @@ const PromptInput = () => {
 
   const handleLoad = () => {
     setTags(prompts);
+    dispatch(setPrompt(prompts));
   };
 
   return (
