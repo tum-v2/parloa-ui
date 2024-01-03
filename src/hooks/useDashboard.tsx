@@ -3,7 +3,6 @@ import { Dashboard } from '@/api/schemas/dashboard';
 import { getDashboard } from '@/api/dashboard';
 import { useQuery } from '@tanstack/react-query';
 import { Datapoint } from '@/types/chart';
-import { useRouter } from 'next/navigation';
 
 export interface FormatedDashboard extends Dashboard {
   formatedSimulationSuccessGraph: {
@@ -21,14 +20,15 @@ const useDashboard = (days: number) => {
     queryFn: () => getDashboard(days)
   });
 
-  const router = useRouter();
+  // TODO: Decide to redirect to login page or not
+  // const router = useRouter();
 
-  useEffect(() => {
-    if (error?.message === '401') {
-      // router.push('/login');
-      console.log('Redirecting to login page');
-    }
-  }, [error]);
+  // useEffect(() => {
+  //   if (error?.message === '401') {
+  // router.push('/login');
+  //     console.log('Redirecting to login page');
+  //   }
+  // }, [error]);
 
   useEffect(() => {
     if (data && data.simulationSuccessGraph) {
