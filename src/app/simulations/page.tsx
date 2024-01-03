@@ -9,7 +9,7 @@ import { AuthContext } from '@/providers/AuthProvider';
 import { SearchOutlined } from '@ant-design/icons';
 import { Flex, DatePicker, Space } from 'antd';
 import { useRouter } from 'next/navigation';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 const { RangePicker } = DatePicker;
 
@@ -21,6 +21,8 @@ const Page = () => {
       router.push('/login');
     }
   }, [authState.isLoggedIn, router]);
+  // TODO: Handle Search
+  const [search, setSearch] = useState<string>('');
   return (
     <Content>
       <Header title="Simulations" />
@@ -35,6 +37,8 @@ const Page = () => {
             placeholder="Search"
             type="text"
             prefix={<SearchOutlined />}
+            value={search}
+            onChange={e => setSearch(e.target.value)}
           />
           <RangePicker
             showTime={{ format: 'HH:mm' }}

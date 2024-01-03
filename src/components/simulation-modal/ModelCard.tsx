@@ -1,44 +1,27 @@
 import React from 'react';
-import { Card, Select, Button, Typography } from 'antd';
+import { Card, Select, Button, Typography, Flex } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import theme from '@/theme/theme';
+import { useAppDispatch } from '@/store/hooks';
+import { setSimulationFlag } from '@/store/features/CreateSimulation/CreateSimulationSlice';
 
 const { Option } = Select;
-const { Text } = Typography;
+const { Title } = Typography;
 
 interface ModelCardProps {
   models: string[];
-  scenarios: string[];
-  onModelChange: () => void;
-  onScenarioChange: () => void;
+  inputField: React.ReactElement;
+  onModelChange: (value: string) => void;
   onButtonClick: () => void;
   icon: React.ReactNode;
   title: string;
 }
 
 const cardStyle: React.CSSProperties = {
-  width: 300,
-  height: 400,
   border: '1px solid',
-  padding: theme.padding.l
-};
-
-const wrapperStyle: React.CSSProperties = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
   height: '100%',
-  justifyContent: 'space-between'
-};
-
-const textStyle: React.CSSProperties = { fontSize: theme.fontSize.xl };
-
-const iconStyle: React.CSSProperties = { margin: theme.margin.l };
-
-const selectStyle: React.CSSProperties = {
   width: '100%',
-  marginBottom: theme.margin.m,
-  height: 40
+  minWidth: '200px'
 };
 
 const labelStyle: React.CSSProperties = {
@@ -46,67 +29,62 @@ const labelStyle: React.CSSProperties = {
   marginBottom: theme.margin.s,
   fontSize: theme.fontSize.m
 };
+const iconStyle: React.CSSProperties = { margin: theme.margin.l };
 
-const scenarioWrapperStyle: React.CSSProperties = {
-  display: 'flex',
-  alignItems: 'center',
-  width: '100%'
-};
-
-const scenarioSelectStyle: React.CSSProperties = {
+const selectStyle: React.CSSProperties = {
   flex: 1,
-  marginRight: theme.margin.m,
-  height: 40
+  marginRight: theme.margin.m
 };
 
 const ModelCard = ({
   models,
-  scenarios,
+  inputField,
   onModelChange,
-  onScenarioChange,
   onButtonClick,
   icon,
   title
 }: ModelCardProps) => {
+  const dispatch = useAppDispatch();
+
+  const handleButtonClick = () => {
+    onButtonClick();
+    if (title == 'Agent LLM') {
+      dispatch(setSimulationFlag('ServiceAgent'));
+    } else {
+      dispatch(setSimulationFlag('UserAgent'));
+    }
+  };
+
   return (
-    <Card style={cardStyle}>
-      <div style={wrapperStyle}>
-        <Text style={textStyle}>{title}</Text>
+    <Card style={cardStyle} bodyStyle={{ height: '100%' }}>
+      <Flex justify="center" align="center" className="h-full" vertical>
+        <Title level={4}>{title}</Title>
         <div style={iconStyle}>{icon}</div>
-        <Select
-          defaultValue={models[0]}
-          style={selectStyle}
-          onChange={onModelChange}
-        >
-          {models.map(model => (
-            <Option key={model} value={model}>
-              {model}
-            </Option>
-          ))}
-        </Select>
-        <label htmlFor="scenario" style={labelStyle}>
-          Instruction Template
+        {inputField}
+
+        <label htmlFor="model" style={labelStyle}>
+          Chose a LLM Model
         </label>
-        <div style={scenarioWrapperStyle}>
+        <Flex align="center" className="w-full">
           <Select
-            id="scenario"
-            defaultValue={scenarios[0]}
-            style={scenarioSelectStyle}
-            onChange={onScenarioChange}
+            id="model"
+            defaultValue={models[0]}
+            style={selectStyle}
+            onChange={value => onModelChange(value)}
           >
-            {scenarios.map(scenario => (
-              <Option key={scenario} value={scenario}>
-                {scenario}
+            {models.map(model => (
+              <Option key={model} value={model}>
+                {model}
               </Option>
             ))}
           </Select>
           <Button
             type="primary"
             icon={<EditOutlined />}
-            onClick={onButtonClick}
+            onClick={handleButtonClick}
           />
-        </div>
-      </div>
+        </Flex>
+      </Flex>
     </Card>
   );
 };

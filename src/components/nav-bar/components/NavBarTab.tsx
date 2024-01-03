@@ -64,7 +64,10 @@ const NavBarTab = ({ selectedTab, setSelectedTab }: NavBarTabProps) => {
         options={navBarTabOptions.map((option, index) => {
           return {
             label: (
-              <div style={navBarTabElementStyle}>
+              <div
+                style={navBarTabElementStyle}
+                onClick={() => router.push(option.route)}
+              >
                 <div style={navBarTabElementIconStyle}>{option.icon}</div>
                 <div>{option.name}</div>
               </div>
@@ -74,9 +77,7 @@ const NavBarTab = ({ selectedTab, setSelectedTab }: NavBarTabProps) => {
         })}
         value={selectedTab}
         onChange={value => {
-          const navBarTab = navBarTabOptions[value as number];
           setSelectedTab(value as number);
-          router.push(navBarTab.route);
         }}
       />
     </ConfigProvider>

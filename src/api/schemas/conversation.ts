@@ -1,14 +1,18 @@
 import { z } from 'zod';
 
 export const MessageSchema = z.object({
-  _id: z.number(),
-  message: z.string(),
-  position: z.string()
+  sender: z.enum(['AGENT', 'USER']).optional(),
+  text: z.string(),
+  timestamp: z.string().datetime().optional(),
+  userCanReply: z.boolean()
 });
 
 export const ConversationSchema = z.object({
-  _id: z.number(),
-  messages: MessageSchema.array()
+  _id: z.string(),
+  messages: MessageSchema.array(),
+  startTime: z.string().datetime(),
+  endTime: z.string().datetime(),
+  status: z.string()
 });
 
 export type Conversation = z.infer<typeof ConversationSchema>;

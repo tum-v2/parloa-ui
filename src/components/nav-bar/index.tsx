@@ -1,10 +1,9 @@
 'use client';
 
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 
 import NavBarTab, { navBarTabOptions } from './components/NavBarTab';
-import logo from '@/components/parloa-logo.png';
 import NavBarLogout from './components/NavBarLogout';
 import { usePathname, useRouter } from 'next/navigation';
 import theme from '@/theme/theme';
@@ -48,17 +47,18 @@ const NavBar = () => {
   const { setAuthState } = useContext(AuthContext);
 
   // Get current tab from route
-  const currentTab = `/${pathname.split('/')[1]}`;
-  const hideNavBar = currentTab === '/login' ? false : true;
+  const currentTab = useMemo(() => `/${pathname.split('/')[1]}`, [pathname]);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
+  const [hideNavBar, setHideNavBar] = useState<boolean>(false);
 
-  // Set selected tab
-  const selectedInitialTab = navBarTabOptions.findIndex(
-    option => option.route === currentTab
-  );
-
-  const [selectedTab, setSelectedTab] = useState<number>(
-    selectedInitialTab !== -1 ? selectedInitialTab : 0
-  );
+  useEffect(() => {
+    // Set selected tab
+    const selectedInitialTab = navBarTabOptions.findIndex(
+      option => option.route === currentTab
+    );
+    setSelectedTab(selectedInitialTab);
+    setHideNavBar(currentTab === '/login' ? false : true);
+  }, [currentTab]);
 
   if (hideNavBar) {
     return (
@@ -66,7 +66,7 @@ const NavBar = () => {
         <div style={navBarStyle}>
           <div style={navBarLeftStyle}>
             <Image
-              src={logo}
+              src="/parloa-logo.png"
               alt="logo"
               width={36}
               height={36}

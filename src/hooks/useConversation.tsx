@@ -1,32 +1,20 @@
 import { useQuery } from '@tanstack/react-query';
-import { Conversation, ConversationSchema } from '@/api/schemas/conversation';
+import { Message } from '@/api/schemas/conversation';
+import { getConversation, loadManualConversation } from '@/api/conversation';
 
-const useConversation = (id: number) => {
-  // TODO: remove mock
-  const mockConversation = ConversationSchema.parse({
-    _id: id,
-    messages: [
-      {
-        _id: 1,
-        message: `Hi, I am conversation with id ${id}.`,
-        position: 'right'
-      },
-      {
-        _id: 2,
-        message: 'Hello, how may I help you today?',
-        position: 'left'
-      }
-    ]
-  });
-
-  const getMockConversation = async () => {
-    await new Promise(r => setTimeout(r, 1000));
-    return mockConversation;
-  };
-
-  return useQuery<Conversation, Error>({
-    queryKey: ['conversation', id],
-    queryFn: () => getMockConversation()
+const useConversation = (
+  simulationId: string,
+  chatId: string,
+  shouldPoll = false,
+  interactive = false
+) => {
+  return useQuery<Array<Message>, Error>({
+    queryKey: ['conversation', interactive ? simulationId : chatId],
+    queryFn: () =>
+      interactive
+        ? loadManualConversation(simulationId)
+        : getConversation(chatId),
+    refetchInterval: shouldPoll ? 3000 : false
   });
 };
 

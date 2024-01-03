@@ -1,7 +1,5 @@
 'use client';
-import React, { useContext, useEffect, useState } from 'react';
-import background from './components/background.png';
-import logo from '@/components/parloa-logo.png';
+import React from 'react';
 import Image from 'next/image';
 import theme from '@/theme/theme';
 import { InputField } from '@/components/generic/InputField';
@@ -11,29 +9,21 @@ import { useRouter } from 'next/navigation';
 import useLogin from '@/hooks/useLogin';
 import { LoginAccessCode } from '@/api/auth';
 import { Auth } from '@/api/schemas/auth';
-import { AuthContext } from '@/providers/AuthProvider';
-import { cookies } from 'next/headers';
-import { getIronSession } from 'iron-session';
-import {
-  SessionData,
-  defaultSession,
-  sessionOptions
-} from '@/lib/auth/session';
 
 const Login = () => {
-  const { authState, setAuthState } = useContext(AuthContext);
+  // const { authState, setAuthState } = useContext(AuthContext);
   const router = useRouter();
 
-  useEffect(() => {
-    // if (!authState.isLoggedIn) {
-    //   router.push('/login');
-    // }
-    console.log(session);
-  }, []);
+  // useEffect(() => {
+  //   // if (!authState.isLoggedIn) {
+  //   //   router.push('/login');
+  //   // }
+  //   console.log(session);
+  // }, []);
 
   const loginMutation = useLogin();
   const [form] = Form.useForm<{ accessCode: string }>();
-  const [session, setSession] = useState<SessionData>(defaultSession);
+  // const [session, setSession] = useState<SessionData>(defaultSession);
 
   const onInvalidAccessCode = () => {
     form.setFields([
@@ -50,8 +40,8 @@ const Login = () => {
     loginMutation.mutate(loginAccessCode, {
       onSuccess: (res: Auth) => {
         if (res.succes) {
-          setAuthState({ isLoggedIn: true, token: 'xxx' });
-          setSession({ isLoggedIn: true, token: 'xxx' }); // TODO: Make this work using Middleware.ts
+          // setAuthState({ isLoggedIn: true, token: 'xxx' });
+          // setSession({ isLoggedIn: true, token: 'xxx' }); // TODO: Make this work using Middleware.ts
           router.push('/dashboard');
           // console.log(session);
         } else {
@@ -95,7 +85,7 @@ const Login = () => {
     <div>
       <Image
         style={landingImageBackgroundStyle}
-        src={background}
+        src="/login-background.png"
         alt="background"
         priority={false}
         layout="fill"
@@ -105,7 +95,7 @@ const Login = () => {
       <div style={accessCodeContainerStyle}>
         <Image
           style={logoStyle}
-          src={logo}
+          src="/parloa-logo.png"
           alt="logo"
           width={50}
           height={50}

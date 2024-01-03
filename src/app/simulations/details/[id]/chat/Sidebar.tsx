@@ -3,13 +3,14 @@ import theme from '@/theme/theme';
 import BackButton from '@/components/generic/BackButton';
 import SelectableButton from '@/components/generic/SelectableButton';
 import { Simulation } from '@/api/schemas/simulation';
-import Button from '@/components/generic/Button';
 import useSimulations from '@/hooks/useSimulations';
+import { SimulationCard } from '@/app/dashboard/components/SimulationCard';
+import { useRouter } from 'next/navigation';
 
 interface SidebarProps {
   simulation: Simulation;
-  selectedChat: number;
-  onSelectionChange: (simulationId: number) => void;
+  selectedChat: string;
+  onSelectionChange: (simulationId: string) => void;
 }
 
 enum SidebarContent {
@@ -30,14 +31,25 @@ const Sidebar = ({
     useState<Simulation>(simulation);
 
   const sidebarStyle: React.CSSProperties = {
-    width: '350px',
-    maxWidth: '40%',
     borderRight: `${theme.strokeWidth.xs}px solid ${theme.color.ligthGray}`,
-    padding: theme.padding.m,
-    overflowY: 'auto'
+    overflowY: 'auto',
+    minWidth: '250px',
+    width: '250px',
+    maxWidth: '40%'
   };
 
-  const selectSimulation = (simulation: Simulation) => {
+  const sidebarContentStyle: React.CSSProperties = {
+    padding: theme.padding.m,
+    paddingLeft: theme.padding.l
+  };
+
+  const router = useRouter();
+
+  const selectSimulation = (selectedSimulation: Simulation) => {
+    if (selectedSimulation._id !== simulation._id) {
+      router.push(`/simulations/details/${selectedSimulation._id}/chat`);
+      return;
+    }
     setDisplayedSimulation(simulation);
     setSidebarContent(SidebarContent.Chats);
   };
@@ -53,15 +65,28 @@ const Sidebar = ({
           >
             Simulations
           </BackButton>
-          <SidebarChats
-            title={displayedSimulation.name}
-            chatIds={displayedSimulation.conversations}
-            selectedChat={selectedChat}
-            onSelectionChange={onSelectionChange}
-          />
+          <div style={sidebarContentStyle}>
+            <SidebarChats
+              title={displayedSimulation.name}
+              chatIds={displayedSimulation.conversations}
+              selectedChat={selectedChat}
+              onSelectionChange={onSelectionChange}
+            />
+          </div>
         </>
       ) : (
-        <SidebarSimulations onChangeSelection={selectSimulation} />
+        <>
+          <BackButton
+            onClick={() => {
+              router.push(`/simulations/details/${simulation._id}`);
+            }}
+          >
+            Simulations Details
+          </BackButton>
+          <div style={sidebarContentStyle}>
+            <SidebarSimulations onChangeSelection={selectSimulation} />
+          </div>
+        </>
       )}
     </div>
   );
@@ -89,15 +114,14 @@ const SidebarSimulations = ({ onChangeSelection }: SidebarSimulationsProps) => {
   return (
     <>
       <h1>Simulations</h1>
-      {simulations.map(simulation => (
-        <Button
-          key={simulation._id}
+      {simulations.map((simulation, index) => (
+        <SimulationCard
+          key={index}
+          simulation={simulation}
           onClick={() => {
             onChangeSelection(simulation);
           }}
-        >
-          {simulation.name}
-        </Button>
+        />
       ))}
     </>
   );
@@ -105,9 +129,9 @@ const SidebarSimulations = ({ onChangeSelection }: SidebarSimulationsProps) => {
 
 interface SidebarChatsProps {
   title: string;
-  chatIds: number[];
-  selectedChat: number;
-  onSelectionChange: (chatId: number) => void;
+  chatIds: string[];
+  selectedChat: string;
+  onSelectionChange: (chatId: string) => void;
 }
 
 const SidebarChats = ({
@@ -119,11 +143,8 @@ const SidebarChats = ({
   const containerStyle: React.CSSProperties = {
     display: 'flex',
     flexDirection: 'column',
-    gap: theme.padding.m
-  };
-
-  const selectableButtonStyle: React.CSSProperties = {
-    width: '100%'
+    gap: theme.padding.m,
+    alignItems: 'center'
   };
 
   return (
@@ -131,16 +152,15 @@ const SidebarChats = ({
       <h1>{title}</h1>
       <div style={containerStyle}>
         {chatIds.map((id, index) => (
-          <div key={id} style={selectableButtonStyle}>
-            <SelectableButton
-              selected={selectedChat === id}
-              onClick={() => {
-                onSelectionChange(id);
-              }}
-            >
-              Chat {index + 1}
-            </SelectableButton>
-          </div>
+          <SelectableButton
+            key={id}
+            selected={selectedChat === id}
+            onClick={() => {
+              onSelectionChange(id);
+            }}
+          >
+            Chat {index + 1}
+          </SelectableButton>
         ))}
       </div>
     </>

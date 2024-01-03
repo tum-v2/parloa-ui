@@ -1,19 +1,13 @@
 'use client';
 
-import { AuthContext } from '@/providers/AuthProvider';
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import React, { useContext, useEffect } from 'react';
 
 const Page = () => {
-  const { authState } = useContext(AuthContext);
   const router = useRouter();
   useEffect(() => {
-    if (authState.isLoggedIn) {
-      router.push('/dashboard');
-    } else {
-      router.push('/login');
-    }
-  }, [authState.isLoggedIn, router]);
+    router.push('/dashboard');
+  }, [router]);
   return <></>;
 };
 
