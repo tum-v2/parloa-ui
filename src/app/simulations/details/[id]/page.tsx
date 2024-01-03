@@ -18,11 +18,6 @@ const { Title } = Typography;
 const Page = () => {
   const { authState } = useContext(AuthContext);
   const router = useRouter();
-  useEffect(() => {
-    if (!authState.isLoggedIn) {
-      router.push('/login');
-    }
-  }, [authState.isLoggedIn, router]);
   const { id } = useParams<{ id: string }>();
   const { data, isLoading } = useSimulation(id);
   const { data: evaluationData, isLoading: evaluationLoading } =

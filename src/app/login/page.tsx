@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import useLogin from '@/hooks/useLogin';
 import { LoginAccessCode } from '@/api/auth';
 import { Auth } from '@/api/schemas/auth';
+import secureLocalStorage from 'react-secure-storage';
 
 const Login = () => {
   // const { authState, setAuthState } = useContext(AuthContext);
@@ -43,6 +44,8 @@ const Login = () => {
           // setAuthState({ isLoggedIn: true, token: 'xxx' });
           // setSession({ isLoggedIn: true, token: 'xxx' }); // TODO: Make this work using Middleware.ts
           router.push('/dashboard');
+          console.log(res.token);
+          secureLocalStorage.setItem('token', res.token);
           // console.log(session);
         } else {
           onInvalidAccessCode();

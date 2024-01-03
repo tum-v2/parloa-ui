@@ -16,11 +16,11 @@ const { RangePicker } = DatePicker;
 const Page = () => {
   const { authState } = useContext(AuthContext);
   const router = useRouter();
-  useEffect(() => {
-    if (!authState.isLoggedIn) {
-      router.push('/login');
-    }
-  }, [authState.isLoggedIn, router]);
+  // useEffect(() => {
+  //   if (!authState.isLoggedIn) {
+  //     router.push('/login');
+  //   }
+  // }, [authState.isLoggedIn, router]);
   // TODO: Handle Search
   const [search, setSearch] = useState<string>('');
   return (
