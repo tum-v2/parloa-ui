@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import { Flex, Layout, Skeleton, Typography } from 'antd';
 import theme from '@/theme/theme';
 import { ParentSize } from '@visx/responsive';
@@ -17,8 +17,6 @@ import DropdownTimeRange, {
 } from './components/DropdownTimeRange';
 import { dummyChartData } from './components/DummyData';
 import useDashboard from '@/hooks/useDashboard';
-import { AuthContext } from '@/providers/AuthProvider';
-import { SessionData, defaultSession } from '@/lib/auth/session';
 import {
   IoAnalyticsOutline,
   IoDiceOutline,
@@ -55,16 +53,7 @@ const ChartStyle: React.CSSProperties = {
 };
 
 const Dashboard = () => {
-  // const { authState } = useContext(AuthContext);
   const router = useRouter();
-  // const [session, setSession] = useState<SessionData>(defaultSession);
-
-  useEffect(() => {
-    // if (!authState.isLoggedIn) {
-    //   router.push('/login');
-    // }
-    // console.log(session);
-  }, []);
 
   const [selectedTimeRange, setSelectedTimeRange] =
     React.useState<DropdownTimeRangeKeyType>(

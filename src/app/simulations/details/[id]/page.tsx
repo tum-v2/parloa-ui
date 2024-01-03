@@ -1,14 +1,12 @@
 'use client';
 import useSimulation from '@/hooks/useSimulation';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import DetailsHeader from './DetailsHeader';
 import InsightsCard from './InsightsCard';
 import { Alert, Empty, Flex, Spin, Typography } from 'antd';
 import { SettingOutlined, TableOutlined } from '@ant-design/icons';
 import ConfigurationCard from './ConfigurationCard';
 import Content from '@/components/generic/Content';
-import { useContext, useEffect } from 'react';
-import { AuthContext } from '@/providers/AuthProvider';
 import useSimulationEvaluation from '@/hooks/useSimulationEvaluation';
 import OptimizationInsightsCard from './OptimizationInsightsCard';
 import MetricsGrid from './MetricsGrid';
@@ -16,8 +14,6 @@ import MetricsGrid from './MetricsGrid';
 const { Title } = Typography;
 
 const Page = () => {
-  const { authState } = useContext(AuthContext);
-  const router = useRouter();
   const { id } = useParams<{ id: string }>();
   const { data, isLoading } = useSimulation(id);
   const { data: evaluationData, isLoading: evaluationLoading } =

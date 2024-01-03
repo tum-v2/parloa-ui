@@ -5,22 +5,13 @@ import Content from '@/components/generic/Content';
 import Header from '@/components/generic/Header';
 import { InputField } from '@/components/generic/InputField';
 import SimulationModal from '@/components/simulation-modal/SimulationModal';
-import { AuthContext } from '@/providers/AuthProvider';
 import { SearchOutlined } from '@ant-design/icons';
 import { Flex, DatePicker, Space } from 'antd';
-import { useRouter } from 'next/navigation';
-import { useContext, useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const { RangePicker } = DatePicker;
 
 const Page = () => {
-  const { authState } = useContext(AuthContext);
-  const router = useRouter();
-  // useEffect(() => {
-  //   if (!authState.isLoggedIn) {
-  //     router.push('/login');
-  //   }
-  // }, [authState.isLoggedIn, router]);
   // TODO: Handle Search
   const [search, setSearch] = useState<string>('');
   return (

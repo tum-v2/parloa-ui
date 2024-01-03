@@ -1,13 +1,12 @@
 'use client';
 
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 
 import NavBarTab, { navBarTabOptions } from './components/NavBarTab';
 import NavBarLogout from './components/NavBarLogout';
 import { usePathname, useRouter } from 'next/navigation';
 import theme from '@/theme/theme';
-import { AuthContext } from '@/providers/AuthProvider';
 import secureLocalStorage from 'react-secure-storage';
 
 const navBarStyle: React.CSSProperties = {
@@ -45,7 +44,6 @@ const navBarContainerStyle: React.CSSProperties = {
 const NavBar = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const { setAuthState } = useContext(AuthContext);
 
   // Get current tab from route
   const currentTab = useMemo(() => `/${pathname.split('/')[1]}`, [pathname]);

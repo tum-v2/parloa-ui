@@ -12,19 +12,10 @@ import { Auth } from '@/api/schemas/auth';
 import secureLocalStorage from 'react-secure-storage';
 
 const Login = () => {
-  // const { authState, setAuthState } = useContext(AuthContext);
   const router = useRouter();
-
-  // useEffect(() => {
-  //   // if (!authState.isLoggedIn) {
-  //   //   router.push('/login');
-  //   // }
-  //   console.log(session);
-  // }, []);
 
   const loginMutation = useLogin();
   const [form] = Form.useForm<{ accessCode: string }>();
-  // const [session, setSession] = useState<SessionData>(defaultSession);
 
   const onInvalidAccessCode = () => {
     form.setFields([
@@ -36,17 +27,12 @@ const Login = () => {
   };
 
   const onLogin = () => {
-    // TODO: Implement token when return from backend
     const loginAccessCode: LoginAccessCode = form.getFieldsValue();
     loginMutation.mutate(loginAccessCode, {
       onSuccess: (res: Auth) => {
         if (res.succes) {
-          // setAuthState({ isLoggedIn: true, token: 'xxx' });
-          // setSession({ isLoggedIn: true, token: 'xxx' }); // TODO: Make this work using Middleware.ts
           router.push('/dashboard');
-          console.log(res.token);
           secureLocalStorage.setItem('token', res.token);
-          // console.log(session);
         } else {
           onInvalidAccessCode();
         }
