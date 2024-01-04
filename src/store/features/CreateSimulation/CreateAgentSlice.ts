@@ -1,11 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../../store';
-import {
-  AgentState,
-  AgentType,
-  Goal,
-  PromptPart
-} from './simulationDefinitions';
+import { AgentState, AgentType, PromptPart } from './simulationDefinitions';
 
 const AgentInitialState: AgentState = {
   name: '',
@@ -15,7 +10,7 @@ const AgentInitialState: AgentState = {
   maxTokens: 512,
   domain: 'FLIGHT',
   temporary: false,
-  userGoal: undefined,
+  goal: '',
   prompt: [
     { name: 'DefaultPrompt', content: 'Default Content', optimizable: false }
   ]
@@ -46,8 +41,8 @@ export const agentSlice = createSlice({
     setTemporary: (state, action: PayloadAction<boolean>) => {
       state.temporary = action.payload;
     },
-    setUserGoal: (state, action: PayloadAction<Goal | undefined>) => {
-      state.userGoal = action.payload;
+    setUserGoal: (state, action: PayloadAction<string>) => {
+      state.goal = action.payload;
     },
     setPrompt: (state, action: PayloadAction<PromptPart[]>) => {
       state.prompt = action.payload;

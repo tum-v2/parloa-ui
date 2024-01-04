@@ -1,76 +1,119 @@
-import React, { useState } from 'react';
-import { Form, Button, Row, Col } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Button, Row, Col } from 'antd';
 import { InputField } from '@/components/generic/InputField';
+import { useAppSelector, useAppDispatch } from '@/store/hooks';
+import {
+  setGoalName,
+  setGoalDescription,
+  setGoalScenarios
+} from '@/store/features/CreateSimulation/CreateGoalSlice';
 
 const SimulationGoalEditStep = () => {
-  const [form] = Form.useForm();
-  const [activeButtons, setActiveButtons] = useState<string[]>([]);
+  const dispatch = useAppDispatch();
+  const { name, description, scenarios } = useAppSelector(state => state.goal);
+  const [activeButtons, setActiveButtons] = useState<string[]>(scenarios);
+
+  useEffect(() => {
+    setActiveButtons(scenarios);
+  }, [scenarios]);
 
   const handleButtonClick = (buttonName: string) => {
+    let updatedActiveButtons;
+
     if (activeButtons.includes(buttonName)) {
-      setActiveButtons(activeButtons.filter(btn => btn !== buttonName));
+      updatedActiveButtons = activeButtons.filter(btn => btn !== buttonName);
     } else {
-      setActiveButtons([...activeButtons, buttonName]);
+      updatedActiveButtons = [...activeButtons, buttonName];
     }
+
+    setActiveButtons(updatedActiveButtons);
+    dispatch(setGoalScenarios(updatedActiveButtons));
   };
 
   const isButtonActive = (buttonName: string) =>
     activeButtons.includes(buttonName);
 
+  const onNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setGoalName(e.target.value));
+  };
+
+  const onDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setGoalDescription(e.target.value));
+  };
+
   return (
     <div className="flex justify-center items-center h-screen w-full">
       <div className="w-full max-w-4xl mx-auto p-4">
-        <Form form={form} layout="vertical">
-          <Row gutter={24}>
-            {/* First column */}
-            <Col span={12}>
-              <Form.Item label="Goal Name">
-                <InputField size="large" placeholder="Goal Name" type="text" />
-              </Form.Item>
+        <Row gutter={24}>
+          {/* First column */}
+          <Col span={12}>
+            <div>
+              <div className="mt-4 mb-4 font-bold">
+                <label>Name:</label>
+              </div>
 
-              <Form.Item label="Description">
-                <InputField
-                  size="large"
-                  placeholder="Content"
-                  type="textarea"
-                  minRows={4}
-                />
-              </Form.Item>
-            </Col>
+              <InputField
+                size="large"
+                placeholder="Goal Name"
+                type="text"
+                value={name}
+                onChange={onNameChange}
+              />
+            </div>
 
-            {/* Second column */}
-            <Col span={12}>
-              <Form.Item label="Scenarios" className="flex flex-col gap-2">
-                <Button
-                  size="large"
-                  type={isButtonActive('SlotFilling') ? 'primary' : 'default'}
-                  onClick={() => handleButtonClick('SlotFilling')}
-                  className="w-full m-4"
-                >
-                  Slot Filling
-                </Button>
-                <Button
-                  size="large"
-                  type={
-                    isButtonActive('CallForwarding') ? 'primary' : 'default'
-                  }
-                  onClick={() => handleButtonClick('CallForwarding')}
-                  className="w-full m-4"
-                >
-                  Call Forwarding
-                </Button>
-                <Button
-                  size="large"
-                  type={isButtonActive('Sequence') ? 'primary' : 'default'}
-                  onClick={() => handleButtonClick('Sequence')}
-                  className="w-full m-4"
-                >
-                  Sequence
-                </Button>
-              </Form.Item>
-            </Col>
-          </Row>
-        </Form>
+            <div>
+              <div className="mt-4 mb-4 font-bold">
+                <label>Description:</label>
+              </div>
+              <InputField
+                size="large"
+                placeholder="Description"
+                type="textarea"
+                minRows={6}
+                maxRows={6}
+                value={description}
+                onChange={onDescriptionChange}
+              />
+            </div>
+          </Col>
+
+          {/* Second column */}
+          <Col span={12}>
+            <div>
+              <div className="mt-4 mb-4 font-bold">
+                <label>Scenarios:</label>
+              </div>
+              <Button
+                size="large"
+                type={isButtonActive('SLOT_FILLING') ? 'primary' : 'default'}
+                onClick={() => handleButtonClick('SLOT_FILLING')}
+                className="w-full m-4"
+              >
+                SLOT_FILLING
+              </Button>
+            </div>
+            <div>
+              <Button
+                size="large"
+                type={isButtonActive('CALL_FORWARDING') ? 'primary' : 'default'}
+                onClick={() => handleButtonClick('CALL_FORWARDING')}
+                className="w-full m-4"
+              >
+                CALL_FORWARDING
+              </Button>
+            </div>
+            <div>
+              <Button
+                size="large"
+                type={isButtonActive('SEQUENCE') ? 'primary' : 'default'}
+                onClick={() => handleButtonClick('SEQUENCE')}
+                className="w-full m-4"
+              >
+                SEQUENCE
+              </Button>
+            </div>
+          </Col>
+        </Row>
       </div>
     </div>
   );

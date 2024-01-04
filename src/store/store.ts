@@ -4,6 +4,7 @@ import simulationReducer from './features/CreateSimulation/CreateSimulationSlice
 import agentReducer from './features/CreateSimulation/CreateAgentSlice';
 import simulationControlReducer from './features/CreateSimulation/SimulationControlSlice';
 import SimulationDataReducer from './features/CreateSimulation/SimulationDataSlice';
+import GoalReducer from './features/CreateSimulation/CreateGoalSlice';
 export const makeStore = () => {
   return configureStore({
     reducer: {
@@ -11,7 +12,8 @@ export const makeStore = () => {
       simulation: simulationReducer,
       agent: agentReducer,
       simulationControl: simulationControlReducer,
-      simulationData: SimulationDataReducer
+      simulationData: SimulationDataReducer,
+      goal: GoalReducer
     }
   });
 };

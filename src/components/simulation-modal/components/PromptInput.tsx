@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Button, Space, Tag } from 'antd';
+import { Button, Space, Tag } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { InputField } from '@/components/generic/InputField';
 import theme from '@/theme/theme';
@@ -70,71 +70,66 @@ const PromptInput = () => {
 
   return (
     <>
-      <Form layout="vertical">
-        <Space size="middle">
-          <span>Prompt</span>{' '}
-          {/* Replace 'span' with a 'label' if needed for form semantics */}
-          <Button onClick={handleLoad}>Load</Button>
-        </Space>
+      <Space size="middle">
+        <span>Prompt</span>{' '}
+        {/* Replace 'span' with a 'label' if needed for form semantics */}
+        <Button onClick={handleLoad}>Load</Button>
+      </Space>
 
-        {/* Tags are now placed inside a div, which will make them appear below the Load button */}
-        <div className="m-4">
-          {tags.map((tag, index) => (
-            <>
-              <Tag
-                style={pillStyle}
-                color={theme.color.primary}
-                key={tag.name}
-                onClick={() => handleTagClick(index)}
-                closable
-                onClose={e => {
-                  e.preventDefault(); // Prevent the tag click handler when closing the tag
-                  setTags(tags.filter((_, i) => i !== index));
-                  if (editTagIndex === index) {
-                    setEditTagIndex(null);
-                    setInputNameValue('');
-                    setInputContentValue('');
-                  }
-                }}
-              >
-                {tag.name}
-              </Tag>
-            </>
-          ))}
-        </div>
-
-        <Form.Item>
-          <InputField
-            size="large"
-            type="text"
-            placeholder="Name"
-            value={inputNameValue}
-            onChange={e => setInputNameValue(e.target.value)}
-          />
-        </Form.Item>
-        <Form.Item>
-          <InputField
-            size="large"
-            minRows={6}
-            maxRows={6}
-            type="textarea"
-            placeholder="Content"
-            value={inputContentValue}
-            onChange={e => setInputContentValue(e.target.value)}
-          />
-        </Form.Item>
-        <Form.Item>
-          <Space>
-            {editTagIndex !== null ? (
-              <Button onClick={handleEdit}>Edit</Button>
-            ) : (
-              <Button icon={<PlusOutlined />} onClick={handleAdd}>
-                Add
-              </Button>
-            )}
-          </Space>
-        </Form.Item>
-      </Form>
+      {/* Tags are now placed inside a div, which will make them appear below the Load button */}
+      <div className="m-4">
+        {tags.map((tag, index) => (
+          <>
+            <Tag
+              style={pillStyle}
+              color={theme.color.primary}
+              key={tag.name}
+              onClick={() => handleTagClick(index)}
+              closable
+              onClose={e => {
+                e.preventDefault(); // Prevent the tag click handler when closing the tag
+                setTags(tags.filter((_, i) => i !== index));
+                if (editTagIndex === index) {
+                  setEditTagIndex(null);
+                  setInputNameValue('');
+                  setInputContentValue('');
+                }
+              }}
+            >
+              {tag.name}
+            </Tag>
+          </>
+        ))}
+      </div>
+      <div className="mt-4 mb-4">
+        <InputField
+          size="large"
+          type="text"
+          placeholder="Name"
+          value={inputNameValue}
+          onChange={e => setInputNameValue(e.target.value)}
+        />
+      </div>
+      <div className=" mb-4">
+        <InputField
+          size="large"
+          minRows={6}
+          maxRows={6}
+          type="textarea"
+          placeholder="Content"
+          value={inputContentValue}
+          onChange={e => setInputContentValue(e.target.value)}
+        />
+      </div>
+      <Space>
+        {editTagIndex !== null ? (
+          <Button onClick={handleEdit}>Edit</Button>
+        ) : (
+          <Button icon={<PlusOutlined />} onClick={handleAdd}>
+            Add
+          </Button>
+        )}
+      </Space>
     </>
   );
 };

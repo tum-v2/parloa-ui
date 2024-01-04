@@ -2,6 +2,7 @@ export interface SimulationControlState {
   currentStep: number;
   isWildStep: boolean;
   agentFlag: 'serviceAgent' | 'userAgent';
+  GoalFlag: 'EDIT' | 'CREATE';
 }
 
 export type AgentType = 'userAgent' | 'serviceAgent' | '';
@@ -14,7 +15,7 @@ export interface AgentState {
   maxTokens: number;
   domain: string; // ConversationDomain as string
   temporary?: boolean;
-  userGoal?: Goal | string;
+  goal?: string;
   prompt: PromptPart[];
 }
 
@@ -33,7 +34,11 @@ export enum ConversationScenario {
 export interface Goal {
   name: string;
   description: string;
-  scenarios: ConversationScenario[];
+  scenarios: string[];
+  _id?: string;
+  __v?: number;
+  updatedAt?: string;
+  createdAt?: string;
 }
 
 export const SIMULATION_TYPES = [

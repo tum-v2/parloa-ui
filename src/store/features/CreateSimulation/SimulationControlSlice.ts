@@ -5,7 +5,8 @@ import { SimulationControlState } from './simulationDefinitions';
 const initialState: SimulationControlState = {
   currentStep: 0,
   isWildStep: false,
-  agentFlag: 'userAgent'
+  agentFlag: 'userAgent',
+  GoalFlag: 'CREATE'
 };
 
 export const simulationControlSlice = createSlice({
@@ -24,6 +25,9 @@ export const simulationControlSlice = createSlice({
     ) => {
       state.agentFlag = action.payload;
     },
+    setGoalFlag: (state, action: PayloadAction<'EDIT' | 'CREATE'>) => {
+      state.GoalFlag = action.payload;
+    },
     resetControlState: () => initialState
   }
 });
@@ -33,7 +37,8 @@ export const {
   setCurrentStep,
   setIsWildStep,
   setAgentFlag,
-  resetControlState
+  resetControlState,
+  setGoalFlag
 } = simulationControlSlice.actions;
 
 // Selector to access the state

@@ -15,12 +15,15 @@ import {
 } from '@/store/features/CreateSimulation/SimulationControlSlice';
 import ModalTitle from './components/SimulationModalTitle';
 import SimulationModalFooter from './components/SimulationModalFooter';
+import useCreateGoal from '@/hooks/goals/useCreateGoal';
+import { CreateGoal } from '@/api/schemas/goal';
 
 const SimulationModal = () => {
   const [open, setOpen] = useState(false);
 
   //simulation type state
   const simulation = useAppSelector(state => state.simulation);
+  const goal = useAppSelector(state => state.goal);
   const dispatch = useAppDispatch();
 
   const { currentStep, isWildStep } = useAppSelector(
@@ -37,50 +40,70 @@ const SimulationModal = () => {
   // const createSimulationMutation = useCreateSimulation();
   // const createOptimizedSimulationMutation = useCreateOptimizedSimulation();
   // const createChatSimulationMutation = useCreateChatSimulation();
+  const createGoalMutation = useCreateGoal();
 
   const handleNext = () => {
-    if (currentStep === 0) {
-      if (simulation.type === '') {
-        messageApi.open({
-          type: 'error',
-          content: 'Please select a simulation type.'
-        });
-        return;
-      }
-    }
-    if (currentStep === 1) {
-      if (simulation.name === '') {
-        messageApi.open({
-          type: 'error',
-          content: 'Please enter a simulation name.'
-        });
-        return;
-      }
+    switch (currentStep) {
+      case 0:
+        if (simulation.type === '') {
+          messageApi.open({
+            type: 'error',
+            content: 'Please select a simulation type.'
+          });
+          return;
+        }
+        break;
+      case 1:
+        if (simulation.name === '') {
+          messageApi.open({
+            type: 'error',
+            content: 'Please enter a simulation name.'
+          });
+          return;
+        }
+        break;
+      default:
+        break;
     }
 
     dispatch(setCurrentStep(currentStep + 1));
   };
 
   const handlePrev = () => {
-    if (isWildStep) {
-      if (currentStep === 3) {
+    switch (true) {
+      case isWildStep && currentStep === 3:
         dispatch(setIsWildStep(false));
         dispatch(setCurrentStep(currentStep - 1));
-      }
-      if (currentStep === 4) {
+        break;
+      case isWildStep && currentStep === 4:
         dispatch(setCurrentStep(currentStep - 1));
-      }
-    } else {
-      dispatch(setCurrentStep(currentStep - 1));
+        break;
+      default:
+        dispatch(setCurrentStep(currentStep - 1));
+        break;
     }
   };
 
   const handleSave = () => {
-    if (currentStep === 3) {
-      dispatch(setIsWildStep(false));
-      dispatch(setCurrentStep(currentStep - 1));
-    } else {
-      dispatch(setCurrentStep(currentStep - 1));
+    switch (currentStep) {
+      case 3:
+        dispatch(setIsWildStep(false));
+        dispatch(setCurrentStep(currentStep - 1));
+        break;
+      case 4:
+        {
+          const goalRequest: CreateGoal = {
+            name: goal.name,
+            description: goal.description,
+            scenarios: goal.scenarios
+          };
+          createGoalMutation.mutate(goalRequest);
+          dispatch(setCurrentStep(currentStep - 1));
+        }
+        break;
+      default:
+        dispatch(setCurrentStep(currentStep - 1));
+        break;
     }
   };
 
