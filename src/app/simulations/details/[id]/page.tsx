@@ -36,97 +36,95 @@ const Page = () => {
   }
 
   return (
-    <>
-      <Content>
-        <Flex vertical>
-          <DetailsHeader simulation={data} />
-          {evaluationData && evaluationData.status === 'evaluated' ? (
-            <>
-              <Title level={4}>
-                <TableOutlined /> Metrics
-              </Title>
-              <MetricsGrid simulation={data} evaluation={evaluationData} />
-              <Title level={4}>
-                <StockOutlined /> Insights
-              </Title>
-              <Flex gap={'middle'} vertical>
-                <Flex gap={'middle'}>
-                  <InsightsCard
-                    title="Evaluation Score (%)"
-                    chart={
-                      <ParentSize>
-                        {({ width, height }) => (
-                          <LineChart
-                            data={evaluationData.evaluationScores}
-                            width={width}
-                            height={height}
-                            yUnit="%"
-                            yMax={100}
-                          />
-                        )}
-                      </ParentSize>
-                    }
-                    tooltip="The evaluation score is a weighted average of the other metrics"
-                  />
-                  <InsightsCard
-                    title="Amount of steps"
-                    chart={
-                      <ParentSize>
-                        {({ width, height }) => (
-                          <BarChart
-                            data={evaluationData.messageCount}
-                            width={width}
-                            height={height}
-                            yUnit=" steps"
-                          />
-                        )}
-                      </ParentSize>
-                    }
-                    tooltip="Amount of steps each conversation took to reach the customer's goal"
-                  />
-                </Flex>
-                <Flex gap={'middle'}>
-                  <InsightsCard
-                    title="Response time (ms)"
-                    chart={
-                      <ParentSize>
-                        {({ width, height }) => (
-                          <BarChart
-                            data={evaluationData.responseTime}
-                            width={width}
-                            height={height}
-                            yUnit=" ms"
-                          />
-                        )}
-                      </ParentSize>
-                    }
-                  />
-                </Flex>
+    <Content>
+      <Flex vertical>
+        <DetailsHeader simulation={data} />
+        {evaluationData && evaluationData.status === 'evaluated' ? (
+          <>
+            <Title level={4}>
+              <TableOutlined /> Metrics
+            </Title>
+            <MetricsGrid simulation={data} evaluation={evaluationData} />
+            <Title level={4}>
+              <StockOutlined /> Insights
+            </Title>
+            <Flex gap={'middle'} vertical>
+              <Flex gap={'middle'}>
+                <InsightsCard
+                  title="Evaluation Score (%)"
+                  chart={
+                    <ParentSize>
+                      {({ width, height }) => (
+                        <LineChart
+                          data={evaluationData.evaluationScores}
+                          width={width}
+                          height={height}
+                          yUnit="%"
+                          yMax={100}
+                        />
+                      )}
+                    </ParentSize>
+                  }
+                  tooltip="The evaluation score is a weighted average of the other metrics"
+                />
+                <InsightsCard
+                  title="Amount of steps"
+                  chart={
+                    <ParentSize>
+                      {({ width, height }) => (
+                        <BarChart
+                          data={evaluationData.messageCount}
+                          width={width}
+                          height={height}
+                          yUnit=" steps"
+                        />
+                      )}
+                    </ParentSize>
+                  }
+                  tooltip="Amount of steps each conversation took to reach the customer's goal"
+                />
               </Flex>
-            </>
-          ) : (
-            <Alert
-              message="Evaluation in progress"
-              description="The evaluation is still running. Please come back later."
-              type="warning"
-              showIcon
-              closable
-              className="mt-5"
-            />
-          )}
+              <Flex gap={'middle'}>
+                <InsightsCard
+                  title="Response time (ms)"
+                  chart={
+                    <ParentSize>
+                      {({ width, height }) => (
+                        <BarChart
+                          data={evaluationData.responseTime}
+                          width={width}
+                          height={height}
+                          yUnit=" ms"
+                        />
+                      )}
+                    </ParentSize>
+                  }
+                />
+              </Flex>
+            </Flex>
+          </>
+        ) : (
+          <Alert
+            message="Evaluation in progress"
+            description="The evaluation is still running. Please come back later."
+            type="warning"
+            showIcon
+            closable
+            className="mt-5"
+          />
+        )}
 
-          <Title level={4}>
-            <SettingOutlined /> Configurations
-          </Title>
-          <Flex gap={'small'}>
-            <ConfigurationCard title="Agent" agentId={data.serviceAgent} />
-            {data.userAgent && (
-              <ConfigurationCard title="User" agentId={data.userAgent} />
-            )}
-          </Flex>
+        <Title level={4}>
+          <SettingOutlined /> Configurations
+        </Title>
+        <Flex gap={'small'}>
+          <ConfigurationCard title="Agent" agentId={data.serviceAgent} />
+          {data.userAgent && (
+            <ConfigurationCard title="User" agentId={data.userAgent} />
+          )}
         </Flex>
-      </Content>
-    </>
+      </Flex>
+    </Content>
   );
 };
 
