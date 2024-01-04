@@ -3,16 +3,27 @@ import {
   MessageSchema,
   Message
 } from './schemas/conversation';
+import secureLocalStorage from 'react-secure-storage';
 
 /**
  * /simulations/conversations/:id Get conversation
  */
 export const getConversation = async (id: string) => {
+  const token = secureLocalStorage.getItem('token');
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/simulations/conversations/${id}`
+    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/simulations/conversations/${id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
   );
 
   const zodResponse = ConversationSchema.safeParse(await response.json());
+
+  if (!response.ok) {
+    throw new Error(response.status.toString());
+  }
 
   // Return error to react-query
   if (!zodResponse.success) {
@@ -23,14 +34,24 @@ export const getConversation = async (id: string) => {
 };
 
 export const loadManualConversation = async (simulationId: string) => {
+  const token = secureLocalStorage.getItem('token');
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/chats/${simulationId}`
+    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/chats/${simulationId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
   );
 
   const r = await response.json();
   console.log(r);
 
   const zodResponse = MessageSchema.array().safeParse(r);
+
+  if (!response.ok) {
+    throw new Error(response.status.toString());
+  }
 
   // Return error to react-query
   if (!zodResponse.success) {

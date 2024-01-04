@@ -20,6 +20,16 @@ const useDashboard = (days: number) => {
     queryFn: () => getDashboard(days)
   });
 
+  // TODO: Decide to redirect to login page or not
+  // const router = useRouter();
+
+  // useEffect(() => {
+  //   if (error?.message === '401') {
+  // router.push('/login');
+  //     console.log('Redirecting to login page');
+  //   }
+  // }, [error]);
+
   useEffect(() => {
     if (data && data.simulationSuccessGraph) {
       const formatedDashboard: FormatedDashboard = {
