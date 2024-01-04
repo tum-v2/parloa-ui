@@ -83,7 +83,7 @@ const PromptInput = () => {
             <Tag
               style={pillStyle}
               color={theme.color.primary}
-              key={tag.name}
+              key={index}
               onClick={() => handleTagClick(index)}
               closable
               onClose={e => {
