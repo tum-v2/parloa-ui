@@ -9,10 +9,12 @@ import { useRouter } from 'next/navigation';
 import useLogin from '@/hooks/useLogin';
 import { LoginAccessCode } from '@/api/auth';
 import { Auth } from '@/api/schemas/auth';
+import secureLocalStorage from 'react-secure-storage';
 
 const Login = () => {
-  const loginMutation = useLogin();
   const router = useRouter();
+
+  const loginMutation = useLogin();
   const [form] = Form.useForm<{ accessCode: string }>();
 
   const onInvalidAccessCode = () => {
@@ -25,12 +27,12 @@ const Login = () => {
   };
 
   const onLogin = () => {
-    // TODO: Implement token when return from backend
     const loginAccessCode: LoginAccessCode = form.getFieldsValue();
     loginMutation.mutate(loginAccessCode, {
       onSuccess: (res: Auth) => {
         if (res.succes) {
           router.push('/dashboard');
+          secureLocalStorage.setItem('token', res.token);
         } else {
           onInvalidAccessCode();
         }

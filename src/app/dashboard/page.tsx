@@ -53,13 +53,13 @@ const ChartStyle: React.CSSProperties = {
 };
 
 const Dashboard = () => {
+  const router = useRouter();
+
   const [selectedTimeRange, setSelectedTimeRange] =
     React.useState<DropdownTimeRangeKeyType>(
       DropdownTimeRangeKeyEnum.SEVEN_DAYS
     );
   const { data, isLoading } = useDashboard(selectedTimeRange);
-
-  const router = useRouter();
 
   return (
     <Content>
