@@ -24,11 +24,11 @@ const MetricsCardTrend = ({ trendNumber }: CardMetricsTrendProps) => {
           type={trendNumber > 0 ? 'success' : 'danger'}
           style={{ margin: 0 }}
         >
-          {trendNumber}
+          {trendNumber}%
         </Text>
       ) : (
         <Text style={{ margin: 0, color: theme.color.gray }}>
-          {trendNumber}
+          {trendNumber}%
         </Text>
       )}
     </Flex>

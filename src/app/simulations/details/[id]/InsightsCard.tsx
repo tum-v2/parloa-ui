@@ -9,10 +9,10 @@ import { FormattedEvaluation } from '@/hooks/useSimulationEvaluation';
 const { Title } = Typography;
 
 interface InsightsCardProps {
-  formattedEvaluation: FormattedEvaluation;
+  formattedEvaluations: FormattedEvaluation;
 }
 
-const InsightsCard = ({ formattedEvaluation }: InsightsCardProps) => {
+const InsightsCard = ({ formattedEvaluations }: InsightsCardProps) => {
   const [selectedChart, setSelectedChart] = useState<string | number>(
     'Evaluation Score'
   );
@@ -36,7 +36,7 @@ const InsightsCard = ({ formattedEvaluation }: InsightsCardProps) => {
               {({ width, height }) =>
                 (selectedChart === 'Evaluation Score' && (
                   <LineChart
-                    data={formattedEvaluation.evaluationScores}
+                    data={formattedEvaluations.evaluationScores}
                     width={width}
                     height={height}
                     yUnit="%"
@@ -45,7 +45,7 @@ const InsightsCard = ({ formattedEvaluation }: InsightsCardProps) => {
                 )) ||
                 (selectedChart === 'Amount of steps' && (
                   <BarChart
-                    data={formattedEvaluation.messageCount}
+                    data={formattedEvaluations.messageCount}
                     width={width}
                     height={height}
                     yUnit=" steps"
@@ -53,7 +53,7 @@ const InsightsCard = ({ formattedEvaluation }: InsightsCardProps) => {
                 )) ||
                 (selectedChart === 'Response Time' && (
                   <BarChart
-                    data={formattedEvaluation.responseTime}
+                    data={formattedEvaluations.responseTime}
                     width={width}
                     height={height}
                     yUnit=" ms"

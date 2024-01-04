@@ -1,17 +1,11 @@
 'use client';
 import useSimulation from '@/hooks/useSimulation';
 import { useParams } from 'next/navigation';
-import DetailsHeader from './DetailsHeader';
-import InsightsCard from './InsightsCard';
-import { Alert, Empty, Flex, Spin, Typography } from 'antd';
-import { SettingOutlined, TableOutlined } from '@ant-design/icons';
-import ConfigurationCard from './ConfigurationCard';
+import { Empty, Flex, Spin } from 'antd';
 import Content from '@/components/generic/Content';
 import useSimulationEvaluation from '@/hooks/useSimulationEvaluation';
-import OptimizationInsightsCard from './OptimizationInsightsCard';
-import MetricsGrid from './MetricsGrid';
-
-const { Title } = Typography;
+import ABTestingDetails from './ABTestingDetails';
+import SingleSimulationDetails from './SingleSimulationDetails';
 
 const Page = () => {
   const { id } = useParams<{ id: string }>();
@@ -29,44 +23,23 @@ const Page = () => {
     return <Empty description="Simulation not found" />;
   }
 
+  // Redirect to chat page if simulation is a chat simulation
+  if (data.type === 'CHAT') {
+    // TODO: Redirect to chat page
+    return <Empty description="Chat simulations are not supported yet" />;
+  }
+
   return (
     <Content>
       <Flex vertical gap={'small'}>
-        <DetailsHeader simulation={data} />
-        {evaluationData && evaluationData.status === 'evaluated' ? (
-          <>
-            <Title level={4}>
-              <TableOutlined /> Metrics
-            </Title>
-            <MetricsGrid simulation={data} evaluation={evaluationData} />
-            {data.optimization ? (
-              <OptimizationInsightsCard optimizationId={data.optimization} />
-            ) : (
-              (data.numConversations ?? 0) > 1 && (
-                <InsightsCard formattedEvaluation={evaluationData} />
-              )
-            )}
-          </>
+        {data.type === 'A/B TESTING' ? (
+          <ABTestingDetails simulation={data} evaluationData={evaluationData} />
         ) : (
-          <Alert
-            message="Evaluation in progress"
-            description="The evaluation is still running. Please come back later."
-            type="warning"
-            showIcon
-            closable
-            className="mt-5"
+          <SingleSimulationDetails
+            simulation={data}
+            evaluationData={evaluationData}
           />
         )}
-
-        <Title level={4}>
-          <SettingOutlined /> Configurations
-        </Title>
-        <Flex gap={'small'}>
-          <ConfigurationCard title="Agent" agentId={data.serviceAgent} />
-          {data.userAgent && (
-            <ConfigurationCard title="User" agentId={data.userAgent} />
-          )}
-        </Flex>
       </Flex>
     </Content>
   );
