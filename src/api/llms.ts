@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export const getAllLLMs = async () => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/language-models`
+    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/dictionary/language-models`
   );
 
   // Assuming the response is an array of strings
