@@ -8,15 +8,22 @@ export interface SimulationControlState {
 export type AgentType = 'userAgent' | 'serviceAgent' | '';
 
 export interface AgentState {
+  _id?: string;
   name: string;
-  type: AgentType; // AgentType as string
-  llm: string; // LLMModel as string
+  type: string;
+  llm: string;
   temperature: number;
   maxTokens: number;
-  domain: string; // ConversationDomain as string
+  domain: string;
+  prompt: {
+    name: string;
+    content: string;
+  }[];
   temporary?: boolean;
-  goal?: string;
-  prompt: PromptPart[];
+  updatedAt?: string;
+  createdAt?: string;
+  __v?: number | undefined;
+  goal?: string | undefined;
 }
 
 export interface PromptPart {

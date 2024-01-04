@@ -45,8 +45,17 @@ export const simulationDataSlice = createSlice({
     setServiceAgents: (state, action: PayloadAction<Dropdown[]>) => {
       state.serviceAgents = action.payload;
     },
+    setServiceAgentsWithConfig: (
+      state,
+      action: PayloadAction<AgentState[]>
+    ) => {
+      state.serviceAgentsWithConfig = action.payload;
+    },
     setUserAgents: (state, action: PayloadAction<Dropdown[]>) => {
       state.userAgents = action.payload;
+    },
+    setUserAgentsWithConfig: (state, action: PayloadAction<AgentState[]>) => {
+      state.userAgentswithConfig = action.payload;
     },
     setLLMs: (state, action: PayloadAction<string[]>) => {
       state.llms = action.payload;
@@ -65,8 +74,14 @@ export const simulationDataSlice = createSlice({
     resetServiceAgents: state => {
       state.serviceAgents = [];
     },
+    resetServiceAgentsWithConfig: state => {
+      state.serviceAgentsWithConfig = [];
+    },
     resetUserAgents: state => {
       state.userAgents = [];
+    },
+    resetUserAgentsWithConfig: state => {
+      state.userAgentswithConfig = [];
     },
     resetLLMs: state => {
       state.llms = [];
@@ -86,13 +101,17 @@ export const simulationDataSlice = createSlice({
 // Exporting actions
 export const {
   setServiceAgents,
+  setServiceAgentsWithConfig,
   setUserAgents,
+  setUserAgentsWithConfig,
   setLLMs,
   setPrompts,
   setDomains,
   setGoals,
   resetServiceAgents,
+  resetServiceAgentsWithConfig,
   resetUserAgents,
+  resetUserAgentsWithConfig,
   resetLLMs,
   resetPrompts,
   resetDomains,

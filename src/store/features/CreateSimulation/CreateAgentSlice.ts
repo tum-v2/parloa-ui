@@ -11,9 +11,7 @@ const AgentInitialState: AgentState = {
   domain: 'FLIGHT',
   temporary: false,
   goal: '',
-  prompt: [
-    { name: 'DefaultPrompt', content: 'Default Content', optimizable: false }
-  ]
+  prompt: [{ name: 'DefaultPrompt', content: 'Default Content' }]
 };
 
 export const agentSlice = createSlice({

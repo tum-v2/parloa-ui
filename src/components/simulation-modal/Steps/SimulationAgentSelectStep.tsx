@@ -23,6 +23,7 @@ const SimulationAgent = ({ enterWildStep }: SimulationAgentProps) => {
 
   const simulation = useAppSelector(state => state.simulation);
   const dispatch = useAppDispatch();
+
   const serviceAgentConfig = simulation.serviceAgentConfig;
   const userAgentConfig = simulation.userAgentConfig;
 

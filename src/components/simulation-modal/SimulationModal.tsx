@@ -17,12 +17,14 @@ import ModalTitle from './components/SimulationModalTitle';
 import SimulationModalFooter from './components/SimulationModalFooter';
 import useCreateGoal from '@/hooks/goals/useCreateGoal';
 import { CreateGoal } from '@/api/schemas/goal';
+import useCreateAgent from '@/hooks/agents/useCreateAgent';
 
 const SimulationModal = () => {
   const [open, setOpen] = useState(false);
 
   //simulation type state
   const simulation = useAppSelector(state => state.simulation);
+  const agent = useAppSelector(state => state.agent);
   const goal = useAppSelector(state => state.goal);
   const dispatch = useAppDispatch();
 
@@ -41,6 +43,7 @@ const SimulationModal = () => {
   // const createOptimizedSimulationMutation = useCreateOptimizedSimulation();
   // const createChatSimulationMutation = useCreateChatSimulation();
   const createGoalMutation = useCreateGoal();
+  const createAgentMutation = useCreateAgent();
 
   const handleNext = () => {
     switch (currentStep) {
@@ -87,8 +90,25 @@ const SimulationModal = () => {
   const handleSave = () => {
     switch (currentStep) {
       case 3:
-        dispatch(setIsWildStep(false));
-        dispatch(setCurrentStep(currentStep - 1));
+        {
+          switch (agent.type) {
+            case 'serviceAgent':
+              {
+                const { goal, ...serviceAgent } = agent; // eslint-disable-line @typescript-eslint/no-unused-vars
+                createAgentMutation.mutate(serviceAgent);
+              }
+
+              break;
+            case 'userAgent':
+              createAgentMutation.mutate(agent);
+              break;
+            default:
+              break;
+          }
+
+          dispatch(setIsWildStep(false));
+          dispatch(setCurrentStep(currentStep - 1));
+        }
         break;
       case 4:
         {

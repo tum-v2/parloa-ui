@@ -14,9 +14,7 @@ const AgentInitialState: AgentState = {
   maxTokens: 512,
   domain: '',
   temporary: false,
-  prompt: [
-    { name: 'DefaultPrompt', content: 'Default Content', optimizable: false }
-  ]
+  prompt: [{ name: 'DefaultPrompt', content: 'Default Content' }]
 };
 
 // Define the initial state using that type
