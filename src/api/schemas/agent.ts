@@ -9,6 +9,7 @@ export const AgentSchema = z.object({
   temperature: z.number(),
   maxTokens: z.number(),
   domain: z.string(),
+  goal: z.string().optional(),
   prompt: z.array(
     z.object({
       name: z.string(),
@@ -21,23 +22,20 @@ export const AgentSchema = z.object({
 
 export type Agent = z.infer<typeof AgentSchema>;
 
-export const PromptPartSchema = z.object({
-  name: z.string(),
-  content: z.string(),
-  optimizable: z.boolean().optional()
-});
-
-export type PromptPart = z.infer<typeof PromptPartSchema>;
-
 export const CreateAgentSchema = z.object({
   name: z.string(),
   type: z.string(),
   llm: z.string(),
-  domain: z.string(),
-  prompt: PromptPartSchema,
-  maxTokens: z.number(),
   temperature: z.number(),
-  goal: z.string().optional()
+  maxTokens: z.number(),
+  domain: z.string(),
+  goal: z.string().optional(),
+  prompt: z.array(
+    z.object({
+      name: z.string(),
+      content: z.string()
+    })
+  )
 });
 
 export type CreateAgent = z.infer<typeof CreateAgentSchema>;
