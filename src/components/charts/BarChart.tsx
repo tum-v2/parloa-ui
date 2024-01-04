@@ -9,6 +9,7 @@ import { mergeBarChartDatapoints } from '@/lib/charts/chartUtils';
 import { BarChartData, MergedDatapoint, TooltipData } from '@/types/chart';
 import { useTooltip } from '@visx/tooltip';
 import Tooltip from './Tooltip';
+import { GridRows } from '@visx/grid';
 
 interface BarChartProps {
   width: number;
@@ -90,6 +91,44 @@ const BarChart = ({
     <>
       <svg width={width} height={height}>
         <rect width={width} height={height} fill={theme.color.white} />
+        <AxisLeft
+          top={padding}
+          left={padding}
+          scale={yScale}
+          stroke={theme.color.ligthGray}
+          hideTicks
+          hideZero
+          tickLabelProps={{
+            fill: theme.color.ligthGray,
+            fontSize: theme.fontSize.m,
+            textAnchor: 'end'
+          }}
+          hideAxisLine
+          tickValues={yScale.ticks().filter(Number.isInteger)} // Only show integer values
+          tickFormat={d => d.toString()} // Avoid .0 values
+        />
+        <AxisBottom
+          top={yMax + padding}
+          left={padding}
+          scale={xScale}
+          stroke={theme.color.ligthGray}
+          hideTicks
+          hideAxisLine
+          tickLabelProps={{
+            fill: theme.color.ligthGray,
+            fontSize: theme.fontSize.m,
+            textAnchor: 'middle'
+          }}
+        />
+        <GridRows
+          scale={yScale}
+          width={width - padding * 2}
+          left={padding}
+          top={padding}
+          stroke={theme.color.veryLightGray}
+          numTicks={5}
+          tickValues={yScale.ticks().filter(Number.isInteger)} // Only show integer values
+        />
         <Group top={padding} left={padding}>
           <BarGroup
             data={mergedData}
@@ -140,31 +179,6 @@ const BarChart = ({
             }
           </BarGroup>
         </Group>
-        <AxisLeft
-          top={padding}
-          left={padding}
-          scale={yScale}
-          stroke={theme.color.ligthGray}
-          hideTicks
-          hideZero
-          tickLabelProps={{
-            fill: theme.color.ligthGray,
-            fontSize: theme.fontSize.m,
-            textAnchor: 'end'
-          }}
-        />
-        <AxisBottom
-          top={yMax + padding}
-          left={padding}
-          scale={xScale}
-          stroke={theme.color.ligthGray}
-          hideTicks
-          tickLabelProps={{
-            fill: theme.color.ligthGray,
-            fontSize: theme.fontSize.m,
-            textAnchor: 'middle'
-          }}
-        />
       </svg>
       {tooltipData && (
         <Tooltip

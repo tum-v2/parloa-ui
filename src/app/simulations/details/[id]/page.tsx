@@ -2,14 +2,20 @@
 import useSimulation from '@/hooks/useSimulation';
 import { useParams } from 'next/navigation';
 import DetailsHeader from './DetailsHeader';
-import InsightsCard from './InsightsCard';
 import { Alert, Empty, Flex, Spin, Typography } from 'antd';
-import { SettingOutlined, TableOutlined } from '@ant-design/icons';
+import {
+  SettingOutlined,
+  TableOutlined,
+  StockOutlined
+} from '@ant-design/icons';
 import ConfigurationCard from './ConfigurationCard';
 import Content from '@/components/generic/Content';
 import useSimulationEvaluation from '@/hooks/useSimulationEvaluation';
-import OptimizationInsightsCard from './OptimizationInsightsCard';
 import MetricsGrid from './MetricsGrid';
+import BarChart from '@/components/charts/BarChart';
+import LineChart from '@/components/charts/LineChart';
+import { ParentSize } from '@visx/responsive';
+import InsightsCard from './InsightsCard';
 
 const { Title } = Typography;
 
@@ -31,7 +37,7 @@ const Page = () => {
 
   return (
     <Content>
-      <Flex vertical gap={'small'}>
+      <Flex vertical>
         <DetailsHeader simulation={data} />
         {evaluationData && evaluationData.status === 'evaluated' ? (
           <>
@@ -39,13 +45,63 @@ const Page = () => {
               <TableOutlined /> Metrics
             </Title>
             <MetricsGrid simulation={data} evaluation={evaluationData} />
-            {data.optimization ? (
-              <OptimizationInsightsCard optimizationId={data.optimization} />
-            ) : (
-              (data.numConversations ?? 0) > 1 && (
-                <InsightsCard formattedEvaluation={evaluationData} />
-              )
-            )}
+            <Title level={4}>
+              <StockOutlined /> Insights
+            </Title>
+            <Flex gap={'middle'} vertical>
+              <Flex gap={'middle'}>
+                <InsightsCard
+                  title="Evaluation Score (%)"
+                  chart={
+                    <ParentSize>
+                      {({ width, height }) => (
+                        <LineChart
+                          data={evaluationData.evaluationScores}
+                          width={width}
+                          height={height}
+                          yUnit="%"
+                          yMax={100}
+                        />
+                      )}
+                    </ParentSize>
+                  }
+                  tooltip="The evaluation score is a weighted average of the other metrics"
+                />
+                <InsightsCard
+                  title="Amount of steps"
+                  chart={
+                    <ParentSize>
+                      {({ width, height }) => (
+                        <BarChart
+                          data={evaluationData.messageCount}
+                          width={width}
+                          height={height}
+                          yUnit=" steps"
+                        />
+                      )}
+                    </ParentSize>
+                  }
+                  tooltip="Amount of steps each conversation took to reach the customer's goal"
+                />
+              </Flex>
+              <Flex gap={'middle'}>
+                <InsightsCard
+                  title="Response time (ms)"
+                  chart={
+                    <ParentSize>
+                      {({ width, height }) => (
+                        <BarChart
+                          data={evaluationData.responseTime}
+                          width={width}
+                          height={height}
+                          yUnit=" ms"
+                        />
+                      )}
+                    </ParentSize>
+                  }
+                />
+              </Flex>
+            </Flex>
           </>
         ) : (
           <Alert
