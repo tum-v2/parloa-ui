@@ -7,6 +7,7 @@ import NavBarTab, { navBarTabOptions } from './components/NavBarTab';
 import NavBarLogout from './components/NavBarLogout';
 import { usePathname, useRouter } from 'next/navigation';
 import theme from '@/theme/theme';
+import secureLocalStorage from 'react-secure-storage';
 
 const navBarStyle: React.CSSProperties = {
   display: 'flex',
@@ -80,6 +81,8 @@ const NavBar = () => {
               onClick={() => {
                 // TODO: Implement Logout feature
                 router.push('/login');
+                // setAuthState({ isLoggedIn: false, token: '' });
+                secureLocalStorage.removeItem('token');
               }}
             />
           </div>
