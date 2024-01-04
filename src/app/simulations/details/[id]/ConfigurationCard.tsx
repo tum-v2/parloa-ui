@@ -36,8 +36,12 @@ const ConfigurationCard = ({ agentId, title }: ConfigurationCardProps) => {
         <Text>{agent.temperature}</Text>
         <Text strong>Max Tokens</Text>
         <Text>{agent.maxTokens}</Text>
-        <Text strong>Instruction template</Text>
-        <Text>{agent.prompt}</Text>
+        {agent.prompt.map(p => (
+          <>
+            <Text strong>{p.name}</Text>
+            <Text>{p.content}</Text>
+          </>
+        ))}
       </Flex>
     </Card>
   );
