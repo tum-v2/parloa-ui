@@ -52,7 +52,7 @@ const SimulationAgentConfigurationStep = ({ type }: Props) => {
                   value={llm}
                 />
               </Form.Item>
-              <PromptInput />
+              <PromptInput agentType={type} domain={domain} />
             </Col>
 
             {/* Second column */}

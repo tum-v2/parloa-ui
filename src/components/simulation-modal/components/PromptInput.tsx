@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { Button, Space, Tag } from 'antd';
+import { Button, Space, Tag, Select } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { InputField } from '@/components/generic/InputField';
 import theme from '@/theme/theme';
 import { PromptPart } from '@/store/features/CreateSimulation/simulationDefinitions';
-import { useAppSelector, useAppDispatch } from '@/store/hooks';
+import { useAppDispatch } from '@/store/hooks';
 import { setPrompt } from '@/store/features/CreateSimulation/CreateAgentSlice';
+import usePrompts from '@/hooks/prompts/usePrompts';
+import usePromptNames from '@/hooks/prompts/usePromptNames';
 
 const pillStyle: React.CSSProperties = {
   borderRadius: 50,
@@ -20,16 +22,23 @@ const pillStyle: React.CSSProperties = {
   paddingBottom: theme.padding.xs
 };
 
-const PromptInput = () => {
-  const { prompts } = useAppSelector(state => state.simulationData);
+interface Props {
+  domain: string;
+  agentType: 'USER' | 'SERVICE';
+}
+
+const PromptInput = ({ domain, agentType }: Props) => {
   const dispatch = useAppDispatch();
   const [tags, setTags] = useState<PromptPart[]>([]);
-  const [inputNameValue, setInputNameValue] = useState('');
+  const { data: promptNames } = usePromptNames(agentType);
+  const { data: promptParts } = usePrompts(domain, agentType);
+
+  const [selectedPromptName, setSelectedPromptName] = useState('');
   const [inputContentValue, setInputContentValue] = useState('');
   const [editTagIndex, setEditTagIndex] = useState<number | null>(null);
 
   const handleTagClick = (index: number) => {
-    setInputNameValue(tags[index].name);
+    setSelectedPromptName(tags[index].name);
     setInputContentValue(tags[index].content);
     setEditTagIndex(index);
   };
@@ -38,34 +47,42 @@ const PromptInput = () => {
     if (editTagIndex !== null) {
       const newTags = [...tags];
       newTags[editTagIndex] = {
-        name: inputNameValue,
+        name: selectedPromptName,
         content: inputContentValue
       };
       setTags(newTags);
       setEditTagIndex(null);
       dispatch(setPrompt(newTags));
-      setInputNameValue('');
+      setSelectedPromptName('');
       setInputContentValue('');
     }
   };
 
   const handleAdd = () => {
-    if (inputNameValue && !tags.find(tag => tag.name === inputNameValue)) {
-      setTags([...tags, { name: inputNameValue, content: inputContentValue }]);
+    if (
+      selectedPromptName &&
+      !tags.find(tag => tag.name === selectedPromptName)
+    ) {
+      setTags([
+        ...tags,
+        { name: selectedPromptName, content: inputContentValue }
+      ]);
       dispatch(
         setPrompt([
           ...tags,
-          { name: inputNameValue, content: inputContentValue }
+          { name: selectedPromptName, content: inputContentValue }
         ])
       );
-      setInputNameValue('');
+      setSelectedPromptName('');
       setInputContentValue('');
     }
   };
 
   const handleLoad = () => {
-    setTags(prompts);
-    dispatch(setPrompt(prompts));
+    if (promptParts) {
+      dispatch(setPrompt(promptParts));
+      setTags(promptParts);
+    }
   };
 
   return (
@@ -90,7 +107,7 @@ const PromptInput = () => {
               setTags(tags.filter((_, i) => i !== index));
               if (editTagIndex === index) {
                 setEditTagIndex(null);
-                setInputNameValue('');
+                setSelectedPromptName('');
                 setInputContentValue('');
               }
             }}
@@ -100,13 +117,20 @@ const PromptInput = () => {
         ))}
       </div>
       <div className="mt-4 mb-4">
-        <InputField
+        <Select
           size="large"
-          type="text"
-          placeholder="Name"
-          value={inputNameValue}
-          onChange={e => setInputNameValue(e.target.value)}
-        />
+          placeholder="Select a prompt name"
+          value={selectedPromptName}
+          onChange={value => setSelectedPromptName(value)}
+          style={{ width: '100%' }}
+        >
+          {promptNames &&
+            promptNames.map((promptName, index) => (
+              <Select.Option key={index} value={promptName}>
+                {promptName}
+              </Select.Option>
+            ))}
+        </Select>
       </div>
       <div className=" mb-4">
         <InputField

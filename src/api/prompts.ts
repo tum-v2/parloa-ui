@@ -38,7 +38,7 @@ export const getAllPrompts = async (domain: string, agentType: string) => {
 export const getPromptNames = async (agentType: string) => {
   const token = secureLocalStorage.getItem('token');
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/dictionary/prompts/${agentType}`,
+    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/dictionary/prompt-names?agentType=${agentType}`,
     {
       headers: {
         Authorization: `Bearer ${token}`

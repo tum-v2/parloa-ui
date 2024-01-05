@@ -8,7 +8,6 @@ import {
   serviceAgents,
   userAgentswithConfig,
   userAgents,
-  prompts,
   goals
 } from './mockData';
 import { Dropdown, AgentState } from './simulationDefinitions';
@@ -32,7 +31,7 @@ const initialState: SimulationDataState = {
   userAgentsWithConfig: userAgentswithConfig,
   userAgents: userAgents,
   llms: llms,
-  prompts: prompts,
+  prompts: [],
   domains: domains,
   goals: goals
 };
