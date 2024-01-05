@@ -92,14 +92,14 @@ const SimulationModal = () => {
       case 3:
         {
           switch (agent.type) {
-            case 'serviceAgent':
+            case 'SERVICE':
               {
                 const { goal, temporary, ...serviceAgent } = agent; // eslint-disable-line @typescript-eslint/no-unused-vars
                 createAgentMutation.mutate(serviceAgent);
               }
 
               break;
-            case 'userAgent':
+            case 'USER':
               createAgentMutation.mutate(agent);
               break;
             default:

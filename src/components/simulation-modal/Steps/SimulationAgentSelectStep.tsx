@@ -5,8 +5,6 @@ import { FaHeadphones, FaUser } from 'react-icons/fa';
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
 import {
   setType,
-  setUserAgentConfig,
-  setServiceAgentConfig,
   setNumConversations
 } from '@/store/features/CreateSimulation/CreateSimulationSlice';
 import { Form, InputNumber, Switch, Space, Flex } from 'antd';
@@ -15,9 +13,6 @@ import { SimulationMode } from '../components/SimulationTypeCard';
 const SimulationAgent = () => {
   const simulation = useAppSelector(state => state.simulation);
   const dispatch = useAppDispatch();
-
-  const serviceAgentConfig = simulation.serviceAgentConfig;
-  const userAgentConfig = simulation.userAgentConfig;
 
   const [mode, setMode] = useState<SimulationMode>(SimulationMode.CHAT);
   const [Title, setTitle] = useState<string>('');
@@ -39,30 +34,6 @@ const SimulationAgent = () => {
       setTitle('Automated');
     }
   }, [simulation.type]);
-
-  const handleUserAgentChange = useCallback(
-    (value: string) => {
-      dispatch(
-        setUserAgentConfig({
-          ...userAgentConfig,
-          name: value
-        })
-      );
-    },
-    [dispatch, userAgentConfig]
-  );
-
-  const handleServiceAgentChange = useCallback(
-    (value: string) => {
-      dispatch(
-        setServiceAgentConfig({
-          ...serviceAgentConfig,
-          name: value
-        })
-      );
-    },
-    [dispatch, serviceAgentConfig]
-  );
 
   const handleOptimizationSwitchChange = useCallback(
     (checked: boolean) => {
@@ -122,27 +93,15 @@ const SimulationAgent = () => {
               </SimulationTypeCard>
             </div>
             <div className="h-full aspect-[3/4] px-6 max-w-sm">
-              <ModelCard
-                onAgentChange={handleServiceAgentChange}
-                icon={<FaHeadphones size={100} />}
-                type="SERVICE"
-              />
+              <ModelCard icon={<FaHeadphones size={100} />} type="SERVICE" />
             </div>
             {isABTestingOn && (
               <div className="h-full aspect-[3/4] px-6 max-w-sm">
-                <ModelCard
-                  onAgentChange={handleServiceAgentChange}
-                  icon={<FaUser size={100} />}
-                  type="SERVICE"
-                />
+                <ModelCard icon={<FaUser size={100} />} type="SERVICE" />
               </div>
             )}
             <div className="h-full aspect-[3/4] px-6 max-w-sm">
-              <ModelCard
-                onAgentChange={handleUserAgentChange}
-                icon={<FaUser size={100} />}
-                type="USER"
-              />
+              <ModelCard icon={<FaUser size={100} />} type="USER" />
             </div>
           </Flex>
         );
@@ -157,11 +116,7 @@ const SimulationAgent = () => {
               />
             </div>
             <div className="h-full aspect-[3/4] px-6 max-w-sm">
-              <ModelCard
-                onAgentChange={handleServiceAgentChange}
-                icon={<FaHeadphones size={100} />}
-                type="SERVICE"
-              />
+              <ModelCard icon={<FaHeadphones size={100} />} type="SERVICE" />
             </div>
           </Flex>
         );

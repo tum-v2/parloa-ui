@@ -18,7 +18,6 @@ import Pill from '@/components/generic/Pill';
 const { Title } = Typography;
 
 interface ModelCardProps {
-  onAgentChange: (value: string) => void;
   icon: React.ReactNode;
   type: 'SERVICE' | 'USER';
 }
