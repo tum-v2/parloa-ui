@@ -12,7 +12,10 @@ import {
   setServiceAgentConfig,
   setUserAgentConfig
 } from '@/store/features/CreateSimulation/CreateSimulationSlice';
-import { resetAgentState } from '@/store/features/CreateSimulation/CreateAgentSlice';
+import {
+  resetAgentState,
+  setType as setAgentType
+} from '@/store/features/CreateSimulation/CreateAgentSlice';
 import Pill from '@/components/generic/Pill';
 
 const { Title } = Typography;
@@ -97,7 +100,7 @@ const ModelCard = ({
     }
   };
 
-  const handleButtonClick = () => {
+  const handleEditClick = () => {
     dispatch(setIsWildStep(true));
     dispatch(setAgentFlag(type));
     dispatch(setCurrentStep(3));
@@ -107,6 +110,7 @@ const ModelCard = ({
     dispatch(resetAgentState());
     dispatch(setIsWildStep(true));
     dispatch(setAgentFlag(type));
+    dispatch(setAgentType(type));
     dispatch(setCurrentStep(3));
   };
 
@@ -132,7 +136,7 @@ const ModelCard = ({
                 style={buttonStyle}
                 type="primary"
                 icon={<EditOutlined />}
-                onClick={handleButtonClick}
+                onClick={handleEditClick}
               />
             </Flex>
           </>
