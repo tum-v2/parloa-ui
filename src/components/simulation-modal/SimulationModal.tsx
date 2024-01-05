@@ -100,7 +100,10 @@ const SimulationModal = () => {
 
               break;
             case 'USER':
-              createAgentMutation.mutate(agent);
+              {
+                const { temporary, ...userAgent } = agent; // eslint-disable-line @typescript-eslint/no-unused-vars
+                createAgentMutation.mutate(userAgent);
+              }
               break;
             default:
               break;
