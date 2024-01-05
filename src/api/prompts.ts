@@ -3,13 +3,13 @@ import secureLocalStorage from 'react-secure-storage';
 import { z } from 'zod';
 
 /**
- * /prompts Get all prompts
+ * /prompts Get all prompts based on agent type and domain
  */
 
-export const getAllPrompts = async () => {
+export const getAllPrompts = async (domain: string, agentType: string) => {
   const token = secureLocalStorage.getItem('token');
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/dictionary/prompts`,
+    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/dictionary/prompts?domain=${domain}&agentType=${agentType}`,
     {
       headers: {
         Authorization: `Bearer ${token}`
