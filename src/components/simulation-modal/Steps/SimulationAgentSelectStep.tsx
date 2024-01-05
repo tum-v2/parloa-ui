@@ -9,10 +9,48 @@ import {
 } from '@/store/features/CreateSimulation/CreateSimulationSlice';
 import { Form, InputNumber, Switch, Space, Flex } from 'antd';
 import { SimulationMode } from '../components/SimulationTypeCard';
+import useAgents from '@/hooks/agents/useAgents';
+import {
+  setServiceAgents,
+  setServiceAgentsWithConfig,
+  setUserAgents,
+  setUserAgentsWithConfig
+} from '@/store/features/CreateSimulation/SimulationDataSlice';
 
 const SimulationAgent = () => {
   const simulation = useAppSelector(state => state.simulation);
   const dispatch = useAppDispatch();
+
+  const { data: agents } = useAgents();
+
+  useEffect(() => {
+    if (agents !== undefined) {
+      const serviceAgentsWithConfig = agents.filter(
+        agent => agent.type === 'SERVICE'
+      );
+      const userAgentsWithConfig = agents.filter(
+        agent => agent.type === 'USER'
+      );
+
+      const serviceAgents = serviceAgentsWithConfig.map(agent => {
+        return {
+          value: agent._id,
+          label: agent.name
+        };
+      });
+      const userAgents = userAgentsWithConfig.map(agent => {
+        return {
+          value: agent._id,
+          label: agent.name
+        };
+      });
+
+      dispatch(setServiceAgents(serviceAgents));
+      dispatch(setServiceAgentsWithConfig(serviceAgentsWithConfig));
+      dispatch(setUserAgents(userAgents));
+      dispatch(setUserAgentsWithConfig(userAgentsWithConfig));
+    }
+  }, [agents, dispatch]);
 
   const [mode, setMode] = useState<SimulationMode>(SimulationMode.CHAT);
   const [Title, setTitle] = useState<string>('');
