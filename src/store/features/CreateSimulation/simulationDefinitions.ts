@@ -5,7 +5,7 @@ export interface SimulationControlState {
   GoalFlag: 'EDIT' | 'CREATE';
 }
 
-export type AgentType = 'userAgent' | 'serviceAgent' | '';
+export type AgentType = 'USER' | 'SERVICE' | '';
 
 export interface AgentState {
   _id?: string;

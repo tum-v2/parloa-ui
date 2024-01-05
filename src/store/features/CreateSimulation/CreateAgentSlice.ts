@@ -4,7 +4,7 @@ import { AgentState, AgentType, PromptPart } from './simulationDefinitions';
 
 const AgentInitialState: AgentState = {
   name: '',
-  type: 'userAgent',
+  type: 'USER',
   llm: 'FAKE',
   temperature: 0.7,
   maxTokens: 512,
