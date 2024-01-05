@@ -43,10 +43,10 @@ export const simulationSlice = createSlice({
     setNumConversations: (state, action: PayloadAction<number>) => {
       state.numConversations = action.payload;
     },
-    setServiceAgent: (state, action: PayloadAction<AgentState>) => {
+    setServiceAgentConfig: (state, action: PayloadAction<AgentState>) => {
       state.serviceAgentConfig = action.payload;
     },
-    setUserAgent: (state, action: PayloadAction<AgentState>) => {
+    setUserAgentConfig: (state, action: PayloadAction<AgentState>) => {
       state.userAgentConfig = action.payload;
     },
 
@@ -60,8 +60,8 @@ export const {
   setDescription,
   setType,
   setNumConversations,
-  setServiceAgent,
-  setUserAgent,
+  setServiceAgentConfig,
+  setUserAgentConfig,
   resetState
 } = simulationSlice.actions;
 

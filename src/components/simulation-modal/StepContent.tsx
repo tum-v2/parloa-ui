@@ -8,10 +8,9 @@ import { useAppSelector } from '@/store/hooks';
 
 interface StepContentProps {
   stepNumber: number;
-  enterWildStep: () => void;
 }
 
-const StepContent = ({ stepNumber, enterWildStep }: StepContentProps) => {
+const StepContent = ({ stepNumber }: StepContentProps) => {
   const { agentFlag } = useAppSelector(state => state.simulationControl);
   const renderContentForStep = () => {
     switch (stepNumber) {
@@ -22,7 +21,7 @@ const StepContent = ({ stepNumber, enterWildStep }: StepContentProps) => {
         return <SimulationName />;
 
       case 2:
-        return <SimulationAgent enterWildStep={enterWildStep} />;
+        return <SimulationAgent />;
       case 3:
         return <SimulationAgentConfigurationStep type={agentFlag} />;
       case 4:

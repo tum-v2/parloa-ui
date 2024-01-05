@@ -5,20 +5,22 @@ import theme from '@/theme/theme';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {
   setCurrentStep,
-  setAgentFlag
+  setAgentFlag,
+  setIsWildStep
 } from '@/store/features/CreateSimulation/SimulationControlSlice';
+import {
+  setServiceAgentConfig,
+  setUserAgentConfig
+} from '@/store/features/CreateSimulation/CreateSimulationSlice';
 import { resetAgentState } from '@/store/features/CreateSimulation/CreateAgentSlice';
-import { Dropdown } from '@/store/features/CreateSimulation/simulationDefinitions';
 import Pill from '@/components/generic/Pill';
 
 const { Title } = Typography;
 
 interface ModelCardProps {
-  agents: Dropdown[];
   onAgentChange: (value: string) => void;
-  onButtonClick: () => void;
   icon: React.ReactNode;
-  type: 'serviceAgent' | 'userAgent'; // Replaced title with type
+  type: 'SERVICE' | 'USER';
 }
 
 const cardStyle: React.CSSProperties = {
@@ -46,20 +48,22 @@ const buttonStyle: React.CSSProperties = {
 };
 
 const ModelCard = ({
-  agents,
-  onAgentChange,
-  onButtonClick,
   icon,
   type // Using type prop
 }: ModelCardProps) => {
   const simulation = useAppSelector(state => state.simulation);
+  const simulationData = useAppSelector(state => state.simulationData);
 
+  const agents =
+    type === 'SERVICE'
+      ? simulationData.serviceAgents
+      : simulationData.userAgents;
   const domain =
-    type === 'serviceAgent'
+    type === 'SERVICE'
       ? simulation.serviceAgentConfig.domain
       : simulation.userAgentConfig.domain;
   const llm =
-    type === 'serviceAgent'
+    type === 'SERVICE'
       ? simulation.serviceAgentConfig.llm
       : simulation.userAgentConfig.llm;
 
@@ -67,24 +71,42 @@ const ModelCard = ({
 
   const getTitle = () => {
     switch (type) {
-      case 'serviceAgent':
+      case 'SERVICE':
         return 'Service Agent'; // Title for serviceAgent
-      case 'userAgent':
+      case 'USER':
         return 'User Agent'; // Title for userAgent
       default:
         return 'Unknown'; // Default title
     }
   };
 
+  const onAgentChange = (value: string) => {
+    if (type === 'SERVICE') {
+      const serviceAgent = simulationData.serviceAgentsWithConfig.find(
+        agent => agent._id === value
+      );
+      if (serviceAgent != undefined) {
+        dispatch(setServiceAgentConfig(serviceAgent));
+      }
+    } else {
+      const userAgent = simulationData.userAgentsWithConfig.find(
+        agent => agent._id === value
+      );
+      if (userAgent != undefined) {
+        dispatch(setUserAgentConfig(userAgent));
+      }
+    }
+  };
+
   const handleButtonClick = () => {
-    onButtonClick();
+    dispatch(setIsWildStep(true));
     dispatch(setAgentFlag(type));
     dispatch(setCurrentStep(3));
   };
 
   const handleAddButtonClick = () => {
     dispatch(resetAgentState());
-    onButtonClick();
+    dispatch(setIsWildStep(true));
     dispatch(setAgentFlag(type));
     dispatch(setCurrentStep(3));
   };

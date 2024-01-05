@@ -1,7 +1,7 @@
 export interface SimulationControlState {
   currentStep: number;
   isWildStep: boolean;
-  agentFlag: 'serviceAgent' | 'userAgent';
+  agentFlag: 'SERVICE' | 'USER';
   GoalFlag: 'EDIT' | 'CREATE';
 }
 

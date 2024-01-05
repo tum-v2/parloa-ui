@@ -5,7 +5,7 @@ import { SimulationControlState } from './simulationDefinitions';
 const initialState: SimulationControlState = {
   currentStep: 0,
   isWildStep: false,
-  agentFlag: 'userAgent',
+  agentFlag: 'SERVICE',
   GoalFlag: 'CREATE'
 };
 
@@ -19,10 +19,7 @@ export const simulationControlSlice = createSlice({
     setIsWildStep: (state, action: PayloadAction<boolean>) => {
       state.isWildStep = action.payload;
     },
-    setAgentFlag: (
-      state,
-      action: PayloadAction<'serviceAgent' | 'userAgent'>
-    ) => {
+    setAgentFlag: (state, action: PayloadAction<'SERVICE' | 'USER'>) => {
       state.agentFlag = action.payload;
     },
     setGoalFlag: (state, action: PayloadAction<'EDIT' | 'CREATE'>) => {

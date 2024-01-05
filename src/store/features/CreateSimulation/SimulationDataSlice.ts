@@ -19,7 +19,7 @@ interface SimulationDataState {
   llms: string[];
   serviceAgentsWithConfig: AgentState[];
   serviceAgents: Dropdown[];
-  userAgentswithConfig: AgentState[];
+  userAgentsWithConfig: AgentState[];
   userAgents: Dropdown[];
   prompts: PromptPart[];
   goals: Goal[];
@@ -29,7 +29,7 @@ interface SimulationDataState {
 const initialState: SimulationDataState = {
   serviceAgentsWithConfig: serviceAgentsWithConfig,
   serviceAgents: serviceAgents,
-  userAgentswithConfig: userAgentswithConfig,
+  userAgentsWithConfig: userAgentswithConfig,
   userAgents: userAgents,
   llms: llms,
   prompts: prompts,
@@ -55,7 +55,7 @@ export const simulationDataSlice = createSlice({
       state.userAgents = action.payload;
     },
     setUserAgentsWithConfig: (state, action: PayloadAction<AgentState[]>) => {
-      state.userAgentswithConfig = action.payload;
+      state.userAgentsWithConfig = action.payload;
     },
     setLLMs: (state, action: PayloadAction<string[]>) => {
       state.llms = action.payload;
@@ -81,7 +81,7 @@ export const simulationDataSlice = createSlice({
       state.userAgents = [];
     },
     resetUserAgentsWithConfig: state => {
-      state.userAgentswithConfig = [];
+      state.userAgentsWithConfig = [];
     },
     resetLLMs: state => {
       state.llms = [];

@@ -79,26 +79,24 @@ const PromptInput = () => {
       {/* Tags are now placed inside a div, which will make them appear below the Load button */}
       <div className="m-4">
         {tags.map((tag, index) => (
-          <>
-            <Tag
-              style={pillStyle}
-              color={theme.color.primary}
-              key={index}
-              onClick={() => handleTagClick(index)}
-              closable
-              onClose={e => {
-                e.preventDefault(); // Prevent the tag click handler when closing the tag
-                setTags(tags.filter((_, i) => i !== index));
-                if (editTagIndex === index) {
-                  setEditTagIndex(null);
-                  setInputNameValue('');
-                  setInputContentValue('');
-                }
-              }}
-            >
-              {tag.name}
-            </Tag>
-          </>
+          <Tag
+            style={pillStyle}
+            color={theme.color.primary}
+            key={index}
+            onClick={() => handleTagClick(index)}
+            closable
+            onClose={e => {
+              e.preventDefault(); // Prevent the tag click handler when closing the tag
+              setTags(tags.filter((_, i) => i !== index));
+              if (editTagIndex === index) {
+                setEditTagIndex(null);
+                setInputNameValue('');
+                setInputContentValue('');
+              }
+            }}
+          >
+            {tag.name}
+          </Tag>
         ))}
       </div>
       <div className="mt-4 mb-4">
