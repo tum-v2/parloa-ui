@@ -5,8 +5,8 @@ export const PromptPartSchema = z.object({
   content: z.string()
 });
 
+export const PromptsSchema = PromptPartSchema.array();
+
 export type PromptPart = z.infer<typeof PromptPartSchema>;
 
-export const PromptSchema = PromptPartSchema.array();
-
-export type Prompts = z.infer<typeof PromptSchema>;
+export type Prompts = z.infer<typeof PromptsSchema>;

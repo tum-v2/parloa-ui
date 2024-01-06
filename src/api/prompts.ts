@@ -1,4 +1,4 @@
-import { PromptSchema } from './schemas/prompts';
+import { PromptsSchema } from './schemas/prompts';
 import secureLocalStorage from 'react-secure-storage';
 import { z } from 'zod';
 
@@ -17,7 +17,7 @@ export const getAllPrompts = async (domain: string, agentType: string) => {
     }
   );
 
-  const zodResponse = PromptSchema.safeParse(await response.json());
+  const zodResponse = PromptsSchema.safeParse(await response.json());
 
   if (!response.ok) {
     throw new Error(response.status.toString());
