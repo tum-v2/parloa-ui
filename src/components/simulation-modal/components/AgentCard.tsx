@@ -20,7 +20,7 @@ import Pill from '@/components/generic/Pill';
 
 const { Title } = Typography;
 
-interface ModelCardProps {
+interface AgentCardProps {
   icon: React.ReactNode;
   type: 'SERVICE' | 'USER';
 }
@@ -49,10 +49,10 @@ const buttonStyle: React.CSSProperties = {
   marginRight: theme.margin.s // Adding right margin for spacing between buttons
 };
 
-const ModelCard = ({
+const AgentCard = ({
   icon,
   type // Using type prop
-}: ModelCardProps) => {
+}: AgentCardProps) => {
   const simulation = useAppSelector(state => state.simulation);
   const simulationData = useAppSelector(state => state.simulationData);
 
@@ -156,4 +156,4 @@ const ModelCard = ({
   );
 };
 
-export default ModelCard;
+export default AgentCard;

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import SimulationTypeCard from '../components/SimulationTypeCard';
-import ModelCard from '../components/ModelCard';
+import AgentCard from '../components/AgentCard';
 import { FaHeadphones, FaUser } from 'react-icons/fa';
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
 import {
@@ -131,15 +131,15 @@ const SimulationAgent = () => {
               </SimulationTypeCard>
             </div>
             <div className="h-full aspect-[3/4] px-6 max-w-sm">
-              <ModelCard icon={<FaHeadphones size={100} />} type="SERVICE" />
+              <AgentCard icon={<FaHeadphones size={100} />} type="SERVICE" />
             </div>
             {isABTestingOn && (
               <div className="h-full aspect-[3/4] px-6 max-w-sm">
-                <ModelCard icon={<FaUser size={100} />} type="SERVICE" />
+                <AgentCard icon={<FaUser size={100} />} type="SERVICE" />
               </div>
             )}
             <div className="h-full aspect-[3/4] px-6 max-w-sm">
-              <ModelCard icon={<FaUser size={100} />} type="USER" />
+              <AgentCard icon={<FaUser size={100} />} type="USER" />
             </div>
           </Flex>
         );
@@ -154,7 +154,7 @@ const SimulationAgent = () => {
               />
             </div>
             <div className="h-full aspect-[3/4] px-6 max-w-sm">
-              <ModelCard icon={<FaHeadphones size={100} />} type="SERVICE" />
+              <AgentCard icon={<FaHeadphones size={100} />} type="SERVICE" />
             </div>
           </Flex>
         );
