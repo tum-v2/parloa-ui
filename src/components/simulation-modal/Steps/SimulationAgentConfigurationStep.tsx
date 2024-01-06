@@ -8,7 +8,7 @@ import {
   setTemperature,
   setMaxTokens,
   setDomain
-} from '../../../store/features/CreateSimulation/CreateAgentSlice';
+} from '@/store/features/CreateSimulation/CreateAgentSlice';
 import PromptInput from '../components/PromptInput';
 import UserGoalSelect from '../components/UserGoalSelect';
 
