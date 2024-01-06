@@ -46,7 +46,7 @@ const selectStyle: React.CSSProperties = {
 };
 
 const buttonStyle: React.CSSProperties = {
-  marginRight: theme.margin.s // Adding right margin for spacing between buttons
+  marginRight: theme.margin.s
 };
 
 const AgentCard = ({
@@ -74,11 +74,11 @@ const AgentCard = ({
   const getTitle = () => {
     switch (type) {
       case 'SERVICE':
-        return 'Service Agent'; // Title for serviceAgent
+        return 'Service Agent';
       case 'USER':
-        return 'User Agent'; // Title for userAgent
+        return 'User Agent';
       default:
-        return 'Unknown'; // Default title
+        return 'Unknown';
     }
   };
 

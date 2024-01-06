@@ -85,15 +85,25 @@ const PromptInput = ({ domain, agentType }: Props) => {
     }
   };
 
+  const onTagClose = (
+    e: React.MouseEvent<HTMLElement, MouseEvent>,
+    index: number
+  ) => {
+    e.preventDefault(); // Prevent the tag click handler when closing the tag
+    setTags(tags.filter((_, i) => i !== index));
+    if (editTagIndex === index) {
+      setEditTagIndex(null);
+      setSelectedPromptName('');
+      setInputContentValue('');
+    }
+  };
+
   return (
     <>
       <Space size="middle">
-        <span>Prompt</span>{' '}
-        {/* Replace 'span' with a 'label' if needed for form semantics */}
-        <Button onClick={handleLoad}>Load</Button>
+        <span>Prompt</span> <Button onClick={handleLoad}>Load</Button>
       </Space>
 
-      {/* Tags are now placed inside a div, which will make them appear below the Load button */}
       <div className="m-4">
         {tags.map((tag, index) => (
           <Tag
@@ -102,15 +112,7 @@ const PromptInput = ({ domain, agentType }: Props) => {
             key={index}
             onClick={() => handleTagClick(index)}
             closable
-            onClose={e => {
-              e.preventDefault(); // Prevent the tag click handler when closing the tag
-              setTags(tags.filter((_, i) => i !== index));
-              if (editTagIndex === index) {
-                setEditTagIndex(null);
-                setSelectedPromptName('');
-                setInputContentValue('');
-              }
-            }}
+            onClose={e => onTagClose(e, index)}
           >
             {tag.name}
           </Tag>
