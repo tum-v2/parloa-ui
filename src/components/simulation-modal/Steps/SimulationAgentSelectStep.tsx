@@ -96,7 +96,7 @@ const SimulationAgent = () => {
           <Flex justify="center" align="center" className="h-3/4 w-full">
             <div className="h-full aspect-[3/4] px-6 max-w-sm">
               <SimulationTypeCard selectable={false} title={Title} mode={mode}>
-                {mode === SimulationMode.AUTOMATED ? (
+                {mode === SimulationMode.AUTOMATED && (
                   <>
                     <Form.Item label="Simulations">
                       <InputNumber
@@ -127,7 +127,7 @@ const SimulationAgent = () => {
                       </div>
                     </Space>
                   </>
-                ) : null}
+                )}
               </SimulationTypeCard>
             </div>
             <div className="h-full aspect-[3/4] px-6 max-w-sm">
