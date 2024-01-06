@@ -5,6 +5,7 @@ import BackButton from '@/components/generic/BackButton';
 import NextButton from '@/components/generic/NextButton';
 import theme from '@/theme/theme';
 import { useAppSelector } from '@/store/hooks';
+import { STEP_TITLES } from './SimulationModalTitle';
 
 const { Step } = Steps;
 
@@ -13,13 +14,6 @@ const customDot = (dot: React.ReactNode, { index }: { index: number }) => {
   return <Popover content={<span>{content}</span>}>{dot}</Popover>;
 };
 
-const STEP_TITLES = [
-  'Create a New Simulation',
-  'Name & Description',
-  'Configure Simulation',
-  'Agent Configuration',
-  'Goal Configuration'
-];
 const modalFooterStyle: React.CSSProperties = {
   display: 'flex',
   justifyContent: 'space-around',

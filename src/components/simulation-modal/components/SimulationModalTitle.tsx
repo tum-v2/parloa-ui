@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAppSelector } from '@/store/hooks';
 
-const STEP_TITLES = [
+export const STEP_TITLES = [
   'Create a New Simulation',
   'Name & Description',
   'Configure Simulation',
