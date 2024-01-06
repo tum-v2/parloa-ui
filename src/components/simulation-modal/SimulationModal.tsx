@@ -4,10 +4,6 @@ import { PlusOutlined } from '@ant-design/icons';
 import StepContent from './StepContent';
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
 import { resetState } from '@/store/features/CreateSimulation/CreateSimulationSlice';
-// import useCreateSimulation from '@/hooks/useCreateSimulation';
-// import useCreateOptimizedSimulation from '@/hooks/useCreateOptimizedSimulation';
-// import { CreateSimulation } from '@/api/schemas/simulation';
-// import useCreateChatSimulation from '@/hooks/useCreateChatSimulation';
 import {
   setCurrentStep,
   setIsWildStep,
@@ -39,9 +35,6 @@ const SimulationModal = () => {
   };
   const [messageApi, contextHolder] = message.useMessage();
 
-  // const createSimulationMutation = useCreateSimulation();
-  // const createOptimizedSimulationMutation = useCreateOptimizedSimulation();
-  // const createChatSimulationMutation = useCreateChatSimulation();
   const createGoalMutation = useCreateGoal();
   const createAgentMutation = useCreateAgent();
 
@@ -138,30 +131,6 @@ const SimulationModal = () => {
       });
       return;
     }
-
-    // const request: CreateSimulation = {
-    //   type: simulation.type,
-    //   name: simulation.name,
-    //   description: simulation.description,
-    //   numConversations: simulation.numConversations,
-    //   serviceAgentConfig: simulation.serviceAgentConfig,
-    //   userAgentConfig: simulation.userAgentConfig
-    // };
-
-    // switch (simulation.type) {
-    //   case 'CHAT':
-    //     createChatSimulationMutation.mutate({
-    //       name: request.name,
-    //       agentConfig: request.serviceAgentConfig
-    //     });
-    //     break;
-    //   case 'OPTIMIZATION':
-    //     createOptimizedSimulationMutation.mutate(request);
-    //     break;
-    //   default:
-    //     createSimulationMutation.mutate(request);
-    //     break;
-    // }
 
     setOpen(false);
   };
