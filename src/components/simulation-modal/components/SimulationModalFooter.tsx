@@ -1,8 +1,8 @@
 // SimulationModalFooter.tsx
 import React from 'react';
 import { Steps, Button, Popover } from 'antd';
-import BackButton from '../../generic/BackButton';
-import NextButton from '../../generic/NextButton';
+import BackButton from '@/components/generic/BackButton';
+import NextButton from '@/components/generic/NextButton';
 import theme from '@/theme/theme';
 import { useAppSelector } from '@/store/hooks';
 
