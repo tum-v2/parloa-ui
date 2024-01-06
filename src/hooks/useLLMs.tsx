@@ -5,7 +5,7 @@ const useLLMs = () => {
   const query = useQuery<string[], Error>({
     queryKey: ['language-models'],
     queryFn: getAllLLMs,
-    // Polling every 10 seconds to update the list of simulations
+    // Polling every 10 seconds to update the list of LLMs
     refetchInterval: 10000
   });
   return query;
