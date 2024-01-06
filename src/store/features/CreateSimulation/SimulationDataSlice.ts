@@ -12,7 +12,6 @@ import {
 } from './mockData';
 import { Dropdown, AgentState } from './simulationDefinitions';
 
-// Define a type for the slice state
 interface SimulationDataState {
   domains: string[];
   llms: string[];
