@@ -5,6 +5,7 @@ import SimulationAgent from './Steps/SimulationAgentSelectStep';
 import SimulationAgentConfigurationStep from './Steps/SimulationAgentConfigurationStep';
 import SimulationGoalEditStep from './Steps/SimulationGoalEditStep';
 import { useAppSelector } from '@/store/hooks';
+import { CurrentStep } from './SimulationModal';
 
 interface StepContentProps {
   stepNumber: number;
@@ -14,17 +15,17 @@ const StepContent = ({ stepNumber }: StepContentProps) => {
   const { agentFlag } = useAppSelector(state => state.simulationControl);
   const renderContentForStep = () => {
     switch (stepNumber) {
-      case 0:
+      case CurrentStep.CreateANewSimulation:
         return <SimulationSelection />;
 
-      case 1:
+      case CurrentStep.NameAndDescription:
         return <SimulationName />;
 
-      case 2:
+      case CurrentStep.ConfigureSimulation:
         return <SimulationAgent />;
-      case 3:
+      case CurrentStep.AgentConfiguration:
         return <SimulationAgentConfigurationStep type={agentFlag} />;
-      case 4:
+      case CurrentStep.GoalConfiguration:
         return <SimulationGoalEditStep />;
 
       default:

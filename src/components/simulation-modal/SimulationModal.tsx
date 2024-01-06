@@ -15,6 +15,14 @@ import useCreateGoal from '@/hooks/goals/useCreateGoal';
 import { CreateGoal } from '@/api/schemas/goal';
 import useCreateAgent from '@/hooks/agents/useCreateAgent';
 
+export enum CurrentStep {
+  CreateANewSimulation,
+  NameAndDescription,
+  ConfigureSimulation,
+  AgentConfiguration,
+  GoalConfiguration
+}
+
 const SimulationModal = () => {
   const [open, setOpen] = useState(false);
 
@@ -40,7 +48,7 @@ const SimulationModal = () => {
 
   const handleNext = () => {
     switch (currentStep) {
-      case 0:
+      case CurrentStep.CreateANewSimulation:
         if (simulation.type === '') {
           messageApi.open({
             type: 'error',
@@ -49,7 +57,7 @@ const SimulationModal = () => {
           return;
         }
         break;
-      case 1:
+      case CurrentStep.NameAndDescription:
         if (simulation.name === '') {
           messageApi.open({
             type: 'error',
@@ -82,7 +90,7 @@ const SimulationModal = () => {
 
   const handleSave = () => {
     switch (currentStep) {
-      case 3:
+      case CurrentStep.AgentConfiguration:
         {
           switch (agent.type) {
             case 'SERVICE':
@@ -106,7 +114,7 @@ const SimulationModal = () => {
           dispatch(setCurrentStep(currentStep - 1));
         }
         break;
-      case 4:
+      case CurrentStep.GoalConfiguration:
         {
           const goalRequest: CreateGoal = {
             name: goal.name,
