@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { LLMSchema } from './schemas/llms';
 import secureLocalStorage from 'react-secure-storage';
 
 export const getAllLLMs = async () => {
@@ -13,7 +13,7 @@ export const getAllLLMs = async () => {
   );
 
   // Assuming the response is an array of strings
-  const zodResponse = z.array(z.string()).safeParse(await response.json());
+  const zodResponse = LLMSchema.safeParse(await response.json());
 
   // Return error to react-query
   if (!zodResponse.success) {
