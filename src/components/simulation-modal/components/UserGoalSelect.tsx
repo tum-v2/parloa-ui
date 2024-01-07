@@ -26,6 +26,7 @@ const UserGoalSelect = () => {
     } else {
       // Handle the case when goal._id is undefined
       // For example, you can return a default value:
+      //TODO
       return {
         value: '',
         label: goal.name
@@ -49,11 +50,13 @@ const UserGoalSelect = () => {
 
   const onSetUserGoal = () => {
     // Implement the logic for setting a user goal
+    //TODO
     dispatch(setCurrentStep(4));
   };
 
   const onGoalChange = (value: string) => {
     // Implement the logic for changing the user goal
+    //TODO
     dispatch(setUserGoal(value));
     setGoalValue(value);
   };
