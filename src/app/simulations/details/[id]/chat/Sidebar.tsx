@@ -18,6 +18,12 @@ enum SidebarContent {
   Chats
 }
 
+const sidebarTitleStyle: React.CSSProperties = {
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis'
+};
+
 const Sidebar = ({
   simulation,
   selectedChat,
@@ -113,7 +119,7 @@ const SidebarSimulations = ({ onChangeSelection }: SidebarSimulationsProps) => {
 
   return (
     <>
-      <h1>Simulations</h1>
+      <h1 style={sidebarTitleStyle}>Simulations</h1>
       {simulations.map((simulation, index) => (
         <SimulationCard
           key={index}
@@ -149,7 +155,7 @@ const SidebarChats = ({
 
   return (
     <>
-      <h1>{title}</h1>
+      <h1 style={sidebarTitleStyle}>{title}</h1>
       <div style={containerStyle}>
         {chatIds.map((id, index) => (
           <SelectableButton
