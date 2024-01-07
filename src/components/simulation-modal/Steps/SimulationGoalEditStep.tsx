@@ -8,10 +8,17 @@ import {
   setGoalScenarios
 } from '@/store/features/CreateSimulation/CreateGoalSlice';
 
+enum ScenarioButton {
+  SlotFilling = 'SLOT_FILLING',
+  CallForwarding = 'CALL_FORWARDING',
+  Sequence = 'SEQUENCE'
+}
+
 const SimulationGoalEditStep = () => {
   const dispatch = useAppDispatch();
   const { name, description, scenarios } = useAppSelector(state => state.goal);
   const [activeButtons, setActiveButtons] = useState<string[]>(scenarios);
+  const scenarioButtons = Object.values(ScenarioButton);
 
   useEffect(() => {
     setActiveButtons(scenarios);
@@ -83,34 +90,18 @@ const SimulationGoalEditStep = () => {
               <div className="mt-4 mb-4 font-bold">
                 <label>Scenarios:</label>
               </div>
-              <Button
-                size="large"
-                type={isButtonActive('SLOT_FILLING') ? 'primary' : 'default'}
-                onClick={() => handleButtonClick('SLOT_FILLING')}
-                className="w-full m-4"
-              >
-                SLOT_FILLING
-              </Button>
-            </div>
-            <div>
-              <Button
-                size="large"
-                type={isButtonActive('CALL_FORWARDING') ? 'primary' : 'default'}
-                onClick={() => handleButtonClick('CALL_FORWARDING')}
-                className="w-full m-4"
-              >
-                CALL_FORWARDING
-              </Button>
-            </div>
-            <div>
-              <Button
-                size="large"
-                type={isButtonActive('SEQUENCE') ? 'primary' : 'default'}
-                onClick={() => handleButtonClick('SEQUENCE')}
-                className="w-full m-4"
-              >
-                SEQUENCE
-              </Button>
+              {scenarioButtons.map(button => (
+                <div key={button}>
+                  <Button
+                    size="large"
+                    type={isButtonActive(button) ? 'primary' : 'default'}
+                    onClick={() => handleButtonClick(button)}
+                    className="w-full m-4"
+                  >
+                    {button}
+                  </Button>
+                </div>
+              ))}
             </div>
           </Col>
         </Row>
