@@ -56,6 +56,8 @@ const SimulationModalFooter: React.FC<SimulationModalFooterProps> = ({
     state => state.simulationControl
   );
 
+  const NumberOfSteps = 3;
+
   const getNextStepTitle = () => {
     return STEP_TITLES[currentStep + 1] || 'Start Simulation';
   };
@@ -76,9 +78,9 @@ const SimulationModalFooter: React.FC<SimulationModalFooterProps> = ({
         progressDot={customDot}
         style={stepsStyle}
       >
-        <Step />
-        <Step />
-        <Step />
+        {Array.from({ length: NumberOfSteps }, (_, index) => (
+          <Step key={index} />
+        ))}
       </Steps>
       <div style={rightAlignStyle}>
         {isWildStep ? (
