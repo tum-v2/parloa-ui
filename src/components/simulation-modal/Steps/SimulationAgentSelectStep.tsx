@@ -24,32 +24,31 @@ const SimulationAgent = () => {
   const { data: agents } = useAgents();
 
   useEffect(() => {
-    if (agents !== undefined) {
-      const serviceAgentsWithConfig = agents.filter(
-        agent => agent.type === 'SERVICE'
-      );
-      const userAgentsWithConfig = agents.filter(
-        agent => agent.type === 'USER'
-      );
-
-      const serviceAgents = serviceAgentsWithConfig.map(agent => {
-        return {
-          value: agent._id,
-          label: agent.name
-        };
-      });
-      const userAgents = userAgentsWithConfig.map(agent => {
-        return {
-          value: agent._id,
-          label: agent.name
-        };
-      });
-
-      dispatch(setServiceAgents(serviceAgents));
-      dispatch(setServiceAgentsWithConfig(serviceAgentsWithConfig));
-      dispatch(setUserAgents(userAgents));
-      dispatch(setUserAgentsWithConfig(userAgentsWithConfig));
+    if (agents == undefined) {
+      return;
     }
+    const serviceAgentsWithConfig = agents.filter(
+      agent => agent.type === 'SERVICE'
+    );
+    const userAgentsWithConfig = agents.filter(agent => agent.type === 'USER');
+
+    const serviceAgents = serviceAgentsWithConfig.map(agent => {
+      return {
+        value: agent._id,
+        label: agent.name
+      };
+    });
+    const userAgents = userAgentsWithConfig.map(agent => {
+      return {
+        value: agent._id,
+        label: agent.name
+      };
+    });
+
+    dispatch(setServiceAgents(serviceAgents));
+    dispatch(setServiceAgentsWithConfig(serviceAgentsWithConfig));
+    dispatch(setUserAgents(userAgents));
+    dispatch(setUserAgentsWithConfig(userAgentsWithConfig));
   }, [agents, dispatch]);
 
   const [mode, setMode] = useState<SimulationMode>(SimulationMode.CHAT);
