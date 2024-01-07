@@ -17,6 +17,7 @@ import {
   setType as setAgentType
 } from '@/store/features/CreateSimulation/CreateAgentSlice';
 import Pill from '@/components/generic/Pill';
+import { CurrentStep } from '../SimulationModal';
 
 const { Title } = Typography;
 
@@ -103,7 +104,7 @@ const AgentCard = ({
   const handleEditClick = () => {
     dispatch(setIsWildStep(true));
     dispatch(setAgentFlag(type));
-    dispatch(setCurrentStep(3));
+    dispatch(setCurrentStep(CurrentStep.AgentConfiguration));
   };
 
   const handleAddButtonClick = () => {
@@ -111,7 +112,7 @@ const AgentCard = ({
     dispatch(setIsWildStep(true));
     dispatch(setAgentFlag(type));
     dispatch(setAgentType(type));
-    dispatch(setCurrentStep(3));
+    dispatch(setCurrentStep(CurrentStep.AgentConfiguration));
   };
 
   return (
