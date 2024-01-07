@@ -6,6 +6,7 @@ import NextButton from '@/components/generic/NextButton';
 import theme from '@/theme/theme';
 import { useAppSelector } from '@/store/hooks';
 import { STEP_TITLES } from './SimulationModalTitle';
+import { CurrentStep } from '../SimulationModal';
 
 const { Step } = Steps;
 
@@ -84,7 +85,7 @@ const SimulationModalFooter: React.FC<SimulationModalFooterProps> = ({
           <Button type="primary" onClick={handleSave}>
             Save
           </Button>
-        ) : currentStep === 2 ? (
+        ) : currentStep === CurrentStep.ConfigureSimulation ? (
           <Button type="primary" onClick={handleFinish}>
             Start Simulation
           </Button>
