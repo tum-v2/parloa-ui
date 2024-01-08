@@ -1,29 +1,19 @@
+import customFetch from '@/lib/utils/fetch';
 import {
   ConversationSchema,
   MessageSchema,
   Message
 } from './schemas/conversation';
-import secureLocalStorage from 'react-secure-storage';
 
 /**
  * /simulations/conversations/:id Get conversation
  */
 export const getConversation = async (id: string) => {
-  const token = secureLocalStorage.getItem('token');
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/simulations/conversations/${id}`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    }
+  const response = await customFetch(
+    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/simulations/conversations/${id}`
   );
 
   const zodResponse = ConversationSchema.safeParse(await response.json());
-
-  if (!response.ok) {
-    throw new Error(response.status.toString());
-  }
 
   // Return error to react-query
   if (!zodResponse.success) {
@@ -34,24 +24,14 @@ export const getConversation = async (id: string) => {
 };
 
 export const loadManualConversation = async (simulationId: string) => {
-  const token = secureLocalStorage.getItem('token');
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/chats/${simulationId}`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    }
+  const response = await customFetch(
+    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/chats/${simulationId}`
   );
 
   const r = await response.json();
   console.log(r);
 
   const zodResponse = MessageSchema.array().safeParse(r);
-
-  if (!response.ok) {
-    throw new Error(response.status.toString());
-  }
 
   // Return error to react-query
   if (!zodResponse.success) {
@@ -65,7 +45,7 @@ export const postMessage = async (
   simulationId: string,
   message: string
 ): Promise<Message> => {
-  const response = await fetch(
+  const response = await customFetch(
     `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/chats/${simulationId}`,
     {
       method: 'POST',
