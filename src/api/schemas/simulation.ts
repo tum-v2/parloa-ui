@@ -8,7 +8,11 @@ export const SIMULATION_TYPES = [
   ''
 ] as const;
 
+export const SIMULATION_STATUSES = ['RUNNING', 'FINISHED', 'FAILED'] as const;
+
 export type SimulationType = (typeof SIMULATION_TYPES)[number];
+
+export type SimulationStatus = (typeof SIMULATION_STATUSES)[number];
 
 export const SimulationSchema = z.object({
   _id: z.string(),
@@ -22,7 +26,7 @@ export const SimulationSchema = z.object({
   serviceAgent: z.string(),
   userAgent: z.string().optional().nullable(),
   conversations: z.string().array(),
-  status: z.string(),
+  status: z.enum(SIMULATION_STATUSES),
   duration: z.number(),
   evaluation: z.string().optional(),
   createdAt: z.string().datetime(),

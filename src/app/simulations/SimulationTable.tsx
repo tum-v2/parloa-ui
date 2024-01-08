@@ -1,20 +1,20 @@
 'use client';
 import { Simulation, SimulationType } from '@/api/schemas/simulation';
-import Pill from '@/components/generic/Pill';
-import useSimulations from '@/hooks/useSimulations';
-import {
-  getSimulationStatusBadgeStatus,
-  getSimulationTypeStyle
-} from '@/lib/utils/simulations/simulationStyles';
+import { getSimulationStatusBadgeStatus } from '@/lib/utils/simulations/simulationStyles';
 import { firstLetterToUpperCase } from '@/lib/utils/text';
 import { Badge, Button, Popconfirm, Space } from 'antd';
 import Table, { ColumnsType } from 'antd/es/table';
 import { useRouter } from 'next/navigation';
 import { DeleteOutlined } from '@ant-design/icons';
 import useDeleteSimulation from '@/hooks/useDeleteSimulation';
+import SimulationTypePill from '@/components/generic/SimulationTypePill';
 
-const SimulationTable = () => {
-  const { data, isLoading } = useSimulations();
+interface SimulationTableProps {
+  simulations: Simulation[];
+  isLoading: boolean;
+}
+
+const SimulationTable = ({ simulations, isLoading }: SimulationTableProps) => {
   const router = useRouter();
   const deleteSimulation = useDeleteSimulation();
 
@@ -36,12 +36,7 @@ const SimulationTable = () => {
       sortDirections: ['ascend', 'descend'],
       sorter: (a, b) => a.type.localeCompare(b.type),
       render: (type: SimulationType) => {
-        const typeStyle = getSimulationTypeStyle(type);
-        return (
-          <Pill color={typeStyle.color} icon={<typeStyle.icon />}>
-            {firstLetterToUpperCase(type)}
-          </Pill>
-        );
+        return <SimulationTypePill type={type} />;
       }
     },
     {
@@ -117,7 +112,7 @@ const SimulationTable = () => {
   return (
     <Table
       columns={columns}
-      dataSource={data}
+      dataSource={simulations}
       loading={isLoading}
       rowKey={record => record._id}
       className="cursor-pointer"

@@ -24,7 +24,8 @@ const theme = {
     paleBlue: 'F0F1FF',
     brightLavender: '#BE54DA',
     lilac: '#E194F5',
-    paleLavender: '#FDF3FF'
+    paleLavender: '#FDF3FF',
+    red: '#F63535'
   },
   margin: {
     xs: 4,
