@@ -1,26 +1,16 @@
+import customFetch from '@/lib/utils/fetch';
 import { getEvaluationBySimulation } from './evaluation';
 import { OptimizationSchema } from './schemas/optimization';
-import secureLocalStorage from 'react-secure-storage';
 
 /**
  * /optimizations/:id Get child simulations of optimization
  */
 export const getChildSimulations = async (id: string) => {
-  const token = secureLocalStorage.getItem('token');
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/optimizations/${id}`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    }
+  const response = await customFetch(
+    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/optimizations/${id}`
   );
 
   const zodResponse = OptimizationSchema.safeParse(await response.json());
-
-  if (!response.ok) {
-    throw new Error(response.status.toString());
-  }
 
   // Return error to react-query
   if (!zodResponse.success) {

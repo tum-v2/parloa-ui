@@ -1,3 +1,4 @@
+import customFetch from '@/lib/utils/fetch';
 import { CreateOptimizationResponseSchema } from './schemas/optimization';
 import {
   SimulationSchema,
@@ -5,27 +6,16 @@ import {
   CreateSimulationResponseSchema,
   DeleteSimulation
 } from './schemas/simulation';
-import secureLocalStorage from 'react-secure-storage';
 
 /**
  * /simulations/:id Get simulation
  */
 export const getSimulation = async (id: string) => {
-  const token = secureLocalStorage.getItem('token');
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/simulations/${id}`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    }
+  const response = await customFetch(
+    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/simulations/${id}`
   );
 
   const zodResponse = SimulationSchema.safeParse(await response.json());
-
-  if (!response.ok) {
-    throw new Error(response.status.toString());
-  }
 
   // Return error to react-query
   if (!zodResponse.success) {
@@ -39,21 +29,11 @@ export const getSimulation = async (id: string) => {
  * /simulations Get all simulations
  */
 export const getAllSimulations = async () => {
-  const token = secureLocalStorage.getItem('token');
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/simulations`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    }
+  const response = await customFetch(
+    `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/simulations`
   );
 
   const zodResponse = SimulationSchema.array().safeParse(await response.json());
-
-  if (!response.ok) {
-    throw new Error(response.status.toString());
-  }
 
   // Return error to react-query
   if (!zodResponse.success) {
@@ -71,22 +51,16 @@ export const getAllSimulations = async () => {
  * @throws If there's an error during the creation process.
  */
 export const createSimulation = async (simulationData: CreateSimulation) => {
-  const token = secureLocalStorage.getItem('token');
-  const response = await fetch(
+  const response = await customFetch(
     `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/simulations`,
     {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(simulationData)
     }
   );
-
-  if (!response.ok) {
-    throw new Error(response.status.toString()); // Handle non-2xx HTTP responses
-  }
 
   const zodResponse = CreateSimulationResponseSchema.safeParse(
     await response.json()
@@ -102,22 +76,16 @@ export const createSimulation = async (simulationData: CreateSimulation) => {
 export const createOptimizedSimulation = async (
   simulationData: CreateSimulation
 ) => {
-  const token = secureLocalStorage.getItem('token');
-  const response = await fetch(
+  const response = await customFetch(
     `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/optimizations`,
     {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(simulationData)
     }
   );
-
-  if (!response.ok) {
-    throw new Error(response.status.toString()); // Handle non-2xx HTTP responses
-  }
 
   const zodResponse = CreateOptimizationResponseSchema.safeParse(
     await response.json()
@@ -133,21 +101,16 @@ export const createOptimizedSimulation = async (
 export const deleteSimulation = async (
   deleteSimulationData: DeleteSimulation
 ) => {
-  const token = secureLocalStorage.getItem('token');
-  const response = await fetch(
+  const response = await customFetch(
     `${process.env.NEXT_PUBLIC_SIMULATION_API_URL}/simulations/${deleteSimulationData._id}`,
     {
       method: 'DELETE',
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
+        'Content-Type': 'application/json'
       }
     }
   );
 
-  if (!response.ok) {
-    throw new Error(response.status.toString()); // Handle non-2xx HTTP responses
-  }
   // Becuase the response is empty, we can't use zod to parse it
   return response;
 };
