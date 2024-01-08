@@ -57,6 +57,11 @@ const AgentCard = ({
   const simulation = useAppSelector(state => state.simulation);
   const simulationData = useAppSelector(state => state.simulationData);
 
+  const agentValue =
+    type === 'SERVICE'
+      ? simulation.serviceAgentConfig._id
+      : simulation.userAgentConfig._id;
+
   const agents =
     type === 'SERVICE'
       ? simulationData.serviceAgents
@@ -132,6 +137,7 @@ const AgentCard = ({
                 style={selectStyle}
                 onChange={value => onAgentChange(value)}
                 options={agents}
+                value={agentValue}
               />
               <Button
                 style={buttonStyle}
