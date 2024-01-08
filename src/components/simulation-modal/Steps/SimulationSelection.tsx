@@ -1,6 +1,6 @@
 import React from 'react';
-import SimulationTypeCard from '../SimulationTypeCard';
-import { SimulationMode } from '../SimulationTypeCard';
+import SimulationTypeCard from '../components/SimulationTypeCard';
+import { SimulationMode } from '../components/SimulationTypeCard';
 import { Flex } from 'antd';
 
 const SimulationSelection = () => {
