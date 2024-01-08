@@ -6,6 +6,7 @@ interface PillProps {
   icon?: React.ReactNode;
   color?: string;
   width?: string;
+  onClick?: () => void;
   children?: React.ReactNode;
 }
 
@@ -13,6 +14,7 @@ const Pill = ({
   icon,
   color = theme.color.primary,
   width = undefined,
+  onClick,
   children
 }: PillProps) => {
   const pillStyle: React.CSSProperties = {
@@ -25,11 +27,18 @@ const Pill = ({
     paddingTop: theme.padding.xs,
     paddingLeft: theme.padding.m,
     paddingRight: theme.padding.m,
-    paddingBottom: theme.padding.xs
+    paddingBottom: theme.padding.xs,
+    cursor: onClick ? 'pointer' : 'default'
   };
 
   return (
-    <Tag style={pillStyle} color={color} icon={icon} bordered={false}>
+    <Tag
+      style={pillStyle}
+      color={color}
+      icon={icon}
+      bordered={false}
+      onClick={onClick}
+    >
       {children}
     </Tag>
   );
